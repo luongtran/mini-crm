@@ -113,7 +113,7 @@
                                     <tr class="unread">
                                         <th class="small-col">  
                                         </th>
-                                        <th>Username</th>
+                                        <th>First name</th>
                                         <th>Email</th>
                                         <th>Permission</th>
                                         <th>Create at</th>
@@ -126,7 +126,7 @@
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/users/show/{{$users->id}}">{{$users->username}}</a></td>
+                                        <td><a href="{{Request::root()}}/users/show/{{$users->id}}">{{$users->first_name}}</a></td>
                                         <td class="subject">
                                            {{$users->email}}
                                         </td>

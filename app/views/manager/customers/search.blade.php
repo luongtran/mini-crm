@@ -90,7 +90,7 @@
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
-                               <div class="col-sm-6">
+                               <div class="col-sm-10">
                                   @include('manager.customers.form_search_customer')      
                                 </div>
 
@@ -142,6 +142,10 @@
                                             <li><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
                                             </li>   
                                             <li class="divider"></li>
+                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employee/"><i class="icon icon-user-group"></i>Employees</a>
+                                            </li> 
+                                            <li class="divider"></li>
+                                            
                                             <li><a href="{{Request::root()}}/manager/customer-edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>

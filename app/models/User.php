@@ -11,17 +11,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         
         const MANAGER =1;
         const CUSTOMER =3;        
-        
+        const EMPLOYEE =4;         
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'users';
-        protected $fillable = array('username','email','activated','group_users');
+        protected $fillable = array('username','email','activated','group_users','first_name','last_name');
         public static $rule = array('username'=>'required|unique:users',
                                     'password'=>'required|confirmed',
-                                    'email'=>'required|email|unique:users'
+                                    'email'=>'required|email|unique:users',
+                                    'first_name'=>'required'
                                     );
         /**
 	 * The attributes excluded from the model's JSON form.

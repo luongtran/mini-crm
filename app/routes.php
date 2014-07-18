@@ -36,8 +36,21 @@ Route::post('/manager/customer-create',array('as'=>'manager-customer-create','us
 Route::get('/manager/customer-edit/{id}',array('as'=>'manager-customer-edit','uses'=>'CustomersController@edit'));
 Route::post('/manager/customer-edit/{id}',array('as'=>'manager-customer-edit','uses'=>'CustomersController@update'));
 Route::get('/manager/customer-del/{id}',array('as'=>'manager-customer-del','uses'=>'CustomersController@destroy'));
+Route::get('/manager/customer-show/{id}',array('as'=>'manager-customer-show','uses'=>'CustomersController@show'));
 Route::get('/manager/customer-find',array('as'=>'manager-customer-find','uses'=>'CustomersController@find'));
 //Route::p('/manager/customer-find/{field}/{key}', 'CustomersController@find');
+
+/*Employee of Manager*/
+// /-----------/ //
+Route::get('/manager/customer/{id_customer}/employee/',array('as'=>'manager-employee','uses'=>'EmployeesController@index'));
+Route::get('/manager/customer/{id_customer}/employee-create',array('as'=>'manager-employee-create','uses'=>'EmployeesController@create'));
+Route::post('/manager/customer/{id_customer}/employee-create',array('as'=>'manager-employee-create','uses'=>'EmployeesController@store'));
+Route::get('/manager/customer/{id_customer}/employee-edit/{id}',array('as'=>'manager-employee-edit','uses'=>'EmployeesController@edit'));
+Route::post('/manager/customer/{id_customer}/employee-edit/{id}',array('as'=>'manager-employee-edit','uses'=>'EmployeesController@update'));
+Route::get('/manager/customer/{id_customer}/employee-del/{id}',array('as'=>'manager-employee-del','uses'=>'EmployeesController@destroy'));
+Route::get('/manager/customer/{id_customer}/employee-find',array('as'=>'manager-employee-find','uses'=>'EmployeesController@find'));
+//Route::p('/manager/customer-find/{field}/{key}', 'CustomersController@find');
+
 
 /* Employee
  *  
@@ -55,6 +68,12 @@ Route::get('/manager/customer-find',array('as'=>'manager-customer-find','uses'=>
  *  
  */
 
-Route::post('/users/action',array('uses'=>'UsersController@action'));
 
 
+
+
+
+
+/*filter */
+// Route::when('manager', 'auth');
+// Route::when('manager/*', 'auth');

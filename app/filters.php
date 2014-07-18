@@ -13,13 +13,14 @@
 
 App::before(function($request)
 {
-	//
+	Common::globalXssClean();             
+       
 });
 
 
 App::after(function($request, $response)
 {
-	//
+   	 
 });
 
 /*

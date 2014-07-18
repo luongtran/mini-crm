@@ -7,7 +7,7 @@
                     <div class="col-sm-3">
                         <h2 class="tittle-content-header">
                             <i class="icon-mail"></i> 
-                            <span>Customer
+                            <span>Employees
                             </span>
                         </h2>
 
@@ -39,7 +39,7 @@
                             </button>
                             <ul role="menu" class="dropdown-menu">
                                 <li>
-                                    <a href="{{Request::root()}}/manager/customer-create" >
+                                    <a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employee-create" >
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
                                 </li>
                                 <li>
@@ -70,7 +70,11 @@
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Customer</a>
+                <li><a href="{{Request::root()}}/manager/customer" title="">Customer [ {{$customer->company_name}} ]</a>
+                </li>
+                 <li><i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li><a href="{{Request::root()}}" title="">Employee</a>
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -87,8 +91,8 @@
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
-                               <div class="col-sm-10">
-                                   @include('manager.customers.form_search_customer')                                  
+                               <div class="col-sm-8">
+                                   @include('manager.employees.form_search_employee')                                  
                                 </div>
                                 <div class="col-sm-6">                                   
                                     
@@ -105,10 +109,8 @@
                                         <th class="small-col">
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th>
-                                        <th>Company</th>
-                                        <th>Email</th>
-                                        <th>Sector</th>
-                                        <th>Employee</th>
+                                        <th>Name</th>
+                                        <th>Email</th>                                        
                                         <th>Create at</th>
                                         <th></th>
                                        
@@ -119,12 +121,10 @@
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}">{{$users->company_name}}</a></td>
+                                        <td><a href="{{Request::root()}}/manager/employee/{{$customer->user_id}}/show/{{$users->id}}">{{$users->first_name}} {{$users->last_name}}</a></td>                                        
                                         <td class="subject">
                                            {{$users->email}}
-                                        </td>
-                                        <td> {{$users->name}}</td>
-                                         <td> {{$users->employee_count}}</td>
+                                        </td>                                  
                                         <td> {{$users->created_at}}</td>
                                         <td>
                                             <div class="btn-group pull-left">
@@ -132,16 +132,16 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
+                                            <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employee-show/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
                                             </li>                                               
                                             <li class="divider"></li>
-                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employee/"><i class="icon icon-user-group"></i>Employees</a>
+                                             <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employee/{{$users->id}}"><i class="icon icon-user-group"></i>Employees</a>
                                             </li> 
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customer-edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
+                                            <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employee-edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customer-del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employee-del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>

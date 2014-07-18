@@ -11,7 +11,11 @@ class  CustomersController extends \BaseController {
 	public function index()
 	{          
             $list= DB::table('profiles')
-                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')->orderBy('users.id','desc')
+                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                 ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                 ->where('group_users','=',User::CUSTOMER)
+                 ->orderBy('users.id','desc')
+                 ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                  ->paginate(5);            
             $this->layout->content = View::make('manager.customers.index')->with('list',$list);
 	}
@@ -65,7 +69,12 @@ class  CustomersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+            $profile = DB::table('profiles')
+                     ->rightJoin('users','users.id','=','profiles.user_id')
+                     ->where('users.id','=',$id)
+                     ->select(DB::raw('users.id,username,first_name,email,last_name,users.created_at,users.updated_at,profiles.company_name,profiles.phone_number'))
+                     ->first();  
+            $this->layout->content = View::make('manager.customers.show')->with('profile',$profile);
 	}
 
 	/**
@@ -79,9 +88,8 @@ class  CustomersController extends \BaseController {
 	{
           $sector = DB::table('sector')->orderBy('name', 'asc')->lists('name','id');                  
           $customer = DB::table('profiles')
-                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')->where('users.id','=',$id)
-                 ->first();     
-          
+                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')->where('users.id','=',$id)                 
+                 ->first();            
           $this->layout->content = View::make('manager.customers.edit')
                  ->with('customer',$customer)
                  ->with('sector',$sector);                     
@@ -103,6 +111,8 @@ class  CustomersController extends \BaseController {
                     $customer->password = Input::get('password');
                     }
                     $customer->activated= Input::get('activated');
+                    $customer->first_name= Input::get('first_name');
+                    $customer->last_name= Input::get('last_name');
                     $customer->update();
                     
                     $check = Profile::where('user_id','=',$id)->first();
@@ -118,10 +128,10 @@ class  CustomersController extends \BaseController {
                         $profile->save();                        
                     }
                     
-                    
                     Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
                     return Redirect::to('manager/customer');
                 }
+                  // Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
                  Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter all field!'));
                  return Redirect::back()->withInput()->withErrors($validation);
 	}
@@ -149,6 +159,7 @@ class  CustomersController extends \BaseController {
               {                   
                  $customer = DB::table('profiles')
                  ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                 ->where('group_users','=',User::CUSTOMER)
                  ->where('username','like','%'.Input::get('key_find').'%')
                  ->paginate(5);                      
               }
@@ -157,24 +168,28 @@ class  CustomersController extends \BaseController {
                  if(Input::get('filter')=='like'){
                     $customer = DB::table('profiles')
                     ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                    ->where('group_users','=',User::CUSTOMER)
                     ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')
                     ->paginate(5);  
                  }
                  else if(Input::get('filter')=='big'){
                     $customer = DB::table('profiles')
                     ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                    ->where('group_users','=',User::CUSTOMER)
                     ->where('employee_count','>=','100')
                     ->paginate(5);              
                  }
                  else if(Input::get('filter')=='small'){
                     $customer = DB::table('profiles')
                     ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                    ->where('group_users','=',User::CUSTOMER)
                     ->where(Input::get('field_find'),'<=',Input::get('key_find'))
                     ->paginate(5);   
                  }
                   else if((Input::get('filter')=='asc')||(Input::get('filter')=='desc')){
                     $customer = DB::table('profiles')
                     ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                    ->where('group_users','=',User::CUSTOMER)
                     ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')
                     ->orderBy(Input::get('field_find'),Input::get('filter'))
                     ->paginate(5);   
@@ -183,6 +198,7 @@ class  CustomersController extends \BaseController {
                     $customer = DB::table('profiles')
                     ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                     ->where(Input::get('field_find'),'=',Input::get('key_find'))
+                    ->where('group_users','=',User::CUSTOMER)
                     ->paginate(5);   
                   }
               }             

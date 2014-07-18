@@ -88,7 +88,7 @@ class UsersController extends \BaseController {
 	{
 		$user = User::find($id);             
                 $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
-                $this->layout->content = View::make('users.edit')->with('user',$user)->with('group_users',$group_users);
+                $this->layout->content = View::make('manager.users.edit')->with('user',$user)->with('group_users',$group_users);
 	}
 
 	/**

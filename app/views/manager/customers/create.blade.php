@@ -133,7 +133,9 @@
                                             <label for="">First name <span class='val-star'>(*)</span></label>
                                             {{Form::text('first_name',Input::old('first_name'),array('placeholder'=>'Enter first name','class'=>'form-control'))}}                                            
                                             <span class="alert-danger">{{$errors->first('first_name')}}</span>
-                                            <label for="">First name</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Last name</label>
                                             {{Form::text('last_name',Input::old('last_name'),array('placeholder'=>'Enter last name','class'=>'form-control'))}}                                                                                        
                                         </div>
                                                                                   
@@ -171,7 +173,7 @@
                             <div class="body-nest" id="profile">
                                 <div class="form_center">                                                        
                                         <div class="form-group">
-                                            <label class="">Company name </label>                                         
+                                            <label class="">Company name <span class='val-star'>(*)</span></label>                                         
                                                 {{Form::text('company_name',Input::old('company_name'),array('placeholder'=>'Enter company name','class'=>'form-control'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('company_name')}}</span>  
                                         </div>
@@ -202,7 +204,7 @@
                                                 <span class="alert-danger">{{$errors->first('employee_count')}}</span>     
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Contact employee at company</label>                                        
+                                            <label class="control-label">Contact employee at company <span class='val-star'>(*)</span></label>                                        
                                                {{Form::text('contact_employee_company',Input::old('contact_employee_company'),array('placeholder'=>'Enter contact employee at company','class'=>'form-control'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('contact_employee_company')}}</span>                                                 
                                         </div>
