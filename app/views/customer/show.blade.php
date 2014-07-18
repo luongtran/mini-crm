@@ -1,0 +1,1 @@
+C:\xampp\htdocs\project\mini-crm\app/views/customers/show.blade.php

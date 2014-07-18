@@ -1,0 +1,22 @@
+/*custom by dev*/
+.error{
+    color:red;
+}
+
+.custom-color{
+	color:#444 !important;
+}
+.hover-cursor{
+	cursor:pointer;
+}
+.star-yellow{
+	color:#008040;
+}
+
+.val-star{	
+        color:#c9302c;
+}
+
+.clear{
+	clear:both;
+}	
