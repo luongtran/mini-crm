@@ -3,7 +3,7 @@
 class Profile extends \Eloquent {
     protected $tables="profiles";
     public static $rule =array('email'=>'required|email|unique:users',
-                               'password'=>'required|confirmed',                               
+                               'password'=>'required|confirmed',                                                               
                                'employee_count'=>'numeric|min:1',
                                'phone_number'=>'numeric|min:0',
                                'avatar'=>'image',

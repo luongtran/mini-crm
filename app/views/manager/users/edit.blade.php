@@ -114,6 +114,12 @@
                 </div>
             
                 <div class="form-group">
+                    {{Form::label('First name')}}
+                    {{Form::text('first_name',$user->first_name,array('class'=>'form-control'))}}
+                    <span class="alert-danger">{{$errors->first('first_name')}}</span>
+                </div>
+            
+                <div class="form-group">
                     {{Form::label('Active')}}
                     {{ Form::select('activated',array('1'=>'True','0'=>'False') ,$user->activated,array('class'=>'form-control'))}}                  
                 </div>

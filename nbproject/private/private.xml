@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/CustomersController.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/create.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/edit.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/Profile.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/log_screen.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/routes.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/index.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/User.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/search.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/default.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/EmployeesController.php</file>
         </group>
     </open-files>
 </project-private>

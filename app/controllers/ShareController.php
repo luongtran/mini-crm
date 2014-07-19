@@ -31,7 +31,7 @@ class ShareController extends \BaseController {
            $remeber = Input::get('remember');
            if(Auth::attempt($input,$remeber)){
                 Session::flash('msg_flash',  CommonHelper::print_msg('error','Login success'));
-                return Redirect::to('manager/customers');
+                return Redirect::to('manager/customer');
            }
            Session::flash('msg_flash',  CommonHelper::print_msg('error','Email or password is false!'));
            return Redirect::back()->withInput();
@@ -41,9 +41,20 @@ class ShareController extends \BaseController {
 	{
 		//
 	}
-         public function logScreen()
+         public function lockScreen()
 	{
-		//
+            $user=null; 
+	    if(!Session::get('isLogin'))
+            {
+              Auth::logout();                
+              return 1;
+            }
+            return 0;
+	}
+          public function lockScreen1()
+	{    
+             $user=null;  
+             return View::make('share.log_screen')->with('user',$user)->render();
 	}
          public function clearAll()
 	{

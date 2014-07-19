@@ -44,7 +44,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('crm-login');
 		}
 	}
 });

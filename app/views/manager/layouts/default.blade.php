@@ -101,6 +101,24 @@
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/app.js')}}"></script>
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/load.js')}}"></script>
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/main.js')}}"></script>
+        <script>
+            
+            /*Lock screen*/
+            /*
+            function lock_screen()
+            {
+                $.ajax({
+                    url: "{{Request::root()}}/lock-screen",  
+                    success: function (data){
+                        if(data==1){
+                           window.location.href ="{{Request::root()}}/lock-screen1";
+                        }
+                    }
+                });
+            }
+            setInterval(lock_screen, 10000);
+            */
+        </script>
         
         
 </body>

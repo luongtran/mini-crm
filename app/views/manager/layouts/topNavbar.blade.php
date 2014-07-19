@@ -120,7 +120,7 @@
                 <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">                          
-                            <img alt="" class="admin-pic img-circle" src="">Hi admin <b class="caret"></b>
+                            <img alt="" class="admin-pic img-circle" src="">@if(Auth::check()) {{Auth::user()->email}} @endif<b class="caret"></b>
                         </a>
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>
@@ -137,7 +137,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{{Request::root()}}/admin-logout">
+                                <a href="{{Request::root()}}/crm-logout">
                                     <span class="entypo-logout"></span>&#160;&#160;Logout</a>
                             </li>
                         </ul>

@@ -157,7 +157,7 @@
                         <div class="col-sm-10">
                         <div class="nest" id="profileClose">
                             <div class="title-alt">
-                                <h6>Profile</h6>
+                                <h6>DETAIL</h6>
                                 <div class="titleClose">
                                     <a class="gone" href="#profileClose">
                                         <span class="entypo-cancel"></span>

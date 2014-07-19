@@ -16,6 +16,27 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+
+Route::get('/manager', function()
+{
+	return View::make('hello');
+});
+
+
+/*share*/
+//Route::get('/lock-screen',array('as'=>'lock_screen','uses'=>'ShareController@lockScreen'));
+
+/*Login*/
+Route::get('/crm-login',function(){
+    return View::make('share.login');
+});
+Route::post('/crm-login',array('uses'=>'ShareController@login'));
+Route::get('/crm-logout',function(){
+    Auth::logout();
+    return View::make('share.login');
+});
+
+
 Route::get('/users/getList',array('uses'=>'UsersController@getList'));
 Route::get('/users/getAdd',array('uses'=>'UsersController@getAdd'));
 Route::post('/users/create',array('uses'=>'UsersController@store'));
@@ -24,6 +45,7 @@ Route::get('/users/edit/{id}',array('uses'=>'UsersController@edit'));
 Route::post('/users/edit/{id}',array('uses'=>'UsersController@update'));
 Route::get('/users/del/{id}',array('uses'=>'UsersController@destroy'));
 Route::post('/users/action',array('uses'=>'UsersController@action'));
+Route::get('/users/filter',array('uses'=>'UsersController@filter'));
 Route::get('/users',array('uses'=>'UsersController@index'));
 //Route::resource('users', 'UsersController');
 
@@ -45,6 +67,7 @@ Route::get('/manager/customer-find',array('as'=>'manager-customer-find','uses'=>
 Route::get('/manager/customer/{id_customer}/employee/',array('as'=>'manager-employee','uses'=>'EmployeesController@index'));
 Route::get('/manager/customer/{id_customer}/employee-create',array('as'=>'manager-employee-create','uses'=>'EmployeesController@create'));
 Route::post('/manager/customer/{id_customer}/employee-create',array('as'=>'manager-employee-create','uses'=>'EmployeesController@store'));
+Route::get('/manager/customer/{id_customer}/employee-show/{id}',array('as'=>'manager-employee-show','uses'=>'EmployeesController@show'));
 Route::get('/manager/customer/{id_customer}/employee-edit/{id}',array('as'=>'manager-employee-edit','uses'=>'EmployeesController@edit'));
 Route::post('/manager/customer/{id_customer}/employee-edit/{id}',array('as'=>'manager-employee-edit','uses'=>'EmployeesController@update'));
 Route::get('/manager/customer/{id_customer}/employee-del/{id}',array('as'=>'manager-employee-del','uses'=>'EmployeesController@destroy'));
@@ -75,5 +98,5 @@ Route::get('/manager/customer/{id_customer}/employee-find',array('as'=>'manager-
 
 
 /*filter */
-// Route::when('manager', 'auth');
-// Route::when('manager/*', 'auth');
+ Route::when('manager', 'auth');
+ Route::when('manager/*', 'auth');

@@ -176,9 +176,8 @@
                             </div>
             {{Form::close()}}
                                 <div class="">                                   
-                                    <div class="btn-group pull-left">     
-                                            <?php echo $list->links(); ?>
-                                        
+                                    <div class="btn-group pull-left">                                       
+                                    <?php echo $list->appends(array('field_filter' =>$field_filter))->links(); ?>
                                     </div>
                                 </div>
                             <!-- /.table-responsive -->

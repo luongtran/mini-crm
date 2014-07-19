@@ -71,8 +71,9 @@ class  CustomersController extends \BaseController {
 	{
             $profile = DB::table('profiles')
                      ->rightJoin('users','users.id','=','profiles.user_id')
+                    ->leftJoin('sector','sector.id','=','profiles.sector_id')
                      ->where('users.id','=',$id)
-                     ->select(DB::raw('users.id,username,first_name,email,last_name,users.created_at,users.updated_at,profiles.company_name,profiles.phone_number'))
+                     ->select(DB::raw('users.id,username,first_name,email,last_name,users.created_at,users.updated_at,company_name,phone_number,employee_count,address,contact_employee_company,activated,sector.name as name_sector'))
                      ->first();  
             $this->layout->content = View::make('manager.customers.show')->with('profile',$profile);
 	}
@@ -131,8 +132,8 @@ class  CustomersController extends \BaseController {
                     Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
                     return Redirect::to('manager/customer');
                 }
-                  // Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
-                 Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter all field!'));
+                 Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
+                 //Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter all field!'));
                  return Redirect::back()->withInput()->withErrors($validation);
 	}
 

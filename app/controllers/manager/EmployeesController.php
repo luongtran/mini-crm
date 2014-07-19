@@ -56,9 +56,16 @@ class EmployeesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($customer_id,$id)
 	{
-		//
+            $profile = DB::table('profiles')->rightJoin('users','profiles.user_id','=','users.id')
+                                         ->where('users.id',$id)
+                                         ->first();
+            $customer = DB::table('users')->rightJoin('profiles','profiles.user_id','=','users.id')
+                                         ->where('users.id',$customer_id)
+                                         ->first();           
+            //dd($profile);
+	    $this->layout->content = View::make('manager.employees.show')->with('profile',$profile);
 	}
 
 	/**

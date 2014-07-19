@@ -10,16 +10,16 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-           // $this->layout->content = View::make('users.list');
-            $this->getList();
+             //$list = User::paginate(5);  
+             $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+                     ->orderBy('users.id','desc')
+                     ->select(DB::RAW('users.id,users.first_name,users.email,users.activated,group_users.name,users.created_at'))
+                     ->paginate(5);
+             $group_users = GroupUser::all();
+             $this->layout->content = View::make('manager.users.index')->with('list',$list)->with('group_name',$group_users);
 	}
-        
-        public function getList()
-        {             
-             $list = User::paginate(5);     
-             $this->layout->content = View::make('manager.users.list')->with('list',$list);
-        }
-
+       
+               
         /**
 	 * Show the form for creating a new resource.
 	 * GET /users/create
@@ -31,7 +31,7 @@ class UsersController extends \BaseController {
 	    //return View::make('users.create')->render();
             //return Response::view('users.create');  
             $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('users.create')->with('group_users',$group_users);
+            $this->layout->content = View::make('manager.users.create')->with('group_users',$group_users);
 	}
 
 	/**
@@ -49,7 +49,7 @@ class UsersController extends \BaseController {
                 $user->password = Hash::make(Input::get('password'));                
                 $user->save();
                 Session::flash('msg_flash', CommonHelper::print_msg('success','Created success'));
-               return $this->getList();
+               return $this->index();
                 //Redirect::to('users');
             }
            // else{
@@ -74,7 +74,7 @@ class UsersController extends \BaseController {
 	public function show($id)
 	{
 		$user = User::find($id);                    
-                $this->layout->content = View::make('users.show')->with('user',$user);
+                $this->layout->content = View::make('manager.users.show')->with('user',$user);
 	}
 
 	/**
@@ -108,10 +108,11 @@ class UsersController extends \BaseController {
                 $user->password = Hash::make(Input::get('password'));                
                 }
                 $user->group_users = Input::get('group_users');
+                $user->first_name = Input::get('first_name');
                 $user->activated = Input::get('activated');     
                 $user->update();
                 Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
-                return $this->getList();
+                return $this->index();
                      
             }
               Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
@@ -168,6 +169,21 @@ class UsersController extends \BaseController {
                 Session::flash('msg_flash', CommonHelper::print_msg('warning','Please choose users'));
                 return Redirect::back()->withInput();     
           }
+        }
+        
+        public function filter()
+        {
+            $filter = Input::get('field_filter');
+            if($filter){             
+             $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+                     ->where('group_users.name','=',$filter)
+                     ->orderBy('users.id','desc')
+                     ->select(DB::RAW('users.id,users.first_name,users.email,users.activated,group_users.name,users.created_at'))
+                     ->paginate(3);
+             $group_users = GroupUser::all();
+             $this->layout->content = View::make('manager.users.filter')->with('list',$list)->with('group_name',$group_users)
+                     ->with('field_filter',$filter);
+            }
         }
 
 }

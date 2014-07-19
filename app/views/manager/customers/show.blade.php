@@ -10,7 +10,7 @@
 
                                     <ul class="list-group">
                                         <li class="list-group-item text-left">
-                                            <span class="entypo-user"></span>&nbsp;&nbsp;Profile</li>
+                                            <span class="entypo-user"></span>&nbsp;&nbsp;Info of Company</li>
                                         <li class="list-group-item text-center">
                                             <img class="img-circle img-responsive img-profile" alt="" src="">
 
@@ -47,13 +47,31 @@
                                         <li class="list-group-item text-right">
                                             <span class="pull-left">
                                                 <strong>Joined</strong>
-                                            </span>create_at</li>
+                                            </span>{{$profile->created_at}}</li>
+                                        <li class="list-group-item text-right">
+                                          
+                                            <div class="text-center">
+                                                <img alt="avatar" class="avatar img-circle" src="http://placehold.it/150" width="200">
+                                                <h6>Upload a different photo...</h6>
+
+                                                <div class="input-group">
+<!--                                                    <span class="input-group-btn">
+                                                        <span class="btn btn-primary btn-file">
+                                                            Browse
+                                                            <input type="file" multiple="" name="avatar">
+                                                        </span>
+                                                    </span>                                                 -->
+                                                </div>
+                                            </div>
+                                       
+
+                                        </li>
 
                                     </ul>
 
                                 </div>
                                 <div class="col-xs-12 col-sm-8 profile-name">
-                                    <h2>Dave Mattew
+                                    <h2>{{$profile->company_name}}
                                         <span class="pull-right social-profile">
                                             <i class="entypo-facebook-circled"></i>  <i class="entypo-twitter-circled"></i>  <i class="entypo-linkedin-circled"></i>  <i class="entypo-github-circled"></i>  <i class="entypo-gplus-circled"></i>
                                         </span>
@@ -61,38 +79,29 @@
                                     <hr>
 
                                     <dl class="dl-horizontal-profile">
-                                        <dt>User Id</dt>
-                                        <dd>Empty</dd>
-
-                                        <dt>FirstName</dt>
-                                        <dd>{{$profile->first_name}}</dd>
-
-                                        <dt>LastName</dt>
-                                        <dd>{{$profile->last_name}}</dd>
+                                        <dt>Customer Id</dt>
+                                        <dd>{{$profile->id}}</dd>
+                                        
+                                        <dt>Contact employee at company</dt>
+                                        <dd>{{$profile->contact_employee_company}}</dd>
                                         
                                         <dt>Email</dt>
                                         <dd>{{$profile->email}}</dd>
 
                                         <dt>Phone</dt>
                                         <dd>{{$profile->phone_number}}</dd>
-
-                                        <dt>Company</dt>
-                                        <dd>{{$profile->company_name}}</dd>
                                         
-                                        
-                                        <dd>{{$profile->created_at}}</dd>
-                                        
+                                        <dt>Sector</dt>
+                                        <dd>{{$profile->name_sector}}</dd>
+                                                                                
                                         <dt>Last Update</dt>
                                         <dd>{{$profile->updated_at}}</dd>                                     
 
                                     </dl>
 
-
                                     <hr>
 
-                                    <h5>
-                                        <span class="entypo-arrows-ccw"></span>&nbsp;&nbsp;Recent Activities</h5>
-
+                                
                                     <div class="table-responsive">
                                        <!--  <table class="table table-hover table-striped table-condensed">
 
@@ -117,29 +126,23 @@
                                     </h2>
                                     <p>
                                         <small>Followers</small>
-                                    </p>
-                                    <button class="btn btn-success btn-block">
-                                        <span class="fa fa-plus-circle"></span>&nbsp;&nbsp;Follow</button>
+                                    </p>                                 
                                 </div>
                                 <div class="col-xs-12 col-sm-4 emphasis">
                                     <h2>
                                         <strong>245</strong>
                                     </h2>
                                     <p>
-                                        <small>Following</small>
-                                    </p>
-                                    <button class="btn btn-info btn-block">
-                                        <span class="fa fa-user"></span>&nbsp;&nbsp;View Profile</button>
+                                        <small>Activity</small>
+                                    </p>                                  
                                 </div>
                                 <div class="col-sm-4 emphasis">
                                     <h2>
-                                        <strong>43</strong>
+                                        <strong>{{$profile->employee_count}}</strong>
                                     </h2>
                                     <p>
-                                        <small>Likes</small>
-                                    </p>
-                                    <button class="btn btn-default btn-block">
-                                        <span class="fa fa-user"></span>&nbsp;&nbsp;Likes</button>
+                                        <small>Employees</small>
+                                    </p>                                   
                                 </div>
                             </div>
                         </div>
@@ -154,10 +157,10 @@
                         <div class="col-sm-12">
                             <!-- BLANK PAGE-->
 
-                            <div id="Blank_PageClose" class="nest" style="margin:-20px 15px;">
+                            <div id="Blank_PageClose" class="nest" style="">
                                 <div class="title-alt">
                                     <h6>
-                                        Edit Profile</h6>
+                                        Purchase product of customer</h6>
                                     <div class="titleClose">
                                         <a href="#Blank_PageClose" class="gone">
                                             <span class="entypo-cancel"></span>
@@ -172,103 +175,53 @@
                                 </div>
 
                                 <div id="Blank_Page_Content" class="body-nest">
-
-
-
-
                                     <div class="row">
-                                        <!--begin form -->
-                                           {{Form::open(array('url'=>'backend/update-profile', 'method' => 'post','role'=>'form','class'=>'form-horizontal','id'=>'frm-profile','enctype'=>'multipart/form-data','name'=>'frm-profile'))}}                                             
-                                        <!-- left column -->
-                                        <div class="col-md-3">
-                                            <div class="text-center">
+                                      
+                                          <div class="table-responsive">
+                                                <!-- THE MESSAGES -->                               
+                                                <table class="table table-mailbox">                                    
 
-                                                <img alt="avatar" class="avatar img-circle" src="" width="200">
-                                                <h6>Upload a different photo...</h6>
+                                                    <tr class="unread">
+                                                        <th class="small-col"></th>
+                                                        <th>Name</th>
+                                                        <th>expiry from</th>
+                                                        <th>expiry to</th>
+                                                        <th>create at</th>
+                                                        <th></th>
 
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <span class="btn btn-primary btn-file">
-                                                            Browse
-                                                            <input type="file" multiple="" name="avatar">
-                                                        </span>
-                                                    </span>                                                 
-                                                </div>
+                                                    </tr>
+                                                    <?php $test_product = DB::table('purchase_products')->get();?>
+                                                    @foreach($test_product as $product)
+                                                    <tr >          
+                                                        <td></td>
+                                                        <td><a href="{{Request::root()}}/manager/customer-show/{{$product->id}}">{{$product->name}}</a></td>                                                      
+                                                        <td> {{$product->created_at}}</td>
+                                                        <td> {{$product->created_at}}</td>
+                                                        <td> {{$product->created_at}}</td>
+                                                        <td><div class="btn-group pull-left">
+                                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="{{Request::root()}}/manager/customer-show/{{$product->id}}"><i class="icon icon-monitor"></i>Detail</a>
+                                                            </li>                                               
+                                                            <li class="divider"></li>
+                                                             <li><a href="{{Request::root()}}/manager/customer/{{$product->id}}/employee/"><i class="icon icon-user-group"></i>Edit</a>
+                                                            </li>                                            
+                                                            <li class="divider"></li>
+                                                            <li><a href="{{Request::root()}}/manager/customer-del/{{$product->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
 
-                                            </div>
-                                        </div>
+                                                        </td>                                        
+                                                    </tr>
+                                                    @endforeach    
 
-                                        <!-- edit form column -->
-                                        <div class="col-md-9 personal-info">
-                                          
-                                                {{Session::get('msg_flash')}}
-                                           
-                                            <h3>Personal info</h3>
-                                         
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">First name:</label>
-                                                    <div class="col-lg-8">
-                                                         {{Form::hidden('id',null)}}     
-                                                         {{Form::text('firstname','',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Last name:</label>
-                                                    <div class="col-lg-8">
-                                                      {{Form::text('lastname','$getProfile->last_name',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Company:</label>
-                                                    <div class="col-lg-8">
-                                                       {{Form::text('company','$getProfile->company',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Email:</label>
-                                                    <div class="col-lg-8">
-                                                      {{Form::text('email','$getProfile->email',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Phone:</label>
-                                                    <div class="col-lg-8">
-                                                      {{Form::text('phone','$getProfile->phone',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-                                                 <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Address:</label>
-                                                    <div class="col-lg-8">
-                                                      {{Form::text('address','$getProfile->address',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Password:</label>
-                                                    <div class="col-md-8">
-                                                         {{Form::password('password',array('class' => 'form-control'))}}     
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Confirm password:</label>
-                                                    <div class="col-md-8">
-                                                          {{Form::password('password_confirmation',array('class' => 'form-control'))}}    
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"></label>
-                                                    <div class="col-md-8">
-                                                        <input type="submit" value="Save Changes" class="btn btn-primary">
-                                                        <span></span>
-                                                        <input type="reset" value="Cancel" class="btn btn-default">
-                                                    </div>
-                                                </div>
-                                                  <div id="output"></div>
-                                          
-                                        </div>
-                                    </div>
-                                    {{Form::close()}}
-                                        <!--end form -->
+                                               </table>
+                                          </div>
+                                        
+                                    </div>                               
                                 </div>
                             </div>
                         
@@ -282,53 +235,6 @@
      </div> 
 
 
- <script> 
-       $("#frm-profile").submit(function( event ) {
-              
-              Data = new FormData(document.forms.namedItem("frm-profile"));
-              var output = $("#output");              
-              $(".alert").remove();
-              output.show("100");
-              var seturl= "{{ Request::root() }}/backend/update-profile";
-              output.html(' <div id="loadajax" ><img src="{{asset('asset/share/icon/loading_icon.gif')}}" /></div>');   
-              $("#loadajax").css({"bottom":"100px","position":"fixed","left":"50%","z-index": "100"}); 
-      
-              
-      
-            $.ajax({
-            url: seturl,
-            type: 'POST',
-            data: Data,
-            cache: false,
-            dataType: 'html',
-            processData: false, // Don't process the files
-            contentType: false, // Set content type to false as jQuery will tell the server its a query string request           
-            success: function(data, textStatus, jqXHR)
-            {
-            if(typeof data.error === 'undefined')
-            {                       
-              $("#load-view").html(data);
-              output.hide(100);       
-            }
-            else
-            {
-            
-              output.html("Uploaded error 1! "+data.error);
-            
-            }
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-            // Handle errors here
-            output.html("Uploaded error 2! this file have type extend not provide "+textStatus);     
-            }
-            });
-            
-            event.preventDefault();
-
-            
-        });
-</script>                 
 <!--end profile -->
 </div>
 @stop
