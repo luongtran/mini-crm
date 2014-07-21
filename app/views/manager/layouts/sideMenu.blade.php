@@ -61,6 +61,53 @@
                             </ul>
                         </li>
                        <li>
+                       <li>    
+                        <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="Product">
+                                <i class="entypo-basket"></i>
+                                <span>Product</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/products/create" title="Article add"><i class="icon icon-plus"></i><span>Add</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/products" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/group-products" title="Article list"><i class="icon-view-list"></i><span>Group product</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                         <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="Purchase">
+                                <i class="icon icon-message"></i>
+                                <span>Purchase</span>
+                            </a>
+                            <ul>                              
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/purchases" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="Report">
+                                <i class="icon icon-graph-pie"></i>
+                                <span>Report & Analysis</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article/add" title="Article add"><i class="icon icon-plus"></i><span>Report</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article" title="Article list"><i class="icon-view-list"></i><span>Analysis</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        
                        <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Support">
                                 <i class="fontawesome-medkit"></i>
@@ -72,36 +119,6 @@
                                 </li>
                                 <li>
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/support" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                       <li>    
-                        <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Product">
-                                <i class="entypo-basket"></i>
-                                <span>Product</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article/add" title="Article add"><i class="icon icon-plus"></i><span>Add</span></a>
-                                </li>
-                                <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                         <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Article">
-                                <i class="icon icon-graph-pie"></i>
-                                <span>Report & Analysis</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article/add" title="Article add"><i class="icon icon-plus"></i><span>Report</span></a>
-                                </li>
-                                <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article" title="Article list"><i class="icon-view-list"></i><span>Analysis</span></a>
                                 </li>
                             </ul>
                         </li>

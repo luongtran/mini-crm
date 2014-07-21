@@ -146,9 +146,14 @@ class  CustomersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
+                $check = User::where('customer_id','=',$id)->count();    
+                if($check==0){
 		User::find($id)->delete();
-                Profile::where('user_id','=',$id)->delete();
+                Profile::where('user_id','=',$id)->delete();                
                 Session::flash('msg_flash', CommonHelper::print_msg('success','Deleted success'));
+                return Redirect::to('manager/customer');
+                }                                
+                Session::flash('msg_flash', CommonHelper::print_msg('error','Can not delete this customer, have relationship table employee'));
                 return Redirect::to('manager/customer');
 	}
         

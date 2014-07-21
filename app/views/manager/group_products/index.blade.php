@@ -7,7 +7,7 @@
                     <div class="col-sm-3">
                         <h2 class="tittle-content-header">
                             <i class="icon-mail"></i> 
-                            <span>Employees
+                            <span>Group Products
                             </span>
                         </h2>
 
@@ -39,7 +39,7 @@
                             </button>
                             <ul role="menu" class="dropdown-menu">
                                 <li>
-                                    <a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employees/create" >
+                                    <a href="{{Request::root()}}/manager/products/create" >
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
                                 </li>
                                 <li>
@@ -66,15 +66,11 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Manager</a>
+                <li><a href="{{Request::root()}}/manager" title="">Manager</a>
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/manager/customer" title="">Customer [ {{$customer->company_name}} ]</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="">Employee</a>
+                <li><a href="{{Request::root()}}/manager/group-products" title="">Product</a>
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -91,8 +87,8 @@
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
-                               <div class="col-sm-8">
-                                   @include('manager.employees.form_search_employee')                                  
+                               <div class="col-sm-10">
+                                   @include('manager.products.form_search')                                  
                                 </div>
                                 <div class="col-sm-6">                                   
                                     
@@ -110,35 +106,33 @@
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th>
                                         <th>Name</th>
-                                        <th>Email</th>                                        
+                                        <th>Description</th>
                                         <th>Create at</th>
                                         <th></th>
                                        
                                     </tr>
                                     
-                                    @foreach($list as $users)
-                                    <tr @if($users->activated==0){{"class='danger'"}} @endif >
+                                    @foreach($group_products as $group)
+                                    <tr>
                                         <td class="small-col">
-                                              <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
+                                              <input type="checkbox" value="{{$group->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employees/{{$users->id}}">{{$users->first_name}} {{$users->last_name}}</a></td>                                        
-                                        <td class="subject">
-                                           {{$users->email}}
-                                        </td>                                  
-                                        <td> {{$users->created_at}}</td>
+                                        <td><a href="{{Request::root()}}/manager/group-products/{{$group->id}}">{{$group->name}}</a></td>                                                                             
+                                        <td> {{$group->description}}</td>
+                                        <td> {{$group->created_at}}</td>
                                         <td>
                                             <div class="btn-group pull-left">
                                         <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employees/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
-                                            </li> 
+                                            <li><a href="{{Request::root()}}/manager/group-products/{{$group->id}}"><i class="icon icon-monitor"></i>Show</a>
+                                            </li>   
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employees/{{$users->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
+                                            <li><a href="{{Request::root()}}/manager/group-products/{{$group->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customer/{{$customer->user_id}}/employees/{{$users->id}}/delete" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a href="{{Request::root()}}/manager/group-products/{{$group->id}}/delete" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -158,7 +152,7 @@
      
                                 <div class="">                                   
                                     <div class="btn-group pull-left">                                       
-                                         <?php echo $list->links(); ?>
+                                         <?php echo $group_products->links(); ?>
                                     </div>
                                 </div>
                             <!-- /.table-responsive -->

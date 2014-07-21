@@ -64,17 +64,11 @@
                 <li>
                     <span class="entypo-home"></span>
                 </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Home</a>
+                <li><a href="{{Request::root()}}/manager" title="Sample page 1">Manager</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="#" title="Sample page 1">Manager</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Customer</a>
+                <li><a href="{{Request::root()}}/manager/customer" title="Sample page 1">Customer</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -215,7 +209,7 @@
                                                <span class="alert-danger">{{$errors->first('avatar')}}</span>                                                 
                                         </div>
                                         <div class="form-group">                                            
-                                            <button class="btn btn-info" type="submit">Submit</button> 
+                                            <button class="btn btn-info" type="submit">Create</button> 
                                             <button class="btn btn-default" type="reset">Rest</button>       
                                         </div> 
                                     

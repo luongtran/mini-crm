@@ -64,15 +64,22 @@ Route::get('/manager/customer-find',array('as'=>'manager-customer-find','uses'=>
 
 /*Employee of Manager*/
 // /-----------/ //
-Route::get('/manager/customer/{id_customer}/employee/',array('as'=>'manager-employee','uses'=>'EmployeesController@index'));
-Route::get('/manager/customer/{id_customer}/employee-create',array('as'=>'manager-employee-create','uses'=>'EmployeesController@create'));
-Route::post('/manager/customer/{id_customer}/employee-create',array('as'=>'manager-employee-create','uses'=>'EmployeesController@store'));
-Route::get('/manager/customer/{id_customer}/employee-show/{id}',array('as'=>'manager-employee-show','uses'=>'EmployeesController@show'));
-Route::get('/manager/customer/{id_customer}/employee-edit/{id}',array('as'=>'manager-employee-edit','uses'=>'EmployeesController@edit'));
-Route::post('/manager/customer/{id_customer}/employee-edit/{id}',array('as'=>'manager-employee-edit','uses'=>'EmployeesController@update'));
-Route::get('/manager/customer/{id_customer}/employee-del/{id}',array('as'=>'manager-employee-del','uses'=>'EmployeesController@destroy'));
-Route::get('/manager/customer/{id_customer}/employee-find',array('as'=>'manager-employee-find','uses'=>'EmployeesController@find'));
-//Route::p('/manager/customer-find/{field}/{key}', 'CustomersController@find');
+Route::get('/manager/customer/{id_customer}/employees/{id}/delete',array('as'=>'manager-employee-delete','uses'=>'EmployeesController@destroy'));
+Route::get('/manager/customer/{id_customer}/employees/find',array('as'=>'manager-employee-find','uses'=>'EmployeesController@find'));
+Route::resource('manager/customer/{id_customer}/employees', 'EmployeesController');
+
+/*Group product of Manager*/
+Route::resource('manager/group-products', 'GroupProductsController');
+
+
+/*Product of Manager*/
+Route::resource('manager/products/find', 'ProductsController@find');
+Route::resource('manager/products/{id}/delete', 'ProductsController@destroy');
+Route::resource('manager/products', 'ProductsController');
+
+
+/*Purchase of Manager */
+Route::resource('manager/purchases', 'PurchasesController');
 
 
 /* Employee

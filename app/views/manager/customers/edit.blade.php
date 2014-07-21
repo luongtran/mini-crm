@@ -66,19 +66,15 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="#" title="Sample page 1">Home</a>
+                <li><a href="{{Request::root()}}/manager" title="Sample page 1">Manager</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="#" title="Sample page 1">Manager</a>
+                <li><a href="{{Request::root()}}/manager/customer" title="Sample page 1">Customer</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="#" title="Sample page 1">Customer</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Create</a>
+                <li><a href="#" title="Sample page 1">Edit</a>
                 </li>
                 <li class="pull-right">
                     <div class="input-group input-widget">
@@ -216,8 +212,7 @@
                                                <span class="alert-danger">{{$errors->first('avatar')}}</span>                                                 
                                         </div>
                                         <div class="form-group">                                            
-                                            <button class="btn btn-info" type="submit">Submit</button> 
-                                            <button class="btn btn-default" type="reset">Rest</button>       
+                                            <button class="btn btn-info" type="submit">Update</button>                                             
                                         </div> 
                                     
                                     </div>

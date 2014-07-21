@@ -135,7 +135,7 @@
                                             <li><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
                                             </li>                                               
                                             <li class="divider"></li>
-                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employee/"><i class="icon icon-user-group"></i>Employees</a>
+                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employees/"><i class="icon icon-user-group"></i>Employees</a>
                                             </li> 
                                             <li class="divider"></li>
                                             <li><a href="{{Request::root()}}/manager/customer-edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>

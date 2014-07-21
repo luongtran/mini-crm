@@ -94,7 +94,7 @@
 
             <!-- END OF BREADCRUMB -->
 
-            {{Form::open(array('method'=>'post','url'=>'manager/customer/'.$customer_id.'/employee-create'))}}
+            {{Form::open(array('method'=>'post','url'=>'manager/customer/'.$customer_id.'/employees'))}}
             <div class="content-wrap">
                 <div class="row">                   
                     <div class="col-sm-10">

@@ -229,6 +229,43 @@
                         <!-- END OF BLANK PAGE -->
 
                     </div>
+                    <!-- source -->
+                         <div class="row">
+
+
+                        <div class="col-sm-12">
+                            <!-- BLANK PAGE-->
+
+                            <div id="Blank_PageClose" class="nest" style="">
+                                <div class="title-alt">
+                                    <h6>
+                                       Genegare of customer</h6>
+                                    <div class="titleClose">
+                                        <a href="#Blank_PageClose" class="gone">
+                                            <span class="entypo-cancel"></span>
+                                        </a>
+                                    </div>
+                                    <div class="titleToggle">
+                                        <a href="#Blank_Page_Content" class="nav-toggle-alt">
+                                            <span class="entypo-up-open"></span>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                                <div id="Blank_Page_Content" class="body-nest">
+                                    <a href="#">contract.xls</a></br>                       
+                                    <a href="#">document.docx</a></br>
+                                    <p><input type="file" name=""/>Document</p>
+                                    <p><input type="file" name=""/>Contract</p>
+                                    
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <!-- END OF BLANK PAGE -->
+
+                    </div>
                 </div>
                 <!-- END OF PROFILE -->
 
