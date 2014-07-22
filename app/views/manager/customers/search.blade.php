@@ -70,12 +70,9 @@
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/manager/customer" title="">Customer</a>
+                <li><a href="{{Request::root()}}/customer" title="">Customer</a>
                 </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="">Filter</a>
-                </li>  
+                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
                 <li class="pull-right">
                     
@@ -91,15 +88,11 @@
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
                                <div class="col-sm-10">
-                                  @include('manager.customers.form_search_customer')      
+                                   @include('manager.customers.form_search_customer')                                  
                                 </div>
-
-
                                 <div class="col-sm-6">                                   
                                     
                                 </div>
-
-
                             </div>
 
                         </div>
@@ -130,7 +123,7 @@
                                         <td class="subject">
                                            {{$users->email}}
                                         </td>
-                                        <td> {{$users->group_users}}</td>
+                                        <td> {{$users->name}}</td>
                                          <td> {{$users->employee_count}}</td>
                                         <td> {{$users->created_at}}</td>
                                         <td>
@@ -140,12 +133,11 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
-                                            </li>   
+                                            </li>                                               
                                             <li class="divider"></li>
-                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employee/"><i class="icon icon-user-group"></i>Employees</a>
+                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employees/"><i class="icon icon-user-group"></i>Employees</a>
                                             </li> 
                                             <li class="divider"></li>
-                                            
                                             <li><a href="{{Request::root()}}/manager/customer-edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>
@@ -169,9 +161,12 @@
      
                                 <div class="">                                   
                                     <div class="btn-group pull-left">                                       
+                                         <?php //echo $list->links(); ?>
                                          <?php echo $list->appends(array('field_find' => $field,'filter' => $filter,'key_find'=>$key))->links(); ?>
                                     </div>
                                 </div>
                             <!-- /.table-responsive -->
+                           
+
                     </div>    
 @stop

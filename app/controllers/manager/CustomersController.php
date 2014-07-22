@@ -46,13 +46,34 @@ class  CustomersController extends \BaseController {
                 $customer->fill(Input::all());
                 $customer->password = Hash::make(Input::get('password'));
                 $customer->group_users = User::CUSTOMER;
+                if(Auth::user()->group_users == User::STAFF)
+                {
+                 $customer->staff_id = Auth::id();  
+                }
+                else if(Auth::user()->group_users == User::MANAGER)
+                {
+                 $customer->manager_id = Auth::id();  
+                }
                 $customer->save();
                 
                 $profile = new Profile;
                 $profile->user_id = $customer->id;
                 $profile->fill(Input::all());          
                 $profile->save();
+                /*send email to customer*/
+                $email = new EmailController();
+                $message = array(
+                    'text'=>'<p>Username: email</p><p>Password: '.Input::get('password').'</p>',
+                    'subject'=>'Create account customer by Admin CRM '.rand(100,9999),
+                    'to_email'=>Input::get('email'),
+                    'to_name'=>Input::get('first_name')
+                    );               
+                
+                if($email->manager_sendEmail($message))
+                {
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));
+                }
+                /*end send mail*/
                 return Redirect::to('manager/customer');
             }
             Session::flash('msg_flash',  CommonHelper::print_msg('error','Please check all field!'));
@@ -75,7 +96,15 @@ class  CustomersController extends \BaseController {
                      ->where('users.id','=',$id)
                      ->select(DB::raw('users.id,username,first_name,email,last_name,users.created_at,users.updated_at,company_name,phone_number,employee_count,address,contact_employee_company,activated,sector.name as name_sector'))
                      ->first();  
-            $this->layout->content = View::make('manager.customers.show')->with('profile',$profile);
+             $purchases = DB::table('purchases')->join('purchase_detail','purchase_detail.purchase_id','=','purchases.id')
+                            ->join('users','users.id','=','purchases.customer_id')
+                            ->join('profiles','profiles.user_id','=','users.id')
+                            ->join('purchase_products','purchase_products.id','=','purchase_detail.product_id')
+                            ->where('users.id','=',$id)
+                            ->orderBy('purchases.id','desc')
+                            ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from"))
+                            ->get();            
+            $this->layout->content = View::make('manager.customers.show')->with('profile',$profile)->with('purchases',$purchases);
 	}
 
 	/**
@@ -165,47 +194,59 @@ class  CustomersController extends \BaseController {
               {                   
                  $customer = DB::table('profiles')
                  ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                 ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                  ->where('group_users','=',User::CUSTOMER)
                  ->where('username','like','%'.Input::get('key_find').'%')
-                 ->paginate(5);                      
+                 ->orderBy('users.id','desc')
+                 ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                 ->paginate(5); 
               }
               else
               {                
-                 if(Input::get('filter')=='like'){
-                    $customer = DB::table('profiles')
-                    ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                    ->where('group_users','=',User::CUSTOMER)
-                    ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')
-                    ->paginate(5);  
+                 if(Input::get('filter')=='like'){                   
+                     $customer = DB::table('profiles')
+                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')                        
+                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                        ->paginate(5); 
                  }
-                 else if(Input::get('filter')=='big'){
+                 else if(Input::get('filter')=='big'){                     
                     $customer = DB::table('profiles')
-                    ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                    ->where('group_users','=',User::CUSTOMER)
-                    ->where('employee_count','>=','100')
-                    ->paginate(5);              
+                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where(Input::get('field_find'),'>=',Input::get('key_find'))                     
+                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                        ->paginate(5); 
                  }
-                 else if(Input::get('filter')=='small'){
+                 else if(Input::get('filter')=='small'){                   
                     $customer = DB::table('profiles')
-                    ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                    ->where('group_users','=',User::CUSTOMER)
-                    ->where(Input::get('field_find'),'<=',Input::get('key_find'))
-                    ->paginate(5);   
+                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where(Input::get('field_find'),'<=',Input::get('key_find'))                  
+                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                        ->paginate(5); 
                  }
-                  else if((Input::get('filter')=='asc')||(Input::get('filter')=='desc')){
-                    $customer = DB::table('profiles')
-                    ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                    ->where('group_users','=',User::CUSTOMER)
-                    ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')
-                    ->orderBy(Input::get('field_find'),Input::get('filter'))
-                    ->paginate(5);   
+                  else if((Input::get('filter')=='asc')||(Input::get('filter')=='desc')){                  
+                      $customer = DB::table('profiles')
+                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')              
+                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                        ->paginate(5); 
                  }
                   else {
                     $customer = DB::table('profiles')
-                    ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                    ->where(Input::get('field_find'),'=',Input::get('key_find'))
-                    ->where('group_users','=',User::CUSTOMER)
-                    ->paginate(5);   
+                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
+                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where(Input::get('field_find'),'=',Input::get('key_find'))
+                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                        ->paginate(5); 
                   }
               }             
                

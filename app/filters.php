@@ -50,6 +50,17 @@ Route::filter('auth', function()
 });
 
 
+Route::filter('staff',function(){         
+            if((Auth::user()->group_users == User::STAFF)||(Auth::user()->group_users == User::MANAGER))
+            {                            
+            }
+            else{              
+              Session::flash('msg_flash',CommonHelper::print_msg('error',"You can't access area here"));
+              return Redirect::guest('crm-login');
+            }
+});
+          
+            
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();

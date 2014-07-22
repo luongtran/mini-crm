@@ -10,6 +10,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
         
         const MANAGER =1;
+        const STAFF =2;  
         const CUSTOMER =3;        
         const EMPLOYEE =4;         
 	/**

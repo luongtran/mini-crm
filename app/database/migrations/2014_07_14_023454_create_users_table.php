@@ -23,6 +23,10 @@ class CreateUsersTable extends Migration {
                         $table->timestamp('last_datetime_login');
                         $table->string('last_position_login');
                         $table->timestamp('last_login');
+                        $table->integer('manager_id');                        
+                        $table->integer('staff_id');                        
+                        $table->integer('customer_id');                        
+                        $table->integer('employee_id');                        
                         //$table->string('remember_token'); 
                         $table->rememberToken();
 			$table->timestamps();

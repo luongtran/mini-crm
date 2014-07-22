@@ -1,5 +1,7 @@
 <?php
 
 class Purchase extends \Eloquent {
-	protected $fillable = [];
+    protected $table="purchases";
+    protected $fillable = [];
+    public static $rule = [];
 }

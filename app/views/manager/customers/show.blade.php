@@ -184,33 +184,33 @@
                                                     <tr class="unread">
                                                         <th class="small-col"></th>
                                                         <th>Name</th>
-                                                        <th>expiry from</th>
-                                                        <th>expiry to</th>
-                                                        <th>create at</th>
+                                                        <th>Cost</th>
+                                                        <th>Discount</th>
+                                                        <th>Expiry</th>
+                                                        <th>Created at</th>
+                                                        <th>Deadline</th>
+                                                        <th>Code</th>
                                                         <th></th>
 
                                                     </tr>
                                                     <?php $test_product = DB::table('purchase_products')->get();?>
-                                                    @foreach($test_product as $product)
+                                                    @foreach($purchases as $product)
                                                     <tr >          
                                                         <td></td>
-                                                        <td><a href="{{Request::root()}}/manager/customer-show/{{$product->id}}">{{$product->name}}</a></td>                                                      
+                                                        <td><a href="{{Request::root()}}/manager/purchases/{{$product->code}}">{{$product->product_name}}</a></td>                                                      
+                                                        <td> {{$product->cost}}</td>
+                                                        <td> {{$product->discount}}</td>
+                                                        <td> {{$product->expiry}}</td>                                                        
                                                         <td> {{$product->created_at}}</td>
-                                                        <td> {{$product->created_at}}</td>
-                                                        <td> {{$product->created_at}}</td>
+                                                        <td> {{$product->deadline_from}}</td>
+                                                        <td> {{$product->code}}</td>
                                                         <td><div class="btn-group pull-left">
                                                         <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
                                                             <span class="caret"></span>
                                                         </button>
                                                         <ul class="dropdown-menu" role="menu">
-                                                            <li><a href="{{Request::root()}}/manager/customer-show/{{$product->id}}"><i class="icon icon-monitor"></i>Detail</a>
-                                                            </li>                                               
-                                                            <li class="divider"></li>
-                                                             <li><a href="{{Request::root()}}/manager/customer/{{$product->id}}/employee/"><i class="icon icon-user-group"></i>Edit</a>
-                                                            </li>                                            
-                                                            <li class="divider"></li>
-                                                            <li><a href="{{Request::root()}}/manager/customer-del/{{$product->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
-                                                            </li>
+                                                            <li><a href="{{Request::root()}}/manager/purchases/{{$product->code}}"><i class="icon icon-monitor"></i>Detail</a>
+                                                            </li>  
                                                         </ul>
                                                     </div>
 

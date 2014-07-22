@@ -162,6 +162,7 @@
                                 <div class="">                                   
                                     <div class="btn-group pull-left">                                       
                                          <?php echo $list->links(); ?>
+                                         <?php //echo $list->appends(array('field_find' => $field,'filter' => $filter,'key_find'=>$key))->links(); ?>
                                     </div>
                                 </div>
                             <!-- /.table-responsive -->

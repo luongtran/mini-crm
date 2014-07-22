@@ -100,10 +100,35 @@ Route::resource('manager/purchases', 'PurchasesController');
 
 
 
-
-
-
-
 /*filter */
  Route::when('manager', 'auth');
  Route::when('manager/*', 'auth');
+ 
+ Route::when('manager/customer', 'staff');
+ Route::when('manager/customer*', 'staff');
+ 
+ Route::when('manager/employees', 'staff');
+ Route::when('manager/employees*', 'staff');
+ 
+ Route::when('manager/support', 'staff');
+ Route::when('manager/support*', 'staff');
+ 
+ Route::when('manager/products', 'staff');
+ Route::when('manager/products*', 'staff');
+ 
+ Route::when('manager/purchases', 'staff');
+ Route::when('manager/purchases*', 'staff');
+
+ Route::when('manager/setting', 'admin');
+ Route::when('manager/setting*', 'admin');
+ Route::when('manager/users', 'admin');
+ Route::when('manager/users*', 'admin');
+ 
+ 
+ 
+/*debug*/ 
+ 
+
+Route::get('debug/email',array('uses'=>'EmailController@test'));
+Route::post('debug/email',array('uses'=>'EmailController@postTest'));
+

@@ -18,7 +18,8 @@ class CreatPurchaseDetailTable extends Migration {
                         $table->integer('purchase_id');
                         $table->integer('product_id');    
                         $table->timestamp('deadline_from');
-                        $table->timestamp('deadline_to');                        
+                        $table->timestamp('deadline_to');    
+                        $table->text('note');    
                         $table->integer('status');
 			$table->timestamps();
 		});

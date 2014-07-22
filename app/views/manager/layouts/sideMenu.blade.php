@@ -115,10 +115,7 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/support-create" title="Article add"><i class="icon icon-plus"></i><span>Add</span></a>
-                                </li>
-                                <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/support" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/support" title="Article list"><i class="icon-view-list"></i><span>Ticket</span></a>
                                 </li>
                             </ul>
                         </li>

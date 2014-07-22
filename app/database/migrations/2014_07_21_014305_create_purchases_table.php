@@ -18,6 +18,7 @@ class CreatePurchasesTable extends Migration {
                         $table->integer('user_id');
                         $table->integer('customer_id');                      
                         $table->string('code');
+                        $table->text('note');
                         $table->integer('total');
 			$table->timestamps();
 		});
