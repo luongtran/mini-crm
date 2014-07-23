@@ -1,8 +1,8 @@
 <?php
 
 class CustomerController extends \BaseController {
-
-	/**
+    protected $layout = "client.layouts.default";
+    /**
 	 * Display a listing of the resource.
 	 * GET /customers
 	 *
@@ -10,7 +10,7 @@ class CustomerController extends \BaseController {
 	 */
 	public function index()
 	{
-            
+          $this->layout->content = View::make('client.customer.index');  
 	}
 
 	/**

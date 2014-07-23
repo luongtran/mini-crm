@@ -3,23 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/test/testmail.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/CustomersController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/TicketController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/routes.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/test.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/default.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/public/asset/backend/assets/js/clock/date.js</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/EmailController.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/database/migrations/2014_07_22_101640_create_SupportTickets_table.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/public/asset/backend/assets/js/clock/jquery.clock.js</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/show.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/filters.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/config/mail.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/sideMenu.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/topNavbar.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/User.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/database/migrations/2014_07_14_023454_create_users_table.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/PurchasesController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/create.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/filters.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/show.blade.php</file>
         </group>
     </open-files>
 </project-private>

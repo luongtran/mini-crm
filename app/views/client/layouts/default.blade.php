@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CRM | @if(isset($page)) {{$page}} @endif </title>
+    <title>CRM - Client @if(isset($page)) {{'-'.$page}} @endif </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('asset/backend/assets/css/loader-style.css')}}">
     <link rel="stylesheet" href="{{asset('asset/backend/assets/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('asset/backend/assets/js/button/ladda/ladda.min.css')}}">
-    <link rel="stylesheet" href="{{asset('asset/backend/assets/css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('asset/backend/assets/css/custom.css')}}">    
     <link rel="stylesheet" href="{{asset('asset/backend/assets/css/social.css')}}">
     
     <link rel="shortcut icon" href="{{asset('asset/backend/assets/ico/minus.png')}}">
@@ -34,15 +34,15 @@
 </head>
 <body>
     <!-- Preloader -->
-    <div id="preloader">
+    <!--    <div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>
+    </div>-->
     <!-- TOP NAVBAR -->
-    @include('manager.layouts.topNavbar')
+    @include('client.layouts.topNavbar')
     <!-- /END OF TOP NAVBAR -->
 
     <!-- SIDE MENU -->
-    @include('manager.layouts.sideMenu')
+    @include('client.layouts.sideMenu')
     <!-- END OF SIDE MENU -->
 
 
@@ -91,7 +91,7 @@
         <!--  END OF PAPER WRAP -->
 
         <!-- RIGHT SLIDER CONTENT -->
-        @include('manager.layouts.rightSliderContent')
+        @include('client.layouts.rightSliderContent')
         <!-- END OF RIGHT SLIDER CONTENT-->
         @section('script')            
         @show        

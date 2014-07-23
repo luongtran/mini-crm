@@ -13,7 +13,8 @@
 
 App::before(function($request)
 {
-	Common::globalXssClean();             
+        /*down xss sript in model common*/
+	//Common::globalXssClean();             
        
 });
 
@@ -50,16 +51,42 @@ Route::filter('auth', function()
 });
 
 
-Route::filter('staff',function(){         
-            if((Auth::user()->group_users == User::STAFF)||(Auth::user()->group_users == User::MANAGER))
-            {                            
-            }
-            else{              
-              Session::flash('msg_flash',CommonHelper::print_msg('error',"You can't access area here"));
-              return Redirect::guest('crm-login');
-            }
+Route::filter('staff',function(){     
+            if(Auth::check())
+            {            
+                if((Auth::user()->group_users == User::STAFF)||(Auth::user()->group_users == User::MANAGER))
+                {                  
+                }
+                else{                    
+                  Session::flash('msg_flash',CommonHelper::print_msg('error',"You can't access area here"));
+                  return Redirect::guest('crm-login');
+                }
+            }else{return Redirect::guest('crm-login');}
 });
-          
+
+Route::filter('client_parent',function(){         
+           if(Auth::check())
+            {            
+                if((Auth::user()->group_users != User::CUSTOMER))
+                {                  
+                  Session::flash('msg_flash',CommonHelper::print_msg('error',"You can't access area here"));
+                  return Redirect::guest('crm-login');
+                }
+            }else{return Redirect::guest('crm-login');}
+});
+
+Route::filter('client_employee',function(){         
+           if(Auth::check())
+            {            
+                if((Auth::user()->group_users == User::EMPLOYEE)||(Auth::user()->group_users == User::CUSTOMER))
+                { 
+                }
+                else {
+                 Session::flash('msg_flash',CommonHelper::print_msg('error',"You can't access area here"));
+                  return Redirect::guest('crm-login');   
+                }
+            }else{return Redirect::guest('crm-login');}
+});
             
 Route::filter('auth.basic', function()
 {

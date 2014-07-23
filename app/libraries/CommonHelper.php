@@ -41,6 +41,21 @@ class CommonHelper {
         }
         return $str;           
     }
+    
+    
+    
+    public static function list_base($key)
+    {
+        $list= null;
+        switch($key){
+            case'status':$list = array('new'=>'New','in-process'=>'In process','close'=>'Close');
+                break;
+            case'priority':$list = array('nomal'=>'Nomal','hight'=>'Hight','urgent'=>'Urgent');
+                break;
+            default:break;
+        }    
+        return $list;        
+    }
 
 
     //end class

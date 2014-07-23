@@ -12,7 +12,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         const MANAGER =1;
         const STAFF =2;  
         const CUSTOMER =3;        
-        const EMPLOYEE =4;         
+        const EMPLOYEE =4;  
+        
+        const STATUS_NEW ='new';  
+        const STATUS_PROCESS ='in-process';  
+        const STATUS_CLOSE ='close';  
 	/**
 	 * The database table used by the model.
 	 *

@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateLanguagesTable extends Migration {
+class CreateSupportTypeTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,13 @@ class CreateLanguagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('languages', function(Blueprint $table)
+		Schema::create('support_type', function(Blueprint $table)
 		{
 			$table->increments('id');
                         $table->string('name');
-                        $table->string('code');
-                        $table->string('postcode');
-                        $table->string('area');
 			$table->timestamps();
 		});
 	}
-
 
 	/**
 	 * Reverse the migrations.
@@ -31,7 +27,7 @@ class CreateLanguagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('languages');
+		Schema::drop('support_type');
 	}
 
 }

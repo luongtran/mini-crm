@@ -36,7 +36,8 @@
 	
 	"require-dev": {
                 "way/generators": "2.*",
-                "darsain/laravel-console": "dev-master"
-                
+                "darsain/laravel-console": "dev-master",
+                "torann/geoip": "dev-master"                
 	}
+       
 }

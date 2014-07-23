@@ -59,9 +59,7 @@
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customer" title="Customer list"><i class="icon-view-list"></i><span>List</span></a>
                                 </li>
                             </ul>
-                        </li>
-                       <li>
-                       <li>    
+                        </li>                        
                         <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Product">
                                 <i class="entypo-basket"></i>
@@ -115,7 +113,7 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/support" title="Article list"><i class="icon-view-list"></i><span>Ticket</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/tickets" title="Article list"><i class="icon-view-list"></i><span>Ticket</span></a>
                                 </li>
                             </ul>
                         </li>
