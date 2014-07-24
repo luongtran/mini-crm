@@ -1,5 +1,5 @@
 <?php
-
+use Intervention\Image\ImageManagerStatic as Image;
 class ShareController extends \BaseController {
 
 	/**
@@ -17,13 +17,16 @@ class ShareController extends \BaseController {
                 $view = DB::table('users')
                         ->leftJoin('profiles','users.id','=','profiles.user_id')
                         ->where('users.id',Auth::id())
-                        ->first();
-                  return View::make('share.profile.manager_profile');
+                        ->first(['users.email','users.created_at','users.updated_at',
+                                'users.first_name','users.last_name','profiles.address','profiles.company_name',
+                                'profiles.phone_number','profiles.avatar'
+                            ]);
+                  return View::make('share.profile.manager_profile')->with('view',$view);
                 }
                 
                 if(Auth::user()->group_users == User::CUSTOMER || Auth::user()->group_users == User::EMPLOYEE)               
                 {
-              $view = DB::table('profiles')
+                $view = DB::table('profiles')
                         ->rightJoin('users','users.id','=','profiles.user_id')
                         ->where('users.id',Auth::id())
                         ->first();
@@ -31,6 +34,35 @@ class ShareController extends \BaseController {
                 }
             }
             return false;
+        }
+        
+        public function updateProfile()
+        {           
+            
+            
+            $rule = [];
+            $validation = Validator::make(Input::all(),$rule);
+            if($validation->passes())
+            {
+                $profile = Profile::where('user_id',Auth::id())->first();
+                $big_image = Image::make(Input::file('avatar')->getRealPath());
+                               //  ->resize(100, 100, false);
+                
+                echo $big_image.'</br>';
+
+                $file = Input::file('avatar');
+                //$file->getClientOriginalName();
+                
+                var_dump($file);
+                die();
+                //$type = pathinfo($link, PATHINFO_EXTENSION);
+                $data = file_get_contents($link);
+                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                
+                $profile->avatar = $big_image;
+                $profile->update();
+            }
+            return Redirect::back()->withInput()->withErrors($validation);
         }
         /**
 	 * Show the form for creating a new resource.

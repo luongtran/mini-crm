@@ -123,7 +123,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
                 'Darsain\Console\ConsoleServiceProvider',
-                'Torann\GeoIP\GeoIPServiceProvider',            
+                'Torann\GeoIP\GeoIPServiceProvider',      
+                'Intervention\Image\ImageServiceProvider',
 	),
 
 	/*
@@ -191,6 +192,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
                 'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
+                'Image' => 'Intervention\Image\Facades\Image',
 
 	),
 

@@ -42,7 +42,21 @@ class EmployeesController extends \BaseController {
                $employee->group_users = User::EMPLOYEE;
                $employee->customer_id = $id;
                $employee->save();
-               Session::flash('msg_flash', CommonHelper::print_msg('success','Created success'));
+               
+                $email = new EmailController();
+                $message = array(
+                    'text'=>'<p>Username: '.Input::get('email').'</p><p>Password: '.Input::get('password').'</p>
+                    <a href="'.Request::root().'/crm-login">Login at </a>'
+                    ,
+                    'subject'=>'Create account customer by Admin CRM '.rand(100,9999),
+                    'to_email'=>Input::get('email'),
+                    'to_name'=>Input::get('first_name')
+                    );     
+                if($email->manager_sendEmail($message))
+                {
+                Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));
+                }
+                
                return Redirect::to('manager/customer/'.$id.'/employees');
            }
            //Session::flash('msg_flash',  CommonHelper::print_msgs('error',$validation->messages()));

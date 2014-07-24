@@ -38,16 +38,22 @@
                             </button>
                             <ul role="menu" class="dropdown-menu">
                                 <li>
-                                    <a href="{{Request::root()}}/client/customer/ticket/create">
+                                    <a href="{{Request::root()}}/manager/tickets/create">
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>
+                                </li>                              
                                 <li>
                                     <a href="#">
-                                        <span class="entypo-heart margin-iconic"></span>Favorite</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-cog margin-iconic"></span>Setting</a>
+                                        <span class="entypo-plus-circled margin-iconic"></span>Filter status</a>
+                                </li> 
+                                <?php $status = CommonHelper::list_base('status');                              
+                                               foreach($status as $key=>$value):
+                                            ?>
+                                            <li>
+                                                <a href="{{Request::root()}}/manager/tickets/filter?key={{$key}}">
+                                                    <span class="margin-iconic"></span>{{$value}}</a>
+                                            </li>
+                                <?php endforeach;?>
+                                
                                 </li>
                             </ul>
                         </div>
@@ -67,12 +73,13 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/manager/ticket" title="Sample page 1">Titket</a>
+                <li><a href="{{Request::root()}}/manager/tickets" title="Sample page 1">Titket</a>
                 </li>                
                 <li class="pull-right">
                     <div class="input-group input-widget">
-
-                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
+                        {{Form::open(array('url'=>'manager/tickets/find','method'=>'get'))}}
+                        <input style="border-radius:15px" name="key_find" type="text" placeholder="Search..." class="form-control">
+                        {{Form::close()}}
                     </div>
                 </li>
             </ul>
@@ -170,7 +177,11 @@ else if($ticket->status == 'in-process')
 </div> 
 <div class="row">
     <div class="col-lg-6">
-    {{$list_ticket->links()}}
+     @if(isset($parameter_panginate))      
+     {{$list_ticket->appends($parameter_panginate)->links()}}
+     @else
+     {{$list_ticket->links()}}
+     @endif
     </div>
 </div>
 

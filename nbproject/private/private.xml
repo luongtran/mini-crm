@@ -6,10 +6,9 @@
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/TicketController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/routes.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/default.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/sideMenu.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/create.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/profile/manager_profile.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/filters.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/show.blade.php</file>
         </group>

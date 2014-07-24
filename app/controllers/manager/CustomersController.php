@@ -63,12 +63,12 @@ class  CustomersController extends \BaseController {
                 /*send email to customer*/
                 $email = new EmailController();
                 $message = array(
-                    'text'=>'<p>Username: email</p><p>Password: '.Input::get('password').'</p>',
+                     'text'=>'<p>Username: '.Input::get('email').'</p><p>Password: '.Input::get('password').'</p>
+                     <a href="'.Request::root().'/crm-login">Login at </a>',
                     'subject'=>'Create account customer by Admin CRM '.rand(100,9999),
                     'to_email'=>Input::get('email'),
                     'to_name'=>Input::get('first_name')
-                    );               
-                
+                    );     
                 if($email->manager_sendEmail($message))
                 {
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));

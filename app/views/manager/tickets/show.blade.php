@@ -38,7 +38,7 @@
                             </button>
                             <ul role="menu" class="dropdown-menu">
                                 <li>
-                                    <a href="{{Request::root()}}/client/customer/ticket/create">
+                                    <a href="{{Request::root()}}/manager/tickets/create">
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
                                 </li>
                                 <li>
@@ -63,11 +63,11 @@
                 <li>
                     <span class="entypo-home"></span>
                 </li>
-                <li><a href="{{Request::root()}}/client" title="Sample page 1">Manager</a>
+                <li><a href="{{Request::root()}}/manager" title="Sample page 1">Manager</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/client/customer/ticket" title="Sample page 1">Ticket</a>
+                <li><a href="{{Request::root()}}/manager/tickets" title="Sample page 1">Ticket</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -120,6 +120,7 @@ else if($ticket->status == 'in-process')
                                 <div class="social-profile">
                                     <h3>Creat by: <a class="tweet-link" href="#">{{$ticket->first_name.' '.$ticket->last_name}}</a>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
+                                        <span>  </span>   {{$ticket->company_name}}
                                     </h3>
                                 </div>
 

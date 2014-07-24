@@ -124,13 +124,9 @@
                         </a>
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>
-                                <a href="{{Request::root()}}/backend/view-profile">
+                                <a href="{{Request::root()}}/manager/view-profile">
                                     <span class="entypo-user"></span>&#160;&#160;My Profile</a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="entypo-vcard"></span>&#160;&#160;Account Setting</a>
-                            </li>
+                            </li>                           
                             <li>
                                 <a href="#">
                                     <span class="entypo-lifebuoy"></span>&#160;&#160;Help</a>

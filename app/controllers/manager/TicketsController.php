@@ -15,12 +15,11 @@ class TicketsController extends \BaseController {
 	public function index()
 	{		
                 $list_ticket = DB::table('tickets')
-                        //->where('tickets.server_id','<>','0')
-                        ->join('users','users.id','=','tickets.client_id')                        
+                        ->where('tickets.status','<>','close')
+                        ->join('users','users.id','=','tickets.client_id')                              
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
-                        ->paginate(5);    
-             
+                        ->paginate(5); 
 		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket);  
 	
 	}
@@ -60,6 +59,16 @@ class TicketsController extends \BaseController {
                     $ticket->save();                    
                     $ticket->code = 'TK'.$ticket->id.'-'.Auth::id();
                     $ticket->save();
+                    
+                    $email = new EmailController();
+                    $message = array(
+                    'text'=>Input::get('description').' - <a href="'.Request::root().'/mamanger/tickets/'.$ticket->code.'">Visit</a>',
+                    'subject'=>'Titcket CRM - '.Input::get("subject").' - '.rand(100,9999),
+                    'to_email'=>EmailController::EMAIL_ADMIN,
+                    'to_name'=>'Admin'
+                    );
+                    $email->manager_sendEmail($message);
+                    
                     Session::flash('msg_flash',  CommonHelper::print_msg('success','Created ticket success'));
                     return Redirect::to('manager/tickets');
                 }
@@ -78,10 +87,11 @@ class TicketsController extends \BaseController {
 		$ticket = DB::table('tickets')
                        // ->where('tickets.company_id','=',$user_id)
                         ->join('users','users.id','=','tickets.client_id')                        
+                        ->leftjoin('profiles','profiles.user_id','=','tickets.company_id')                        
                         ->join('support_type','support_type.id','=','tickets.support_type')                        
                         ->where('tickets.code','=',$id)
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,support_type.name as support_type,tickets.priority,tickets.server_id as assign_to'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,support_type.name as support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users'))
                         ->first();  
                 if($ticket){
                 $list_comment = DB::table('support_tickets')->join('tickets','tickets.code','=','support_tickets.ticket_id')
@@ -162,8 +172,53 @@ class TicketsController extends \BaseController {
                 $ticket = Ticket::where('code','=',$id)->first();
                 $ticket->status = User::STATUS_PROCESS;
                 $ticket->update();
+                /*send email client*/
+                $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.client_id')->where('tickets.code',$id)
+                        ->first();                
+                $email = new EmailController();
+                    $message = array(
+                    'text'=>Input::get('content').' - <a href="'.Request::root().'/client/customer/ticket/'.$ticket->code.'">Visit</a>',
+                    'subject'=>'Titcket CRM - '.$client->subject.' - '.$id,
+                    'to_email'=>$client->email,
+                    'to_name'=>$client->first_name
+                    );
+                $email->manager_sendEmail($message);
+                
                 return Redirect::to('manager/tickets/'.$id);
             }
 	}
+        
+        public function filter()
+        {
+            if(Input::get('key'))
+            {
+                $list_ticket = DB::table('tickets')
+                        //->where('tickets.server_id','<>','0')
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->where('tickets.status','=',Input::get('key'))
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->paginate(5); 
+                $parameter_panginate = ['key'=>Input::get('key')];
+		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
+                        ->with('parameter_panginate',$parameter_panginate);
+            }
+        }
+         public function find()
+        {
+            if(Input::get('key_find'))
+            {
+                $list_ticket = DB::table('tickets')
+                        //->where('tickets.server_id','<>','0')
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->where('tickets.status','like','%'.Input::get('key_find').'%')
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->paginate(5); 
+                $parameter_panginate = ['key_find'=>Input::get('key_find')];
+		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
+                           ->with('parameter_panginate',$parameter_panginate);
+            }
+        }
 
 }

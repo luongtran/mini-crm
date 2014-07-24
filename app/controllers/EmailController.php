@@ -8,7 +8,9 @@ class EmailController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	        
+	const EMAIL_ADMIN ="test@completermp.com";
+        const EMAIL_STAFF ="ltt.develop@gmail.com";
+        const EMAIL_TEST ="taikhoanlive100@outlook.com.vn";
         public function sendEmail()
 	{
             
@@ -20,8 +22,9 @@ class EmailController extends \BaseController {
 	}
          public function postTest()
 	{
-            $this->configEmail(); 
-            $msg = array('text'=>'Test message'.rand(100,9999),'subject'=>'ngu','to_email'=>'vn24s.com@gmail.com','to_name'=>'customer register');
+            //$this->configEmail(); 
+            $msg = array('text'=>'Test message'.rand(100,9999),'subject'=>'Test mail'.Rand(100,9999),'to_email'=>  EmailController::EMAIL_TEST,'to_name'=>'test email crm'
+                );
             
             if($this->manager_sendEmail($msg)){                
                 return Redirect::to('debug/email?success');                
@@ -55,14 +58,17 @@ class EmailController extends \BaseController {
              *  To email, to name
              *  Subject 
              *  Messages
-             */                                    
+             */  
+            $this->configEmail(); 
             $status = true;
              try{
                 Mail::send('share.test.testmail',$data, function($m) use ($data)
                 {            
-                $m->from('test@completermp.com','Truyen crm');
+                $m->from(EmailController::EMAIL_ADMIN,'ADMIN - CRM');
                 $m->to($data['to_email'],$data['to_name']);
-                $m->subject($data['subject']);                           
+                $m->subject($data['subject']); 
+                //$m->attach($data['attach']);
+                //$m->replyTo(EmailController::EMAIL_ADMIN,'Helpdesk');
                 Session::flash('msg_flash','Send email success');         
                 });
                }
@@ -89,16 +95,12 @@ class EmailController extends \BaseController {
 //          Config::set('mail.username',$email_username->value);    
 //          Config::set('mail.password',$email_password->value);  
          
-         /* Config::set('mail.host','gator3228.hostgator.com');
+          Config::set('mail.host','gator3228.hostgator.com');
           Config::set('mail.port','587');
           Config::set('mail.encryption','tls');
           Config::set('mail.username','abulayla');    
-          Config::set('mail.password','Xqi1llvM:nx8');  */
+          Config::set('mail.password','Xqi1llvM:nx8');  
             
-          Config::set('mail.host','smtp.gmail.com');
-          Config::set('mail.port','587');
-          Config::set('mail.encryption','tls');
-          Config::set('mail.username','ltt.develop@gmail.com');    
-          Config::set('mail.password','@CODE18061989');  
+      
         }
 }

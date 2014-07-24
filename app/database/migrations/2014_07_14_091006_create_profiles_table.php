@@ -22,6 +22,7 @@ class CreateProfilesTable extends Migration {
                         $table->string('phone_number');                                                
                         $table->string('sector');                                                
                         $table->string('emplyee_count');                                                
+                        $table->string('avatar');                                                
                         $table->string('contact_employee_company');                                                
 			$table->timestamps();
 		});

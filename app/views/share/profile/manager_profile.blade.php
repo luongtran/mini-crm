@@ -87,34 +87,50 @@
             <div class="panel-heading">    
                 Info
             </div>
-            <div class="panel-body">     
-                  {{Form::open(array('url'=>'manager/tickets/','method'=>'PUT'))}}
+            <div class="panel-body">                  
+                  {{Form::open(array('url'=>'manager/update-profile','method'=>'post','enctype'=>'multipart/form-data'))}}
                 <div class='form-group'>
-                    <label>Email: </label>
+                    <label>Email: {{$view->email}}</label>
                 </div>
                 
                 <div class='form-group'>
-                    <label>Create at: </label>
+                    <label>Create at: {{$view->created_at}}</label>
                 </div>
                 
                 <div class='form-group'>
-                    <label>Update at: </label>
+                    <label>Update at: {{$view->updated_at}}</label>
                 </div>
                 
                 <div class='form-group'>
-                    <label>Address: </label>
+                    <label>Address</label>
+                    {{Form::text('address',$view->address,array('class'=>'form-control'))}}
                 </div>
                 <div class='form-group'>
-                    <label>Phone number: </label>
+                    <label>Phone number</label>
+                     {{Form::text('address',$view->phone_number,array('class'=>'form-control'))}}
                 </div>
                 
                 <div class='form-group'>
-                    <label>Company: </label>
+                    <label>Company</label>
+                      {{Form::text('address',$view->company_name,array('class'=>'form-control'))}}
                 </div>
                 
-                <div class='form-group'>
-                    <label>Phone: </label>
-                </div>
+                  <div class="form-group">
+                      <label>Avatar</label>
+                      <div class="text-left">
+                                                <img width="200" src="http://placehold.it/150" class="avatar img-circle" alt="avatar">
+                                                <h6>Upload a different photo...</h6>
+
+                                                <div class="input-group">
+                                                  <span class="input-group-btn">
+                                                        <span class="btn btn-primary btn-file">
+                                                            Browse
+                                                            <input type="file" multiple="" name="avatar">
+                                                        </span>
+                                                    </span>                                                                                      </div>
+                         </div>
+                  </div>  
+                
                    {{Form::submit('Update',array('class'=>'btn btn-success'))}}
                     {{Form::close()}}
             </div>

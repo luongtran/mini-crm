@@ -68,6 +68,26 @@ class TicketController extends \BaseController {
                     $ticket->save();                    
                     $ticket->code = 'TK'.$ticket->id.'-'.Auth::id();
                     $ticket->save();
+                    
+                    $email = new EmailController();
+                    /*send email to admin*/
+                    $message = array(
+                    'text'=>Input::get('description').' - <a href="'.Request::root().'/mamanger/tickets/'.$ticket->code.'">Visit</a>',
+                    'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
+                    'to_email'=>EmailController::EMAIL_ADMIN,
+                    'to_name'=>'Admin',
+                    'attach'=>''
+                    ); 
+                    $email->manager_sendEmail($message);
+                    /*send email to client*/
+                    $message = array(
+                    'text'=>Input::get('description').' - <a href="'.Request::root().'/client/customer/tickets/'.$ticket->code.'">Visit</a>',
+                    'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
+                    'to_email'=>Auth::user()->email,
+                    'to_name'=>'Customer - Ticket'
+                    );  
+                    $email->manager_sendEmail($message);
+                    
                     Session::flash('msg_flash',  CommonHelper::print_msg('success','Created ticket success'));
                     return Redirect::to('client/customer/ticket');
                 }

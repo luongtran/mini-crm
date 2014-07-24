@@ -84,6 +84,8 @@ Route::resource('manager/group-products', 'GroupProductsController');
 
 /*Support ticket of Manager */
 Route::post('manager/tickets/add-comment/{id}',array('uses'=>'TicketsController@addComment'));
+Route::get('manager/tickets/find',array('uses'=>'TicketsController@find'));
+Route::get('manager/tickets/filter',array('uses'=>'TicketsController@filter'));
 Route::resource('manager/tickets', 'TicketsController');
 
 
@@ -101,6 +103,7 @@ Route::resource('client/customer/employee', 'EmployeeController');
 
 /*View profile*/
 Route::get('manager/view-profile',array('uses'=>'ShareController@viewProfile'));
+Route::post('manager/update-profile',array('uses'=>'ShareController@updateProfile'));
 
 
 /*-----------filter----------*/
