@@ -75,7 +75,7 @@
                 </li>
                 <li class="pull-right">
                     <div class="input-group input-widget">
-
+                        
                         <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
                     </div>
                 </li>
@@ -103,8 +103,7 @@ else if($ticket->status == 'in-process')
 ?>
 <div class="col-sm-8">
 <div class="panel panel-default">
-                            <div class="{{$status_bg}}">
-                               
+                            <div class="{{$status_bg}}">                               
                                 <a href="#" class="link-post pull-right">
                                     <span class="entypo-link"></span>
                                     {{$ticket->code}}
@@ -174,7 +173,7 @@ else if($ticket->status == 'in-process')
             <div class="panel-body">     
                  {{Form::open(array('url'=>'manager/tickets/'.$ticket->code,'method'=>'PUT'))}}
                 <div class="form-group">
-                        <label>Support type</label>
+                        <label>Support type</label>                      
                         {{Form::select('support_type',$support_type,$ticket->support_type,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('support_type')}}</span>
                 </div>  
@@ -183,11 +182,14 @@ else if($ticket->status == 'in-process')
                         {{Form::select('priority',$priority,$ticket->priority,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('priority')}}</span>
                 </div>               
+               @if(Auth::user()->group_users == User::MANAGER)  
                <div class="form-group">
-                        <label>Assign to</label>
+                        <label>Assign to</label> 
+                        <?php $assign_to['0']='None';?>
                         {{Form::select('assign_to',$assign_to,$ticket->assign_to,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('assign_to')}}</span>
                 </div>  
+               @endif
                 {{Form::open(array('url'=>'manager/tickets/'.$ticket->code,'method'=>'PUT'))}}
                <div class="form-group">
                         <label>Status</label>

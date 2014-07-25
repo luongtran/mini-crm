@@ -1,5 +1,4 @@
 <?php
-
 class  CustomersController extends \BaseController {
     protected  $layout = "manager.layouts.default";
     /**

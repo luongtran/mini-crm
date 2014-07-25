@@ -88,10 +88,9 @@ class TicketsController extends \BaseController {
                        // ->where('tickets.company_id','=',$user_id)
                         ->join('users','users.id','=','tickets.client_id')                        
                         ->leftjoin('profiles','profiles.user_id','=','tickets.company_id')                        
-                        ->join('support_type','support_type.id','=','tickets.support_type')                        
                         ->where('tickets.code','=',$id)
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,support_type.name as support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users'))
                         ->first();  
                 if($ticket){
                 $list_comment = DB::table('support_tickets')->join('tickets','tickets.code','=','support_tickets.ticket_id')
@@ -139,7 +138,9 @@ class TicketsController extends \BaseController {
 	public function update($id)
 	{
 		$ticket = Ticket::where('code',$id)->first();
+                if(Auth::user()->group_users == User::MANAGER):  
                 $ticket->server_id = Input::get('assign_to');
+                endif;
                 $ticket->status = Input::get('status');
                 $ticket->support_type = Input::get('support_type');
                 $ticket->priority = Input::get('priority');

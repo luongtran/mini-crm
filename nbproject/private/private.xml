@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/TicketController.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/CustomersController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/routes.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/User.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/create.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/profile/manager_profile.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/filters.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/customers/show.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/Ticket.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/show.blade.php</file>
         </group>
     </open-files>
