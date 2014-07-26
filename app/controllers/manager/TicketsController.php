@@ -13,13 +13,23 @@ class TicketsController extends \BaseController {
             //Common::globalXssClean();  
         }
 	public function index()
-	{		
+	{	
+             
                 $list_ticket = DB::table('tickets')
                         ->where('tickets.status','<>','close')
                         ->join('users','users.id','=','tickets.client_id')                              
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
                         ->paginate(5); 
+                if(Auth::user()->group_users == User::STAFF){
+                   $list_ticket = DB::table('tickets')
+                        ->where('tickets.status','<>','close')
+                        ->where('tickets.assign_to','=',Auth::id())
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->paginate(5);  
+                }
 		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket);  
 	
 	}
@@ -54,7 +64,7 @@ class TicketsController extends \BaseController {
                     $ticket = new Ticket();
                     $ticket->fill(Input::all());                    
                     $ticket->client_id = Auth::id();
-                    $ticket->server_id = Input::get('assign_to');                    
+                    $ticket->assign_to = Input::get('assign_to');                    
                     $ticket->status = User::STATUS_NEW;
                     $ticket->save();                    
                     $ticket->code = 'TK'.$ticket->id.'-'.Auth::id();
@@ -84,14 +94,24 @@ class TicketsController extends \BaseController {
 	 */
 	public function show($id)
 	{		
-		$ticket = DB::table('tickets')
-                       // ->where('tickets.company_id','=',$user_id)
+                           
+		$ticket =DB::table('tickets')                        
                         ->join('users','users.id','=','tickets.client_id')                        
                         ->leftjoin('profiles','profiles.user_id','=','tickets.company_id')                        
                         ->where('tickets.code','=',$id)
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.support_type,tickets.priority,tickets.assign_to as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id'))
                         ->first();  
+                if(Auth::user()->group_users == User::STAFF){
+                 $ticket =DB::table('tickets')                        
+                        ->join('users','users.id','=','tickets.client_id')                        
+                        ->leftjoin('profiles','profiles.user_id','=','tickets.company_id')                        
+                        ->where('tickets.code','=',$id)
+                        ->where('tickets.assign_to','=',Auth::id())
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.support_type,tickets.priority,tickets.assign_to as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id'))
+                        ->first();    
+                }
                 if($ticket){
                 $list_comment = DB::table('support_tickets')->join('tickets','tickets.code','=','support_tickets.ticket_id')
                                                 ->join('users','users.id','=','support_tickets.user_id')
@@ -139,7 +159,7 @@ class TicketsController extends \BaseController {
 	{
 		$ticket = Ticket::where('code',$id)->first();
                 if(Auth::user()->group_users == User::MANAGER):  
-                $ticket->server_id = Input::get('assign_to');
+                $ticket->assign_to = Input::get('assign_to');
                 endif;
                 $ticket->status = Input::get('status');
                 $ticket->support_type = Input::get('support_type');
@@ -200,6 +220,15 @@ class TicketsController extends \BaseController {
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
                         ->paginate(5); 
+                if(Auth::user()->group_users == User::STAFF){
+                   $list_ticket = DB::table('tickets')
+                        ->where('tickets.assign_to','=',Auth::id())
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->where('tickets.status','=',Input::get('key'))
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->paginate(5); 
+                }
                 $parameter_panginate = ['key'=>Input::get('key')];
 		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
                         ->with('parameter_panginate',$parameter_panginate);

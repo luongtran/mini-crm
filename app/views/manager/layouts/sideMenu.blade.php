@@ -122,43 +122,8 @@
                     </ul>
                     <!--end tab1 -->
                   
-                    <ul class="topnav menu-left-nest">
-                        <li>
-                            <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
-
-                                <span class="design-kit"></span>
-                                <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
-
-                            </a>
-                        </li>
-                                             
-                        <li>
-                             <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/request-demo" title="Request Demo"><i class="entypo-reply-all"></i><span>Request Demo</span></a>                               
-                        </li> 
-                        <li>
-                             <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/menu" title="Element"><i class="entypo-layout"></i><span>Menu</span></a>                               
-                        </li> 
-
-                        <li>
-                             <a class="tooltip-tip2" href="#" title="Blog">
-                                    <i class="entypo-share"></i>
-                                     <span>Blog</span>  
-                             </a>        
-                             <ul>
-                                        <li>
-                                            <a class="tooltip-tip3 ajax-load" href="{{Request::root()}}/blog/admin/post" title="Post"><i class="entypo-feather"></i><span>Post</span></a>
-                                        </li>
-                                         <li>
-                                            <a class="tooltip-tip3 ajax-load" href="{{Request::root()}}/blog/admin/category" title="Category"><i class="entypo-archive"></i><span>Category</span></a>
-                                        </li> 
-                                        <li>
-                                            <a class="tooltip-tip3 ajax-load" href="{{Request::root()}}/blog/admin/comment" title="Comment"><i class="entypo-mixi"></i><span>Comment</span></a>
-                                        </li> 
-                             </ul>                                       
-                        </li> 
-
-                    </ul>
-                             
+                   
+                   @if(Auth::user()->group_users==User::MANAGER)         
                     <ul id="menu-showhide" class="topnav menu-left-nest">
                         <li>
                             <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
@@ -167,20 +132,9 @@
                                 <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
 
                             </a>
-                        </li>
+                        </li>                      
                         <li>
-                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/page" title="Pages"><i class="entypo-docs"></i><span>Pages</span></a>
-                              
-                        </li>
-                        <li>
-                            <a class="tooltip-tip ajax-load" href="{{Request::root()}}/backend/module" title="Manager module">
-                                <i class="icon-view-thumb"></i>
-                                <span>Mannager Modules</span>
-                                <div class="noft-blue"></div>
-                            </a>
-                        </li>
-                        <li>
-                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/users" title="Users"><i class="icon icon-user"></i><span>Users</span></a>                              
+                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/users" title="Users"><i class="icon icon-user"></i><span>Users</span></a>                              
                         </li>
                           <li>
                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/language" title="Language"><i class="entypo-export"></i><span>Language</span></a>
@@ -188,12 +142,9 @@
                         </li>
                         <li>
                             <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/setting" title="Setting"><i class="entypo-layout"></i><span>Setting</span></a>                                
-                        </li>
-
-                      
+                        </li>                      
                     </ul>
-         
-
+                 @endif
                     <div class="side-dash">
                       
                     </div>

@@ -96,11 +96,13 @@
                         {{Form::select('support_type',$support_type,Input::old('support_type'),array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('support_type')}}</span>
                     </div> 
+                     @if(Auth::user()->group_users == User::MANAGER) 
                      <div class="form-group">
                         <label>Assign to</label>
                         {{Form::select('assign_to',$assign_to,Input::old('assign_to'),array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('support_type')}}</span>
                     </div> 
+                     @endif
                     
                     <div class='clear'></div>
                    {{Form::submit('Create',array('class'=>'btn btn-primary'))}}

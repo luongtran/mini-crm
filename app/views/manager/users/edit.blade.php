@@ -68,7 +68,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/users" title="">Users</a>
+                <li><a href="{{Request::root()}}/manager/users" title="">Users</a>
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -85,7 +85,7 @@
             <div class="panel-heading"><h3 class='panel-title'>Update user</h3></div>
             <div class="panel-body">               
 <!--            {{Session::get('msg_flash')}}    -->
-            {{ Form::open(array('url' => 'users/edit/'.$user->id,'method'=>'post','role'=>'form','id'=>'frm-add')) }}
+            {{ Form::open(array('url' => 'manager/users/edit/'.$user->id,'method'=>'post','role'=>'form','id'=>'frm-add')) }}
                 <div class="form-group">
                     {{Form::label('Username')}}
                     {{Form::text('username',$user->username,array('class'=>'form-control','disabled'))}}

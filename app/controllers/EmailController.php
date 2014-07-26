@@ -69,7 +69,7 @@ class EmailController extends \BaseController {
                 $m->subject($data['subject']); 
                 //$m->attach($data['attach']);
                 //$m->replyTo(EmailController::EMAIL_ADMIN,'Helpdesk');
-                Session::flash('msg_flash','Send email success');         
+                //Session::flash('msg_flash','Send email success');         
                 });
                }
                catch(Exception $e)

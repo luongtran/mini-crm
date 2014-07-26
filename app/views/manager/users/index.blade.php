@@ -39,7 +39,7 @@
                             </button>
                             <ul role="menu" class="dropdown-menu">
                                 <li>
-                                    <a href="{{Request::root()}}/users/getAdd">
+                                    <a href="{{Request::root()}}/manager/users/getAdd">
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
                                 </li>
                             </ul>
@@ -62,14 +62,14 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Users</a>
+                <li><a href="{{Request::root()}}/manager/users" title="">Users</a>
                 </li>
                 <li class="pull-right">
                     
                 </li>
             </ul>
 <div class="col-sm-12">
-     {{ Form::open(array('url' => 'users/action','method'=>'post','role'=>'form','id'=>'frm-add')) }}                                                               
+     {{ Form::open(array('url' => 'manager/users/action','method'=>'post','role'=>'form','id'=>'frm-add')) }}                                                               
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
@@ -108,7 +108,7 @@
                                             <ul role="menu" class="dropdown-menu">
                                                 @foreach($group_name as $group)
                                                 <li> 
-                                                    <a href="{{Request::root()}}/users/filter?field_filter={{$group->name}}">
+                                                    <a href="{{Request::root()}}/manager/users/filter?field_filter={{$group->name}}">
                                                         <span class="entypo-plus-circled margin-iconic"></span>{{$group->name}}</a>
                                                 </li>
                                                 @endforeach
@@ -142,7 +142,7 @@
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/users/show/{{$users->id}}">{{$users->first_name}}</a></td>
+                                        <td><a href="{{Request::root()}}/manager/users/show/{{$users->id}}">{{$users->first_name}}</a></td>
                                         <td class="subject">
                                            {{$users->email}}
                                         </td>
@@ -154,10 +154,10 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/users/edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
+                                            <li><a href="{{Request::root()}}/manager/users/edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/users/del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a href="{{Request::root()}}/manager/users/del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>

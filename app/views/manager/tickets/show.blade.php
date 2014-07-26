@@ -87,7 +87,7 @@
 
 <div class="row">
 <?php 
-
+$status_bg="panel-primary";
 if($ticket->status == 'new')
 {
   $status_bg="panel-fb tweet-bgcolor";
@@ -99,6 +99,10 @@ if($ticket->status == 'close')
 else if($ticket->status == 'in-process')
 {
   $status_bg="panel-fb instagram-color";   
+}
+else if($ticket->status == 'resolve')
+{
+  $status_bg="panel-fb gplus-color";   
 }
 ?>
 <div class="col-sm-8">
@@ -119,7 +123,7 @@ else if($ticket->status == 'in-process')
                                 <div class="social-profile">
                                     <h3>Creat by: <a class="tweet-link" href="#">{{$ticket->first_name.' '.$ticket->last_name}}</a>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                        <span>  </span>   {{$ticket->company_name}}
+                                        <span>  </span>  <a target="_blank" href="{{Request::root()}}/manager/customer-show/{{$ticket->company_id}}">{{$ticket->company_name}}</a>
                                     </h3>
                                 </div>
 
@@ -181,12 +185,12 @@ else if($ticket->status == 'in-process')
                         <label>Priority</label>
                         {{Form::select('priority',$priority,$ticket->priority,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('priority')}}</span>
-                </div>               
+                </div>             
                @if(Auth::user()->group_users == User::MANAGER)  
                <div class="form-group">
                         <label>Assign to</label> 
-                        <?php $assign_to['0']='None';?>
-                        {{Form::select('assign_to',$assign_to,$ticket->assign_to,array('class'=>'form-control'))}}
+                        <?php $assign_to['0']='None'; $assign_selected = $ticket->assign_to;if($assign_selected==""){$assign_selected='0';}?>
+                        {{Form::select('assign_to',$assign_to,$assign_selected,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('assign_to')}}</span>
                 </div>  
                @endif

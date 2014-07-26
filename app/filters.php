@@ -50,7 +50,18 @@ Route::filter('auth', function()
 	}
 });
 
-
+Route::filter('admin',function(){     
+            if(Auth::check())
+            {            
+                if(Auth::user()->group_users == User::MANAGER)
+                {                  
+                }
+                else{                    
+                  Session::flash('msg_flash',CommonHelper::print_msg('error',"You can't access area here"));
+                  return Redirect::guest('crm-login');
+                }
+            }else{return Redirect::guest('crm-login');}
+});
 Route::filter('staff',function(){     
             if(Auth::check())
             {            

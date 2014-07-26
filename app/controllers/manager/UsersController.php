@@ -46,10 +46,13 @@ class UsersController extends \BaseController {
             if($validation->passes()){                
                 $user = new User;
                 $user->fill(Input::all());
-                $user->password = Hash::make(Input::get('password'));                
+                $user->password = Hash::make(Input::get('password'));                                
                 $user->save();
+                $profile = new Profile();
+                $profile->user_id = $user->id;
+                $profile->save();
                 Session::flash('msg_flash', CommonHelper::print_msg('success','Created success'));
-               return $this->index();
+                return $this->index();
                 //Redirect::to('users');
             }
            // else{

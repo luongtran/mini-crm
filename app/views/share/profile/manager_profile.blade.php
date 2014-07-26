@@ -104,30 +104,34 @@
                 <div class='form-group'>
                     <label>Address</label>
                     {{Form::text('address',$view->address,array('class'=>'form-control'))}}
+                    <span class="alert-danger">{{$errors->first('address')}}</span>
                 </div>
                 <div class='form-group'>
                     <label>Phone number</label>
-                     {{Form::text('address',$view->phone_number,array('class'=>'form-control'))}}
+                     {{Form::text('phone_number',$view->phone_number,array('class'=>'form-control'))}}
+                     <span class="alert-danger">{{$errors->first('phone_number')}}</span>
                 </div>
                 
                 <div class='form-group'>
                     <label>Company</label>
-                      {{Form::text('address',$view->company_name,array('class'=>'form-control'))}}
+                      {{Form::text('company_name',$view->company_name,array('class'=>'form-control'))}}
+                         <span class="alert-danger">{{$errors->first('company_name')}}</span>
                 </div>
                 
                   <div class="form-group">
                       <label>Avatar</label>
                       <div class="text-left">
-                                                <img width="200" src="http://placehold.it/150" class="avatar img-circle" alt="avatar">
+                                                <img width="200" src="{{$view->avatar}}" class="avatar img-circle" alt="avatar">
                                                 <h6>Upload a different photo...</h6>
-
                                                 <div class="input-group">
                                                   <span class="input-group-btn">
                                                         <span class="btn btn-primary btn-file">
                                                             Browse
-                                                            <input type="file" multiple="" name="avatar">
+                                                            <input type="file" name="avatar">
                                                         </span>
-                                                    </span>                                                                                      </div>
+                                                    </span>                         
+                                                   <span class="alert-danger">{{$errors->first('avatar')}}</span>
+                                                </div>
                          </div>
                   </div>  
                 

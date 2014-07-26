@@ -37,16 +37,16 @@ Route::get('/crm-logout',function(){
 });
 
 
-Route::get('/users/getList',array('uses'=>'UsersController@getList'));
-Route::get('/users/getAdd',array('uses'=>'UsersController@getAdd'));
-Route::post('/users/create',array('uses'=>'UsersController@store'));
-Route::get('/users/show/{id}',array('uses'=>'UsersController@show'));
-Route::get('/users/edit/{id}',array('uses'=>'UsersController@edit'));
-Route::post('/users/edit/{id}',array('uses'=>'UsersController@update'));
-Route::get('/users/del/{id}',array('uses'=>'UsersController@destroy'));
-Route::post('/users/action',array('uses'=>'UsersController@action'));
-Route::get('/users/filter',array('uses'=>'UsersController@filter'));
-Route::get('/users',array('uses'=>'UsersController@index'));
+Route::get('/manager/users/getList',array('uses'=>'UsersController@getList'));
+Route::get('/manager/users/getAdd',array('uses'=>'UsersController@getAdd'));
+Route::post('/manager/users/create',array('uses'=>'UsersController@store'));
+Route::get('/manager/users/show/{id}',array('uses'=>'UsersController@show'));
+Route::get('/manager/users/edit/{id}',array('uses'=>'UsersController@edit'));
+Route::post('/manager/users/edit/{id}',array('uses'=>'UsersController@update'));
+Route::get('/manager/users/del/{id}',array('uses'=>'UsersController@destroy'));
+Route::post('/manager/users/action',array('uses'=>'UsersController@action'));
+Route::get('/manager/users/filter',array('uses'=>'UsersController@filter'));
+Route::get('/manager/users',array('uses'=>'UsersController@index'));
 //Route::resource('users', 'UsersController');
 
 
@@ -80,6 +80,8 @@ Route::resource('manager/products', 'ProductsController');
 /*Group product of Manager*/
 Route::resource('manager/group-products', 'GroupProductsController');
 
+/*Purchase of Manager*/
+Route::resource('manager/purchases', 'PurchasesController');
 
 
 /*Support ticket of Manager */
@@ -91,6 +93,7 @@ Route::resource('manager/tickets', 'TicketsController');
 
 /* Ticket of Clietn - customer and employee */
 Route::post('client/customer/ticket-comment/{id}',array('uses'=>'TicketController@addComment'));
+Route::get('client/customer/ticket/filter',array('uses'=>'TicketController@filter'));
 Route::resource('client/customer/ticket', 'TicketController');
 
 
@@ -107,8 +110,11 @@ Route::post('manager/update-profile',array('uses'=>'ShareController@updateProfil
 
 
 /*-----------filter----------*/
+ Route::when('/', 'auth');
  Route::when('manager', 'auth');
  Route::when('manager/*', 'auth');
+ Route::when('client', 'auth');
+ Route::when('client/*', 'auth');
  
  /*client customer*/
  Route::when('client/customer/ticket', 'client_employee');

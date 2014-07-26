@@ -20,6 +20,7 @@ class TicketController extends \BaseController {
                 }
                 $list_ticket = DB::table('tickets')
                         ->where('tickets.company_id','=',$user_id)
+                        ->where('tickets.status','<>','close')
                         ->join('users','users.id','=','tickets.client_id')                        
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
@@ -177,7 +178,7 @@ class TicketController extends \BaseController {
                 $comment = new SupportTicket();
                 $comment->user_id = Auth::id();
                 $comment->ticket_id = $id;
-                $comment->content = Input::get('content');
+                $comment->content = CommonHelper::removeXSS(Input::get('content'));
                 $comment->save();
                 
                 $ticket = Ticket::where('code','=',$id)->first();
@@ -186,5 +187,46 @@ class TicketController extends \BaseController {
                 return Redirect::to('client/customer/ticket/'.$id);
             }
 	}
+        
+        
+        public function filter()
+        {
+            if(Input::get('key'))
+            {                             
+                 if(Auth::User()->group_users == User::EMPLOYEE)
+                {
+                  $user_id = Auth::User()->customer_id;   
+                }                
+                else if(Auth::User()->group_users == User::CUSTOMER)
+                {
+                  $user_id = Auth::id();   
+                }
+                $list_ticket = DB::table('tickets')
+                        ->where('tickets.company_id','=',$user_id)
+                        ->where('tickets.status','=',Input::get('key'))                        
+                        ->join('users','users.id','=','tickets.client_id')                        
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->get(); 
+                
+		$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket);                        
+            }
+        }
+         public function find()
+        {
+            if(Input::get('key_find'))
+            {
+                $list_ticket = DB::table('tickets')
+                        //->where('tickets.server_id','<>','0')
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->where('tickets.status','like','%'.Input::get('key_find').'%')
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->paginate(5); 
+                $parameter_panginate = ['key_find'=>Input::get('key_find')];
+		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
+                           ->with('parameter_panginate',$parameter_panginate);
+            }
+        }
 
 }

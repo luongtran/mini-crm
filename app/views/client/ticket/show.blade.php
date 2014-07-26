@@ -40,15 +40,7 @@
                                 <li>
                                     <a href="{{Request::root()}}/client/customer/ticket/create">
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-heart margin-iconic"></span>Favorite</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-cog margin-iconic"></span>Setting</a>
-                                </li>
+                                </li>                             
                             </ul>
                         </div>
 
@@ -74,10 +66,7 @@
                 <li><a href="#" title="Sample page 1">{{$ticket->code}}</a>
                 </li>
                 <li class="pull-right">
-                    <div class="input-group input-widget">
-
-                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
-                    </div>
+                    
                 </li>
             </ul>
 
@@ -87,7 +76,7 @@
 
 <div class="row">
 <?php 
-
+$status_bg="panel-success";
 if($ticket->status == 'new')
 {
   $status_bg="panel-fb tweet-bgcolor";
@@ -97,6 +86,10 @@ if($ticket->status == 'close')
   $status_bg="panel-fb gplus-color";   
 }
 else if($ticket->status == 'in-process')
+{
+  $status_bg="panel-fb instagram-color";   
+}
+else if($ticket->status == 'resolve')
 {
   $status_bg="panel-fb instagram-color";   
 }

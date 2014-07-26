@@ -49,12 +49,12 @@
                             <div class="form-group">
                                
                                 <label for="inputUsernameEmail">Email</label>
-                                 {{Form::text('email','',array('class' => 'form-control','id'=>'inputUsernameEmail'))}}  
+                                 {{Form::text('email','',array('class' => 'form-control','id'=>'inputUsernameEmail','required'))}}  
                             </div>
                             <div class="form-group">
                                 
                                 <label for="inputPassword">Password</label>
-								 {{Form::password('password',array('class' => 'form-control','id'=>'inputPassword'))}}                                  
+								 {{Form::password('password',array('class' => 'form-control','id'=>'inputPassword','required'))}}                                  
                             </div>
                             <div class="checkbox pull-left">
                                 <label>
@@ -64,17 +64,17 @@
                                 Log In
                             </button>
                         </form>
-                        <a class="forgotLnk" href="index.html"></a>
+                        <a class="forgotLnk" href="#"></a>
                         <div class="or-box">
                           
                             <center><span class="text-center login-with">Login or <b>Sign Up</b></span></center>
                             <div class="row">
                                 <div class="col-md-6 row-block">
-                                    <a href="index.html" class="btn btn-facebook btn-block">
+                                    <a href="#" class="btn btn-facebook btn-block">
                                         <span class="entypo-facebook space-icon"></span>Facebook</a>
                                 </div>
                                 <div class="col-md-6 row-block">
-                                    <a href="index.html" class="btn btn-twitter btn-block">
+                                    <a href="#" class="btn btn-twitter btn-block">
                                         <span class="entypo-twitter space-icon"></span>Twitter</a>
                                         
                                 </div>
@@ -82,10 +82,10 @@
                             </div>
                             <div style="margin-top:25px" class="row">
                                 <div class="col-md-6 row-block">
-                                    <a href="index.html" class="btn btn-google btn-block"><span class="entypo-gplus space-icon"></span>Google +</a>
+                                    <a href="#" class="btn btn-google btn-block"><span class="entypo-gplus space-icon"></span>Google +</a>
                                 </div>
                                 <div class="col-md-6 row-block">
-                                    <a href="index.html" class="btn btn-instagram btn-block"><span class="entypo-instagrem space-icon"></span>Instagram</a>
+                                    <a href="#" class="btn btn-instagram btn-block"><span class="entypo-instagrem space-icon"></span>Instagram</a>
                                 </div>
 
                             </div>
@@ -94,7 +94,7 @@
                         <div class="row-block">
                             <div class="row">
                                 <div class="col-md-12 row-block">
-                                    <a href="index.html" class="btn btn-primary btn-block">Create New Account</a>
+                                    <a href="#" class="btn btn-primary btn-block">Create New Account</a>
                                 </div>
                             </div>
                         </div>

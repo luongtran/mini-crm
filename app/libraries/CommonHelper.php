@@ -48,13 +48,22 @@ class CommonHelper {
     {
         $list= null;
         switch($key){
-            case'status':$list = array('new'=>'New','in-process'=>'In process','close'=>'Close');
+            case'status':$list = array('new'=>'New','in-process'=>'In process','resolve'=>'Resolve','close'=>'Close');
                 break;
             case'priority':$list = array('nomal'=>'Nomal','hight'=>'Hight','urgent'=>'Urgent');
                 break;
             default:break;
         }    
         return $list;        
+    }
+    
+    
+    public static function removeXSS($str)
+    {
+        $result="";
+        $vowels = array("<script>");        
+        $result = $onlyconsonants = str_replace($vowels, "", $str);
+        return $result;
     }
 
 

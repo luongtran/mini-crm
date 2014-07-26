@@ -90,7 +90,7 @@
 @foreach($list_ticket as $ticket)
 <div class="row">
 <?php 
-
+$status_bg="panel-success";
 if($ticket->status == 'new')
 {
   $status_bg="panel-fb tweet-bgcolor";
@@ -102,6 +102,10 @@ if($ticket->status == 'close')
 else if($ticket->status == 'in-process')
 {
   $status_bg="panel-fb instagram-color";   
+}
+else if($ticket->status == 'resolve')
+{
+ $status_bg="panel-fb gplus-color";   
 }
 ?>
 <div class="col-sm-6">

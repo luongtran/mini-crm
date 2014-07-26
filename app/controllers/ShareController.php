@@ -37,31 +37,27 @@ class ShareController extends \BaseController {
         }
         
         public function updateProfile()
-        {           
-            
-            
-            $rule = [];
+        {                      
+            $rule = ['avatar'=>'image','phone_number'=>'numeric'];
             $validation = Validator::make(Input::all(),$rule);
             if($validation->passes())
-            {
-                $profile = Profile::where('user_id',Auth::id())->first();
-                $big_image = Image::make(Input::file('avatar')->getRealPath());
-                               //  ->resize(100, 100, false);
-                
-                echo $big_image.'</br>';
-
-                $file = Input::file('avatar');
-                //$file->getClientOriginalName();
-                
-                var_dump($file);
-                die();
-                //$type = pathinfo($link, PATHINFO_EXTENSION);
-                $data = file_get_contents($link);
+            {                
+                $profile = Profile::where('user_id',Auth::id())->first();                
+                /*update image*/
+                $image =  Input::file('avatar');
+                if($image){
+                $path= $image->getRealPath();
+                $type = pathinfo($path, PATHINFO_EXTENSION);
+                $data = file_get_contents($path);
                 $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                
-                $profile->avatar = $big_image;
+                $profile->avatar = $base64;
+                }
+                /*end update image to base 64*/
                 $profile->update();
+                Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
+                return Redirect::back();
             }
+            Session::flash('msg_flash',  CommonHelper::print_msgs('error','Problem update'));
             return Redirect::back()->withInput()->withErrors($validation);
         }
         /**

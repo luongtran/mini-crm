@@ -68,7 +68,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/users" title="">Users</a>
+                <li><a href="{{Request::root()}}/manager/users" title="">Users</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
