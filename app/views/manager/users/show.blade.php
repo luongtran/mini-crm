@@ -58,29 +58,45 @@
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="Home">Home</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager/users" title="">Users</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="">View</a>
-                </li>
-                <li class="pull-right">                    
-                </li>
-            </ul>
+            {{$breadcumb}}
+            <!--END BREADCRUMB -->
             
-            <div class=''>      
-            {{$user->id}}
-            {{$user->username}}
-            </div>
-
+            
+<div class="row">
+    <!--col-4-->
+    <div class="col-lg-6">    
+        <div class="panel panel-success">
+            <div class="panel-heading"><h3 class='panel-title'>Show user</h3></div>
+            <div class="panel-body">                               
+                <label>Email</label>
+                <h4>{{$user->email}}</h4>
+                
+                <label>First name</label>
+                <h4>{{$user->first_name}}</h4>
+                
+                <label>Last name</label>
+                <h4>{{$user->last_name}}</h4>
+                
+                <label>Group user</label>
+                <h4>{{$user->group_name}}</h4>
+                
+                <label>Created at</label>
+                <h4>{{$user->created_at}}</h4>
+                
+                <label>Updated at</label>
+                <h4>{{$user->updated_at}}</h4>
+                
+                <label>Last Login</label>
+                <h4>{{$user->last_login}}</h4>
+                
+                <label>Count access</label>
+                <h4>{{$user->count_access}}</h4>
+                              
+                <a href="{{Request::root()}}/manager/users/{{$user->id}}/edit">  {{Form::submit(trans('common.button.edit'),array('class'=>'btn btn-primary'))}}  </a>
+            </div>        
+        </div>
+        
+    </div>
+    <!--end col-4-->
+</div>
 @stop

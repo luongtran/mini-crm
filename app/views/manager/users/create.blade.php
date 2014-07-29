@@ -58,25 +58,9 @@
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="Home">Home</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/users" title="">Users</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                <li><a href="#" title="">Create</a>
-                </li>
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
+            {{$breadcumb}}
+            <!--END BREADCRUMB -->
+            
             
 <div class="row">
     <!--col-4-->
@@ -85,39 +69,40 @@
             <div class="panel-heading"><h3 class='panel-title'>Create user</h3></div>
             <div class="panel-body">               
                 {{Session::get('msg_flash')}}   
-            {{ Form::open(array('url' => 'users/create','method'=>'post','role'=>'form','id'=>'frm-add')) }}
+            {{ Form::open(array('url' => 'manager/customers','method'=>'post','role'=>'form','id'=>'myform','enctype'=>'multipart/form-data')) }}               
                 <div class="form-group">
-                    {{Form::label('Username')}}
-                    {{Form::text('username',Input::old('username'),array('class'=>'form-control'))}}
-                      <span class="alert-danger">{{$errors->first('username')}}</span>
+                    {{Form::label('Email')}}
+                    {{Form::text('email',Input::old('email'),array('class'=>'form-control','required'))}}
+                    <span class="alert-danger">{{$errors->first('email')}}</span>
                 </div>
+            
                 <div class="form-group">
                     {{Form::label('Password')}}                    
-                    {{ Form::input('password', 'password',null,array('class'=>'form-control')) }}
+                    {{ Form::input('password', 'password',null,array('class'=>'form-control','required')) }}
                     <span class="alert-danger">{{$errors->first('password')}}</span>
                 </div>
             
                 <div class="form-group">
                     {{Form::label('Password confirm')}}                    
-                    {{ Form::input('password', 'password_confirmation',null,array('class'=>'form-control')) }}
+                    {{ Form::input('password', 'password_confirmation',null,array('class'=>'form-control','required')) }}
+                    <span class="alert-danger">{{$errors->first('password_confirmation')}}</span>
                 </div>
-            
+                                      
                 <div class="form-group">
-                    {{Form::label('Email')}}
-                    {{Form::text('email',Input::old('email'),array('class'=>'form-control'))}}
-                    <span class="alert-danger">{{$errors->first('email')}}</span>
+                      {{Form::label('First name')}}
+                      {{Form::text('first_name',Input::old('first_name'),array('class'=>'form-control','required'))}}
+                      <span class="alert-danger">{{$errors->first('first_name')}}</span>
                 </div>
-                
+                <div class="form-group">
+                      {{Form::label('Last name')}}
+                      {{Form::text('last_name',Input::old('last_name'),array('class'=>'form-control','required'))}}
+                      <span class="alert-danger">{{$errors->first('last_name')}}</span>
+                </div>
+                            
                 <div class="form-group">
                     {{Form::label('Group users')}}
                     {{ Form::select('group_users', $group_users , Input::old('group_users'),array('class'=>'form-control'))}}                 
-                </div>
-            
-                <div class="form-group">
-                      {{Form::label('First name')}}
-                      {{Form::text('first_name',Input::old('first_name'),array('class'=>'form-control'))}}
-                      <span class="alert-danger">{{$errors->first('first_name')}}</span>
-                  </div>
+                </div>            
             
                 <div class="form-group">
                     {{Form::label('Active')}}
@@ -125,9 +110,10 @@
                 </div>
                         
                 <div class="form-group">                      
-                    {{Form::submit('Create',array('class'=>'btn btn-primary','onclick'=>'postAdd()'))}}                    
+                    {{Form::submit(trans('common.button.create'),array('class'=>'btn btn-primary'))}}                    
                 </div>
             {{ Form::close() }}
+            
             </div>        
         </div>
         

@@ -127,52 +127,13 @@ else if($ticket->status == 'resolve')
                                 <div class="social-profile">
                                     <h3> <a class="tweet-link" href="#">{{$ticket->first_name.' '.$ticket->last_name}}</a>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                    </h3>
-                                    <p>{{$ticket->description}}</p>
+                                    </h3>                                   
                                 </div>
-
                                 <div class="clearfix"></div>
                                 <hr>
                                 <div class="social-content">
-                                    
-                                    <ul>
-                                        <?php $list_comment = DB::table('support_tickets')->join('tickets','tickets.code','=','support_tickets.ticket_id')
-                                                ->join('users','users.id','=','support_tickets.user_id')
-                                                ->where('support_tickets.ticket_id','=',$ticket->code)
-                                                ->orderBy('support_tickets.id','asc')
-                                                ->select(DB::RAW('support_tickets.content,support_tickets.created_at,users.first_name,users.last_name'))
-                                                ->paginate(5);
-                                        ?>
-                                        @foreach($list_comment as $comment)
-                                        <li>
-                                            <img class="img-social-content img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/21.jpg">
-                                            <span><a class="tweet-link" href="#">{{$comment->first_name}} {{$comment->last_name}}</a> 
-                                                 {{$comment->content}}
-                                                <br>
-                                                <b>{{$comment->created_at}}</b>
-                                            </span>
-
-                                        </li>
-                                        @endforeach
-
-                                    </ul>
-
-
+                              
                                 </div>
-
-
-
-                                <hr>
-                                {{Form::open(array('url'=>'manager/tickets/add-comment/'.$ticket->code,'method'=>'post'))}}
-                                    <div class="input-group">
-                                        <input type="text" name="content" placeholder="Add a comment.." class="form-control">
-                                        <div class="input-group-btn">                                            
-                                            <button type="submit" class="btn"><i class="glyphicon glyphicon-share"></i>
-                                            </button>
-                                        </div>                                        
-                                    </div>
-                               {{Form::close()}}
-
                             </div>
                         </div>
 </div>

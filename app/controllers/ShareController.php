@@ -19,7 +19,7 @@ class ShareController extends \BaseController {
                         ->where('users.id',Auth::id())
                         ->first(['users.email','users.created_at','users.updated_at',
                                 'users.first_name','users.last_name','profiles.address','profiles.company_name',
-                                'profiles.phone_number','profiles.avatar'
+                                'profiles.phone_number','profiles.avatar','users.display_name'
                             ]);
                   return View::make('share.profile.manager_profile')->with('view',$view);
                 }
@@ -38,28 +38,36 @@ class ShareController extends \BaseController {
         
         public function updateProfile()
         {                      
-            $rule = ['avatar'=>'image','phone_number'=>'numeric'];
+            $rule = ['avatar'=>'image','phone_number'=>'numeric','display_name'=>'required|min:4'];
             $validation = Validator::make(Input::all(),$rule);
             if($validation->passes())
             {                
                 $profile = Profile::where('user_id',Auth::id())->first();                
                 /*update image*/
-                $image =  Input::file('avatar');
+                $image =  Input::file('avatar');                
                 if($image){
                 $path= $image->getRealPath();
-                $type = pathinfo($path, PATHINFO_EXTENSION);
+                $type= $image->getClientOriginalExtension();
                 $data = file_get_contents($path);
-                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                $profile->avatar = $base64;
+                $base64 = 'data:image/'.$type .';base64,'.base64_encode($data);
+                $profile->avatar = $base64;                   
                 }
-                /*end update image to base 64*/
+                /*end update image to base 64*/     
+                $profile->address = Input::get('address');
+                $profile->phone_number = Input::get('phone_number');
                 $profile->update();
+                
+                $user = User::where('id','=',$profile->user_id)->first();                                
+                $user->display_name = Input::get('display_name');
+                $user->update();
+                
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
                 return Redirect::back();
             }
             Session::flash('msg_flash',  CommonHelper::print_msgs('error','Problem update'));
             return Redirect::back()->withInput()->withErrors($validation);
         }
+        
         /**
 	 * Show the form for creating a new resource.
 	 * GET /share/create
@@ -87,7 +95,7 @@ class ShareController extends \BaseController {
                 return Redirect::to('client/customer');        
                 }
                 else if(Auth::user()->group_users == User::STAFF){
-                return Redirect::to('manager');        
+                return Redirect::to('manager/tickets');        
                 }                
                 else if(Auth::user()->group_users == User::MANAGER){
                 return Redirect::to('manager');        

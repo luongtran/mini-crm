@@ -165,6 +165,28 @@ class TicketsController extends \BaseController {
                 $ticket->support_type = Input::get('support_type');
                 $ticket->priority = Input::get('priority');
                 $ticket->update();
+                
+                if(Input::get('status')=='close')
+                {
+                  /*send email to customer*/
+                    $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->first();                
+                    $email = new EmailController();
+                    
+                    $message = array(
+                        'text'=>'<p>Thank you!, we happy when served customer</p>
+                        </br><a href="'.Request::root().'/client/customer/races/'.$id.'">Please Race ticket at </a>',
+                        'subject'=>'Close ticket '.$id,
+                        'to_email'=>$infor_client->email,
+                        'to_name'=>$infor_client->display_name
+                        );    
+                    
+                    if($email->manager_sendEmail($message))
+                    {
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
+                    }
+                    /*end send mail*/
+                }
+                
                 return Redirect::back();
 	}
 

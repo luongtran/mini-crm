@@ -1,1 +1,3 @@
-C:\xampp\htdocs\project\mini-crm\app/views/customers/index.blade.php
+@section('content')
+{{Session::get('msg_flash')}}
+@stop

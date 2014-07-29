@@ -17,14 +17,7 @@
                          <div class="devider-vertical visible-lg"></div>
                          <div class="btn-group btn-wigdet pull-right visible-lg">
                           
-                             <form role='form' style="margin-top: 5px">
-                                     <div class="btn-group btn-wigdet pull-left visible-lg">
-                                        <input type='text' placeholder="Search..."  class='form-control'/>                                       
-                                     </div>
-                                     <div class="btn-group btn-wigdet pull-left visible-lg">
-                                         <input type='button' class='form-control' value="Search"/>                                       
-                                     </div>
-                                </form>                             
+                             @include('manager.users.form_search')                           
                         </div>
 
                     </div>
@@ -32,17 +25,8 @@
                         <div class="devider-vertical visible-lg"></div>
                         <div class="btn-group btn-wigdet pull-right visible-lg">
                             <div class="btn">
-                                Widget</div>
-                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li>
-                                    <a href="{{Request::root()}}/users/getAdd">
-                                        <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>
-                            </ul>
+                                <a href="{{Request::root()}}/manager/users/create">Create user</a>
+                            </div>
                         </div>
 
 
@@ -52,24 +36,10 @@
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="Home">Home</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="">Users</a>
-                </li>
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
+            {{$breadcumb}}
+            <!-- END BREADCRUMB -->
 <div class="col-sm-12">
-     {{ Form::open(array('url' => 'users/action','method'=>'post','role'=>'form','id'=>'frm-add')) }}                                                               
+     {{ Form::open(array('url' => 'manager/users/action','method'=>'post','role'=>'form','id'=>'frm-add')) }}                                                               
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
@@ -83,7 +53,7 @@
                                    <div style="margin-right:10px" class="btn-group pull-left">
                                       
                                         <div class="btn-group pull-left">  
-                                             {{ Form::select('action',array('pending'=>'Pending','active'=>'Active','del'=>'Delete') ,'hide' ,array('class'=>'form-control'))}}                                   
+                                             {{ Form::select('action',array('active'=>'Active','pending'=>'Pending','trash'=>'Trash','del'=>'Delete') ,'hide' ,array('class'=>'form-control'))}}                                   
                                         </div>
                                         <div class="btn-group pull-left">      
                                         <button style="margin-right:10px" type="submit" data-color="#39B3D7" data-opacity="0.95" class="btn button test pull-left">
@@ -98,21 +68,8 @@
                                      <div style="margin-right:10px" class="btn-group pull-right">
                                       
                                         <div class="btn-group pull-right">  
-                                         
-                                            <div class="btn">
-                                                Filter</div>
-                                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul role="menu" class="dropdown-menu">
-                                                @foreach($group_name as $group)
-                                                <li> 
-                                                    <a href="{{Request::root()}}/users/filter?field_filter={{$group->name}}">
-                                                        <span class="entypo-plus-circled margin-iconic"></span>{{$group->name}}</a>
-                                                </li>
-                                                @endforeach
-                                            </ul>                                      
+                                         @include('manager.users.form_filter')
+                                                                  
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +86,7 @@
                                     <tr class="unread">
                                         <th class="small-col">  
                                         </th>
-                                        <th>First name</th>
+                                        <th>Display name</th>
                                         <th>Email</th>
                                         <th>Group users</th>
                                         <th>Create at</th>
@@ -142,7 +99,7 @@
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/users/show/{{$users->id}}">{{$users->first_name}}</a></td>
+                                        <td><a href="{{Request::root()}}/manager/users/{{$users->id}}">{{$users->fullname}}</a></td>
                                         <td class="subject">
                                            {{$users->email}}
                                         </td>
@@ -154,10 +111,10 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/users/edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
+                                            <li><a href="{{Request::root()}}/manager/users/{{$users->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/users/del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a href="{{Request::root()}}/manager/users/del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -176,8 +133,8 @@
                             </div>
             {{Form::close()}}
                                 <div class="">                                   
-                                    <div class="btn-group pull-left">                                       
-                                    <?php echo $list->appends(array('field_filter' =>$field_filter))->links(); ?>
+                                    <div class="btn-group pull-left">     
+                                          <?php echo $list->appends(array('field_filter' =>$field_filter))->links(); ?>                                        
                                     </div>
                                 </div>
                             <!-- /.table-responsive -->

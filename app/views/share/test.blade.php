@@ -1,4 +1,3 @@
-
 <p>{{Session::get('msg_flash')}}</p>
 <form action="{{Request::root()}}/debug/email" method="post">
     <p>Subject:<input type="text" name="subject"/></p>

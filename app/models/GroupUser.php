@@ -12,5 +12,10 @@ class GroupUser extends Eloquent {
 	protected $table = 'group_users';
 
 	//public static $fillable=array();
-        
+        /*Relashionship*/
+//        public function user()
+//        {
+//            return $this->hasOne('Profile','user_id');
+//        }
+        /*end Relashionship*/
 }

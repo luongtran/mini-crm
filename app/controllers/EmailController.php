@@ -100,7 +100,5 @@ class EmailController extends \BaseController {
           Config::set('mail.encryption','tls');
           Config::set('mail.username','abulayla');    
           Config::set('mail.password','Xqi1llvM:nx8');  
-            
-      
         }
 }

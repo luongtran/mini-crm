@@ -8,15 +8,29 @@ class UsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+        public function __construct()
+        {            
+            //Common::globalXssClean();  
+        }             
 	public function index()
 	{
-             //$list = User::paginate(5);  
+             /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/users','title'=>'User'],
+			['link'=>'#','title'=>'Show']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            /*breadcumb*/              
              $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->orderBy('users.id','desc')
-                     ->select(DB::RAW('users.id,users.first_name,users.email,users.activated,group_users.name,users.created_at'))
+                     ->where('users.trash','<>',1)
+                     ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
                      ->paginate(5);
              $group_users = GroupUser::all();
-             $this->layout->content = View::make('manager.users.index')->with('list',$list)->with('group_name',$group_users);
+             $this->layout->content = View::make('manager.users.index')
+                     ->with('list',$list)
+                     ->with('group_name',$group_users)
+                     ->with('breadcumb',$breadcumb);
 	}
        
                
@@ -26,45 +40,40 @@ class UsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function getAdd()
-	{
-	    //return View::make('users.create')->render();
-            //return Response::view('users.create');  
+	public function create()
+	{	
+            /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/users','title'=>'User'],
+			['link'=>'#','title'=>'Create']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            /*breadcumb*/            
             $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('manager.users.create')->with('group_users',$group_users);
+            $this->layout->content = View::make('manager.users.create')
+                    ->with('group_users',$group_users)
+                    ->with('breadcumb',$breadcumb);            
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /users
-	 *
-	 * @return Response
-	 */
 	public function store()
 	{          
-            $validation = Validator::make(Input::all(),User::$rule);
+            $validation = Validator::make(Input::all(),User::$rule_create_users);
             if($validation->passes()){                
                 $user = new User;
                 $user->fill(Input::all());
+                $user->group_users = Input::get('group_users');
+                $user->manager_id = Auth::id();
                 $user->password = Hash::make(Input::get('password'));                                
                 $user->save();
                 $profile = new Profile();
-                $profile->user_id = $user->id;
+                $profile->user_id = $user->id;                
                 $profile->save();
-                Session::flash('msg_flash', CommonHelper::print_msg('success','Created success'));
-                return $this->index();
-                //Redirect::to('users');
-            }
-           // else{
-              Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
-               // return $this->getAdd(); 
-               // return Response::view('users.create');            
-              // return  View::make('users.create')->render();
-                // return View::back()->withInput();
-              //Redirect::back->withInput()->withErrors($validation);
-              return Redirect::back()->withInput()->withErrors($validation);
-               // return Response::json($user->toArray());;
-           // }
+                Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
+                return Redirect::route('manager.users.index');
+            }          
+            //Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
+            Session::flash('msg_flash', CommonHelper::print_msg('error','Please check all field'));
+            return Redirect::back()->withInput()->withErrors($validation);         
 	}
 
 	/**
@@ -76,8 +85,17 @@ class UsersController extends \BaseController {
 	 */
 	public function show($id)
 	{
+            /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/users','title'=>'User'],
+			['link'=>'#','title'=>'Show']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            /*breadcumb*/   
 		$user = User::find($id);                    
-                $this->layout->content = View::make('manager.users.show')->with('user',$user);
+                $this->layout->content = View::make('manager.users.show')
+                        ->with('user',$user)
+                        ->with('breadcumb',$breadcumb);
 	}
 
 	/**
@@ -89,9 +107,23 @@ class UsersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$user = User::find($id);             
+              /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/users','title'=>'User'],
+			['link'=>'#','title'=>'Edit']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            /*breadcumb*/    
+            
+		$user = User::find($id);
+                if($user)
+                {
                 $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
-                $this->layout->content = View::make('manager.users.edit')->with('user',$user)->with('group_users',$group_users);
+                $this->layout->content = View::make('manager.users.edit')
+                        ->with('user',$user)
+                        ->with('group_users',$group_users)
+                        ->with('breadcumb',$breadcumb);
+                }
 	}
 
 	/**
@@ -105,22 +137,24 @@ class UsersController extends \BaseController {
 	{
             $rule=array('password'=>'confirmed');
 	    $validation = Validator::make(Input::all(),$rule);
-            if($validation->passes()){                
+            if($validation->passes()){                                
                 $user = User::find($id);
-                if(Input::get('password')){
-                $user->password = Hash::make(Input::get('password'));                
-                }
-                $user->group_users = Input::get('group_users');
-                $user->first_name = Input::get('first_name');
-                $user->activated = Input::get('activated');     
-                $user->update();
-                Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
-                return $this->index();
-                     
+                if($user)
+                {                
+                    if(Input::get('password')){
+                        $user->password = Hash::make(Input::get('password'));                
+                    }
+                    $user->group_users = Input::get('group_users');
+                    $user->first_name = Input::get('first_name');
+                    $user->last_name = Input::get('last_name');
+                    $user->activated = Input::get('activated');     
+                    $user->update();
+                    Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));                    
+                }                
+                return Redirect::route('manager.users.index');
             }
               Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
-              return Redirect::back()->withInput()->withErrors($validation);
-       
+              return Redirect::back()->withInput()->withErrors($validation);       
 	}
         
 	/**
@@ -132,14 +166,22 @@ class UsersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-            User::find($id)->delete(); 
-            Session::flash('msg_flash', CommonHelper::print_msg('success','Have deleted!'));
-            return Redirect::to('users');
+            $user =  User::where('trash',1)->where('id',$id)->first();            
+            if($user)
+            {  
+                $user->delete();
+                Session::flash('msg_flash', CommonHelper::print_msg('success','You have deleted success!'));
+            }
+            else
+            {
+                Session::flash('msg_flash', CommonHelper::print_msg('warning',"You can't delete this record ".$id));
+            }
+            return Redirect::route('manager.users.index');
 	}
         
-        public function changeStatus($id,$type){
+        public function update_feild($id,$feild,$value){
             $user = User::find($id);
-            $user->activated = $type;
+            $user->$feild = $value;
             $user->update();            
             Session::flash('msg_flash', CommonHelper::print_msg('success','Changed status'));
         }
@@ -152,21 +194,26 @@ class UsersController extends \BaseController {
                 {
                      case'active': 
                         foreach($list_check as $user=>$id){
-                         $this->changeStatus($id,1);
+                         $this->update_feild($id,'activated',1);
                         } 
                          break;   
                      case'pending': 
                           foreach($list_check as $user=>$id){
-                          $this->changeStatus($id,0);
+                          $this->update_feild($id,'activated',0);
                         } 
-                         break;   
+                         break;  
+                     case'trash':
+                        foreach($list_check as $user=>$id){
+                         $this->update_feild($id,'trash',1);
+                        } 
+                        break;    
                      case'del':
                         foreach($list_check as $user=>$id){
                          $this->destroy($id);
                         } 
                         break;
                 }
-                return Redirect::to('users');
+                return Redirect::to('manager/users');
            }
           else{                
                 Session::flash('msg_flash', CommonHelper::print_msg('warning','Please choose users'));
@@ -176,16 +223,61 @@ class UsersController extends \BaseController {
         
         public function filter()
         {
+             /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/users','title'=>'User'],
+			['link'=>'#','title'=>'Edit']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            /*breadcumb*/  
+            
+            
             $filter = Input::get('field_filter');
             if($filter){             
              $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('group_users.name','=',$filter)
+                     ->where('users.trash','=',0)
                      ->orderBy('users.id','desc')
-                     ->select(DB::RAW('users.id,users.first_name,users.email,users.activated,group_users.name,users.created_at'))
-                     ->paginate(3);
+                     ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
+                     ->paginate(5);
+             if(Input::get('field_filter')=='trash'){
+                $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+                     ->where('trash','=',1)
+                     ->orderBy('users.id','desc')
+                     ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
+                     ->paginate(5);  
+             }
+             
              $group_users = GroupUser::all();
              $this->layout->content = View::make('manager.users.filter')->with('list',$list)->with('group_name',$group_users)
-                     ->with('field_filter',$filter);
+                     ->with('field_filter',$filter)
+                     ->with('breadcumb',$breadcumb);
+            }
+        }
+        
+        public function find()
+        {
+             /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/users','title'=>'User'],
+			['link'=>'#','title'=>'Edit']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            /*breadcumb*/  
+            
+            $key_find = Input::get('key_find');
+            if($key_find){             
+             $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+                     ->where('first_name','like','%'.$key_find.'%')
+                     ->orderBy('users.first_name','desc')
+                     ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
+                     ->paginate(5);
+             $group_users = GroupUser::all();
+             
+             $this->layout->content = View::make('manager.users.filter')->with('list',$list)->with('group_name',$group_users)
+                     ->with('field_filter',$key_find)
+                     ->with('breadcumb',$breadcumb);
+             
             }
         }
 

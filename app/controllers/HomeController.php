@@ -1,8 +1,8 @@
 <?php
 
 class HomeController extends BaseController {
-
-	/*
+    protected $layout="home.default";
+    /*
 	|--------------------------------------------------------------------------
 	| Default Home Controller
 	|--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function index()
 	{
-		return View::make('hello');
+	   $this->layout->content = View::make('home.index');	
 	}
 
 }

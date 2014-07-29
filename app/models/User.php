@@ -23,21 +23,44 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
-        protected $fillable = array('username','email','activated','group_users','first_name','last_name','adress');
-        public static $rule = array('username'=>'required|unique:users',
-                                    'password'=>'required|confirmed',
-                                    'email'=>'required|email|unique:users',
-                                    'first_name'=>'required'
-                                    );
+        protected $fillable = array('email','activated','first_name','last_name');
+        public static $rule_create_users = ['password'=>'required|confirmed|min:4',
+                                            'password_confirmation'=>'required:4',
+                                            'email'=>'required|email|unique:users',
+                                            'first_name'=>'required|min:3|max:20',
+                                            'last_name'=>'required|min:3|max:20'
+                                            ];
+        
+        public static $rule_create_customers = ['password'=>'required|confirmed|min:4',
+                                            'password_confirmation'=>'required:4',
+                                            'email'=>'required|email|unique:users',
+                                            'first_name'=>'required|min:3|max:20',
+                                            'last_name'=>'required|min:3|max:20',
+                                            'company_name'=>'required|min:3|max:60',
+                                            'phone_number'=>'required',
+                                            'employee_count'=>'required|numeric',
+                                            'contact_employee_company'=>'required|min:6|max:25',
+                                            'avatar'=>'image'
+                                            ];
         /**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
+       
+        
 	protected $hidden = array('password');
         
-      
-    
+        /*Relashionship*/
+        public function profile()
+        {
+            return $this->hasOne('Profile','id');
+        }
+        public function ticket()
+        {
+            return $this->hasOne('Ticket');
+        }
+        /*end Relashionship*/
         public function getRememberToken()
         {   
         return $this->remember_token;

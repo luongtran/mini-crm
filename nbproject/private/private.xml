@@ -3,19 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/CustomersController.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/UsersController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/config/session.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/users/edit.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/routes.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/SupportTicketsController.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/EmailController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/filters.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/users/create.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/client/layouts/topNavbar.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/login.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/libraries/CommonHelper.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/config/mail.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/controllers/TicketController.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/client/ticket/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/sideMenu.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/layouts/topNavbar.blade.php</file>
             <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/User.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/share/profile/manager_profile.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/client/employee/show.blade.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/models/Ticket.php</file>
-            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/tickets/show.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/users/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/project/mini-crm/app/views/manager/users/show.blade.php</file>
         </group>
     </open-files>
 </project-private>

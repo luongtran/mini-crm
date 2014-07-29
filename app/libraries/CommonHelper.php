@@ -52,6 +52,8 @@ class CommonHelper {
                 break;
             case'priority':$list = array('nomal'=>'Nomal','hight'=>'Hight','urgent'=>'Urgent');
                 break;
+            case'level_comment':$list = array('happy'=>'Happy','unhappy'=>'Unhappy','other'=>'Other');
+                break;
             default:break;
         }    
         return $list;        
@@ -62,10 +64,28 @@ class CommonHelper {
     {
         $result="";
         $vowels = array("<script>");        
-        $result = $onlyconsonants = str_replace($vowels, "", $str);
+        $result = str_replace($vowels, "", $str);
         return $result;
     }
-
+    
+    public static function breadcumb($array)
+    {
+        $str=  '<ul id="breadcrumb">
+                <li>
+                    <span class="entypo-home"></span>
+                </li>
+                <li><i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li><a href="'.Request::root().'" title="Home">Home</a>
+                </li>';        
+                foreach($array as $nav):                    
+                $str.= '<li><i class="fa fa-lg fa-angle-right"></i></li>';                
+                $str.= '<li><a href="'.Request::root().'/'.$nav['link'].'" title="">'.$nav['title'].'</a></li>';                
+                endforeach;
+                
+        $str.= '<li class="pull-right"></li></ul>';                      
+        return $str;
+    }
 
     //end class
 }

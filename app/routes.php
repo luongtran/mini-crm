@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/',array('uses'=>'HomeController@index'));
 
 
 Route::get('/manager', function()
@@ -36,31 +33,19 @@ Route::get('/crm-logout',function(){
     return View::make('share.login');
 });
 
-
-Route::get('/manager/users/getList',array('uses'=>'UsersController@getList'));
-Route::get('/manager/users/getAdd',array('uses'=>'UsersController@getAdd'));
-Route::post('/manager/users/create',array('uses'=>'UsersController@store'));
-Route::get('/manager/users/show/{id}',array('uses'=>'UsersController@show'));
-Route::get('/manager/users/edit/{id}',array('uses'=>'UsersController@edit'));
-Route::post('/manager/users/edit/{id}',array('uses'=>'UsersController@update'));
+/*User of manager */
+Route::get('/manager/users/find',array('uses'=>'UsersController@find'));
 Route::get('/manager/users/del/{id}',array('uses'=>'UsersController@destroy'));
 Route::post('/manager/users/action',array('uses'=>'UsersController@action'));
 Route::get('/manager/users/filter',array('uses'=>'UsersController@filter'));
-Route::get('/manager/users',array('uses'=>'UsersController@index'));
-//Route::resource('users', 'UsersController');
+Route::resource('/manager/users', 'UsersController');
 
 
 /*Customer of Manager*/
 // /-----------/ //
-Route::get('/manager/customer',array('as'=>'manager-customer','uses'=>'CustomersController@index'));
-Route::get('/manager/customer-create',array('as'=>'manager-customer-create','uses'=>'CustomersController@create'));
-Route::post('/manager/customer-create',array('as'=>'manager-customer-create','uses'=>'CustomersController@store'));
-Route::get('/manager/customer-edit/{id}',array('as'=>'manager-customer-edit','uses'=>'CustomersController@edit'));
-Route::post('/manager/customer-edit/{id}',array('as'=>'manager-customer-edit','uses'=>'CustomersController@update'));
-Route::get('/manager/customer-del/{id}',array('as'=>'manager-customer-del','uses'=>'CustomersController@destroy'));
-Route::get('/manager/customer-show/{id}',array('as'=>'manager-customer-show','uses'=>'CustomersController@show'));
-Route::get('/manager/customer-find',array('as'=>'manager-customer-find','uses'=>'CustomersController@find'));
-//Route::p('/manager/customer-find/{field}/{key}', 'CustomersController@find');
+Route::get('/manager/customers-del/{id}',array('as'=>'manager-customer-del','uses'=>'CustomersController@destroy'));
+Route::get('/manager/customers-find',array('as'=>'manager-customer-find','uses'=>'CustomersController@find'));
+Route::resource('/manager/customers', 'CustomersController');
 
 /*Employee of Manager*/
 // /-----------/ //
@@ -109,12 +94,18 @@ Route::get('manager/view-profile',array('uses'=>'ShareController@viewProfile'));
 Route::post('manager/update-profile',array('uses'=>'ShareController@updateProfile'));
 
 
+/*View race*/
+
+Route::get('client/customer/races/{id}', array('uses'=>'RacesController@show'));
+Route::post('client/customer/races/{id}', array('uses'=>'RacesController@addComment'));
+
 /*-----------filter----------*/
  Route::when('/', 'auth');
  Route::when('manager', 'auth');
  Route::when('manager/*', 'auth');
  Route::when('client', 'auth');
  Route::when('client/*', 'auth');
+ Route::when('client/customer/races', 'auth');
  
  /*client customer*/
  Route::when('client/customer/ticket', 'client_employee');

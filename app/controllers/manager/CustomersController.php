@@ -7,8 +7,19 @@ class  CustomersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+        public function __construct()
+        {            
+            //Common::globalXssClean();  
+        }
 	public function index()
 	{          
+             /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/customers','title'=>'User'],
+			['link'=>'#','title'=>'Create']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            
             $list= DB::table('profiles')
                  ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                  ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
@@ -16,7 +27,9 @@ class  CustomersController extends \BaseController {
                  ->orderBy('users.id','desc')
                  ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                  ->paginate(5);            
-            $this->layout->content = View::make('manager.customers.index')->with('list',$list);
+            $this->layout->content = View::make('manager.customers.index')
+                    ->with('breadcumb',$breadcumb)
+                    ->with('list',$list);
 	}
 
 	/**
@@ -26,9 +39,16 @@ class  CustomersController extends \BaseController {
 	 * @return Response
 	 */
 	public function create()
-	{		
+	{
+            /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/customers','title'=>'User'],
+			['link'=>'#','title'=>'Create']
+                     ];                    
+            $breadcumb = CommonHelper::breadcumb($listNav);
+            
             $sector = DB::table('sector')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('manager.customers.create')->with('sector',$sector);
+            $this->layout->content = View::make('manager.customers.create')->with('sector',$sector)->with('breadcumb',$breadcumb);
 	}
 
 	/**
@@ -39,26 +59,24 @@ class  CustomersController extends \BaseController {
 	 */
 	public function store()
 	{
-            $validation = Validator::make(Input::all(),Profile::$rule);
+            $validation = Validator::make(Input::all(),User::$rule_create_customers);
             if($validation->passes()){
                 $customer = new User;
                 $customer->fill(Input::all());
                 $customer->password = Hash::make(Input::get('password'));
                 $customer->group_users = User::CUSTOMER;
-                if(Auth::user()->group_users == User::STAFF)
-                {
-                 $customer->staff_id = Auth::id();  
-                }
-                else if(Auth::user()->group_users == User::MANAGER)
-                {
+                if(Auth::user()->group_users == User::STAFF)               
+                 $customer->staff_id = Auth::id();                
+                else if(Auth::user()->group_users == User::MANAGER)              
                  $customer->manager_id = Auth::id();  
-                }
+               
                 $customer->save();
                 
                 $profile = new Profile;
                 $profile->user_id = $customer->id;
                 $profile->fill(Input::all());          
                 $profile->save();
+                
                 /*send email to customer*/
                 $email = new EmailController();
                 $message = array(

@@ -60,31 +60,10 @@
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><a href="{{Request::root()}}/manager" title="Sample page 1">Manager</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager/customer" title="Sample page 1">Customer</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Create</a>
-                </li>
-                <li class="pull-right">
-                    <div class="input-group input-widget">
-
-                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
-                    </div>
-                </li>
-            </ul>
-
+            {{$breadcumb}}
             <!-- END OF BREADCRUMB -->
 
-            {{Form::open(array('method'=>'post','url'=>'manager/customer-create'))}}
+            {{Form::open(array('method'=>'post','url'=>'manager/customers'))}}
             <div class="content-wrap">
                 <div class="row">                   
                     <div class="col-sm-10">
@@ -107,39 +86,40 @@
 
                             <div class="body-nest" id="basic">
                                 <div class="form_center">
-                                        <div class="form-group">
-                                            <label for="">Email address <span class='val-star'>(*)</span></label>
-                                            {{Form::text('email',Input::old('email'),array('placeholder'=>'Enter email','class'=>'form-control'))}}                                            
-                                            <span class="alert-danger">{{$errors->first('email')}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Password <span class='val-star'>(*)</span></label>
-                                             {{Form::password('password',array('placeholder'=>'Enter password','class'=>'form-control'))}}
-                                             <span class="alert-danger">{{$errors->first('password')}}</span>
-                                            </div>
-                                        <div class="form-group">
-                                            <label for="">Password confirm <span class='val-star'>(*)</span></label>
-                                             {{Form::password('password_confirmation',array('placeholder'=>'Enter password confirm','class'=>'form-control'))}}  
-                                             <span class="alert-danger">{{$errors->first('password_confirmation')}}</span>
-                                        </div>
-                                      
-                                        <div class="form-group">
-                                            <label for="">First name <span class='val-star'>(*)</span></label>
-                                            {{Form::text('first_name',Input::old('first_name'),array('placeholder'=>'Enter first name','class'=>'form-control'))}}                                            
-                                            <span class="alert-danger">{{$errors->first('first_name')}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Last name</label>
-                                            {{Form::text('last_name',Input::old('last_name'),array('placeholder'=>'Enter last name','class'=>'form-control'))}}                                                                                        
-                                        </div>
+                                       <div class="form-group">
+                            {{Form::label('Email')}} <span class='val-star'>(*)</span>
+                    {{Form::text('email',Input::old('email'),array('class'=>'form-control','required'))}}
+                        <span class="alert-danger">{{$errors->first('email')}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('Password')}} <span class='val-star'>(*)</span>                   
+                        {{ Form::input('password', 'password',null,array('class'=>'form-control','required')) }}
+                        <span class="alert-danger">{{$errors->first('password')}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('Password confirm')}} <span class='val-star'>(*)</span>                   
+                        {{ Form::input('password', 'password_confirmation',null,array('class'=>'form-control','required')) }}
+                        <span class="alert-danger">{{$errors->first('password_confirmation')}}</span>
+                    </div>
+
+                    <div class="form-group">
+                          {{Form::label('First name')}}<span class='val-star'>(*)</span>
+                          {{Form::text('first_name',Input::old('first_name'),array('class'=>'form-control','required'))}}
+                          <span class="alert-danger">{{$errors->first('first_name')}}</span>
+                    </div>
+                    <div class="form-group">
+                          {{Form::label('Last name')}}<span class='val-star'>(*)</span>
+                          {{Form::text('last_name',Input::old('last_name'),array('class'=>'form-control','required'))}}
+                          <span class="alert-danger">{{$errors->first('last_name')}}</span>
+                    </div>
                                                                                   
-                                        <div class="form-group">                                            
+                        <div class="form-group">                                            
                                             <label for="">Active</label>  
                                             {{ Form::select('activated',array('1'=>'True','0'=>'False') , Input::old('activated'),array('class'=>'form-control'))}}                                                                                                                                                   
-                                        </div>
-                                        
-                                        
-                                    </form>
+                        </div>
+                         
                                 </div>
 
 
@@ -151,7 +131,7 @@
                         <div class="col-sm-10">
                         <div class="nest" id="profileClose">
                             <div class="title-alt">
-                                <h6>DETAIL</h6>
+                                <h6>PROFILE</h6>
                                 <div class="titleClose">
                                     <a class="gone" href="#profileClose">
                                         <span class="entypo-cancel"></span>
@@ -168,23 +148,23 @@
                                 <div class="form_center">                                                        
                                         <div class="form-group">
                                             <label class="">Company name <span class='val-star'>(*)</span></label>                                         
-                                                {{Form::text('company_name',Input::old('company_name'),array('placeholder'=>'Enter company name','class'=>'form-control'))}}                                            
+                                                {{Form::text('company_name',Input::old('company_name'),array('placeholder'=>'Enter company name','class'=>'form-control','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('company_name')}}</span>  
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Adress </label>                                          
+                                            <label class="control-label">Address </label>                                          
                                                 {{Form::text('address',Input::old('address'),array('placeholder'=>'Enter address','class'=>'form-control'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('address')}}</span>  
                                         </div>
                                         <div class="form-group">
-                                            <label class="">Website</label>                                        
-                                                {{Form::text('website',Input::old('email'),array('placeholder'=>'Enter website','class'=>'form-control'))}}                                            
+                                            <label class=""> Website </label>                                        
+                                                {{Form::text('website',Input::old('website'),array('placeholder'=>'Enter website','class'=>'form-control'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('website')}}</span>     
                                 
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Telephone number</label>                                          
-                                               {{Form::text('phone_number',Input::old('phone_number'),array('placeholder'=>'Enter telephone number','class'=>'form-control'))}}                                            
+                                            <label class="control-label">Telephone number <span class='val-star'>(*)</span></label>                                          
+                                               {{Form::text('phone_number',Input::old('phone_number'),array('placeholder'=>'Enter telephone number','class'=>'form-control','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('phone_number')}}</span>  
                                         </div>
                                         <div class="form-group">                                            
@@ -193,13 +173,13 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label">Number of employee</label>                                       
-                                             {{Form::text('employee_count',Input::old('employee_count'),array('placeholder'=>'Enter Number of employee','class'=>'form-control'))}}                                            
+                                            <label class="control-label">Number of employee <span class='val-star'>(*)</span></label>                                       
+                                             {{Form::input('number','employee_count',Input::old('employee_count'),array('placeholder'=>'Enter Number of employee','class'=>'form-control','min'=>'1','max'=>'100','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('employee_count')}}</span>     
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Contact employee at company <span class='val-star'>(*)</span></label>                                        
-                                               {{Form::text('contact_employee_company',Input::old('contact_employee_company'),array('placeholder'=>'Enter contact employee at company','class'=>'form-control'))}}                                            
+                                               {{Form::text('contact_employee_company',Input::old('contact_employee_company'),array('placeholder'=>'Enter contact employee at company','class'=>'form-control','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('contact_employee_company')}}</span>                                                 
                                         </div>
 

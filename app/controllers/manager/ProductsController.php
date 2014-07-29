@@ -79,7 +79,7 @@ class ProductsController extends \BaseController {
 	     $product = Product::where('purchase_products.id','=',$id)->leftJoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
                     ->first(['purchase_products.id','purchase_products.name','purchase_products.description','purchase_products.created_at',
                             'purchase_products.updated_at','purchase_products.cost','purchase_products.discount',
-                            'purchase_group_products.name as group_name','profiles.address','profiles.phone_number'
+                            'purchase_group_products.name as group_name'
                            ]);
             $group_products = DB::table('purchase_group_products')->orderBy('name', 'asc')->lists('name','id');
             $this->layout->content = View::make('manager.products.edit')->with('group_products',$group_products)->with('product',$product);                            

@@ -92,6 +92,10 @@
                 <div class='form-group'>
                     <label>Email: {{$view->email}}</label>
                 </div>
+                  
+                <div class='form-group'>
+                    <label>Display name: {{$view->display_name}}</label>
+                </div>  
                 
                 <div class='form-group'>
                     <label>Create at: {{$view->created_at}}</label>
@@ -100,7 +104,11 @@
                 <div class='form-group'>
                     <label>Update at: {{$view->updated_at}}</label>
                 </div>
-                
+                 <div class='form-group'>
+                    <label>Display name</label>
+                    {{Form::text('display_name',$view->display_name,array('class'=>'form-control'))}}
+                    <span class="alert-danger">{{$errors->first('display_name')}}</span>
+                </div>
                 <div class='form-group'>
                     <label>Address</label>
                     {{Form::text('address',$view->address,array('class'=>'form-control'))}}
