@@ -94,7 +94,7 @@
                 </div>
                   
                 <div class='form-group'>
-                    <label>Display name: {{$view->display_name}}</label>
+             
                 </div>  
                 
                 <div class='form-group'>
@@ -105,31 +105,36 @@
                     <label>Update at: {{$view->updated_at}}</label>
                 </div>
                  <div class='form-group'>
-                    <label>Display name</label>
-                    {{Form::text('display_name',$view->display_name,array('class'=>'form-control'))}}
-                    <span class="alert-danger">{{$errors->first('display_name')}}</span>
+                    <label>First name</label>
+                    {{Form::text('first_name',$view->first_name,array('class'=>'form-control','required'))}}
+                    <span class="alert-danger">{{$errors->first('first_name')}}</span>
+                </div>
+                    <div class='form-group'>
+                    <label>Last name</label>
+                    {{Form::text('last_name',$view->last_name,array('class'=>'form-control','required'))}}
+                    <span class="alert-danger">{{$errors->first('last_name')}}</span>
                 </div>
                 <div class='form-group'>
                     <label>Address</label>
-                    {{Form::text('address',$view->address,array('class'=>'form-control'))}}
+                    {{Form::text('address',$view->profile->address,array('class'=>'form-control'))}}
                     <span class="alert-danger">{{$errors->first('address')}}</span>
                 </div>
                 <div class='form-group'>
                     <label>Phone number</label>
-                     {{Form::text('phone_number',$view->phone_number,array('class'=>'form-control'))}}
+                     {{Form::text('phone_number',$view->profile->phone_number,array('class'=>'form-control'))}}
                      <span class="alert-danger">{{$errors->first('phone_number')}}</span>
                 </div>
                 
                 <div class='form-group'>
                     <label>Company</label>
-                      {{Form::text('company_name',$view->company_name,array('class'=>'form-control'))}}
+                      {{Form::text('company_name',$view->profile->company_name,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('company_name')}}</span>
                 </div>
                 
                   <div class="form-group">
                       <label>Avatar</label>
                       <div class="text-left">
-                                                <img width="200" src="{{$view->avatar}}" class="avatar img-circle" alt="avatar">
+                                                <img width="200" src="{{Request::root().'/'.$view->avatar}}" class="avatar img-circle" alt="avatar">
                                                 <h6>Upload a different photo...</h6>
                                                 <div class="input-group">
                                                   <span class="input-group-btn">
@@ -155,7 +160,7 @@
               Change password
             </div>
             <div class="panel-body">     
-                 {{Form::open(array('url'=>'manager/tickets/','method'=>'PUT'))}}
+                 {{Form::open(array('url'=>'manager/update-password/','method'=>'post'))}}
                 <div class="form-group">
                         <label>Password</label>
                         {{Form::password('password',array('class'=>'form-control'))}}

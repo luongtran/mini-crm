@@ -86,6 +86,7 @@ class CommonHelper {
         $str.= '<li class="pull-right"></li></ul>';                      
         return $str;
     }
+      
 
     //end class
 }

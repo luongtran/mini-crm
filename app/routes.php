@@ -73,7 +73,12 @@ Route::resource('manager/purchases', 'PurchasesController');
 Route::post('manager/tickets/add-comment/{id}',array('uses'=>'TicketsController@addComment'));
 Route::get('manager/tickets/find',array('uses'=>'TicketsController@find'));
 Route::get('manager/tickets/filter',array('uses'=>'TicketsController@filter'));
+Route::get('manager/tickets/confirm/{id}',array('uses'=>'TicketsController@confirm'));
 Route::resource('manager/tickets', 'TicketsController');
+
+/*load message */
+Route::get('share/message/list',array('uses'=>'MessagesController@getMessage'));
+Route::get('share/message/count',array('uses'=>'MessagesController@getCountMessage'));
 
 
 /* Ticket of Clietn - customer and employee */

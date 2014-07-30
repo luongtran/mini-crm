@@ -22,48 +22,35 @@
 
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+            <script>
+                $(function(){
+                  load_message();
+                  
+                  function load_message()
+                  {
+                     var Vstring ="";
+                     $.getJSON(spBaseUrl+"/share/message/list",function(list){
+                            $.each(list, function (_idx, item) {                                                
+                                  var title= item.title;
+                                  var id= item.id;
+                                  Vstring = Vstring+ "<li><a href='"+spBaseUrl+"share/message/view/"+id+"'>"+title+"</a></li><li class='divider'></li>";          
+                              });
+                             // Vstring = Vstring+ "<li class='divider'></li><li><a href='"+spBaseUrl+"/share/message/view"'><div>See All Messege</div></a></li>"; 
+                              
+                              $("#load_message").html(Vstring);
+                         });   
+                  };
+                   
+                });
+            </script>
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">                
                 <ul class="nav navbar-nav">
 
                     <li class="dropdown">
-
+                        
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i style="font-size:20px;" class="icon-conversation"></i><div class="noft-red">23</div></a>
-
-
-                        <ul style="margin: 11px 0 0 9px;" role="menu" class="dropdown-menu dropdown-wrap">
-                            <li>
-                                <a href="#">
-                                    <img alt="" class="img-msg img-circle" src="http://api.randomuser.me/portraits/thumb/men/1.jpg">Jhon Doe <b>Just Now</b>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <img alt="" class="img-msg img-circle" src="http://api.randomuser.me/portraits/thumb/women/1.jpg">Jeniffer <b>3 Min Ago</b>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <img alt="" class="img-msg img-circle" src="http://api.randomuser.me/portraits/thumb/men/2.jpg">Dave <b>2 Hours Ago</b>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <img alt="" class="img-msg img-circle" src="http://api.randomuser.me/portraits/thumb/men/3.jpg"><i>Keanu</i>  <b>1 Day Ago</b>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <img alt="" class="img-msg img-circle" src="http://api.randomuser.me/portraits/thumb/men/4.jpg"><i>Masashi</i>  <b>2 Mounth Ago</b>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div>See All Messege</div>
-                            </li>
+                        <ul style="margin: 11px 0 0 9px;" role="menu" class="dropdown-menu dropdown-wrap" id="load_message">
+                           
                         </ul>
                     </li>
                     <li>
@@ -120,7 +107,9 @@
                 <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">                          
-                            <img alt="" class="admin-pic img-circle" src="">@if(Auth::check()) {{Auth::user()->display_name}} @endif<b class="caret"></b>
+                            @if(Auth::check())
+                            <img alt="" class="admin-pic img-circle" src="{{Request::root()}}/{{Auth::user()->avatar}}">{{Auth::user()->first_name.' '.Auth::user()->last_name}} <b class="caret"></b>
+                            @endif
                         </a>
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>

@@ -118,31 +118,44 @@ else if($ticket->status == 'resolve')
                                     {{$ticket->subject}}
                                 </h4>
                             </div>
-                            <div class="panel-body">
-                                <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
-                                <div class="social-profile">
-                                    <h3>Creat by: <a class="tweet-link" href="#">{{$ticket->first_name.' '.$ticket->last_name}}</a>
+                            <div class="panel-body">                               
+                                <div class="social-profile"> 
+                                    <label>Description</label>
+                                    <p>{{$ticket->description}}</p>
+                                    <label>Attach</label>
+                                    <p>
+                                        @if($attach)                                        
+                                           @foreach($attach as $at)
+                                            <p><a href="{{Request::root().'/'.$at->path}}">{{$at->name}}</a></p>
+                                           @endforeach                                        
+                                        @endif
+                                    </p>
+                                    <label>At</label>
+                                    <p>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                        <span>  </span>  <a target="_blank" href="{{Request::root()}}/manager/customer-show/{{$ticket->company_id}}">{{$ticket->company_name}}</a>
-                                    </h3>
-                                </div>
+                                        <span class="title">Customer:</span> <a target="_blank" href="{{Request::root()}}/manager/customers/{{$ticket->company_id}}">{{$ticket->company_name}}</a>
+                                    </p>
+                                </div>                               
 
                                 <div class="clearfix"></div>
                                 <hr>
-                                <div class="social-content">
-                                    
+                                <div class="social-content">                                    
                                     <div class="social-header">                                                                                
-                                             {{$ticket->description}}
-                                            
+                                                                                  
                                     </div>
                                     <ul>                                        
                                         @foreach($list_comment as $comment)
                                         <li>
+                                            @if($comment->avatar)
+                                            <img class="img-social-content img-circle pull-left" src="{{Request::root()}}/{{$comment->avatar}}">
+                                            @else
                                             <img class="img-social-content img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/21.jpg">
+                                            @endif    
+                                            
                                             <span><a class="tweet-link" href="#">{{$comment->first_name}} {{$comment->last_name}}</a> 
-                                                 {{$comment->content}}
-                                                <br>
+                                            
                                                 <b>{{$comment->created_at}}</b>
+                                                <p>{{$comment->content}}</p>   
                                             </span>
 
                                         </li>
@@ -158,7 +171,7 @@ else if($ticket->status == 'resolve')
                                 <hr>
                                {{Form::open(array('url'=>'manager/tickets/add-comment/'.$ticket->code,'method'=>'post'))}}
                                     <div class="input-group">
-                                        <input type="textarea" name="content" placeholder="Add a comment.." class="form-control ckeditor">
+                                        <input type="textarea" name="content" placeholder="Reply to ..." class="form-control ckeditor" required="">
                                         <div class="input-group-btn">                                            
                                             <button type="submit" class="btn"><i class="glyphicon glyphicon-share"></i>
                                             </button>
@@ -190,8 +203,8 @@ else if($ticket->status == 'resolve')
                <div class="form-group">
                         <label>Assign to</label> 
                         <?php $assign_to['0']='None'; $assign_selected = $ticket->assign_to;if($assign_selected==""){$assign_selected='0';}?>
-                        {{Form::select('assign_to',$assign_to,$assign_selected,array('class'=>'form-control'))}}
-                         <span class="alert-danger">{{$errors->first('assign_to')}}</span>
+                        {{Form::select('server_id',$assign_to,$assign_selected,array('class'=>'form-control'))}}
+                         <span class="alert-danger">{{$errors->first('server_id')}}</span>
                 </div>  
                @endif
                 {{Form::open(array('url'=>'manager/tickets/'.$ticket->code,'method'=>'PUT'))}}
@@ -201,6 +214,7 @@ else if($ticket->status == 'resolve')
                          <span class="alert-danger">{{$errors->first('status')}}</span>
                 </div>  
                 {{Form::submit('Update',array('class'=>'btn btn-primary'))}}
+                <a onclick="return confirm('yes or no?');" href='{{Request::root()}}/manager/tickets/confirm/{{$ticket->code}}'>{{Form::button('Confirm',array('class'=>'btn btn-success'))}}</a>
             </div>    
         </div>
              

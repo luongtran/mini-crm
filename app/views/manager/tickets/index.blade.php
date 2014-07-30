@@ -87,59 +87,75 @@
             <!-- END OF BREADCRUMB -->
 {{Session::get('msg_flash')}}
 
-@foreach($list_ticket as $ticket)
-<div class="row">
-<?php 
-$status_bg="panel-success";
-if($ticket->status == 'new')
-{
-  $status_bg="panel-fb tweet-bgcolor";
-}
-if($ticket->status == 'close')
-{
-  $status_bg="panel-fb gplus-color";   
-}
-else if($ticket->status == 'in-process')
-{
-  $status_bg="panel-fb instagram-color";   
-}
-else if($ticket->status == 'resolve')
-{
- $status_bg="panel-fb gplus-color";   
-}
-?>
-<div class="col-sm-6">
-<div class="panel panel-default">
-                            <div class="{{$status_bg}}">
-                               
-                                <a href="#" class="link-post pull-right">
-                                    <span class="entypo-link"></span>
-                                    {{$ticket->code}}
-                                </a>
 
-                                <h4>
-                                    <span class="entypo-twitter-circled "></span>&nbsp;
-                                    <a style="color:white;" href="{{Request::root()}}/manager/tickets/{{$ticket->code}}">{{$ticket->subject}}</a>
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
-                                <div class="social-profile">
-                                    <h3> <a class="tweet-link" href="#">{{$ticket->first_name.' '.$ticket->last_name}}</a>
-                                        <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                    </h3>                                   
-                                </div>
-                                <div class="clearfix"></div>
-                                <hr>
-                                <div class="social-content">
-                              
-                                </div>
-                            </div>
-                        </div>
-</div>
-@endforeach
+                            <div class="table-responsive">
+                                <!-- THE MESSAGES -->                               
+                                <table class="table table-mailbox">                                    
 
-</div> 
+                                    <tr class="unread">
+                                        <th class="small-col">
+                                        <input type="checkbox" id="ckbCheckAll">                        
+                                        </th>
+                                        <th>Order Ticket</th>
+                                        <th>Subject</th>
+                                        <th>Author_id</th>
+                                        <th>Client_id</th>
+                                        <th>Status</th>
+                                        <th>Create at</th>
+                                        <th></th>
+                                       
+                                    </tr>
+                                    
+                                    @foreach($list_ticket as $ticket)
+                                    <tr @if($ticket->status=='new') {{'class="success"'}} @elseif($ticket->status=='resolve'){{'class="danger"'}} @endif >
+                                        <td class="small-col">
+                                              <input type="checkbox" value="{{$ticket->id}}" name="checkID[]" class="checkBoxClass"/>
+                                        </td>                                       
+                                        <td><a href="{{Request::root()}}/manager/tickets/{{$ticket->code}}">{{$ticket->code}}</a></td>
+                                         <td >
+                                           {{$ticket->subject}}
+                                        </td>
+                                         <td >
+                                           {{$ticket->author_id}}
+                                        </td>
+                                          <td >
+                                           {{$ticket->client_id}}
+                                        </td>
+                                        
+                                        <td >
+                                           {{$ticket->status}}
+                                        </td>
+                                         <td >
+                                           {{$ticket->created_at}}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group pull-left">
+                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{Request::root()}}/manager/customers/{{$ticket->id}}"><i class="icon icon-monitor"></i>View profile</a>
+                                            </li>                                               
+                                            <li class="divider"></li>
+                                            <li><a href="{{Request::root()}}/manager/customers/{{$ticket->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
+                                            </li>                                            
+                                            <li class="divider"></li>
+                                            <li><a href="{{Request::root()}}/manager/customers-del/{{$ticket->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                        </td>                                        
+                                    </tr>
+                                    @endforeach    
+
+                               </table>
+                              </form>      
+                            </div>
+
+
+
+ 
 <div class="row">
     <div class="col-lg-6">
      @if(isset($parameter_panginate))      

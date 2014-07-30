@@ -65,6 +65,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/search/jquery.quicksearch.js", funct
 
 
 //EASY PIE CHART
+/*
 head.js(spBaseUrl+"/asset/backend/assets/js/gage/jquery.easypiechart.min.js", function() {
 
     $(function() {
@@ -113,6 +114,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/gage/jquery.easypiechart.min.js", fu
     });
 
 });
+*/
 //-------------------------------------------------------------
 
 //TOOL TIP

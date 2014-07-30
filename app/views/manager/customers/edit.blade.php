@@ -1,5 +1,4 @@
 @section('content')
-
             <!-- CONTENT -->
             <!--TITLE -->
             <div class="row">
@@ -60,33 +59,10 @@
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager" title="Sample page 1">Manager</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager/customer" title="Sample page 1">Customer</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Edit</a>
-                </li>
-                <li class="pull-right">
-                    <div class="input-group input-widget">
-
-                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
-                    </div>
-                </li>
-            </ul>
-
+            {{$breadcumb}}
             <!-- END OF BREADCRUMB -->
             
-            {{Form::open(array('method'=>'post','url'=>'manager/customer-edit/'.$customer->id))}}
+            {{Form::open(array('method'=>'PUT','url'=>'manager/customers/'.$customer->id,'enctype'=>'multipart/form-data'))}}
             <div class="content-wrap">
                 <div class="row">                   
                     <div class="col-sm-10">
@@ -127,21 +103,20 @@
                                         
                                         <div class="form-group">
                                             <label for="">First name <span class='val-star'>(*)</span></label>
-                                            {{Form::text('first_name',Input::old('first_name'),array('placeholder'=>'Enter first name','class'=>'form-control'))}}                                            
+                                            {{Form::text('first_name',$customer->first_name,array('placeholder'=>'Enter first name','class'=>'form-control','required'))}}                                            
                                             <span class="alert-danger">{{$errors->first('first_name')}}</span>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Last name</label>
-                                            {{Form::text('last_name',Input::old('last_name'),array('placeholder'=>'Enter last name','class'=>'form-control'))}}                                                                                        
+                                            {{Form::text('last_name',$customer->last_name,array('placeholder'=>'Enter last name','class'=>'form-control','required'))}}                                                                                        
+                                            <span class="alert-danger">{{$errors->first('last_name')}}</span>
                                         </div>
                                         <div class="form-group">                                            
                                             <label for="">Active</label>  
                                             {{ Form::select('activated',array('1'=>'True','0'=>'False') ,$customer->activated,array('class'=>'form-control'))}}                                                                                                           
                                             </div>
                                         </div>
-                                        
-                                       
-                                        
+                                                     
                                     </form>
                                 </div>
 
@@ -171,46 +146,51 @@
                                 <div class="form_center">                                                        
                                         <div class="form-group">
                                             <label class="">Company name </label>                                         
-                                                {{Form::text('company_name',$customer->company_name,array('placeholder'=>'Enter company name','class'=>'form-control'))}}                                            
+                                                {{Form::text('company_name',$customer->profile->company_name,array('placeholder'=>'Enter company name','class'=>'form-control','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('company_name')}}</span>  
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Adress </label>                                          
-                                                {{Form::text('address',$customer->address,array('placeholder'=>'Enter address','class'=>'form-control'))}}                                            
+                                            <label class="control-label">Address </label>                                          
+                                                {{Form::text('address',$customer->profile->address,array('placeholder'=>'Enter address','class'=>'form-control'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('address')}}</span>  
                                         </div>
                                         <div class="form-group">
                                             <label class="">Website</label>                                        
-                                                {{Form::text('website',$customer->website,array('placeholder'=>'Enter website','class'=>'form-control'))}}                                            
+                                                {{Form::text('website',$customer->profile->website,array('placeholder'=>'Enter website','class'=>'form-control'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('website')}}</span>     
                                 
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Telephone number</label>                                          
-                                               {{Form::text('phone_number',$customer->phone_number,array('placeholder'=>'Enter telephone number','class'=>'form-control'))}}                                            
+                                               {{Form::text('phone_number',$customer->profile->phone_number,array('placeholder'=>'Enter telephone number','class'=>'form-control','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('phone_number')}}</span>  
                                         </div>
                                         <div class="form-group">                                            
                                             <label for="">Sector</label>  
-                                            {{ Form::select('sector_id',$sector,$customer->sector_id,array('class'=>'form-control'))}} 
+                                            {{ Form::select('sector_id',$sector,$customer->profile->sector_id,array('class'=>'form-control'))}} 
                                         </div>
                                         
                                         <div class="form-group">
                                             <label class="control-label">Number of employee</label>                                       
-                                             {{Form::text('employee_count',$customer->employee_count,array('placeholder'=>'Enter Number of employee','class'=>'form-control'))}}                                            
+                                             {{Form::input('number','employee_count',$customer->profile->employee_count,array('placeholder'=>'Enter Number of employee','class'=>'form-control','required','min'=>'1','max'=>'10000'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('employee_count')}}</span>     
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Contact employee at company</label>                                        
-                                               {{Form::text('contact_employee_company',$customer->contact_employee_company,array('placeholder'=>'Enter contact employee at company','class'=>'form-control'))}}                                            
+                                               {{Form::text('contact_employee_company',$customer->profile->contact_employee_company,array('placeholder'=>'Enter contact employee at company','class'=>'form-control','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('contact_employee_company')}}</span>                                                 
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group">                                            
                                             <label class="control-label">Avatar</label>                                        
+                                                <div class="text-left">
+                                                   <img width="200" src="{{Request::root()}}/{{$customer->avatar}}" class="avatar img-circle" alt="avatar">                                                                      
+                                                </div>
+                                            
                                                {{Form::file('avatar',array('placeholder'=>'Enter avatar','value'=>Input::old('avatar')))}}                                            
                                                <span class="alert-danger">{{$errors->first('avatar')}}</span>                                                 
                                         </div>
+                                        
                                         <div class="form-group">                                            
                                             <button class="btn btn-info" type="submit">Update</button>                                             
                                         </div> 

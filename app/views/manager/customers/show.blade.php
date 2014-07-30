@@ -51,9 +51,11 @@
                                         <li class="list-group-item text-right">
                                           
                                             <div class="text-center">
+                                                @if($profile->avatar)
+                                                <img alt="avatar" class="avatar img-circle" src="{{Request::root()}}/{{$profile->avatar}}" width="200">
+                                                @else
                                                 <img alt="avatar" class="avatar img-circle" src="http://placehold.it/150" width="200">
-                                                <h6>Upload a different photo...</h6>
-
+                                                @endif
                                                 <div class="input-group">
 <!--                                                    <span class="input-group-btn">
                                                         <span class="btn btn-primary btn-file">
@@ -71,7 +73,7 @@
 
                                 </div>
                                 <div class="col-xs-12 col-sm-8 profile-name">
-                                    <h2>{{$profile->company_name}}
+                                    <h2>{{$profile->profile->company_name}}
                                         <span class="pull-right social-profile">
                                             <i class="entypo-facebook-circled"></i>  <i class="entypo-twitter-circled"></i>  <i class="entypo-linkedin-circled"></i>  <i class="entypo-github-circled"></i>  <i class="entypo-gplus-circled"></i>
                                         </span>
@@ -83,17 +85,16 @@
                                         <dd>{{$profile->id}}</dd>
                                         
                                         <dt>Contact employee at company</dt>
-                                        <dd>{{$profile->contact_employee_company}}</dd>
+                                        <dd>{{$profile->profile->contact_employee_company}}</dd>
                                         
                                         <dt>Email</dt>
                                         <dd>{{$profile->email}}</dd>
 
                                         <dt>Phone</dt>
-                                        <dd>{{$profile->phone_number}}</dd>
+                                        <dd>{{$profile->profile->phone_number}}</dd>
                                         
                                         <dt>Sector</dt>
-                                        <dd>{{$profile->name_sector}}</dd>
-                                                                                
+                                        <dd>{{$profile->profile->sector_id}}</dd>                                                                                
                                         <dt>Last Update</dt>
                                         <dd>{{$profile->updated_at}}</dd>                                     
 
@@ -138,7 +139,7 @@
                                 </div>
                                 <div class="col-sm-4 emphasis">
                                     <h2>
-                                        <strong>{{$profile->employee_count}}</strong>
+                                        <strong>{{$profile->profile->employee_count}}</strong>
                                     </h2>
                                     <p>
                                         <small>Employees</small>

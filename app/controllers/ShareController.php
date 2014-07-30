@@ -14,14 +14,8 @@ class ShareController extends \BaseController {
             {
                 if(Auth::user()->group_users == User::MANAGER || Auth::user()->group_users == User::STAFF)               
                 {
-                $view = DB::table('users')
-                        ->leftJoin('profiles','users.id','=','profiles.user_id')
-                        ->where('users.id',Auth::id())
-                        ->first(['users.email','users.created_at','users.updated_at',
-                                'users.first_name','users.last_name','profiles.address','profiles.company_name',
-                                'profiles.phone_number','profiles.avatar','users.display_name'
-                            ]);
-                  return View::make('share.profile.manager_profile')->with('view',$view);
+                $view = User::find(Auth::id());                        
+                 return View::make('share.profile.manager_profile')->with('view',$view);
                 }
                 
                 if(Auth::user()->group_users == User::CUSTOMER || Auth::user()->group_users == User::EMPLOYEE)               
@@ -37,28 +31,31 @@ class ShareController extends \BaseController {
         }
         
         public function updateProfile()
-        {                      
-            $rule = ['avatar'=>'image','phone_number'=>'numeric','display_name'=>'required|min:4'];
-            $validation = Validator::make(Input::all(),$rule);
+        {                                  
+            $validation = Validator::make(Input::all(),User::$rule_profile_manager);
             if($validation->passes())
             {                
-                $profile = Profile::where('user_id',Auth::id())->first();                
-                /*update image*/
-                $image =  Input::file('avatar');                
-                if($image){
-                $path= $image->getRealPath();
-                $type= $image->getClientOriginalExtension();
-                $data = file_get_contents($path);
-                $base64 = 'data:image/'.$type .';base64,'.base64_encode($data);
-                $profile->avatar = $base64;                   
-                }
-                /*end update image to base 64*/     
+                $profile = Profile::where('user_id',Auth::id())->first();
                 $profile->address = Input::get('address');
                 $profile->phone_number = Input::get('phone_number');
+                $profile->company_name = Input::get('company_name');
                 $profile->update();
                 
                 $user = User::where('id','=',$profile->user_id)->first();                                
-                $user->display_name = Input::get('display_name');
+                $user->first_name = Input::get('first_name');
+                $user->last_name = Input::get('last_name');
+                 if(Input::file('avatar'))
+                {
+                    $check = Upload::where('user_id','=',Auth::id())->first(); 
+                    $image = new ImagesController();
+                    if($check)
+                    {
+                      $image->destroy($check->id);   
+                    }                    
+                    $path = "asset/share/uploads/images/personal";      
+                    $user->avatar =  $image->store(Input::file('avatar'),$path,'image',Auth::id());
+                }
+                
                 $user->update();
                 
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
@@ -137,8 +134,8 @@ class ShareController extends \BaseController {
 	{
 		//
 	}
-
-
+        
+      
 	
 
 }

@@ -69,7 +69,14 @@ class  CustomersController extends \BaseController {
                  $customer->staff_id = Auth::id();                
                 else if(Auth::user()->group_users == User::MANAGER)              
                  $customer->manager_id = Auth::id();  
-               
+                
+                if(Input::file('avatar'))
+                {
+                    $image = new ImagesController();
+                    $path = "asset/share/uploads/images/personal";      
+                    $customer->avatar =  $image->store(Input::file('avatar'),$path,'image',$customer->id);
+                }
+                                
                 $customer->save();
                 
                 $profile = new Profile;
@@ -80,7 +87,7 @@ class  CustomersController extends \BaseController {
                 /*send email to customer*/
                 $email = new EmailController();
                 $message = array(
-                     'text'=>'<p>Username: '.Input::get('email').'</p><p>Password: '.Input::get('password').'</p>
+                    'text'=>'<p>Username: '.Input::get('email').'</p><p>Password: '.Input::get('password').'</p>
                      <a href="'.Request::root().'/crm-login">Login at </a>',
                     'subject'=>'Create account customer by Admin CRM '.rand(100,9999),
                     'to_email'=>Input::get('email'),
@@ -91,7 +98,7 @@ class  CustomersController extends \BaseController {
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));
                 }
                 /*end send mail*/
-                return Redirect::to('manager/customer');
+                return Redirect::to('manager/customers');
             }
             Session::flash('msg_flash',  CommonHelper::print_msg('error','Please check all field!'));
             //Session::flash('msg_flash',  CommonHelper::print_msgs('error',$validation->messages()));
@@ -107,13 +114,8 @@ class  CustomersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $profile = DB::table('profiles')
-                     ->rightJoin('users','users.id','=','profiles.user_id')
-                    ->leftJoin('sector','sector.id','=','profiles.sector_id')
-                     ->where('users.id','=',$id)
-                     ->select(DB::raw('users.id,username,first_name,email,last_name,users.created_at,users.updated_at,company_name,phone_number,employee_count,address,contact_employee_company,activated,sector.name as name_sector'))
-                     ->first();  
-             $purchases = DB::table('purchases')->join('purchase_detail','purchase_detail.purchase_id','=','purchases.id')
+            $profile =  User::find($id);   
+            $purchases = DB::table('purchases')->join('purchase_detail','purchase_detail.purchase_id','=','purchases.id')
                             ->join('users','users.id','=','purchases.customer_id')
                             ->join('profiles','profiles.user_id','=','users.id')
                             ->join('purchase_products','purchase_products.id','=','purchase_detail.product_id')
@@ -133,13 +135,20 @@ class  CustomersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+             /*breadcumb*/
+            $listNav = [
+                        ['link'=>'manager/customers','title'=>'User'],
+			['link'=>'#','title'=>'Create']
+                     ];                    
+          $breadcumb = CommonHelper::breadcumb($listNav);
+            
           $sector = DB::table('sector')->orderBy('name', 'asc')->lists('name','id');                  
-          $customer = DB::table('profiles')
-                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')->where('users.id','=',$id)                 
-                 ->first();            
+          $customer =  User::find($id);           
           $this->layout->content = View::make('manager.customers.edit')
                  ->with('customer',$customer)
-                 ->with('sector',$sector);                     
+                 ->with('sector',$sector)                   
+                 ->with('breadcumb',$breadcumb);
+      
 	}
 
 	/**
@@ -151,35 +160,50 @@ class  CustomersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$validation = Validator::make(Input::all(),Profile::$rule_profile);
-                if($validation->passes()){
-                    $customer = User::find($id);
-                    if(Input::get('password')){
-                    $customer->password = Input::get('password');
+		$validation = Validator::make(Input::all(),User::$rule_edit_customers);
+                if($validation->passes()){                    
+                    $customer = User::find($id);                   
+                    if($customer)
+                    {         
+                            if(Input::get('password')){
+                            $customer->password = Input::get('password');
+                            }
+                            $customer->activated= Input::get('activated');
+                            $customer->first_name= Input::get('first_name');
+                            $customer->last_name= Input::get('last_name');
+                            /*check avatar*/
+                            if(Input::file('avatar')){                                
+                                $image = new  ImagesController();
+                                $upload = Upload::where('user_id','=',$customer->id)->first();
+                                if($upload)
+                                {
+                                   $image->destroy($upload->id);                                  
+                                }
+                                $path = "asset/share/uploads/images/personal";      
+                                $customer->avatar = $image->store(Input::file('avatar'), $path, 'image', $customer->id);                                
+                            }
+                            /*update avatar*/                            
+                            $customer->update();
+
+                            $check = Profile::where('user_id','=',$id)->first();
+                            if($check){
+                                $profile = Profile::find($check->id);
+                                $profile->fill(Input::all());
+                                $profile->update();
+                            }
+                            else{
+                                $profile = new Profile;
+                                $profile->fill(Input::all());
+                                $profile->user_id = $customer->id;
+                                $profile->save();                        
+                            }
+                            Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));                            
                     }
-                    $customer->activated= Input::get('activated');
-                    $customer->first_name= Input::get('first_name');
-                    $customer->last_name= Input::get('last_name');
-                    $customer->update();
+                    return Redirect::to('manager/customers');
                     
-                    $check = Profile::where('user_id','=',$id)->first();
-                    if($check){
-                        $profile = Profile::find($check->id);
-                        $profile->fill(Input::all());
-                        $profile->update();
-                    }
-                    else{
-                        $profile = new Profile;
-                        $profile->fill(Input::all());
-                        $profile->user_id = $customer->id;
-                        $profile->save();                        
-                    }
-                    
-                    Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
-                    return Redirect::to('manager/customer');
                 }
-                 Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
-                 //Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter all field!'));
+                 //Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
+                 Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter all field!'));
                  return Redirect::back()->withInput()->withErrors($validation);
 	}
 
@@ -197,10 +221,10 @@ class  CustomersController extends \BaseController {
 		User::find($id)->delete();
                 Profile::where('user_id','=',$id)->delete();                
                 Session::flash('msg_flash', CommonHelper::print_msg('success','Deleted success'));
-                return Redirect::to('manager/customer');
+                return Redirect::to('manager/customers');
                 }                                
                 Session::flash('msg_flash', CommonHelper::print_msg('error','Can not delete this customer, have relationship table employee'));
-                return Redirect::to('manager/customer');
+                return Redirect::to('manager/customers');
 	}
         
         public function find()

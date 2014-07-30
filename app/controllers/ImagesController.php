@@ -23,64 +23,53 @@ class ImagesController extends BaseController {
      
     }
     /*update single avatar...*/
-    function store($file,$Path,$type_file)
+    function store($file,$Path,$type_file,$user_id)
     {       
                 $date = date('m-d-Y');       
                 $filename= $date.'_'.$file->getClientOriginalName();
                 $destination = public_path($Path);
                 $file->move($destination, $filename);
-                $upload =  new Uploads;
+                $upload =  new Upload;
                 $upload->name = $filename;
                 $upload->type = $file->getClientmimeType();
                 $upload->path =  $Path.'/'.$filename;
                 $upload->type_file = $type_file;
+                $upload->user_id = $user_id;
                 $upload->save();
                 return $upload->path;                
     }
     
-    
-     function storeOld($file,$Path,$id,$type_file)
-    {          
-            $checkImage = Uploads::where('id','=',$id)->where('type_file','=',$type_file)->first();
-            if($checkImage)
-            {
-            $ar=Uploads::find($checkImage->id);
-            $ar->delete();  
-            }
-            return $this->store($file, $Path);
-    }
-
-    function storeSingle($file,$Path,$content_id,$type_content,$type_file)
-    {       
+    function store_single($file,$Path,$type_content,$content,$type_file)
+    {              
                 $date = date('m-d-Y') ;       
                 $filename= $date.'_'.$file->getClientOriginalName();
                 $destination = public_path($Path);
                 $file->move($destination, $filename);
-                $upload =  new Uploads;
+                $upload =  new Upload;
                 $upload->name = $filename;
                 $upload->type = $file->getClientmimeType();
-                $upload->path =  $Path;
+                $upload->path = $Path.'/'.$filename;
                 $upload->type_file = $type_file;
-                $upload->$type_content = $content_id;
-                $upload->save();
+                $upload->$type_content = $content;
+                $upload->save();  
     }
-               
-    function storeMulti($file,$Path,$content_id,$type_content,$type_file)
-    {                            
+    
+    function stores($file,$Path,$type_content,$content,$type_file)
+    {  
               foreach($file as $fileinfo)
                 {                            
                 $date = date('m-d-Y') ;       
                 $filename= $date.'_'.$fileinfo->getClientOriginalName();
                 $destination = public_path($Path);
                 $fileinfo->move($destination, $filename);
-                $upload =  new Uploads;
+                $upload =  new Upload;
                 $upload->name = $filename;
                 $upload->type = $fileinfo->getClientmimeType();
                 $upload->path = $Path;// ltrim($Path,"public/");
                 $upload->type_file = $type_file;
-                $upload->$type_content = $content_id;
+                $upload->$type_content = $content;
                 $upload->save();              
-                }
+                }       
     }
     
     function checkImageOld($file,$Path,$article_id,$type_file)
@@ -98,26 +87,18 @@ class ImagesController extends BaseController {
     }
     
     
-      public function getDelete($id)
+      public function destroy($id)
     {        
-
-          echo $id;
-
-          $ar=Uploads::find($id);  
+          $ar=Upload::find($id);  
           try
-          {
-
-            $pathDel = public_path($ar->path.$ar->name);                      
-            $public_path = public_path($ar->path.'/'.$ar->name);  
+          {                                
+            $public_path = public_path($ar->path);  
             File::delete($public_path);//unlink($public_path);  
-            $ar->delete();        
-            Session::flash('msg_flash',CommonHelper::printMsg('error',trans('messages.delete_message'))); 
-            return Redirect::route('backend_article');
+            $ar->delete();                                
           }
           catch(Exception $e)
           {
-             Session::flash('msg_flash',CommonHelper::printMsg('error','Not delete this file !')); 
-             return Redirect::back(); 
+             Session::flash('msg_flash',CommonHelper::printMsg('error','Not delete this file !'));             
           }       
      }
     

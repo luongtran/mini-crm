@@ -1,15 +1,15 @@
 <?php
 
 class Profile extends \Eloquent {
-    protected $tables="profiles";
+    protected $table="profiles";
   
     protected $fillable = array('company_name','address','phone_number','website','sector_id','employee_count','contact_employee_company');
     
      /*Relashionship*/
-       // public function user()
-       // {
-       //     return $this->hasOne('User','user_id');
-       // }
+       public function sector()
+        {
+            return $this->hasOne('Sector','id');
+       }
         /*end Relashionship*/
   
     public static function getProfile($id){

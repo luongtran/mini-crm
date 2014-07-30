@@ -40,7 +40,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                                             'phone_number'=>'required',
                                             'employee_count'=>'required|numeric',
                                             'contact_employee_company'=>'required|min:6|max:25',
-                                            'avatar'=>'image'
+                                            'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
+                                            ];
+        public static $rule_edit_customers = ['password'=>'confirmed|min:4',
+                                            'first_name'=>'required|min:3|max:20',
+                                            'last_name'=>'required|min:3|max:20',
+                                            'company_name'=>'required|min:3|max:60',
+                                            'phone_number'=>'required',
+                                            'employee_count'=>'required|numeric',
+                                            'contact_employee_company'=>'required|min:6|max:25',
+                                            'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
+                                            ];
+        public static $rule_profile_manager = [
+                                            'first_name'=>'required|min:3|max:20',
+                                            'last_name'=>'required|min:3|max:20',
+                                            'company_name'=>'min:3|max:60',
+                                            'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
                                             ];
         /**
 	 * The attributes excluded from the model's JSON form.
@@ -54,7 +69,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         /*Relashionship*/
         public function profile()
         {
-            return $this->hasOne('Profile','id');
+            return $this->hasOne('Profile','user_id');
         }
         public function ticket()
         {

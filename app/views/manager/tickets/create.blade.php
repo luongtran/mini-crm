@@ -72,7 +72,7 @@
                 New ticket
             </div>
             <div class="panel panel-body">  
-            {{Form::open(array('url'=>'manager/tickets','method'=>'post'))}}
+            {{Form::open(array('url'=>'manager/tickets','method'=>'post','enctype'=>'multipart/form-data'))}}
                 <div class="col-lg-8">
                  <div class="form-group">
                     <label>Subject</label>
@@ -96,14 +96,28 @@
                         {{Form::select('support_type',$support_type,Input::old('support_type'),array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('support_type')}}</span>
                     </div> 
-                     @if(Auth::user()->group_users == User::MANAGER) 
-                     <div class="form-group">
-                        <label>Assign to</label>
-                        {{Form::select('assign_to',$assign_to,Input::old('assign_to'),array('class'=>'form-control'))}}
+                    
+                    <div class="form-group">
+                        <label>Assign to client</label>
+                        {{Form::select('client_id',$assign_client,Input::old('client_id'),array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('support_type')}}</span>
                     </div> 
-                     @endif
                     
+                     @if(Auth::user()->group_users == User::MANAGER) 
+                     <div class="form-group">
+                        <label>Assign to staff</label>
+                        {{Form::select('server_id',$assign_to,Input::old('server_id'),array('class'=>'form-control'))}}
+                         <span class="alert-danger">{{$errors->first('server_id')}}</span>
+                     </div> 
+                     @endif
+                     
+                     
+                    <div class="form-group">
+                        <label class="control-label">Attach file</label>                                        
+                         {{Form::file('file',array('placeholder'=>'Enter avatar'))}}                                            
+                        <span class="alert-danger">{{$errors->first('file')}}</span>                                                 
+                    </div>
+                     
                     <div class='clear'></div>
                    {{Form::submit('Create',array('class'=>'btn btn-primary'))}}
                   

@@ -63,7 +63,7 @@
             {{$breadcumb}}
             <!-- END OF BREADCRUMB -->
 
-            {{Form::open(array('method'=>'post','url'=>'manager/customers'))}}
+            {{Form::open(array('method'=>'post','url'=>'manager/customers','enctype'=>'multipart/form-data'))}}
             <div class="content-wrap">
                 <div class="row">                   
                     <div class="col-sm-10">
@@ -174,7 +174,7 @@
                                         
                                         <div class="form-group">
                                             <label class="control-label">Number of employee <span class='val-star'>(*)</span></label>                                       
-                                             {{Form::input('number','employee_count',Input::old('employee_count'),array('placeholder'=>'Enter Number of employee','class'=>'form-control','min'=>'1','max'=>'100','required'))}}                                            
+                                             {{Form::input('number','employee_count',Input::old('employee_count'),array('placeholder'=>'Enter Number of employee','class'=>'form-control','min'=>'1','max'=>'10000','required'))}}                                            
                                                 <span class="alert-danger">{{$errors->first('employee_count')}}</span>     
                                         </div>
                                         <div class="form-group">

@@ -70,7 +70,7 @@
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/customer" title="">Customer</a>
+                <li><a href="{{Request::root()}}" title="">Customer</a>
                 </li>
                  <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -119,7 +119,7 @@
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}">{{$users->company_name}}</a></td>
+                                        <td><a href="{{Request::root()}}/manager/customers/{{$users->id}}">{{$users->company_name}}</a></td>
                                         <td class="subject">
                                            {{$users->email}}
                                         </td>
@@ -132,16 +132,13 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/customer-show/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
+                                            <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
                                             </li>                                               
                                             <li class="divider"></li>
-                                             <li><a href="{{Request::root()}}/manager/customer/{{$users->id}}/employees/"><i class="icon icon-user-group"></i>Employees</a>
-                                            </li> 
-                                            <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customer-edit/{{$users->id}}"><i class="fa fa-pencil"></i>edit</a>
+                                            <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customer-del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a href="{{Request::root()}}/manager/customers-del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -161,7 +158,7 @@
      
                                 <div class="">                                   
                                     <div class="btn-group pull-left">                                       
-                                         <?php //echo $list->links(); ?>
+                                         
                                          <?php echo $list->appends(array('field_find' => $field,'filter' => $filter,'key_find'=>$key))->links(); ?>
                                     </div>
                                 </div>
@@ -170,3 +167,4 @@
 
                     </div>    
 @stop
+

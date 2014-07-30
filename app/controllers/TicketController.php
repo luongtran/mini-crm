@@ -128,7 +128,10 @@ class TicketController extends \BaseController {
                                                 ->select(DB::RAW('support_tickets.content,support_tickets.created_at,users.first_name,users.last_name'))
                                                 ->get();
               
-		$this->layout->content = View::make('client.ticket.show')->with('ticket',$ticket)->with('list_comment',$list_comment);  
+                
+		$this->layout->content = View::make('client.ticket.show')->with('ticket',$ticket)
+                        ->with('list_comment',$list_comment);
+                      
                 }else{
                     return Redirect::to('client/customer/ticket');
                 }

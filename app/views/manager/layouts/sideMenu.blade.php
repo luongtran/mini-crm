@@ -47,16 +47,16 @@
                         </li>
                      
                         <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Customer">
+                            <a class="tooltip-tip ajax-load" href="#" title="Customers">
                                 <i class="icon icon-user-group"></i>
                                 <span>Customers</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customer-create" title="Customer add"><i class="icon icon-plus"></i><span>Add</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customers/create" title="Customer add"><i class="icon icon-plus"></i><span>Add</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customer" title="Customer list"><i class="icon-view-list"></i><span>List</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customers" title="Customer list"><i class="icon-view-list"></i><span>List</span></a>
                                 </li>
                             </ul>
                         </li>                        
