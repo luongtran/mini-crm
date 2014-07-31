@@ -66,7 +66,7 @@
     <!--col-4-->
     <div class="col-lg-6">    
         <div class="panel panel-success">
-            <div class="panel-heading"><h3 class='panel-title'>Create user</h3></div>
+            <div class="panel-heading"><h3 class='panel-title'>Update user</h3></div>
             <div class="panel-body">               
                 {{Session::get('msg_flash')}}   
             {{ Form::open(array('url' => 'manager/users/'.$user->id,'method'=>'put','role'=>'form','id'=>'frm-add')) }}               

@@ -75,7 +75,7 @@ Route::filter('staff',function(){
             }else{return Redirect::guest('crm-login');}
 });
 
-Route::filter('client_parent',function(){         
+Route::filter('client_customer',function(){         
            if(Auth::check())
             {            
                 if((Auth::user()->group_users != User::CUSTOMER))

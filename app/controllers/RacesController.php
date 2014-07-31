@@ -45,7 +45,8 @@ class RacesController extends \BaseController {
 	public function show($id)
 	{     
              $level = CommonHelper::list_base('level_comment');
-	     return View::make('races.show')->with('id',$id)->with('level_comment',$level);
+             $ticket = Ticket::where('code',$id)->first();
+             return View::make('client.races.show')->with('level_comment',$level)->with('ticket',$ticket);
 	}
         
         public  function addComment($id)                
@@ -93,7 +94,7 @@ class RacesController extends \BaseController {
           }
           
           Session::flash('msg_flash',  CommonHelper::print_msg('success','Thank for you have race from service of crm'));
-          return Redirect::to('client/customer');
+          return Redirect::to('client/tickets');
           
         }
         /**

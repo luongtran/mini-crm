@@ -196,6 +196,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/nano/jquery.nanoscroller.js", functi
 
 //------------------------------------------------------------- 
 //PAGE LOADER
+/*
 head.js(spBaseUrl+"/asset/backend/assets/js/pace/pace.js", function() {
 
     paceOptions = {
@@ -208,10 +209,11 @@ head.js(spBaseUrl+"/asset/backend/assets/js/pace/pace.js", function() {
     };
 
 });
-
+*/
 //------------------------------------------------------------- 
 
 //SPARKLINE CHART
+/*
 head.js(spBaseUrl+"/asset/backend/assets/js/chart/jquery.sparkline.js", function() {
 
     $(function() {
@@ -273,7 +275,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/chart/jquery.sparkline.js", function
 
 
 });
-
+*/
 //------------------------------------------------------------- 
 
 //DIGITAL CLOCK
@@ -290,7 +292,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/clock/jquery.clock.js", function() {
 
 
 //------------------------------------------------------------- 
-
+/*
 head.js(spBaseUrl+"/asset/backend/assets/js/gage/raphael.2.1.0.min.js", spBaseUrl+"/asset/backend/assets/js/gage/justgage.js", function() {
 
 
@@ -317,3 +319,5 @@ head.js(spBaseUrl+"/asset/backend/assets/js/gage/raphael.2.1.0.min.js", spBaseUr
 
 
 });
+
+*/

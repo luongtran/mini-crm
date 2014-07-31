@@ -2,61 +2,7 @@
 
             <!-- CONTENT -->
             <!--TITLE -->
-            <div class="row">
-                <div id="paper-top">
-                    <div class="col-sm-3">
-                        <h2 class="tittle-content-header">
-                            <i class="icon-document-edit"></i> 
-                            <span>Customer
-                            </span>
-                        </h2>
-
-                    </div>
-
-                    <div class="col-sm-7">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="tittle-middle-header">
-
-                            <div class="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <span class="tittle-alert entypo-info-circled"></span>
-                                Welcome back,&nbsp;
-                                <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="btn-group btn-wigdet pull-right visible-lg">
-                            <div class="btn">
-                                Widget</div>
-                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-heart margin-iconic"></span>Favorite</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-cog margin-iconic"></span>Setting</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
+                @include('client.employee.title')
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
@@ -67,15 +13,7 @@
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
                 <li><a href="#" title="Sample page 1">Home</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Manager</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Customer</a>
-                </li>
+                </li>             
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
                 <li><a href="#" title="Sample page 1">Employee</a>
@@ -84,17 +22,13 @@
                 </li>
                 <li><a href="#" title="Sample page 1">Create</a>
                 </li>
-                <li class="pull-right">
-                    <div class="input-group input-widget">
-
-                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
-                    </div>
+                <li class="pull-right">                   
                 </li>
             </ul>
 
             <!-- END OF BREADCRUMB -->
 
-            {{Form::open(array('method'=>'post','url'=>'manager/customer/'.$customer_id.'/employees'))}}
+            {{Form::open(array('method'=>'post','url'=>'client/employee'))}}
             <div class="content-wrap">
                 <div class="row">                   
                     <div class="col-sm-10">
@@ -139,13 +73,14 @@
                                             <span class="alert-danger">{{$errors->first('first_name')}}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Last name</label>
+                                            <label for="">Last name <span class='val-star'>(*)</span></label>
                                             {{Form::text('last_name',Input::old('last_name'),array('placeholder'=>'Enter last name','class'=>'form-control'))}}                                                                                        
+                                            <span class="alert-danger">{{$errors->first('last_name')}}</span>
                                         </div>
                                                                                   
                                         <div class="form-group">                                            
                                             <label for="">Active</label>  
-                                            {{ Form::select('activated',array('1'=>'True','0'=>'False') , Input::old('activated'),array('class'=>'form-control'))}}                                                                                                                                                   
+                                            {{ Form::select('activated',array('0'=>'False','1'=>'True') , Input::old('activated'),array('class'=>'form-control'))}}                                                                                                                                                   
                                         </div>
                                         
                                         
@@ -189,11 +124,11 @@
                                                 <span class="alert-danger">{{$errors->first('phone_number')}}</span>  
                                         </div>
                                    
-                                        <div class="form-group">
+                                       <!--  <div class="form-group">
                                             <label class="control-label">Avatar</label>                                        
                                                {{Form::file('avatar',array('placeholder'=>'Enter avatar','value'=>Input::old('avatar')))}}                                            
                                                <span class="alert-danger">{{$errors->first('avatar')}}</span>                                                 
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">                                            
                                             <button class="btn btn-info" type="submit">Submit</button> 
                                             <button class="btn btn-default" type="reset">Rest</button>       

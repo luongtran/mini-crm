@@ -28,7 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	];
 	
-	config.extraPlugins = 'youtube,imagebrowser';	
+	//config.extraPlugins = 'youtube,imagebrowser';	
 	config.imageBrowser_listUrl = 'listImage.json';	
 	
 

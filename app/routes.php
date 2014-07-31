@@ -49,13 +49,12 @@ Route::resource('/manager/customers', 'CustomersController');
 
 /*Employee of Manager*/
 // /-----------/ //
-Route::get('/manager/customer/{id_customer}/employees/{id}/delete',array('as'=>'manager-employee-delete','uses'=>'EmployeesController@destroy'));
-Route::get('/manager/customer/{id_customer}/employees/find',array('as'=>'manager-employee-find','uses'=>'EmployeesController@find'));
-Route::resource('manager/customer/{id_customer}/employees', 'EmployeesController');
+//Route::get('/manager/customer/{id_customer}/employees/{id}/delete',array('as'=>'manager-employee-delete','uses'=>'EmployeesController@destroy'));
+//Route::get('/manager/customer/{id_customer}/employees/find',array('as'=>'manager-employee-find','uses'=>'EmployeesController@find'));
+//Route::resource('manager/customer/{id_customer}/employees', 'EmployeesController');
 
 /*Group product of Manager*/
 Route::resource('manager/group-products', 'GroupProductsController');
-
 
 /*Product of Manager*/
 Route::resource('manager/products/find', 'ProductsController@find');
@@ -76,48 +75,58 @@ Route::get('manager/tickets/filter',array('uses'=>'TicketsController@filter'));
 Route::get('manager/tickets/confirm/{id}',array('uses'=>'TicketsController@confirm'));
 Route::resource('manager/tickets', 'TicketsController');
 
-/*load message */
-Route::get('share/message/list',array('uses'=>'MessagesController@getMessage'));
-Route::get('share/message/count',array('uses'=>'MessagesController@getCountMessage'));
-
-
-/* Ticket of Clietn - customer and employee */
-Route::post('client/customer/ticket-comment/{id}',array('uses'=>'TicketController@addComment'));
-Route::get('client/customer/ticket/filter',array('uses'=>'TicketController@filter'));
-Route::resource('client/customer/ticket', 'TicketController');
-
-
-/* Customer */
-Route::resource('client/customer', 'CustomerController');
-
-/* Employee */
-Route::resource('client/customer/employee', 'EmployeeController');
-
-
 /*View profile*/
 Route::get('manager/view-profile',array('uses'=>'ShareController@viewProfile'));
 Route::post('manager/update-profile',array('uses'=>'ShareController@updateProfile'));
+Route::get('client/view-profile',array('uses'=>'ShareController@viewProfile'));
+Route::post('client/update-profile',array('uses'=>'ShareController@updateProfile'));
+Route::post('update-password',array('uses'=>'ShareController@updatePassword'));
+
+/*load message */
+Route::get('share/message/list',array('uses'=>'MessagesController@getMessage'));
+Route::get('share/message/count',array('uses'=>'MessagesController@getCountMessage'));
+Route::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));
+
+/* ------ */
+Route::get('/client',array('uses'=>'CustomerController@index'));
+
+/*Customer of client*/
+Route::get('/register',array('uses'=>'CustomerController@create'));
+Route::post('/register',array('uses'=>'CustomerController@store'));
+Route::get('/active-customer/{id}',array('uses'=>'CustomerController@active'));
+//Route::resource('client/customer', 'CustomerController');
+/* Employee of client */
+Route::resource('client/employee', 'EmployeeController');
+
+/* Ticket of Client - customer and employee */
+Route::post('client/ticket-comment/{id}',array('uses'=>'TicketController@addComment'));
+Route::get('client/tickets/filter',array('uses'=>'TicketController@filter'));
+Route::get('client/tickets/find',array('uses'=>'TicketController@find'));
+Route::resource('client/tickets', 'TicketController');
 
 
 /*View race*/
+Route::get('client/races/{id}', array('uses'=>'RacesController@show'));
+Route::post('client/races/{id}', array('uses'=>'RacesController@addComment'));
 
-Route::get('client/customer/races/{id}', array('uses'=>'RacesController@show'));
-Route::post('client/customer/races/{id}', array('uses'=>'RacesController@addComment'));
 
 /*-----------filter----------*/
- Route::when('/', 'auth');
  Route::when('manager', 'auth');
  Route::when('manager/*', 'auth');
  Route::when('client', 'auth');
  Route::when('client/*', 'auth');
  Route::when('client/customer/races', 'auth');
+ Route::when('share/', 'auth');
+ Route::when('share/*', 'auth');
  
  /*client customer*/
- Route::when('client/customer/ticket', 'client_employee');
- Route::when('client/customer/ticket*', 'client_employee');
+ Route::when('client/tickets', 'client_employee');
+ Route::when('client/tickets/*', 'client_employee');
  /*client employee*/
- Route::when('client/customer/employee', 'client_employee');
- Route::when('client/customer/employee*', 'client_employee');
+ Route::when('client/employee', 'client_customer');
+ Route::when('client/employee/*', 'client_customer');
+ 
+ 
  /*staff customer*/
  Route::when('manager/customer', 'staff');
  Route::when('manager/customer*', 'staff');
@@ -133,6 +142,10 @@ Route::post('client/customer/races/{id}', array('uses'=>'RacesController@addComm
    /*staff purchases*/
  Route::when('manager/purchases', 'staff');
  Route::when('manager/purchases*', 'staff');
+ 
+ Route::when('manager/tickets', 'staff');
+ Route::when('manager/tickets/*', 'staff');
+ 
   /*admin*/
  Route::when('manager/setting', 'admin');
  Route::when('manager/setting*', 'admin');

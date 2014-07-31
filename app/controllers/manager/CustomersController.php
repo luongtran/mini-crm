@@ -65,6 +65,9 @@ class  CustomersController extends \BaseController {
                 $customer->fill(Input::all());
                 $customer->password = Hash::make(Input::get('password'));
                 $customer->group_users = User::CUSTOMER;
+                $customer->ip = Request::getClientIp();               
+                $customer->code_forget = md5(Input::get('email'));        
+                
                 if(Auth::user()->group_users == User::STAFF)               
                  $customer->staff_id = Auth::id();                
                 else if(Auth::user()->group_users == User::MANAGER)              

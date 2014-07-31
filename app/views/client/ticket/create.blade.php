@@ -72,7 +72,7 @@
                 New ticket
             </div>
             <div class="panel panel-body">  
-            {{Form::open(array('url'=>'client/customer/ticket','method'=>'post'))}}
+            {{Form::open(array('url'=>'client/tickets','method'=>'post','enctype'=>'multipart/form-data'))}}
                 <div class="col-lg-8">
                  <div class="form-group">
                     <label>Subject</label>
@@ -96,6 +96,13 @@
                         {{Form::select('support_type',$support_type,Input::old('support_type'),array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('support_type')}}</span>
                     </div> 
+                    
+                      
+                    <div class="form-group">
+                        <label class="control-label">Attach file</label>                                        
+                         {{Form::file('file',array('placeholder'=>'Attach file'))}}                                            
+                        <span class="alert-danger">{{$errors->first('file')}}</span>                                                 
+                    </div>
                     
                     <div class='clear'></div>
                    {{Form::submit('Create',array('class'=>'btn btn-primary'))}}

@@ -94,7 +94,7 @@
                         <div class="row-block">
                             <div class="row">
                                 <div class="col-md-12 row-block">
-                                    <a href="#" class="btn btn-primary btn-block">Create New Account</a>
+                                    <a href="{{Request::root()}}/register" class="btn btn-primary btn-block">Create New Account</a>
                                 </div>
                             </div>
                         </div>

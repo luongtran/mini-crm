@@ -121,15 +121,12 @@ else if($ticket->status == 'resolve')
                             <div class="panel-body">                               
                                 <div class="social-profile"> 
                                     <label>Description</label>
-                                    <p>{{$ticket->description}}</p>
-                                    <label>Attach</label>
-                                    <p>
+                                    <p>{{$ticket->description}}</p>                                                            
                                         @if($attach)                                        
                                            @foreach($attach as $at)
-                                            <p><a href="{{Request::root().'/'.$at->path}}">{{$at->name}}</a></p>
+                                            <p><i class="icon icon-attachment" ></i><a href="{{Request::root().'/'.$at->path}}">{{$at->name}}</a></p>
                                            @endforeach                                        
                                         @endif
-                                    </p>
                                     <label>At</label>
                                     <p>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
@@ -170,14 +167,13 @@ else if($ticket->status == 'resolve')
 
                                 <hr>
                                {{Form::open(array('url'=>'manager/tickets/add-comment/'.$ticket->code,'method'=>'post'))}}
-                                    <div class="input-group">
-                                        <input type="textarea" name="content" placeholder="Reply to ..." class="form-control ckeditor" required="">
-                                        <div class="input-group-btn">                                            
-                                            <button type="submit" class="btn"><i class="glyphicon glyphicon-share"></i>
-                                            </button>
-                                        </div>                                       
-                                      
+                                    <div class="form-group">
+                                        <textarea class='ckeditor' name='content'></textarea>                                                                          
                                     </div>
+                               
+                                    <div class="pull-right">                                            
+                                            <button type="submit" class="btn btn-success">Reply</button>
+                                     </div>   
                                {{Form::close()}}
 
                             </div>

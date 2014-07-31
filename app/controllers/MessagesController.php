@@ -8,27 +8,41 @@ class MessagesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-    
+       
         public function getMessage()
 	{
             if(Auth::check())
             {
-            $message = Message::where('assign_to','=',99)->get();
+            $message = Message::where('assign_to','=',Auth::id())->where('activated','<>',1)->orderBy('id','desc')->get();
             return Response::json($message);            
-            }
-            return false;
+            }          
 	}
         public function getCountMessage()
 	{
              if(Auth::check())
             {
-            $count = Message::where('assign_to','=',99)->count();            
-            return $count;            
-            }
-            return 0;
+            $count = Message::where('assign_to','=',Auth::id())->where('activated','<>',1)->count();            
+            return Response::json($count);            
+            }           
 	}
         
-	/**
+        
+        public function addMessage($data)
+        {
+            /*Parametor*/
+            /* title,content,type,assign to*/
+               $message = new Message();
+               $message->title = $data['title'];
+               $message->content = $data['content'];                       
+               $message->activated = 0;
+               $message->type = $data['type'];               
+               $message->assign_to = $data['assign_to'];
+               $message->from = Auth::id();
+               $message->save();
+        }
+
+
+        /**
 	 * Show the form for creating a new resource.
 	 * GET /messages/create
 	 *
@@ -58,8 +72,14 @@ class MessagesController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		//
+	{            
+            $message = Message::find($id);    
+            if($message)
+            {                
+               $message->activated=1;    
+               $message->update();
+               return View::make('share.message.show')->with('message',$message);    
+            }	    
 	}
 
 	/**

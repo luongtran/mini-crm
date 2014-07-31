@@ -1,18 +1,17 @@
 <?php
 
-class EmployeesController extends \BaseController {
-    protected $layout = "manager.layouts.default";
+class EmployeeController extends \BaseController {
+    protected $layout = "client.layouts.default";
     /**
 	 * Display a listing of the resource.
 	 * GET /manager/employees
 	 *
 	 * @return Response
 	 */
-	public function index($id)
+	public function index()
 	{
-	    $employee = User::where('customer_id','=',$id)->paginate(5);
-            $customer = Profile::where('user_id','=',$id)->first();
-            $this->layout->content = View::make('manager.employees.index')->with('list',$employee)->with('customer',$customer);
+	        $employee = User::where('customer_id','=',Auth::id())->paginate(5);            
+            $this->layout->content = View::make('client.employee.index')->with('list',$employee);
 	}
 
 	/**
@@ -21,9 +20,10 @@ class EmployeesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create($id)
+	public function create()
 	{
-            $this->layout->content = View::make('manager.employees.create')->with('customer_id',$id);
+           $id='';
+            $this->layout->content = View::make('client.employee.create')->with('customer_id',$id);
 	}
 
 	/**
@@ -32,7 +32,7 @@ class EmployeesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store($id)
+	public function store()
 	{
 	   $validation = Validator::make(Input::all(),Employees::$rule);
            if($validation->passes()){
@@ -40,16 +40,22 @@ class EmployeesController extends \BaseController {
                $employee->fill(Input::all());
                $employee->password = Hash::make(Input::get('password'));
                $employee->group_users = User::EMPLOYEE;
-               $employee->customer_id = $id;
-               
+               $employee->customer_id = Auth::id();
+               $employee->ip = Request::getClientIp();               
+               $employee->code_forget = md5(Input::get('email'));
                $employee->save();
+
+               $profile = new Profile();
+               $profile->user_id = $employee->id;
+               $profile->save();
                
-                $email = new EmailController();
-                $message = array(
+               $email = new EmailController();
+               $message = array(
                     'text'=>'<p>Username: '.Input::get('email').'</p><p>Password: '.Input::get('password').'</p>
+                    <p>Welcome to CRM, thank you have use system us  <a href="'.Request::root().'/active-customer/'.$employee->id.'?token='.$employee->code_forget.'">Please active my account at</a></p>
                     <a href="'.Request::root().'/crm-login">Login at </a>'
                     ,
-                    'subject'=>'Create account customer by Admin CRM '.rand(100,9999),
+                    'subject'=>'Create account employee by Company '.rand(1000,9999),
                     'to_email'=>Input::get('email'),
                     'to_name'=>Input::get('first_name')
                     );     
@@ -58,7 +64,7 @@ class EmployeesController extends \BaseController {
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));
                 }
                 
-               return Redirect::to('manager/customer/'.$id.'/employees');
+               return Redirect::to('client/employee');
            }
            //Session::flash('msg_flash',  CommonHelper::print_msgs('error',$validation->messages()));
            return Redirect::back()->withInput()->withErrors($validation);
@@ -71,14 +77,11 @@ class EmployeesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($customer_id,$id)
+	public function show($id)
 	{
             $profile = DB::table('profiles')->rightJoin('users','profiles.user_id','=','users.id')
                                          ->where('users.id',$id)
-                                         ->first();
-            $customer = DB::table('users')->rightJoin('profiles','profiles.user_id','=','users.id')
-                                         ->where('users.id',$customer_id)
-                                         ->first();           
+                                         ->first();                  
             //dd($profile);
 	    $this->layout->content = View::make('manager.employees.show')->with('profile',$profile);
 	}

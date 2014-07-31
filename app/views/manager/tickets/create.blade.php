@@ -46,11 +46,11 @@
                 <li>
                     <span class="entypo-home"></span>
                 </li>
-                <li><a href="{{Request::root()}}/client" title="Sample page 1">Client</a>
+                <li><a href="{{Request::root()}}" title="Sample page 1">Home</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/client/ticket" title="Sample page 1">Ticket</a>
+                <li><a href="{{Request::root()}}/manager/tickets" title="Sample page 1">Ticket</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -114,7 +114,7 @@
                      
                     <div class="form-group">
                         <label class="control-label">Attach file</label>                                        
-                         {{Form::file('file',array('placeholder'=>'Enter avatar'))}}                                            
+                         {{Form::file('file',array('placeholder'=>'Enter file'))}}                                            
                         <span class="alert-danger">{{$errors->first('file')}}</span>                                                 
                     </div>
                      

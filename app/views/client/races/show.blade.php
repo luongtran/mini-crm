@@ -19,8 +19,48 @@ $("#select-level").change(function(){
     
 });
 </script>
-<h2>Comment of you about this support tickets [ {{$id}} ]</h2>
-{{Form::open(array('url'=>'client/customer/races/'.$id,'method'=>'post'))}}
+
+            <!--TITLE -->
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-document-edit"></i> 
+                            <span>Client
+                            </span>
+                        </h2>
+
+                    </div>
+
+                    <div class="col-sm-7">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="tittle-middle-header">
+
+                            <div class="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <span class="tittle-alert entypo-info-circled"></span>                               
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!--/ TITLE -->
+
+            
+<h2>Ticket: {{$ticket->subject}} [ {{$ticket->code}} ]</h2>
+<hp>Comment of you about this support tickets </hp>
+{{Form::open(array('url'=>'client/races/'.$ticket->code,'method'=>'post'))}}
  <div class="col-lg-3">
      
  <div class="form-group">

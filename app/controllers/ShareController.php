@@ -20,11 +20,8 @@ class ShareController extends \BaseController {
                 
                 if(Auth::user()->group_users == User::CUSTOMER || Auth::user()->group_users == User::EMPLOYEE)               
                 {
-                $view = DB::table('profiles')
-                        ->rightJoin('users','users.id','=','profiles.user_id')
-                        ->where('users.id',Auth::id())
-                        ->first();
-                  return View::make('share.profile.client_profile');
+                  $view = User::find(Auth::id());         
+                  return View::make('share.profile.client_profile')->with('view',$view);
                 }
             }
             return false;
@@ -58,11 +55,35 @@ class ShareController extends \BaseController {
                 
                 $user->update();
                 
-                Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
+                Session::flash('msg_flash',  CommonHelper::print_msg('success','Updated success'));
                 return Redirect::back();
             }
-            Session::flash('msg_flash',  CommonHelper::print_msgs('error','Problem update'));
+            Session::flash('msg_flash',  CommonHelper::print_msgs('error','Problem updated'));
             return Redirect::back()->withInput()->withErrors($validation);
+        }
+
+        public function updatePassword()
+        {
+            if(Auth::check())
+            {
+              $user = User::find(Auth::id());
+              {
+                 $validation = Validator::make(Input::all(),array('password'=>'required|confirmed|min:6','password_confirmation'=>'required|min:6'));
+                 if($validation->passes())
+                 {
+                    $user->password = Hash::make(Input::get('password'));
+                    $user->update();
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Updated success'));
+                    return Redirect::back();
+                 }
+                  Session::flash('msg_flash',  CommonHelper::print_msg('error','Problem updated'));
+                  return Redirect::back()->withInput()->withErrors($validation);
+
+              }
+
+            }
+            return Redirect::back();
+            
         }
         
         /**
@@ -86,10 +107,10 @@ class ShareController extends \BaseController {
                
                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Login success'));                
                 if(Auth::user()->group_users == User::EMPLOYEE){
-                return Redirect::to('client/customer');    
+                return Redirect::to('client/tickets');    
                 }
                 else if(Auth::user()->group_users == User::CUSTOMER){
-                return Redirect::to('client/customer');        
+                return Redirect::to('client/tickets');        
                 }
                 else if(Auth::user()->group_users == User::STAFF){
                 return Redirect::to('manager/tickets');        
@@ -100,14 +121,15 @@ class ShareController extends \BaseController {
                 
            }
            Session::flash('msg_flash',  CommonHelper::print_msg('error','Email or password is false!'));
-           return Redirect::back()->withInput();
-           
-	}
+           return Redirect::back()->withInput();           
+	}        
+        
         public function logout()
 	{
 		//
-	}
-         public function lockScreen()
+	}        
+        
+        public function lockScreen()
 	{
             $user=null; 
 	    if(!Session::get('isLogin'))

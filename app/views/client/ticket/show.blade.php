@@ -38,7 +38,7 @@
                             </button>
                             <ul role="menu" class="dropdown-menu">
                                 <li>
-                                    <a href="{{Request::root()}}/client/customer/ticket/create">
+                                    <a href="{{Request::root()}}/client/tickets/create">
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
                                 </li>                             
                             </ul>
@@ -59,7 +59,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/client/customer/ticket" title="Sample page 1">Ticket</a>
+                <li><a href="{{Request::root()}}/client/tickets" title="Sample page 1">Ticket</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -109,29 +109,39 @@ else if($ticket->status == 'resolve')
                                 </h4>
                             </div>
                             <div class="panel-body">
-                                <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
-                                <div class="social-profile">
-                                    <h3>Creat by: <a class="tweet-link" href="#">{{$ticket->first_name.' '.$ticket->last_name}}</a>
+                                  <div class="social-profile">
+                                    <label></label>
+                                    <p>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                    </h3>
-                                </div>
-
-                                <div class="clearfix"></div>
-                                <hr>
-                                <div class="social-content">
+                                        <span class="title">Company:</span> <a target="_blank" href="#">{{$ticket->company_name}}</a>
+                                    </p>  
+                                    <label>Description</label>
+                                    <p>{{$ticket->description}}</p>                                                                       
+                                        @if($attach)                                        
+                                           @foreach($attach as $at)
+                                           <p><i class="icon icon-attachment" ></i>
+                                            <a href="{{Request::root().'/'.$at->path}}">{{$at->name}}</a></p>
+                                           @endforeach                                        
+                                        @endif
                                     
-                                    <div class="social-header">                                                                                
-                                             {{$ticket->description}}
-                                            
-                                    </div>
+                                </div>                               
+                                 <div class="clearfix"></div>
+                                <hr>
+                                <div class="social-content">                                    
+                                 
                                     <ul>                                        
                                         @foreach($list_comment as $comment)
                                         <li>
+                                            @if($comment->avatar)
+                                            <img class="img-social-content img-circle pull-left" src="{{Request::root()}}/{{$comment->avatar}}">
+                                            @else
                                             <img class="img-social-content img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/21.jpg">
+                                            @endif    
+                                            
                                             <span><a class="tweet-link" href="#">{{$comment->first_name}} {{$comment->last_name}}</a> 
-                                                 {{$comment->content}}
-                                                <br>
+                                            
                                                 <b>{{$comment->created_at}}</b>
+                                                <p>{{$comment->content}}</p>   
                                             </span>
 
                                         </li>
@@ -141,17 +151,13 @@ else if($ticket->status == 'resolve')
 
 
                                 </div>
-
-
-
-                                <hr>
-                               {{Form::open(array('url'=>'client/customer/ticket-comment/'.$ticket->code,'method'=>'post'))}}
-                                    <div class="input-group">
-                                        <input type="text" name="content" placeholder="Add a comment.." class="form-control">
-                                        <div class="input-group-btn">                                            
-                                            <button type="submit" class="btn"><i class="glyphicon glyphicon-share"></i>
-                                            </button>
-                                        </div>                                        
+                                <hr>                               
+                               {{Form::open(array('url'=>'client/ticket-comment/'.$ticket->code,'method'=>'post'))}}
+                                    <div class="group-form">
+                                        <textarea class='form-control ckeditor' name='content'></textarea>                                                                            
+                                    </div> 
+                                    <div class="pull-right">
+                                    <button type="submit" class="btn btn-success">Reply</i> </button>                                 
                                     </div>
                                {{Form::close()}}
 

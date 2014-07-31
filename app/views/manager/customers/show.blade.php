@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-4 emphasis">
                                     <h2>
-                                        <strong>245</strong>
+                                        <strong>{{$profile->count_access}}</strong>
                                     </h2>
                                     <p>
                                         <small>Activity</small>

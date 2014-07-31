@@ -45,7 +45,7 @@
 
                             </a>
                         </li>
-                     
+                        @if(Auth::user()->group_users == User::CUSTOMER)
                         <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Customer">
                                 <i class="icon icon-user-group"></i>
@@ -53,14 +53,14 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customer-create" title="Customer add"><i class="icon icon-plus"></i><span>Add</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/employee/create" title="Employee add"><i class="icon icon-plus"></i><span>Add</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customer" title="Customer list"><i class="icon-view-list"></i><span>List</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/employee" title="Employee list"><i class="icon-view-list"></i><span>List</span></a>
                                 </li>
                             </ul>
                         </li>
-                      
+                        @endif
                          <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Purchase">
                                 <i class="icon icon-message"></i>
@@ -68,25 +68,25 @@
                             </a>
                             <ul>   
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/customer/ticket/create" title="Article list"><i class="icon icon-plus"></i><span>New ticket</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets/create" title="Article list"><i class="icon icon-plus"></i><span>New ticket</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/customer/ticket" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
                                 </li>
                             </ul>
                         </li>
                         
                         <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Report">
-                                <i class="icon icon-graph-pie"></i>
+                                <i class="icon icon-question"></i>
                                 <span>Knowledge Base</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article/add" title="Article add"><i class="icon icon-plus"></i><span>Report</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/fqa/" title="Article add"><i class="icon icon-feed"></i><span>See</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article" title="Article list"><i class="icon-view-list"></i><span>Analysis</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/fqa/popular" title="Article list"><i class="icon icon-graph-line"></i><span>Popular</span></a>
                                 </li>
                             </ul>
                         </li>           

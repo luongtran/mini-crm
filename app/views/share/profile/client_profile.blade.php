@@ -1,4 +1,4 @@
-@extends('manager.layouts.default')
+@extends('client.layouts.default')
 @section('content')
       <!-- CONTENT -->
             <!--TITLE -->
@@ -64,7 +64,7 @@
                 <li>
                     <span class="entypo-home"></span>
                 </li>
-                <li><a href="{{Request::root()}}/manager" title="Sample page 1">Manager</a>
+                <li><a href="{{Request::root()}}/client" title="Sample page 1">Client</a>
                 </li>              
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
@@ -88,7 +88,7 @@
                 Info
             </div>
             <div class="panel-body">                  
-                  {{Form::open(array('url'=>'manager/update-profile','method'=>'post','enctype'=>'multipart/form-data'))}}
+                  {{Form::open(array('url'=>'client/update-profile','method'=>'post','enctype'=>'multipart/form-data'))}}
                 <div class='form-group'>
                     <label>Email: {{$view->email}}</label>
                 </div>

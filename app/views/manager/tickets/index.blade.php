@@ -119,7 +119,7 @@
                                            {{$ticket->author_id}}
                                         </td>
                                           <td >
-                                           {{$ticket->client_id}}
+                                          {{$ticket->company_name}} {{$ticket->client_id}}
                                         </td>
                                         
                                         <td >

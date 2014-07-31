@@ -23,22 +23,30 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <script>
-                $(function(){
-                  load_message();
-                  
+                $(function(){        
+                  load_message();  
+                  setInterval(function(){load_message()},30000);  
                   function load_message()
                   {
                      var Vstring ="";
                      $.getJSON(spBaseUrl+"/share/message/list",function(list){
-                            $.each(list, function (_idx, item) {                                                
+                            $.each(list, function (_idx, item) {                                
                                   var title= item.title;
                                   var id= item.id;
-                                  Vstring = Vstring+ "<li><a href='"+spBaseUrl+"share/message/view/"+id+"'>"+title+"</a></li><li class='divider'></li>";          
-                              });
-                             // Vstring = Vstring+ "<li class='divider'></li><li><a href='"+spBaseUrl+"/share/message/view"'><div>See All Messege</div></a></li>"; 
-                              
-                              $("#load_message").html(Vstring);
-                         });   
+                                  var create= item.created_at;
+                                  Vstring = Vstring+ "<li><a href='"+spBaseUrl+"/share/message/read/"+id+"'  title='"+create+"'  >"+title+"</a></li><li class='divider'></li>";          
+                              });                            
+                               $("#load_message").html(Vstring);
+                         });
+                         
+                      $.getJSON(spBaseUrl+"/share/message/count",function(count){                          
+                          if(count>0)
+                          {
+                              $("#load_count_message").html("<div class='noft-red'>"+count+"</div>");    
+                          }
+                      });   
+                   
+                      
                   };
                    
                 });
@@ -48,7 +56,7 @@
 
                     <li class="dropdown">
                         
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i style="font-size:20px;" class="icon-conversation"></i><div class="noft-red">23</div></a>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i style="font-size:20px;" class="icon-conversation"></i><div id="load_count_message"></div></a>
                         <ul style="margin: 11px 0 0 9px;" role="menu" class="dropdown-menu dropdown-wrap" id="load_message">
                            
                         </ul>

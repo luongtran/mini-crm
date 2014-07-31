@@ -17,7 +17,7 @@ class UsersController extends \BaseController {
              /*breadcumb*/
             $listNav = [
                         ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Show']
+			['link'=>'#','title'=>'Index']
                      ];                    
             $breadcumb = CommonHelper::breadcumb($listNav);
             /*breadcumb*/              
@@ -45,7 +45,7 @@ class UsersController extends \BaseController {
             /*breadcumb*/
             $listNav = [
                         ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Create']
+			['link'=>'#','title'=>'Index']
                      ];                    
             $breadcumb = CommonHelper::breadcumb($listNav);
             /*breadcumb*/            
@@ -63,11 +63,25 @@ class UsersController extends \BaseController {
                 $user->fill(Input::all());
                 $user->group_users = Input::get('group_users');
                 $user->manager_id = Auth::id();
-                $user->password = Hash::make(Input::get('password'));                                
+                $user->password = Hash::make(Input::get('password'));
+                $user->ip = Request::getClientIp();               
+                $user->code_forget = md5(Input::get('email'));                                
                 $user->save();
                 $profile = new Profile();
                 $profile->user_id = $user->id;                
                 $profile->save();
+
+               /*send email*/
+               $email = new EmailController();
+               $data=array(
+                   'subject'=>'Create account staff from system crm '.rand(1000,9999),
+                   'text'=>'Welcome to CRM, thank you have use system us  <a href="'.Request::root().'/active-customer/'.$user->id.'?token='.$user->code_forget.'">Please active my account at</a>
+                           <p>User: '.Input::get('email').'</p><p>Pass: '.Input::get('password').'</p>',
+                   'to_email'=>Input::get('email'),
+                   'to_name'=>Input::get('company_name'),
+               );
+               $email->manager_sendEmail($data);    
+
                 Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
                 return Redirect::route('manager.users.index');
             }          
@@ -169,6 +183,10 @@ class UsersController extends \BaseController {
             $user =  User::where('trash',1)->where('id',$id)->first();            
             if($user)
             {  
+                $upload = Upload::where("user_id",'=',$user->id)->fisrt();
+                $image = new ImageController();
+                $image->detroy($upload->id);
+                
                 $user->delete();
                 Session::flash('msg_flash', CommonHelper::print_msg('success','You have deleted success!'));
             }

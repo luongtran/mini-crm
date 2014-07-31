@@ -5,12 +5,14 @@ class Employees extends \Eloquent {
         
         public static $rule = array('email'=>'required|email|unique:users',
                       'password'=>'required|confirmed',
-                      'first_name'=>'required|min:4',
+                      'first_name'=>'required|min:3',
+                      'last_name'=>'required|min:3',
                       'phone_number'=>'numeric|min:0'
             );
           public static $rule_edit = array(
                       'password'=>'confirmed',
-                      'first_name'=>'required|min:4',
+                      'first_name'=>'required|min:3',
+                      'last_name'=>'required|min:3',
                       'phone_number'=>'numeric|min:0'
             );
 }
