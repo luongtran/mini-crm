@@ -263,6 +263,27 @@ class TicketsController extends \BaseController {
                 $ticket = Ticket::where('code','=',$id)->first();
                 $ticket->status = User::STATUS_PROCESS;
                 $ticket->update();
+                /*send message*/
+                $send_msm = new MessagesController();                                                       
+                /*send to company*/
+                            $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
+                                   'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
+                                   'type'=>'work',
+                                   'assign_to'=>$ticket->client_id
+                                   ];
+                /*send to employee*/                                   
+                if($ticket->client_id != $ticket->author_id)
+                {                   
+                            $send_msm->addMessage($data);
+                            $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
+                                   'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
+                                   'type'=>'work',
+                                   'assign_to'=>$ticket->author_id
+                                   ];
+                            $send_msm->addMessage($data);
+                }
+
+
                 /*send email client*/
                 $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.client_id')->where('tickets.code',$id)
                         ->first();                
@@ -348,7 +369,7 @@ class TicketsController extends \BaseController {
                $message->from = Auth::id();
                $message->save();
                
-               $email = new EmailController();
+               $email = new EmailController();               
                     $message = array(
                     'text'=>"You have created <a href='".Request::root()."/client/tickets/".$id."'>".$id."</a> 
                     if customer agree or after 2 days no actions come from customer. We will change status of ticket to resolved.",

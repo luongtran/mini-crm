@@ -15,10 +15,7 @@
     <link rel="stylesheet" href="{{asset('asset/backend/assets/css/custom.css')}}">    
     <link rel="stylesheet" href="{{asset('asset/backend/assets/css/social.css')}}">
     
-    <link rel="shortcut icon" href="{{asset('asset/backend/assets/ico/minus.png')}}">
-     @section('style')            
-     @show
-     
+    <link rel="shortcut icon" href="{{asset('asset/backend/assets/ico/minus.png')}}">       
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> 
     <script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
@@ -39,7 +36,7 @@
         $.src='//v2.zopim.com/?2IqW7qbAYFvrtFKXMHUNa3ZmwWVZWlkv';z.t=+new Date;$.
         type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
         </script>
-        <!--End of Zopim Live Chat Script-->
+     <!--End of Zopim Live Chat Script-->
 </head>
 <body>
     <!-- Preloader -->
@@ -53,8 +50,6 @@
     <!-- SIDE MENU -->
     @include('client.layouts.sideMenu')
     <!-- END OF SIDE MENU -->
-
-
 
     <!--  PAPER WRAP -->
     <div class="wrap-fluid">

@@ -69,7 +69,7 @@
             <div class="panel-heading"><h3 class='panel-title'>Create user</h3></div>
             <div class="panel-body">               
                 {{Session::get('msg_flash')}}   
-            {{ Form::open(array('url' => 'manager/customers','method'=>'post','role'=>'form','id'=>'myform','enctype'=>'multipart/form-data')) }}               
+            {{ Form::open(array('url' => 'manager/users','method'=>'post','role'=>'form','id'=>'myform','enctype'=>'multipart/form-data')) }}               
                 <div class="form-group">
                     {{Form::label('Email')}}
                     {{Form::text('email',Input::old('email'),array('class'=>'form-control','required'))}}

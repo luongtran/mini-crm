@@ -19,5 +19,9 @@ class HomeController extends BaseController {
 	{
 	   $this->layout->content = View::make('home.index');	
 	}
+	public function test()
+	{
+		echo 'dd tế';
+	}
 
 }

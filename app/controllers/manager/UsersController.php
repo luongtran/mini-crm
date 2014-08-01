@@ -78,10 +78,9 @@ class UsersController extends \BaseController {
                    'text'=>'Welcome to CRM, thank you have use system us  <a href="'.Request::root().'/active-customer/'.$user->id.'?token='.$user->code_forget.'">Please active my account at</a>
                            <p>User: '.Input::get('email').'</p><p>Pass: '.Input::get('password').'</p>',
                    'to_email'=>Input::get('email'),
-                   'to_name'=>Input::get('company_name'),
+                   'to_name'=>Input::get('first_name'),
                );
-               $email->manager_sendEmail($data);    
-
+               $email->manager_sendEmail($data);  
                 Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
                 return Redirect::route('manager.users.index');
             }          
@@ -183,9 +182,12 @@ class UsersController extends \BaseController {
             $user =  User::where('trash',1)->where('id',$id)->first();            
             if($user)
             {  
-                $upload = Upload::where("user_id",'=',$user->id)->fisrt();
-                $image = new ImageController();
-                $image->detroy($upload->id);
+                $upload = Upload::where("user_id",'=',$user->id)->first();
+                if($upload)
+                {
+                $image = new ImagesController();
+                $image->destroy($upload->id);                    
+                }
                 
                 $user->delete();
                 Session::flash('msg_flash', CommonHelper::print_msg('success','You have deleted success!'));

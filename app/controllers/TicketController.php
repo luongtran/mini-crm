@@ -199,7 +199,21 @@ class TicketController extends \BaseController {
                 $ticket = Ticket::where('code','=',$id)->first();
                 $ticket->status = User::STATUS_PROCESS;
                 $ticket->update();
-                return Redirect::to('client/customer/ticket/'.$id);
+
+                $server_id = User::find($ticket->server_id);
+                if($server_id)
+                {
+                    /*send message to staff*/
+                    $data = array(
+                    'content'=>$comment->content.' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
+                    'title'=>'Titcket CRM From customer - '.$ticket->subject.' - '.$ticket->code.'',
+                    'assign_to'=>$server_id->id,
+                    'type'=>'work'                  
+                    );                 
+                    $send_msm = new MessagesController();                            
+                    $send_msm->addMessage($data);                    
+                }
+                return Redirect::to('client/tickets/'.$id);
             }
 	}
         

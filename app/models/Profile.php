@@ -6,9 +6,9 @@ class Profile extends \Eloquent {
     protected $fillable = array('company_name','address','phone_number','website','sector_id','employee_count','contact_employee_company');
     
      /*Relashionship*/
-       public function sector()
+       public function user()
         {
-            return $this->hasOne('Sector','id');
+            return $this->hasOne('User');
        }
         /*end Relashionship*/
   

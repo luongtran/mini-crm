@@ -169,7 +169,7 @@ class  CustomersController extends \BaseController {
                     if($customer)
                     {         
                             if(Input::get('password')){
-                            $customer->password = Input::get('password');
+                            $customer->password = Hash::make(Input::get('password'));
                             }
                             $customer->activated= Input::get('activated');
                             $customer->first_name= Input::get('first_name');

@@ -67,6 +67,11 @@ Route::resource('manager/group-products', 'GroupProductsController');
 /*Purchase of Manager*/
 Route::resource('manager/purchases', 'PurchasesController');
 
+/*FQA of Manager*/
+Route::get('manager/fqa/{id}/del', array('uses'=>'FqasController@destroy'));
+Route::get('manager/fqa/find', array('uses'=>'FqasController@find'));
+Route::resource('manager/fqa', 'FqasController');
+
 
 /*Support ticket of Manager */
 Route::post('manager/tickets/add-comment/{id}',array('uses'=>'TicketsController@addComment'));
@@ -159,4 +164,5 @@ Route::post('client/races/{id}', array('uses'=>'RacesController@addComment'));
 
 Route::get('debug/email',array('uses'=>'EmailController@test'));
 Route::post('debug/email',array('uses'=>'EmailController@postTest'));
+//Route::get('test/read',array('uses'=>'HomeController@test'));
 

@@ -153,7 +153,7 @@ else if($ticket->status == 'resolve')
                                 </div>
                                 <hr>                               
                                {{Form::open(array('url'=>'client/ticket-comment/'.$ticket->code,'method'=>'post'))}}
-                                    <div class="group-form">
+                                    <div class="form-group">
                                         <textarea class='form-control ckeditor' name='content'></textarea>                                                                            
                                     </div> 
                                     <div class="pull-right">

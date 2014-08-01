@@ -1,6 +1,6 @@
 <div id="skin-select">
         <div id="logo">
-            <a href="{{Request::root()}}/backend"><h1>CRM
+            <a href="{{Request::root()}}/manager"><h1>CRM
                 <span>v1.0</span>
             </h1></a>
         </div>
@@ -114,6 +114,9 @@
                             <ul>
                                 <li>
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/tickets" title="Article list"><i class="icon-view-list"></i><span>Ticket</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa" title="Article list"><i class="icon icon-feed"></i><span>FQA</span></a>
                                 </li>
                             </ul>
                         </li>

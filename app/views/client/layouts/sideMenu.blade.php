@@ -1,6 +1,6 @@
 <div id="skin-select">
         <div id="logo">
-            <a href="{{Request::root()}}/backend"><h1>CRM- Client
+            <a href="{{Request::root()}}/client"><h1>CRM- Client
                 <span>v1.0</span>
             </h1></a>
         </div>
