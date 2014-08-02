@@ -230,7 +230,7 @@ class  CustomersController extends \BaseController {
                 return Redirect::to('manager/customers');
 	}
         
-        public function find()
+  public function find()
         {           
             if(Input::get('field_find')&&Input::get('filter'))
             {
@@ -293,12 +293,11 @@ class  CustomersController extends \BaseController {
                         ->paginate(5); 
                   }
               }             
-               
-               //dd($customer);             
-               $this->layout->content = View::make('manager.customers.search')->with('list',$customer)
-                       ->with('field',Input::get('field_find'))
-                       ->with('key',Input::get('key_find'))
-                       ->with('filter',Input::get('filter'));
+              /*parametor for paginate */             
+              $par_link = ['field_find'=>Input::get('field_find'),'key_find'=>Input::get('key_find'),'filter'=>Input::get('filter')];
+
+              $this->layout->content = View::make('manager.customers.index')->with('list',$customer)
+                       ->with('par_link',$par_link);
               
             }
         }

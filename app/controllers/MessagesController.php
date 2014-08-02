@@ -76,9 +76,12 @@ class MessagesController extends \BaseController {
             $message = Message::find($id);    
             if($message)
             {                
-               $message->activated=1;    
-               $message->update();
-               return View::make('share.message.show')->with('message',$message);    
+               	$message->activated=1;    
+               	$message->update();
+               	if((Auth::user()->group_users == User::MANAGER)||(Auth::user()->group_users == User::STAFF))
+               	return View::make('share.message.show')->with('message',$message);    
+               	else
+				return View::make('share.message.show_client')->with('message',$message);                   
             }	    
 	}
 

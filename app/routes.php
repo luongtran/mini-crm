@@ -114,6 +114,12 @@ Route::resource('client/tickets', 'TicketController');
 Route::get('client/races/{id}', array('uses'=>'RacesController@show'));
 Route::post('client/races/{id}', array('uses'=>'RacesController@addComment'));
 
+/*FQA of Client*/
+Route::get('client/fqa', array('uses'=>'FqaController@index'));
+Route::get('client/fqa/find', array('uses'=>'FqaController@find'));
+Route::get('client/fqa/{id}', array('uses'=>'FqaController@show'));
+
+
 
 /*-----------filter----------*/
  Route::when('manager', 'auth');
@@ -161,7 +167,6 @@ Route::post('client/races/{id}', array('uses'=>'RacesController@addComment'));
  
 /*debug*/ 
  
-
 Route::get('debug/email',array('uses'=>'EmailController@test'));
 Route::post('debug/email',array('uses'=>'EmailController@postTest'));
 //Route::get('test/read',array('uses'=>'HomeController@test'));

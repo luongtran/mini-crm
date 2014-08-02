@@ -1,4 +1,4 @@
-@extends('manager.layouts.default')
+@extends('client.layouts.default')
 
 @section('content')
 @include('share.message.title')

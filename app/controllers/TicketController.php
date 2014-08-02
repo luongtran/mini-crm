@@ -91,7 +91,7 @@ class TicketController extends \BaseController {
                     $email->manager_sendEmail($message);
                     /*send email to client*/
                     $message = array(
-                    'text'=>Input::get('description').' - <a href="'.Request::root().'/client/customer/tickets/'.$ticket->code.'">Visit</a>',
+                    'text'=>Input::get('description').' - <a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
                     'to_email'=>Auth::user()->email,
                     'to_name'=>'Customer - Ticket'

@@ -83,10 +83,10 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/fqa/" title="Article add"><i class="icon icon-feed"></i><span>See</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/" title="Article add"><i class="icon icon-feed"></i><span>See</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/fqa/popular" title="Article list"><i class="icon icon-graph-line"></i><span>Popular</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/popular" title="Article list"><i class="icon icon-graph-line"></i><span>Popular</span></a>
                                 </li>
                             </ul>
                         </li>           

@@ -1,7 +1,8 @@
 <?php
 
 class FqasController extends \BaseController {
-
+		protected $layout="manager.layouts.default";		
+		const ModuleName='FQA';
 	/**
 	 * Display a listing of the resource.
 	 * GET /fqas
@@ -10,7 +11,11 @@ class FqasController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		    $lists = Fqa::paginate(5);
+			$this->layout->content = View::make('manager.fqas.index')
+			->with('breadcrumb',array(array('link'=>'fqa','title'=>'FQA')))
+			->with('lists',$lists);
+			
 	}
 
 	/**
@@ -21,7 +26,8 @@ class FqasController extends \BaseController {
 	 */
 	public function create()
 	{
-		$this->layout->content = View::make('manager.fqa.create');
+		$this->layout->content = View::make('manager.fqas.create')
+		->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'create','title'=>'Create')));
 	}
 
 	/**
@@ -31,8 +37,18 @@ class FqasController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		//
+	{		
+		$validation = Validator::make(Input::all(),Fqa::$rule);
+		if($validation->passes())
+		{
+			$fqa = new Fqa();	
+			$fqa->fill(Input::all());
+			$fqa->save();
+			Session::flash('msg_flash',CommonHelper::print_msg('success','Created successfully'));	
+			return Redirect::to('manager/fqa');
+		}
+		Session::flash('msg_flash',CommonHelper::print_msg('error','Created problem!'));
+		return Redirect::back()->withInput()->withErrors($validation);		
 	}
 
 	/**
@@ -44,7 +60,18 @@ class FqasController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$fqa = Fqa::find($id);		
+		if($fqa)
+		{
+		$this->layout->content = View::make('manager.fqas.show')
+		->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Show')))
+		->with('view',$fqa);
+		}
+		else
+		{
+			dd('s');
+		 App::abort(404);
+		}
 	}
 
 	/**
@@ -56,7 +83,14 @@ class FqasController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$fqa = Fqa::find($id);
+		if($fqa)
+		{
+			$this->layout->content = View::make('manager.fqass.edit')
+			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Edit')))
+			->with('view',$fqa);
+		}
+		
 	}
 
 	/**
@@ -68,7 +102,23 @@ class FqasController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$fqa = Fqa::find($id);
+		if($fqa)
+		{
+			$validation= Validator::make(Input::all(),Fqa::$rule);
+			if($validation->passes())
+			{
+				$fqa->title = Input::get('title');
+				$fqa->content = Input::get('content');
+				$fqa->category = Input::get('category');
+				$fqa->update();
+				Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
+				return Redirect::to('manager/fqa');	
+			}
+			Session::flash('msg_flash',CommonHelper::print_msg('success','Edit problem'));	
+			return Redirect::back()->withInput()->withErrors($validation);
+			
+		}
 	}
 
 	/**
@@ -80,7 +130,28 @@ class FqasController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$fqa = Fqa::find($id);
+		if($fqa)
+		{
+			$fqa->delete();
+			Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
+			return Redirect::to('manager/fqa');				
+		}
+		Session::flash('msg_flash',CommonHelper::print_msg('error',"You cant'n delete this record"));	
+		//return Redirect::back()->withInput()->withErrors($validation);
+		return Redirect::to('manager/fqa');	
+	}
+
+	public function find()
+	{
+		$keyword = Input::get('key_find');
+		$fqa = Fqa::where('title','like','%'.$keyword.'%')->orWhere('content','like','%'.$keyword.'%')->paginate(5);
+		$par_link=['key_find'=>$keyword];
+
+		$this->layout->content = View::make('manager.fqas.index')
+			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Search')))
+			->with('lists',$fqa)
+			->with('par_link',$par_link);
 	}
 
 }

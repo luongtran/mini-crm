@@ -26,6 +26,11 @@ class UsersController extends \BaseController {
                      ->where('users.trash','<>',1)
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
                      ->paginate(5);
+
+          $t= User::with('groupUser')->get();
+
+          dd($t);
+
              $group_users = GroupUser::all();
              $this->layout->content = View::make('manager.users.index')
                      ->with('list',$list)

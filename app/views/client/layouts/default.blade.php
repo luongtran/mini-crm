@@ -40,9 +40,9 @@
 </head>
 <body>
     <!-- Preloader -->
-    <!--    <div id="preloader">
+    <div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>-->
+    </div>
     <!-- TOP NAVBAR -->
     @include('client.layouts.topNavbar')
     <!-- /END OF TOP NAVBAR -->

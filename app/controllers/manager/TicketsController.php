@@ -217,9 +217,23 @@ class TicketsController extends \BaseController {
                 {
                   /*send email to customer*/
                     $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->first();                
-                    $email = new EmailController();
+                    if($ticket->author_id!=$ticket->client_id){
+                    $infor_client =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->first();                    
+                    }
                     
-                    $message = array(
+                    $email = new EmailController();
+                    /*send message*/
+                    $send_msm = new MessagesController();
+                            $data = ['title'=>'Close ticket'.$id,
+                                   'content'=> '<p>Thank you!, we happy when served customer</p>
+                                                </br><a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Conplete ticket '.$ticket->code.'</a>
+                                                </br><a href="'.Request::root().'/client/races/'.$id.'">Please Race ticket at </a>',
+                                   'type'=>'work',
+                                   'assign_to'=>$infor_client->id
+                                   ];                    
+                    $send_msm->addMessage($data);
+                    /*send mail*/
+                    $send_mail = array(
                         'text'=>'<p>Thank you!, we happy when served customer</p>
                         </br><a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Conplete ticket '.$ticket->code.'</a>
                         </br><a href="'.Request::root().'/client/races/'.$id.'">Please Race ticket at </a>',
@@ -228,7 +242,7 @@ class TicketsController extends \BaseController {
                         'to_name'=>$infor_client->first_name
                         );    
                     
-                    if($email->manager_sendEmail($message))
+                    if($email->manager_sendEmail($send_mail))
                     {
                     Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
                     }
@@ -285,15 +299,18 @@ class TicketsController extends \BaseController {
 
 
                 /*send email client*/
-                $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.client_id')->where('tickets.code',$id)
-                        ->first();                
+                $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.client_id')->where('tickets.code',$id)->first();                    
+                if($ticket->author_id!=$ticket->client_id)
+                {                
+                 $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.author_id')->where('tickets.code',$id)->first();                    
+                }
                 $email = new EmailController();
                     $message = array(
                     'text'=>Input::get('content').' - <a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.$client->subject.' - '.$id,
                     'to_email'=>$client->email,
                     'to_name'=>$client->first_name
-                    );
+                    );  
                 $email->manager_sendEmail($message);
                 
                 return Redirect::to('manager/tickets/'.$id);

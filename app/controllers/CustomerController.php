@@ -46,7 +46,7 @@ class CustomerController extends \BaseController {
             {
                $customer = new User();
                $customer->email = Input::get('email');
-               $customer->password = Hash::make(Input::get('email'));
+               $customer->password = Hash::make(Input::get('password'));
                $customer->activated = 0;
                $customer->group_users = User::CUSTOMER;
                $customer->code_forget = md5(Input::get('email'));
