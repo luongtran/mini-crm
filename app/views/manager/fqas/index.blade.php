@@ -33,7 +33,7 @@
                                            <input type="checkbox" value="" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
                                         <td><a href="{{Request::root()}}/manager/fqa/{{$row->id}}">{{$row->title}}</a></td>
-                                        <td>{{$row->category}}</td>
+                                        <td>{{$row->FqaCategory->name}}</td>
                                         <td>{{$row->view}}</td>
                                         <td>{{$row->created_at}}</td>                                        
                                         <td>

@@ -129,14 +129,6 @@
                                            {{$ticket->created_at}}
                                         </td>
                                         <td>
-                                            <div class="btn-group pull-left">
-                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                           
-                                        </ul>
-                                    </div>
 
                                         </td>                                        
                                     </tr>

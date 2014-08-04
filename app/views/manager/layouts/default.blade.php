@@ -19,8 +19,8 @@
      @section('style')            
      @show
      
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> 
+    <script src="{{asset('asset/backend/assets/js/jquery-1.11.0.min.js')}}"></script>
+    <script src="{{asset('asset/backend/assets/js/jquery-migrate-1.2.1.min.js')}}"></script> 
     <script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>

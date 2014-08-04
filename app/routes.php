@@ -90,6 +90,7 @@ Route::post('update-password',array('uses'=>'ShareController@updatePassword'));
 /*load message */
 Route::get('share/message/list',array('uses'=>'MessagesController@getMessage'));
 Route::get('share/message/count',array('uses'=>'MessagesController@getCountMessage'));
+Route::get('share/message/see-all',array('uses'=>'MessagesController@index'));
 Route::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));
 
 /* ------ */
@@ -119,6 +120,12 @@ Route::get('client/fqa', array('uses'=>'FqaController@index'));
 Route::get('client/fqa/find', array('uses'=>'FqaController@find'));
 Route::get('client/fqa/{id}', array('uses'=>'FqaController@show'));
 
+
+/*upload of Client*/
+Route::get('client/upload', array('uses'=>'UploadController@client'));
+Route::post('client/upload', array('uses'=>'UploadController@uploadClient'));
+Route::get('client/upload/delete/{id}', array('uses'=>'UploadController@deleteClient'));
+Route::get('client/upload/document', array('uses'=>'UploadController@documentClient'));
 
 
 /*-----------filter----------*/

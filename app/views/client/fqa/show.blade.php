@@ -35,7 +35,7 @@
 
 			                    </div>
 			                    <div class="body-nest" id="basic">
-			                     <p>{{$view->supportType->name}}</p>
+			                                  <i class='btn btn-success'>{{$view->FqaCategory->name}}</i>
 			                     {{$view->content}}
 				            	</div>
 				            		

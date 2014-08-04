@@ -21,7 +21,7 @@ class HomeController extends BaseController {
 	}
 	public function test()
 	{
-		echo 'dd tế';
+		//echo 'dd tế';
 	}
 
 }

@@ -50,8 +50,8 @@
 
 				                    <div class="form-group">
 				                        {{Form::label('Category')}} 				                 
-				                        {{Form::text('category',Input::old('category'),array('class'=>'form-control'))}}       
-				                        <span class="alert-danger">{{$errors->first('category')}}</span>
+				                        {{Form::text('category_id',Input::old('category_id'),array('class'=>'form-control'))}}       
+				                        <span class="alert-danger">{{$errors->first('category_id')}}</span>
 				                    </div>
 
 				                    <div class="form-group">

@@ -2,7 +2,7 @@
 
 class FqasController extends \BaseController {
 		protected $layout="manager.layouts.default";		
-		const ModuleName='FQA';
+		const ModuleName='FAQ';
 	/**
 	 * Display a listing of the resource.
 	 * GET /fqas
@@ -10,10 +10,10 @@ class FqasController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-		    $lists = Fqa::paginate(5);
+	{		   
+		    $lists = Fqa::with('FqaCategory')->paginate(5);	 
 			$this->layout->content = View::make('manager.fqas.index')
-			->with('breadcrumb',array(array('link'=>'fqa','title'=>'FQA')))
+			->with('breadcrumb',array(array('link'=>'fqa','title'=>'FAQ')))
 			->with('lists',$lists);
 			
 	}
@@ -69,8 +69,7 @@ class FqasController extends \BaseController {
 		}
 		else
 		{
-			dd('s');
-		 App::abort(404);
+			
 		}
 	}
 
@@ -86,9 +85,10 @@ class FqasController extends \BaseController {
 		$fqa = Fqa::find($id);
 		if($fqa)
 		{
-			$this->layout->content = View::make('manager.fqass.edit')
+			$category  = FqaCategory::lists('name','id');
+			$this->layout->content = View::make('manager.fqas.edit')
 			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Edit')))
-			->with('view',$fqa);
+			->with('view',$fqa)->with('category',$category);
 		}
 		
 	}
@@ -110,7 +110,7 @@ class FqasController extends \BaseController {
 			{
 				$fqa->title = Input::get('title');
 				$fqa->content = Input::get('content');
-				$fqa->category = Input::get('category');
+				$fqa->category_id = Input::get('category_id');
 				$fqa->update();
 				Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
 				return Redirect::to('manager/fqa');	

@@ -8,6 +8,10 @@ class TicketController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+    public function __construct()
+    {            
+        //Common::globalXssClean();  
+    }   
 	public function index()
 	{
                 if(Auth::User()->group_users == User::EMPLOYEE)
@@ -40,7 +44,7 @@ class TicketController extends \BaseController {
 	{
                 $support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
-		$this->layout->content = View::make('client.ticket.create')
+		        $this->layout->content = View::make('client.ticket.create')
                         ->with('priority',$priority)
                         ->with('support_type',$support_type);
 	}
@@ -52,7 +56,7 @@ class TicketController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
+	{               
 		$validation = Validator::make(Input::all(),Ticket::$rule_client);
                 if($validation->passes()){
                     $ticket = new Ticket();

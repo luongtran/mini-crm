@@ -90,6 +90,24 @@
                                 </li>
                             </ul>
                         </li>           
+
+                         <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="Report">
+                                <i class="icon icon-folder"></i>
+                                <span>Resource</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/" title="Article add"><i class="icon icon-upload"></i><span>Upload</span></a>
+                                </li>                                                              
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/document" title="Article list"><i class="icon icon-calendar"></i><span>Document</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/invoice" title="Article list"><i class="icon icon-document"></i><span>Invoice</span></a>
+                                </li>
+                            </ul>
+                        </li>    
                      
                     </ul>
                   

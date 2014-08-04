@@ -2,7 +2,7 @@
 
 class FqaController extends \BaseController {
 		protected $layout="client.layouts.default";		
-		const ModuleName='FQA';
+		const ModuleName='FAQ';
 	/**
 	 * Display a listing of the resource.
 	 * GET /fqas
@@ -11,11 +11,10 @@ class FqaController extends \BaseController {
 	 */
 	public function index()
 	{
-		    $lists = Fqa::with('supportType')->orderBy('view','desc')->paginate(5);		   
+		    $lists = Fqa::with('FqaCategory')->orderBy('view','desc')->paginate(5);		   
 			$this->layout->content = View::make('client.fqa.index')
-			->with('breadcrumb',array(array('link'=>'fqa','title'=>'FQA')))
-			->with('lists',$lists);
-			
+			->with('breadcrumb',array(array('link'=>'client/faq','title'=>'FAQ')))
+			->with('lists',$lists);			
 	}
 
 	/**
@@ -27,7 +26,7 @@ class FqaController extends \BaseController {
 	public function create()
 	{
 		$this->layout->content = View::make('client.fqa.create')
-		->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FQA'),array('link'=>'create','title'=>'Create')));
+		->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FAQ'),array('link'=>'create','title'=>'Create')));
 	}
 
 	/**
@@ -66,7 +65,7 @@ class FqaController extends \BaseController {
 	     $fqa->view = ($fqa->view)+1;	
 	     $fqa->update();	
 		 $this->layout->content = View::make('client.fqa.show')
-		->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FQA'),array('link'=>'client/fqa#','title'=>'Show')))
+		->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FAQ'),array('link'=>'client/fqa#','title'=>'Show')))
 		->with('view',$fqa);
 		}		
 	}

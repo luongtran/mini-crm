@@ -22,22 +22,19 @@
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th> -->
                                         <th>Question</th>
-                                        <th>Categoy</th>
-                                        <th>Create_at</th>
+                                        <th>Categoy</th>                                       
                                         <th></th>                                       
                                     </tr>
-                                    @foreach($lists as $test=>$row)
+                                    @foreach($lists as $row)
                                     <tr>
                                        <!--  <td class="small-col">
                                            <input type="checkbox" value="" name="checkID[]" class="checkBoxClass"/>
                                         </td>    -->                                    
                                         <td class="title"><a href="{{Request::root()}}/client/fqa/{{$row->id}}">{{$row->title}}</a></td>
-                                        <td>{{$row->supportType->name}}</td>
-                                        <td></td>
-                                        <td>{{$row->created_at}}</td>                                        
+                                        <td>{{$row->FqaCategory->name}}</td>     
                                         <td>
                                             <div class="btn-group pull-left">		                                       
-                                   			    </div>
+                                   			</div>
                                         </td>                                        
                                     </tr>
                                     @endforeach

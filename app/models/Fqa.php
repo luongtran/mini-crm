@@ -1,12 +1,12 @@
 <?php
 
 class Fqa extends \Eloquent {
-	protected $fillable = ['title','content','category'];
+	protected $fillable = ['title','content','category_id'];
 	protected $table="fqas";
 	public static $rule = ['title'=>'required|min:5','content'=>'required'];
 
-	public function supportType()
+	public function FqaCategory()
 	{		 
-       return $this->belongsTo('SupportType','category');
+       return $this->belongsTo('FqaCategory','category_id');
 	}
 }

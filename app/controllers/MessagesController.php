@@ -9,6 +9,18 @@ class MessagesController extends \BaseController {
 	 * @return Response
 	 */
        
+    public function index()
+    {
+    	 if(Auth::check())
+            {
+            $message = Message::where('assign_to','=',Auth::id())->orderBy('id','desc')->paginate(20);
+            	if((Auth::user()->group_users == User::MANAGER)||(Auth::user()->group_users == User::STAFF))
+               	return View::make('share.message.index')->with('messages',$message);    
+               	else
+     			return View::make('share.message.index_client')->with('messages',$message);            
+            }  
+    }   
+
         public function getMessage()
 	{
             if(Auth::check())

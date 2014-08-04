@@ -22,7 +22,8 @@ class CustomerController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('client.customer.create');
+		//return View::make('client.customer.create');
+		return View::make('home.start');
 	}
 
 	/**

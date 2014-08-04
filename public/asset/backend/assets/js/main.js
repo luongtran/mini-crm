@@ -39,7 +39,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/custom/scriptbreaker-multiple-accord
 
 ////Right Sliding menu
 
-head.js(spBaseUrl+"/asset/backend/assets/js/slidebars/slidebars.min.js", "http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js", function() {
+head.js(spBaseUrl+"/asset/backend/assets/js/slidebars/slidebars.min.js",spBaseUrl+"/asset/backend/assets/js/jquery.easing.min.js", function() {
 
     $(document).ready(function() {
         var mySlidebars = new $.slidebars();

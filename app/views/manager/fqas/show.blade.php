@@ -35,7 +35,11 @@
 
 			                    </div>
 			                    <div class="body-nest" id="basic">
-			                     {{$view->title}}
+			                     <i class='btn btn-success'>{{$view->FqaCategory->name}}</i>
+			                     
+			                     {{$view->content}}
+
+			                     <p><a href='{{Request::root()}}/manager/fqa/{{$view->id}}/edit'><i class='btn btn-success'>Edit</i></a></p>
 				            	</div>
 				            		
 				            </div><!--end col 10-->
