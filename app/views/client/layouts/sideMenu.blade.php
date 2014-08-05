@@ -71,7 +71,7 @@
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets/create" title="Article list"><i class="icon icon-plus"></i><span>New ticket</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets" title="Article list"><i class="icon-view-list"></i><span>My ticket</span></a>
                                 </li>
                             </ul>
                         </li>

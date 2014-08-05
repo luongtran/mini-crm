@@ -13,6 +13,9 @@
         <link rel="stylesheet" href="{{asset('asset/frontend/css/icon-font.css')}}">
         <!-- end -->
         <link rel="stylesheet" href="{{asset('asset/frontend/css/style.css')}}">
+        <script src="{{asset('asset/backend/assets/js/jquery-1.11.0.min.js')}}"></script>
+        <script src="{{asset('asset/backend/assets/js/bootstrap.min.js')}}"></script>
+        
     </head>
 
     <body>
@@ -24,17 +27,18 @@
                         <div class="navbar col-sm-12" role="navigation">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle"></button>
-                                <a class="brand" href="#"><img src="{{asset('asset/frontend/img/crm.png')}}" width="50" height="50" alt=""> Startup</a>
+                                <a class="brand" href="{{Request::root()}}"><img src="{{asset('asset/frontend/img/crm.png')}}" width="50" height="50" alt=""> Startup</a>
                             </div>
                             <div class="collapse navbar-collapse pull-right">
                                 <ul class="nav pull-left">
-                                    <li class="active"><a href="#">HOME</a></li>
-                                    <li><a href="#">ABOUT</a></li>                                    
-                                    <li><a href="#link_faq">FAQ</a></li>
-                                    <li><a href="#">CONTACT</a></li>
+                                    <li class="active"><a href="{{Request::root()}}">HOME</a></li>
+                                    <li><a href="{{Request::root()}}/page/about">ABOUT</a></li>                                    
+                                    <li><a href="{{Request::root()}}/#link_faq">FAQ</a></li>
+                                    <li><a href="{{Request::root()}}/page/contact">CONTACT</a></li>
                                 </ul>
                                 <form class="navbar-form pull-left">
                                     <a class="btn btn-primary" href="{{Request::root()}}/crm-login">SIGN IN</a>
+                                    <a name='link-top'></a>
                                 </form>
                             </div>
                         </div>
@@ -47,30 +51,18 @@
                 <div class="container">
                     <nav class="pull-left">
                         <ul>
-                            <li class="active">
-                                <a href="#">Home</a>
-                            </li>
-                            <li>
-                                <a href="#">Company</a>
-                            </li>
-                            <li>
-                                <a href="#">Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="#">Blog</a>
-                            </li>
-                            <li>
-                                <a href="#">Contact</a>
-                            </li>
+                                    <li><a href="{{Request::root()}}">HOME</a></li>
+                                    <li><a href="{{Request::root()}}/page/about">ABOUT</a></li>                                    
+                                    <li><a href="{{Request::root()}}/#link_faq">FAQ</a></li>
+                                    <li><a href="{{Request::root()}}/page/contact">CONTACT</a></li>
                         </ul>
                     </nav>
-                    <div class="social-btns pull-right">
-                        <a href="#"><div class="fui-vimeo"></div><div class="fui-vimeo"></div></a>
-                        <a href="#"><div class="fui-facebook"></div><div class="fui-facebook"></div></a>
-                        <a href="#"><div class="fui-twitter"></div><div class="fui-twitter"></div></a>
+                    <div class="pull-right">
+                        <a href="#link-top"><img src="{{asset('asset/frontend/img/crm.png')}}" width="40" height="40" alt="">Up</a>
                     </div>
                     <div class="additional-links">
                         Be sure to take a look to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+                       
                     </div>
                 </div>
             </footer>

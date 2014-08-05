@@ -72,7 +72,7 @@ class CustomerController extends \BaseController {
                );
                $email->manager_sendEmail($data);               
                Session::flash('msg_flash', CommonHelper::print_msg('success','Register success'));
-               return Redirect::to('/');
+               return Redirect::to('/page/message');
             } 
             Session::flash('msg_flash',  CommonHelper::print_msg('error','Please enter full'));
             return Redirect::back()->withInput()->withErrors($validation);
@@ -141,6 +141,41 @@ class CustomerController extends \BaseController {
             }
             Session::flash('msg_flash',  CommonHelper::print_msg('error','Problem with active , please contact manager system'));
             return Redirect::to('/');  
+	}
+
+	public function invoice()
+	{
+		$customer_id = Auth::id();
+		if(Auth::user()->group_users == User::EMPLOYEE)
+		{
+			$customer_id = User::find(Auth::id())->customer_id;
+		}
+		$purchases = DB::table('purchases')
+                            ->join('users','users.id','=','purchases.customer_id')                                                        
+                            ->where('users.id','=',$customer_id)
+                            ->orderBy('purchases.id','desc')
+                            ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at"))
+                            ->get();
+        $this->layout->content = View::make('client.customer.invoice')->with('purchases',$purchases);                      
+	}
+	public function showInvoice($id)
+	{
+		  $customer_id = Auth::id();
+		if(Auth::user()->group_users == User::EMPLOYEE)
+		{
+			$customer_id = User::find(Auth::id())->customer_id;
+		}
+		  $purchases = DB::table('purchases')->join('purchase_detail','purchase_detail.purchase_id','=','purchases.id')
+                            ->join('users','users.id','=','purchases.customer_id')                            
+                            ->join('profiles','profiles.user_id','=','users.id')
+                            ->join('purchase_products','purchase_products.id','=','purchase_detail.product_id')
+                            ->where('purchases.code','=',$id)
+                            ->where('users.id','=',$customer_id)
+                            ->orderBy('purchases.id','desc')
+                            ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry"))
+                            ->get();
+               //dd($purchases);
+          $this->layout->content =  View::make('client.customer.show_invoice')->with('purchases',$purchases);
 	}
 
 }

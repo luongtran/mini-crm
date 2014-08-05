@@ -35,8 +35,8 @@
 
 			                    </div>
 			                    <div class="body-nest" id="basic">
-			                                  <i class='btn btn-success'>{{$view->FqaCategory->name}}</i>
-			                     {{$view->content}}
+			                     <p><i class='btn btn-success'>{{$view->FqaCategory->name}}</i></p>
+			                     <p>{{$view->content}}</p>
 				            	</div>
 				            		
 				            </div><!--end col 10-->

@@ -255,11 +255,9 @@
                                 </div>
 
                                 <div id="Blank_Page_Content" class="body-nest">
-                                    <a href="#">contract.xls</a></br>                       
-                                    <a href="#">document.docx</a></br>
-                                    <p><input type="file" name=""/>Document</p>
-                                    <p><input type="file" name=""/>Contract</p>
-                                    
+                                   @foreach($documents as $doc)
+                                    <p><i class='icon icon-attachment'></i><a href='{{Request::root()}}/{{$doc->path}}'>{{$doc->name}}</a></p>
+                                   @endforeach
                                 </div>
                             </div>
                         

@@ -94,7 +94,7 @@
                 </div>
                   
                 <div class='form-group'>
-             
+                   <label>Permission: {{$view->groupUser->name}}</label>
                 </div>  
                 
                 <div class='form-group'>

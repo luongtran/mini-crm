@@ -94,8 +94,13 @@ Route::get('share/message/see-all',array('uses'=>'MessagesController@index'));
 Route::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));
 
 /* ------ */
-Route::get('/client',array('uses'=>'CustomerController@index'));
+/*Home section frontend*/
+Route::post('/page/contact',array('uses'=>'HomeController@contact'));
+Route::get('/page',array('uses'=>'HomeController@index'));
+Route::get('/page/{id}',array('uses'=>'HomeController@page'));
 
+
+Route::get('/client',array('uses'=>'CustomerController@index'));
 /*Customer of client*/
 Route::get('/register',array('uses'=>'CustomerController@create'));
 Route::post('/register',array('uses'=>'CustomerController@store'));
@@ -126,6 +131,9 @@ Route::get('client/upload', array('uses'=>'UploadController@client'));
 Route::post('client/upload', array('uses'=>'UploadController@uploadClient'));
 Route::get('client/upload/delete/{id}', array('uses'=>'UploadController@deleteClient'));
 Route::get('client/upload/document', array('uses'=>'UploadController@documentClient'));
+/*invoice of client*/
+Route::get('client/invoice', array('uses'=>'CustomerController@invoice'));
+Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInvoice'));
 
 
 /*-----------filter----------*/

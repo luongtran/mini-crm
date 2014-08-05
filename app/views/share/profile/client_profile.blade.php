@@ -85,7 +85,7 @@
     <div class="panel panel-default">
 
             <div class="panel-heading">    
-                Info
+                Info working at <b>{{$view->profile->company_name}}</b>
             </div>
             <div class="panel-body">                  
                   {{Form::open(array('url'=>'client/update-profile','method'=>'post','enctype'=>'multipart/form-data'))}}
@@ -94,7 +94,7 @@
                 </div>
                   
                 <div class='form-group'>
-             
+                  <label>Permission: {{$view->groupUser->name}}</label>
                 </div>  
                 
                 <div class='form-group'>

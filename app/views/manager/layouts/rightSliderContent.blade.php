@@ -1,7 +1,7 @@
 
         <div class="sb-slidebar sb-right">
             <div class="right-wrapper">
-                <div class="row">
+                <!-- <div class="row">
                     <h3>
                         <span><i class="entypo-gauge"></i>&nbsp;&nbsp;MAIN WIDGET</span>
                     </h3>
@@ -41,11 +41,11 @@
                             <i>30KM/h avarage Result</i>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div style="margin-top:0;" class="right-wrapper">
-                <div class="row">
+               <!--  <div class="row">
                     <h3>
                         <span><i class="entypo-chat"></i>&nbsp;&nbsp;CHAT</span>
                     </h3>
@@ -126,6 +126,6 @@
 
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>

@@ -125,8 +125,12 @@ class  CustomersController extends \BaseController {
                             ->where('users.id','=',$id)
                             ->orderBy('purchases.id','desc')
                             ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from"))
-                            ->get();            
-            $this->layout->content = View::make('manager.customers.show')->with('profile',$profile)->with('purchases',$purchases);
+                            ->get();
+            $documents = Upload::where('customer_id',$profile->user_id)->where('type_file','document')->orderBy('id','desc')->get();                                
+            $this->layout->content = View::make('manager.customers.show')
+                         ->with('profile',$profile)
+                         ->with('purchases',$purchases)
+                         ->with('documents',$documents);
 	}
 
 	/**

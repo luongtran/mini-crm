@@ -8,7 +8,7 @@ class EmailController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	const EMAIL_ADMIN ="test@completermp.com";
+	      const EMAIL_ADMIN ="test@completermp.com";
         const EMAIL_STAFF ="ltt.develop@gmail.com";
         const EMAIL_TEST ="taikhoanlive100@outlook.com.vn";
         public function sendEmail()
