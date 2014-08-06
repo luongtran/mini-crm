@@ -116,7 +116,10 @@
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/tickets" title="Article list"><i class="icon-view-list"></i><span>Ticket</span></a>
                                 </li>
                                  <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa" title="Article list"><i class="icon icon-feed"></i><span>FQA</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa" title="Article list"><i class="icon icon-feed"></i><span>FAQ</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/news" title="Article list"><i class="icon icon-feed"></i><span>News</span></a>
                                 </li>
                             </ul>
                         </li>

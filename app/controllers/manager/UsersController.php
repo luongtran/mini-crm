@@ -29,7 +29,7 @@ class UsersController extends \BaseController {
 
           $t= User::with('groupUser')->get();
 
-          dd($t);
+        
 
              $group_users = GroupUser::all();
              $this->layout->content = View::make('manager.users.index')

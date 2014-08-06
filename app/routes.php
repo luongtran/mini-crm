@@ -47,6 +47,11 @@ Route::get('/manager/customers-del/{id}',array('as'=>'manager-customer-del','use
 Route::get('/manager/customers-find',array('as'=>'manager-customer-find','uses'=>'CustomersController@find'));
 Route::resource('/manager/customers', 'CustomersController');
 
+/*News of Manager*/
+Route::get('/manager/news/{id}/del',array('uses'=>'NewsController@destroy'));
+Route::get('/manager/news/find',array('uses'=>'NewsController@find'));
+Route::resource('/manager/news', 'NewsController');
+
 /*Employee of Manager*/
 // /-----------/ //
 //Route::get('/manager/customer/{id_customer}/employees/{id}/delete',array('as'=>'manager-employee-delete','uses'=>'EmployeesController@destroy'));
@@ -124,6 +129,9 @@ Route::post('client/races/{id}', array('uses'=>'RacesController@addComment'));
 Route::get('client/fqa', array('uses'=>'FqaController@index'));
 Route::get('client/fqa/find', array('uses'=>'FqaController@find'));
 Route::get('client/fqa/{id}', array('uses'=>'FqaController@show'));
+
+/*New of Client*/
+Route::get('client/news/{id}', array('uses'=>'NewsController@showClient'));
 
 
 /*upload of Client*/

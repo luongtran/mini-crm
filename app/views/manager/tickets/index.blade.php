@@ -15,15 +15,12 @@
                     <div class="col-sm-7">
                         <div class="devider-vertical visible-lg"></div>
                         <div class="tittle-middle-header">
-
                             <div class="alert">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 <span class="tittle-alert entypo-info-circled"></span>
                                 Welcome back,&nbsp;
                                 <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
                             </div>
-
-
                         </div>
 
                     </div>
@@ -98,7 +95,7 @@
                                         </th>
                                         <th>Order Ticket</th>
                                         <th>Subject</th>
-                                        <th>Author_id</th>
+                                        <!-- <th>Author_id</th> -->
                                         <th>Client_id</th>
                                         <th>Status</th>
                                         <th>Create at</th>
@@ -115,9 +112,9 @@
                                          <td >
                                            {{$ticket->subject}}
                                         </td>
-                                         <td >
+                                        <!--  <td >
                                            {{$ticket->author_id}}
-                                        </td>
+                                        </td> -->
                                           <td >
                                           {{$ticket->company_name}} {{$ticket->client_id}}
                                         </td>

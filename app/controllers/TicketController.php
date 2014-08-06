@@ -26,10 +26,12 @@ class TicketController extends \BaseController {
                 $list_ticket = DB::table('tickets')
                         ->where('tickets.client_id','=',$user_id)
                         ->where('tickets.status','<>','close')
-                        ->join('users','users.id','=','tickets.client_id')                        
+                        ->join('users','users.id','=','tickets.author_id')                        
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
-                        ->paginate(5);    
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->paginate(5);  
+
+               // $list_ticket = Ticket::with('Profile')->where('tickets.client_id','=',$user_id)->paginate(5);         
                
 		$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket);  
 	}
@@ -142,11 +144,13 @@ class TicketController extends \BaseController {
                                                 ->select(DB::RAW('support_tickets.content,support_tickets.created_at,users.first_name,users.last_name,users.avatar'))
                                                 ->get();
               
-                $attach = Upload::where('ticket_id','=',$ticket->code)->get();    
+                $attach = Upload::where('ticket_id','=',$ticket->code)->get();   
+                $news = News::where('category_id',1)->orderBy('id','desc')->paginate(5); 
                 
-		$this->layout->content = View::make('client.ticket.show')->with('ticket',$ticket)
+		        $this->layout->content = View::make('client.ticket.show')->with('ticket',$ticket)
                         ->with('list_comment',$list_comment)
-                        ->with('attach',$attach);
+                        ->with('attach',$attach)
+                        ->with('news',$news);
                       
                 }else{
                     return Redirect::to('client/customer/ticket');

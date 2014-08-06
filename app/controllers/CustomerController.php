@@ -10,8 +10,13 @@ class CustomerController extends \BaseController {
 	 */
 	public function index()
 	{
-           Session::flash('msg_flash','<h2>Welcome to CRM </h2>'); 
-          $this->layout->content = View::make('client.customer.index');  
+          Session::flash('msg_flash','Welcome to CRM '); 
+          $new = News::where('category_id',1)->orderBy('id','desc')->first();
+          $listNew = News::where('category_id',1)
+          						->where('id','<>',$new->id)
+          						->orderBy('id','desc')
+          						->paginate(10);
+          $this->layout->content = View::make('client.customer.index')->with('new',$new)->with('listNew',$listNew);  
 	}
 
 	/**

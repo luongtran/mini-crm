@@ -10,6 +10,10 @@ class Profile extends \Eloquent {
         {
             return $this->hasOne('User');
        }
+         public function sector()
+        {
+            return $this->hasOne('Sector','sector_id');
+        }
         /*end Relashionship*/
   
     public static function getProfile($id){

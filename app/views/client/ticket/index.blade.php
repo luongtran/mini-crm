@@ -98,8 +98,7 @@
                                         </th>
                                         <th>Order Ticket</th>
                                         <th>Subject</th>
-                                        <th>Author_id</th>
-                                        <th>Client_id</th>
+                                        <th>Author</th>
                                         <th>Status</th>
                                         <th>Create at</th>
                                         <th></th>
@@ -114,12 +113,9 @@
                                         <td><a href="{{Request::root()}}/client/tickets/{{$ticket->code}}">{{$ticket->code}}</a></td>
                                          <td >
                                            {{$ticket->subject}}
-                                        </td>
-                                         <td >
-                                           {{$ticket->author_id}}
-                                        </td>
+                                        </td>                                        
                                           <td >
-                                           {{$ticket->client_id}}
+                                           {{$ticket->first_name}}  {{$ticket->last_name}}
                                         </td>
                                         
                                         <td >

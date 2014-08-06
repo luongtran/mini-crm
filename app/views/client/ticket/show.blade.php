@@ -178,9 +178,20 @@ else if($ticket->status == 'resolve')
                  <div class="form-group">        
                     <label class="tweet-link"> Status: <i>{{strtoupper($ticket->status)}}</i></label>
                 </div> 
+
             </div>    
         </div>
-             
+         <div class="panel panel-defautl">
+            <div class="panel-body">    
+                <h3>What news?</h3>
+                <ul class=''>
+                    @foreach($news as $new)
+                        <li class='cus-ul-li-border' ><a href='{{Request::root()}}/client/news/{{$new->permalink}}'>{{$new->title}}</a></li>                                               
+                    @endforeach
+                </ul>
+
+            </div>    
+        </div>             
     </div>    
 
 </div>    

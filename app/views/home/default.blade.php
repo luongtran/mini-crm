@@ -14,6 +14,7 @@
         <!-- end -->
         <link rel="stylesheet" href="{{asset('asset/frontend/css/style.css')}}">
         <script src="{{asset('asset/backend/assets/js/jquery-1.11.0.min.js')}}"></script>
+        <script src="{{asset('asset/backend/assets/js/jquery-migrate-1.2.1.min.js')}}"></script>
         <script src="{{asset('asset/backend/assets/js/bootstrap.min.js')}}"></script>
         
     </head>

@@ -94,7 +94,7 @@
                                         <dd>{{$profile->profile->phone_number}}</dd>
                                         
                                         <dt>Sector</dt>
-                                        <dd>{{$profile->profile->sector_id}}</dd>                                                                                
+                                        <dd></dd>                                                                                
                                         <dt>Last Update</dt>
                                         <dd>{{$profile->updated_at}}</dd>                                     
 

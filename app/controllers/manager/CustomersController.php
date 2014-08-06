@@ -117,15 +117,16 @@ class  CustomersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $profile =  User::find($id);   
+            $profile =  User::with('Profile')->find($id);   
             $purchases = DB::table('purchases')->join('purchase_detail','purchase_detail.purchase_id','=','purchases.id')
                             ->join('users','users.id','=','purchases.customer_id')
-                            ->join('profiles','profiles.user_id','=','users.id')
+                            ->join('profiles','profiles.user_id','=','users.id')                            
                             ->join('purchase_products','purchase_products.id','=','purchase_detail.product_id')
                             ->where('users.id','=',$id)
                             ->orderBy('purchases.id','desc')
                             ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from"))
                             ->get();
+
             $documents = Upload::where('customer_id',$profile->user_id)->where('type_file','document')->orderBy('id','desc')->get();                                
             $this->layout->content = View::make('manager.customers.show')
                          ->with('profile',$profile)

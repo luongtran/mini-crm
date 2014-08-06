@@ -1,1 +1,5 @@
-C:\xampp\htdocs\project\mini-crm\app/views/purchases/create.blade.php
+@section('content')
+
+create
+
+@stop

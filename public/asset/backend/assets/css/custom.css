@@ -20,3 +20,10 @@
 .clear{
 	clear:both;
 }	
+
+
+.cus-ul-li-border
+{
+	border-bottom:1px solid #dedede;
+	padding: 4px;
+}

@@ -30,7 +30,8 @@ class PurchasesController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$product = Product::all();
+		$this->layout->content = View::make('manager.purchases.create');
 	}
 
 	/**
