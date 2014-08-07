@@ -99,6 +99,19 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+	'attributes' => array(
+		'email' => 'Email',
+		'password'=>'Password',
+		'password_confirmation'=>'Verify password',
+		'create'=>'Create',
+		'group_users'=>'Group user',
+		'update'=>'Update',		
+		'sector_id'=>'Sector',
+		'employee_count'=>'Count of employee',
+		'address'=>'Address',
+		'company'=>'Company',
+		'phone_number'=>'Phone number',
+		'contact_employee_company'=>'Contact employee company',
+		),
 
 );

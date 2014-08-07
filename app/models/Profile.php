@@ -8,7 +8,7 @@ class Profile extends \Eloquent {
      /*Relashionship*/
        public function user()
         {
-            return $this->hasOne('User');
+            return $this->belongsTo('User','user_id');
        }
          public function sector()
         {

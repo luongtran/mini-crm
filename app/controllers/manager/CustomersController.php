@@ -7,19 +7,19 @@ class  CustomersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-        public function __construct()
-        {            
+   public function __construct()
+     {       
+     parent::__construct();     
             //Common::globalXssClean();  
-        }
+    }
 	public function index()
 	{          
              /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/customers','title'=>'User'],
-			['link'=>'#','title'=>'Create']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            
+            $breadcrumb = [
+                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
+		                  	['link'=>'#','title'=>trans('title.form.index')]
+                     ];  
+
             $list= DB::table('profiles')
                  ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                  ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
@@ -28,8 +28,8 @@ class  CustomersController extends \BaseController {
                  ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                  ->paginate(5);            
             $this->layout->content = View::make('manager.customers.index')
-                    ->with('breadcumb',$breadcumb)
-                    ->with('list',$list);
+                 ->with('breadcrumb',$breadcrumb)
+                 ->with('list',$list);
 	}
 
 	/**
@@ -40,15 +40,12 @@ class  CustomersController extends \BaseController {
 	 */
 	public function create()
 	{
-            /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/customers','title'=>'User'],
-			['link'=>'#','title'=>'Create']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            
-            $sector = DB::table('sector')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('manager.customers.create')->with('sector',$sector)->with('breadcumb',$breadcumb);
+            /*breadcrumb*/
+            $breadcrumb = [
+                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
+			                   ['link'=>'#','title'=>trans('common.button.create')]
+                     ];                   
+            $this->layout->content = View::make('manager.customers.create')->with('breadcrumb',$breadcrumb);
 	}
 
 	/**
@@ -132,6 +129,7 @@ class  CustomersController extends \BaseController {
                          ->with('profile',$profile)
                          ->with('purchases',$purchases)
                          ->with('documents',$documents);
+
 	}
 
 	/**
@@ -144,18 +142,14 @@ class  CustomersController extends \BaseController {
 	public function edit($id)
 	{
              /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/customers','title'=>'User'],
-			['link'=>'#','title'=>'Create']
-                     ];                    
-          $breadcumb = CommonHelper::breadcumb($listNav);
-            
-          $sector = DB::table('sector')->orderBy('name', 'asc')->lists('name','id');                  
-          $customer =  User::find($id);           
+            $breadcrumb = [
+                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
+		                  	['link'=>'#','title'=>trans('common.button.edit')]
+                     ];  
+          $customer =  User::with('profile')->find($id);           
           $this->layout->content = View::make('manager.customers.edit')
-                 ->with('customer',$customer)
-                 ->with('sector',$sector)                   
-                 ->with('breadcumb',$breadcumb);
+                 ->with('customer',$customer)                 
+                 ->with('breadcrumb',$breadcrumb);
       
 	}
 
@@ -226,7 +220,7 @@ class  CustomersController extends \BaseController {
 	{
                 $check = User::where('customer_id','=',$id)->count();    
                 if($check==0){
-		User::find($id)->delete();
+		             User::find($id)->delete();
                 Profile::where('user_id','=',$id)->delete();                
                 Session::flash('msg_flash', CommonHelper::print_msg('success','Deleted success'));
                 return Redirect::to('manager/customers');
@@ -301,8 +295,14 @@ class  CustomersController extends \BaseController {
               /*parametor for paginate */             
               $par_link = ['field_find'=>Input::get('field_find'),'key_find'=>Input::get('key_find'),'filter'=>Input::get('filter')];
 
+              $breadcrumb = [
+                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
+                        ['link'=>'#','title'=>trans('common.button.search')]
+                     ];  
+
               $this->layout->content = View::make('manager.customers.index')->with('list',$customer)
-                       ->with('par_link',$par_link);
+                       ->with('par_link',$par_link)
+                       ->with('breadcrumb',$breadcrumb);
               
             }
         }

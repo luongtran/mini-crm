@@ -8,6 +8,12 @@ class LanguagesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
+    public function getChangeLanguage($lang) {
+        Session::put('current_locale', $lang);
+        return Redirect::to(Input::get('return_url'));        
+    }
+
 	public function index()
 	{
 		//

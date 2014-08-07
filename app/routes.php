@@ -43,7 +43,7 @@ Route::resource('/manager/users', 'UsersController');
 
 /*Customer of Manager*/
 // /-----------/ //
-Route::get('/manager/customers-del/{id}',array('as'=>'manager-customer-del','uses'=>'CustomersController@destroy'));
+//Route::get('/manager/customers-del/{id}',array('as'=>'manager-customer-del','uses'=>'CustomersController@destroy'));
 Route::get('/manager/customers-find',array('as'=>'manager-customer-find','uses'=>'CustomersController@find'));
 Route::resource('/manager/customers', 'CustomersController');
 
@@ -97,6 +97,10 @@ Route::get('share/message/list',array('uses'=>'MessagesController@getMessage'));
 Route::get('share/message/count',array('uses'=>'MessagesController@getCountMessage'));
 Route::get('share/message/see-all',array('uses'=>'MessagesController@index'));
 Route::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));
+
+/*Language*/
+Route::get('change-language/{id}',array('as' => 'change_language', 'uses' =>'LanguagesController@getChangeLanguage'));
+
 
 /* ------ */
 /*Home section frontend*/

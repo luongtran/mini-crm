@@ -16,12 +16,11 @@
     <link rel="stylesheet" href="{{asset('asset/backend/assets/css/social.css')}}">
     
     <link rel="shortcut icon" href="{{asset('asset/backend/assets/ico/minus.png')}}">
-     @section('style')            
-     @show
-     
+
     <script src="{{asset('asset/backend/assets/js/jquery-1.11.0.min.js')}}"></script>
     <script src="{{asset('asset/backend/assets/js/jquery-migrate-1.2.1.min.js')}}"></script> 
-    <script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
+    <script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>   
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -68,7 +67,6 @@
                     @yield('content')
                 </div>
                 <!-- /END OF CONTENT -->
-
              </div>
 
                 <!-- FOOTER -->

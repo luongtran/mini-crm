@@ -1,6 +1,6 @@
 <?php
 
-class UsersController extends \BaseController {
+class UsersController extends BaseController {
     protected  $layout = "manager.layouts.default";
     /**
 	 * Display a listing of the resource.
@@ -8,34 +8,21 @@ class UsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-        public function __construct()
-        {            
-            //Common::globalXssClean();  
-        }             
+                        
 	public function index()
-	{
-             /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Index']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            /*breadcumb*/              
-             $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+	{            
+            $breadcrumb = [
+                           ['link'=>'manager/users','title'=>trans('title.form.user')]		              	
+                         ]; 
+
+            $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->orderBy('users.id','desc')
                      ->where('users.trash','<>',1)
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);
-
-          $t= User::with('groupUser')->get();
-
-        
-
-             $group_users = GroupUser::all();
-             $this->layout->content = View::make('manager.users.index')
-                     ->with('list',$list)
-                     ->with('group_name',$group_users)
-                     ->with('breadcumb',$breadcumb);
+                     ->paginate(5);           
+            $this->layout->content = View::make('manager.users.index')
+                    ->with('list',$list)
+                    ->with('breadcrumb',$breadcrumb);
 	}
        
                
@@ -46,18 +33,13 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
 	public function create()
-	{	
-            /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Index']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            /*breadcumb*/            
-            $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('manager.users.create')
-                    ->with('group_users',$group_users)
-                    ->with('breadcumb',$breadcumb);            
+	{	            
+            $breadcrumb = [
+                        ['link'=>'manager/users','title'=>trans('title.form.user')],
+			            ['link'=>'#','title'=>trans('common.button.create')]
+                     ];                                         
+            $this->layout->content = View::make('manager.users.create')                  
+                    ->with('breadcrumb',$breadcrumb);           
 	}
 
 	public function store()
@@ -88,10 +70,11 @@ class UsersController extends \BaseController {
                $email->manager_sendEmail($data);  
                 Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
                 return Redirect::route('manager.users.index');
-            }          
+            }  else {
             //Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
             Session::flash('msg_flash', CommonHelper::print_msg('error','Please check all field'));
-            return Redirect::back()->withInput()->withErrors($validation);         
+            return Redirect::back()->withInput()->withErrors($validation);                  
+            }         
 	}
 
 	/**
@@ -102,18 +85,15 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-            /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Show']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            /*breadcumb*/   
+	{           
+        $breadcrumb = [
+                            ['link'=>'manager/users','title'=>trans('title.form.user')],
+		                	['link'=>'#','title'=>trans('title.form.show')]
+                    ];     
 		$user = User::find($id);                    
-                $this->layout->content = View::make('manager.users.show')
+        $this->layout->content = View::make('manager.users.show')
                         ->with('user',$user)
-                        ->with('breadcumb',$breadcumb);
+                        ->with('breadcrumb',$breadcrumb);
 	}
 
 	/**
@@ -124,15 +104,11 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
 	public function edit($id)
-	{
-              /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Edit']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            /*breadcumb*/    
-            
+	{           
+        $breadcrumb = [
+                        ['link'=>'manager/users','title'=>trans('title.form.user')],
+		             	['link'=>'#','title'=>trans('common.button.edit')]
+                     ];  
 		$user = User::find($id);
                 if($user)
                 {
@@ -140,7 +116,7 @@ class UsersController extends \BaseController {
                 $this->layout->content = View::make('manager.users.edit')
                         ->with('user',$user)
                         ->with('group_users',$group_users)
-                        ->with('breadcumb',$breadcumb);
+                        ->with('breadcrumb',$breadcrumb);
                 }
 	}
 
@@ -249,15 +225,14 @@ class UsersController extends \BaseController {
         public function filter()
         {
              /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Edit']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            /*breadcumb*/  
-            
-            
+            $breadcrumb = [
+                        ['link'=>'manager/users','title'=>trans('title.form.user')],
+			             ['link'=>'#','title'=>trans('common.button.filter')]
+                     ];
+                                          
             $filter = Input::get('field_filter');
+            $par_link = ['field_filter'=>$filter];
+
             if($filter){             
              $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('group_users.name','=',$filter)
@@ -271,26 +246,24 @@ class UsersController extends \BaseController {
                      ->orderBy('users.id','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
                      ->paginate(5);  
-             }
-             
-             $group_users = GroupUser::all();
-             $this->layout->content = View::make('manager.users.filter')->with('list',$list)->with('group_name',$group_users)
-                     ->with('field_filter',$filter)
-                     ->with('breadcumb',$breadcumb);
+             }             
+             $this->layout->content = View::make('manager.users.index')
+                    ->with('list',$list)
+                    ->with('par_link',$par_link)
+                    ->with('breadcrumb',$breadcrumb);
             }
         }
         
         public function find()
-        {
-             /*breadcumb*/
-            $listNav = [
-                        ['link'=>'manager/users','title'=>'User'],
-			['link'=>'#','title'=>'Edit']
-                     ];                    
-            $breadcumb = CommonHelper::breadcumb($listNav);
-            /*breadcumb*/  
+        {           
+            $breadcrumb = [
+                        ['link'=>'manager/users','title'=>trans('title.form.user')],
+			            ['link'=>'#','title'=>trans('common.button.search')]
+                    ];    
             
             $key_find = Input::get('key_find');
+            $par_link = ['field_filter'=>$key_find];
+
             if($key_find){             
              $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('first_name','like','%'.$key_find.'%')
@@ -299,9 +272,9 @@ class UsersController extends \BaseController {
                      ->paginate(5);
              $group_users = GroupUser::all();
              
-             $this->layout->content = View::make('manager.users.filter')->with('list',$list)->with('group_name',$group_users)
-                     ->with('field_filter',$key_find)
-                     ->with('breadcumb',$breadcumb);
+             $this->layout->content = View::make('manager.users.index')->with('list',$list)->with('group_name',$group_users)
+                    ->with('par_link',$par_link)
+                    ->with('breadcrumb',$breadcrumb);
              
             }
         }

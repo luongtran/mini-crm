@@ -125,6 +125,7 @@ return array(
                 'Darsain\Console\ConsoleServiceProvider',
                 'Torann\GeoIP\GeoIPServiceProvider',      
                 'Intervention\Image\ImageServiceProvider',
+                'Former\FormerServiceProvider',
 	),
 
 	/*
@@ -193,7 +194,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
                 'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
                 'Image' => 'Intervention\Image\Facades\Image',
-
+                'Former' => 'Former\Facades\Former',
 	),
 
 );

@@ -1,42 +1,9 @@
 @section('content')
-<script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>            
-
             <!--TITLE -->
-            <div class="row">
-                <div id="paper-top">
-                    <div class="col-sm-3">
-                        <h2 class="tittle-content-header">
-                            <i class="icon-mail"></i> 
-                            <span>User
-                            </span>
-                        </h2>
-
-                    </div>
-
-                    <div class="col-sm-7">
-                         <div class="devider-vertical visible-lg"></div>
-                         <div class="btn-group btn-wigdet pull-right visible-lg">
-                          
-                             @include('manager.users.form_search')                           
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="btn-group btn-wigdet pull-right visible-lg">
-                            <div class="btn">
-                                <a href="{{Request::root()}}/manager/users/create">Create user</a>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
+               @include('manager.users.title')
             <!--/ TITLE -->
-
             <!-- BREADCRUMB -->
-            {{$breadcumb}}
+               @include('manager.users.breadcrumb')
             <!-- END BREADCRUMB -->
 <div class="col-sm-12">
      {{ Form::open(array('url' => 'manager/users/action','method'=>'post','role'=>'form','id'=>'frm-add')) }}                                                               
@@ -57,7 +24,7 @@
                                         </div>
                                         <div class="btn-group pull-left">      
                                         <button style="margin-right:10px" type="submit" data-color="#39B3D7" data-opacity="0.95" class="btn button test pull-left">
-                                        <span class="entypo-arrows-ccw"></span>&nbsp;&nbsp;Change</button>
+                                        <span class="entypo-arrows-ccw"></span>&nbsp;&nbsp;{{trans('common.button.change')}}</button>
                                         </div>
                                     </div>
 
@@ -65,11 +32,8 @@
 
 
                                 <div class="col-sm-6">                                   
-                                     <div style="margin-right:10px" class="btn-group pull-right">
-                                      
-                                        <div class="btn-group pull-right">  
-                                         @include('manager.users.form_filter')
-                                                                  
+                                     <div style="margin-right:10px" class="btn-group pull-right">                                      
+                                        <div class="btn-group pull-right">                                                                                                      
                                         </div>
                                     </div>
                                 </div>
@@ -86,10 +50,10 @@
                                     <tr class="unread">
                                         <th class="small-col">  
                                         </th>
-                                        <th>Display name</th>
-                                        <th>Email</th>
-                                        <th>Group users</th>
-                                        <th>Create at</th>
+                                        <th>{{trans('title.table.name')}}</th>
+                                        <th>{{trans('title.table.email')}}</th>
+                                        <th>{{trans('title.table.group_user')}}</th>
+                                        <th>{{trans('title.table.created')}}</th>
                                         <th></th>
                                        
                                     </tr>
@@ -99,25 +63,25 @@
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
-                                        <td><a href="{{Request::root()}}/manager/users/{{$users->id}}">{{$users->fullname}}</a></td>
+                                        <td><a href="{{url('manager/users/'.$users->id)}}">{{$users->fullname}}</a></td>
                                         <td class="subject">
                                            {{$users->email}}
                                         </td>
                                         <td> {{$users->name}}</td>
                                         <td> {{$users->created_at}}</td>
                                         <td>
-                                            <div class="btn-group pull-left">
-                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/users/{{$users->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
-                                            </li>                                            
-                                            <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/users/del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        <div class="btn-group pull-left">
+                                            <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">{{trans('common.button.action')}}
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="{{url('manager/users/'.$users->id)}}/edit"><i class="fa fa-pencil"></i>{{trans('common.button.edit')}}</a>
+                                                </li>                                            
+                                                <li class="divider"></li>
+                                                <li><a class="btn-del" href="{{Request::root()}}/manager/users/del/{{$users->id}}" ><i class="fa fa-trash-o"></i> Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
 
                                         </td>                                        
                                     </tr>
@@ -125,21 +89,28 @@
 
                                </table>
                               </form>
-                            
-
-                                
                                 
                                 
                             </div>
-            {{Form::close()}}
+                            {{Form::close()}}
                                 <div class="">                                   
                                     <div class="btn-group pull-left">     
-                                            <?php echo $list->links(); ?>
-                                        
+                                         <?php 
+                                         if(isset($par_link))
+                                         {
+                                           echo $list->appends($par_link)->links();                                           
+                                         }
+                                         else
+                                         {
+                                            echo $list->links();
+                                         }
+                                         ?>                                    
                                     </div>
                                 </div>
                             <!-- /.table-responsive -->
-                           
 
-                    </div>    
+                    </div>  
+
+
+                    
 @stop

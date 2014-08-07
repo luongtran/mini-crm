@@ -1,100 +1,17 @@
 @section('content')
-<script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
 <!-- CONTENT -->
             <!--TITLE -->
-            <div class="row">
-                <div id="paper-top">
-                    <div class="col-sm-3">
-                        <h2 class="tittle-content-header">
-                            <i class="icon-mail"></i> 
-                            <span>Customer
-                            </span>
-                        </h2>
-
-                    </div>
-
-                    <div class="col-sm-7">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="tittle-middle-header">
-
-                            <div class="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <span class="tittle-alert entypo-info-circled"></span>
-                                Welcome back,&nbsp;
-                                <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="btn-group btn-wigdet pull-right visible-lg">
-                            <div class="btn">
-                                Widget</div>
-                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li>
-                                    <a href="{{Request::root()}}/manager/customers/create" >
-                                        <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>
-                                <li>
-                                    <a href="#" >
-                                        <span class="entypo-heart margin-iconic"></span>Favorite</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-cog margin-iconic"></span>Setting</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
+            @include('manager.customers.title')
             <!--/ TITLE -->
-
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="">Manager</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="">Customer</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
-
+            @include('manager.customers.breadcrumb')
             <!-- END OF BREADCRUMB -->
-
-
 
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">
                             <div class="row">
-                                  {{Session::get('msg_flash')}} 
-                               <div class="col-sm-10">
-                                   @include('manager.customers.form_search_customer')                                  
-                                </div>
-                                <div class="col-sm-6">                                   
-                                    
-                                </div>
+                                  {{Session::get('msg_flash')}}                                
                             </div>
-
                         </div>
 
                             <div class="table-responsive">
@@ -105,11 +22,11 @@
                                         <th class="small-col">
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th>
-                                        <th>Company</th>
-                                        <th>Email</th>
-                                        <th>Sector</th>
-                                        <th>Employee</th>
-                                        <th>Create at</th>
+                                        <th>{{trans('title.table.company')}}</th>
+                                        <th>{{trans('title.table.email')}}</th>
+                                        <th>{{trans('title.table.sector')}}</th>
+                                        <th>{{trans('title.form.employee')}}</th>
+                                        <th>{{trans('title.table.created')}}</th>
                                         <th></th>
                                        
                                     </tr>
@@ -117,7 +34,7 @@
                                     @foreach($list as $users)
                                     <tr @if($users->activated==0){{"class='danger'"}} @endif >
                                         <td class="small-col">
-                                              <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
+                                            <input type="checkbox" value="{{$users->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       
                                         <td><a href="{{Request::root()}}/manager/customers/{{$users->id}}">{{$users->company_name}}</a></td>
                                         <td class="subject">
@@ -128,21 +45,20 @@
                                         <td> {{$users->created_at}}</td>
                                         <td>
                                             <div class="btn-group pull-left">
-                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
+                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">{{trans('common.button.action')}}
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}"><i class="icon icon-monitor"></i>View profile</a>
+                                            <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}"><i class="icon icon-monitor"></i>{{trans('title.form.view_profile')}}</a>
                                             </li>                                               
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
+                                            <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}/edit"><i class="fa fa-pencil"></i>{{trans('common.button.edit')}}</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/customers-del/{{$users->id}}" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a class='btn-del' href="{{Request::root()}}/manager/customers/{{$users->id}}" ><i class="fa fa-trash-o"></i> {{trans('common.button.delete')}}</a>
                                             </li>
                                         </ul>
-                                    </div>
-
+                                         </div>
                                         </td>                                        
                                     </tr>
                                     @endforeach    
@@ -164,10 +80,25 @@
                                         else
                                         echo $list->links(); 
                                         ?>
-                                    </div>
+                                    </div>                                   
                                 </div>
                             <!-- /.table-responsive -->
                            
 
                     </div>    
+
+<script type="text/javascript">
+$(function() {
+    /*event delete with method DELETE*/          
+  $(".btn-del").click(function(){
+         var url = $(this).attr('href'); 
+        if(confirm('Are you want delete?')){
+         $("body").append("<form action='"+url+"' method='POST' id='myform'><input name='_method' type='hidden' value='DELETE'></form>");         
+         $("#myform").submit();  
+        }
+        return false;                                                             
+    });
+       
+});
+</script>                    
 @stop

@@ -18,6 +18,11 @@ return array(
                 'update'=>'Update',
                 'view'=>'View',
                 'action'=>'Action',
+                'change'=>'Change',
+                'back'=>'Back',
+                'trash'=>'Trash',
+                'search'=>'Search',
+                'filter'=>'Filter'
               ],
     
     'menu'=>['home'=>'Home']

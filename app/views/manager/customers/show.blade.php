@@ -10,14 +10,14 @@
 
                                     <ul class="list-group">
                                         <li class="list-group-item text-left">
-                                            <span class="entypo-user"></span>&nbsp;&nbsp;Info of Company</li>
+                                            <span class="entypo-user"></span>&nbsp;&nbsp;{{trans('title.form.info_company')}}</li>
                                         <li class="list-group-item text-center">
                                             <img class="img-circle img-responsive img-profile" alt="" src="">
 
                                         </li>
                                         <li class="list-group-item text-center">
                                             <span class="pull-left">
-                                                <strong>Ratings</strong>
+                                                <strong>{{trans('title.form.racing')}}</strong>
                                             </span>
 
 
@@ -29,16 +29,6 @@
                                                 <a href="#">
                                                     <span class="fa fa-star"></span>
                                                 </a>
-                                                <a href="#">
-                                                    <span class="fa fa-star"></span>
-                                                </a>
-                                                <a href="#">
-                                                    <span class="fa fa-star"></span>
-                                                </a>
-                                                <a href="#">
-                                                    <span class="fa fa-star-o"></span>
-                                                </a>
-
                                             </div>
 
 
@@ -46,7 +36,7 @@
 
                                         <li class="list-group-item text-right">
                                             <span class="pull-left">
-                                                <strong>Joined</strong>
+                                                <strong>{{trans('title.form.joined')}}</strong>
                                             </span>{{$profile->created_at}}</li>
                                         <li class="list-group-item text-right">
                                           
@@ -81,19 +71,19 @@
                                     <hr>
 
                                     <dl class="dl-horizontal-profile">
-                                        <dt>Customer Id</dt>
+                                        <dt>{{trans('title.form.customer_id')}}</dt>
                                         <dd>{{$profile->id}}</dd>
                                         
-                                        <dt>Contact employee at company</dt>
+                                        <dt>{{trans('title.form.contact_employee_company')}}</dt>
                                         <dd>{{$profile->profile->contact_employee_company}}</dd>
                                         
-                                        <dt>Email</dt>
+                                        <dt>{{trans('title.table.email')}}</dt>
                                         <dd>{{$profile->email}}</dd>
 
-                                        <dt>Phone</dt>
+                                        <dt>{{trans('title.table.phone_number')}}</dt>
                                         <dd>{{$profile->profile->phone_number}}</dd>
                                         
-                                        <dt>Sector</dt>
+                                        <dt>{{trans('title.table.sector')}}</dt>
                                         <dd></dd>                                                                                
                                         <dt>Last Update</dt>
                                         <dd>{{$profile->updated_at}}</dd>                                     
@@ -123,10 +113,10 @@
                             <div class="col-xs-12 divider text-center">
                                 <div class="col-xs-12 col-sm-4 emphasis">
                                     <h2>
-                                        <strong>20,7K</strong>
+                                        <strong></strong>
                                     </h2>
                                     <p>
-                                        <small>Followers</small>
+                                        <small></small>
                                     </p>                                 
                                 </div>
                                 <div class="col-xs-12 col-sm-4 emphasis">
@@ -134,7 +124,7 @@
                                         <strong>{{$profile->count_access}}</strong>
                                     </h2>
                                     <p>
-                                        <small>Activity</small>
+                                        <small>{{trans('title.form.activity')}}</small>
                                     </p>                                  
                                 </div>
                                 <div class="col-sm-4 emphasis">
@@ -142,7 +132,7 @@
                                         <strong>{{$profile->profile->employee_count}}</strong>
                                     </h2>
                                     <p>
-                                        <small>Employees</small>
+                                        <small>{{trans('title.form.employee')}}</small>
                                     </p>                                   
                                 </div>
                             </div>
@@ -160,8 +150,7 @@
 
                             <div id="Blank_PageClose" class="nest" style="">
                                 <div class="title-alt">
-                                    <h6>
-                                        Purchase product of customer</h6>
+                                    <h6>{{trans('title.form.invoice')}} </h6>
                                     <div class="titleClose">
                                         <a href="#Blank_PageClose" class="gone">
                                             <span class="entypo-cancel"></span>
@@ -184,13 +173,13 @@
 
                                                     <tr class="unread">
                                                         <th class="small-col"></th>
-                                                        <th>Name</th>
-                                                        <th>Cost</th>
-                                                        <th>Discount</th>
-                                                        <th>Expiry</th>
-                                                        <th>Created at</th>
-                                                        <th>Deadline</th>
-                                                        <th>Code</th>
+                                                        <th>{{trans('title.table.name')}}</th>
+                                                        <th>{{trans('title.table.cost')}}</th>
+                                                        <th>{{trans('title.table.discount')}}</th>
+                                                        <th>{{trans('title.table.expiry')}}</th>
+                                                        <th>{{trans('title.table.created')}}</th>
+                                                        <th>{{trans('title.table.deadline')}}</th>
+                                                        <th>{{trans('title.table.code')}}</th>
                                                         <th></th>
 
                                                     </tr>
@@ -239,8 +228,7 @@
 
                             <div id="Blank_PageClose" class="nest" style="">
                                 <div class="title-alt">
-                                    <h6>
-                                       Genegare of customer</h6>
+                                    <h6>{{trans('title.form.resource')}}</h6>
                                     <div class="titleClose">
                                         <a href="#Blank_PageClose" class="gone">
                                             <span class="entypo-cancel"></span>
