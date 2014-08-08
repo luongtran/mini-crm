@@ -13,7 +13,7 @@
 
 
                 <div id="logo-mobile" class="visible-xs">
-                    <h1>Apricot
+                    <h1>CRM
                         <span>v1.2</span>
                     </h1>
                 </div>
@@ -50,7 +50,7 @@
                     </li>
 
                 </ul>
-                <div id="nt-title-container" class="navbar-left running-text visible-lg">
+               <!--  <div id="nt-title-container" class="navbar-left running-text visible-lg">
                     <ul class="date-top">
                         <li class="entypo-calendar" style="margin-right:5px"></li>
                         <li id="Date"></li>
@@ -88,7 +88,7 @@
                         </li>
 
                     </ul>
-                </div>
+                </div> -->
 
                 <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
                     <li>
@@ -100,30 +100,16 @@
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>
                                 <a href="{{Request::root()}}/manager/view-profile">
-                                    <span class="entypo-user"></span>&#160;&#160;My Profile</a>
-                            </li>                           
-                            <li>
-                                <a href="#">
-                                    <span class="entypo-lifebuoy"></span>&#160;&#160;Help</a>
-                            </li>
+                                    <span class="entypo-user"></span>&#160;&#160;{{trans('title.form.my_profile')}}</a>
+                            </li> 
                             <li class="divider"></li>
                             <li>
                                 <a href="{{Request::root()}}/crm-logout">
-                                    <span class="entypo-logout"></span>&#160;&#160;Logout</a>
+                                    <span class="entypo-logout"></span>&#160;&#160;{{trans('common.button.logout')}}</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="icon-gear"></span>&#160;&#160;Setting</a>
-                        <ul role="menu" class="dropdown-setting dropdown-menu">
-
-                            <li class="theme-bg">
-                                <div id="button-bg"></div>
-                                <div id="button-bg2"></div>
-                            </li>
-                        </ul>
-                    </li>
+                  
                     <li class="hidden-xs">
                         <a class="toggle-left" href="#">
                             <span style="font-size:20px;" class="entypo-list-add"></span>

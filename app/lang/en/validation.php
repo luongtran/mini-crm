@@ -112,6 +112,12 @@ return array(
 		'company'=>'Company',
 		'phone_number'=>'Phone number',
 		'contact_employee_company'=>'Contact employee company',
+		'priority'=>'Priority',
+		'support_type'=>'Support type',
+		'client_id'=>'Assign to Company',
+		'server_id'=>'Assign to Staff',
+		'file'=>'Upload File',
+
 		),
 
 );

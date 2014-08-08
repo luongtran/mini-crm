@@ -2,61 +2,31 @@
 <script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
 <!-- CONTENT -->
             <!--TITLE -->
-            @include('manager.news.title')
+            @include('client.new.title')
             <!--/ TITLE -->
             <!-- BREADCRUMB -->
-            @include('manager.news.breadcrumb')
+            @include('client.new.breadcrumb')
             <!-- END OF BREADCRUMB -->
 <div class="col-sm-12">                                                                 
-                        <div class="mail_header">
-                            <div class="row">
-                            	<!-- session message -->
-                                  {{Session::get('msg_flash')}} 
-                                <!-- session message -->                              
-                            </div>
-                        </div>
-                        <div class="table-responsive">                                                            
-                                <table class="table table-mailbox">   
-                                    <tr class="unread">
-                                        <th class="small-col">
-                                        <input type="checkbox" id="ckbCheckAll">                        
-                                        </th>
-                                        <th>Title</th>
-                                        <th>Categoy</th>                                        
-                                        <th>Create_at</th>
-                                        <th></th>                                       
-                                    </tr>
-                                    @foreach($lists as $row)
-                                    <tr>
-                                        <td class="small-col">
-                                           <input type="checkbox" value="" name="checkID[]" class="checkBoxClass"/>
-                                        </td>                                       
-                                        <td><a href="{{Request::root()}}/manager/news/{{$row->id}}">{{$row->title}}</a></td>
-                                        <td>{{$row->NewCategory->name}}</td>
-                                                                               <td>{{$row->created_at}}</td>                                        
-                                        <td>
-                                            <div class="btn-group pull-left">
-		                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">{{trans('common.button.action')}}
-		                                            <span class="caret"></span>
-		                                        </button>
-		                                        <ul class="dropdown-menu" role="menu">		                                           
-                                                    <li class="divider"></li>
-                                                    <li><a href="{{Request::root()}}/manager/news/{{$row->id}}/edit"><i class="fa fa-pencil"></i>Edits</a>
-                                                    </li> 
-                                                    <li class="divider"></li>
-                                                    <li><a href="{{Request::root()}}/manager/news/{{$row->id}}/del"  onclick="return confirm('Are you want delete this record?');" ><i class="fa fa-trash-o"></i>Delete</a>
-                                                    </li> 
-		                                        </ul>
-                                   			 </div>
-                                        </td>                                        
-                                    </tr>
-                                    @endforeach
-                                </table>                                
-                            </div>
-                            <!-- end table -->
+     <div class="col-sm-10">                       
+        @foreach($lists as $row)                      
+           <div class="nest">
+                  <div class="title-alt">
+                      <h6>{{$row->title}}</h6>                 
+                  </div>
+                  <div class="body-nest">                    
+                    <span><i class='btn btn-default'>{{$row->NewCategory->name}}</i></span>
+                    <span><a class='btn btn-default' href="{{url('client/news/'.$row->permalink)}}">{{trans('common.button.readme')}}</a></span>
+                  </div>
+           </div>                                                        
 
-                            <div class="">                                   
-                                    <div class="btn-group pull-left">                                              
+         @endforeach
+    </div>  
+</div>      
+                                  
+<div class="col-sm-12">                                                            
+                                   
+<div class="btn-group pull-left">                                              
                                          <?php 
                                          if(isset($par_link))
                                          {
@@ -67,8 +37,7 @@
                                             echo $lists->links();
                                          }
                                          ?>
-                                    </div>
-                            </div>
+</div>                        
                             
 </div>  <!-- end col 12 -->   
 @stop

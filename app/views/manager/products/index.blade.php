@@ -1,98 +1,11 @@
 @section('content')
-<script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
-<!-- CONTENT -->
-            <!--TITLE -->
-            <div class="row">
-                <div id="paper-top">
-                    <div class="col-sm-3">
-                        <h2 class="tittle-content-header">
-                            <i class="icon-mail"></i> 
-                            <span>Products
-                            </span>
-                        </h2>
-
-                    </div>
-
-                    <div class="col-sm-7">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="tittle-middle-header">
-
-                            <div class="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <span class="tittle-alert entypo-info-circled"></span>
-                                Welcome back,&nbsp;
-                                <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="btn-group btn-wigdet pull-right visible-lg">
-                            <div class="btn">
-                                Widget</div>
-                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li>
-                                    <a href="{{Request::root()}}/manager/products/create" >
-                                        <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>
-                                <li>
-                                    <a href="#" >
-                                        <span class="entypo-heart margin-iconic"></span>Favorite</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-cog margin-iconic"></span>Setting</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <!--/ TITLE -->
-
-            <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager" title="">Manager</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager/products" title="">Product</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
-
-            <!-- END OF BREADCRUMB -->
-
-
+@include('manager.products.title')
+@include('manager.products.breadcrumb')
 
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">
                             <div class="row">
-                                  {{Session::get('msg_flash')}} 
-                               <div class="col-sm-10">
-                                   @include('manager.products.form_search')                                  
-                                </div>
-                                <div class="col-sm-6">                                   
-                                    
-                                </div>
+                                  {{Session::get('msg_flash')}}                              
                             </div>
 
                         </div>

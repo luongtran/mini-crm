@@ -22,9 +22,36 @@ return array(
                 'back'=>'Back',
                 'trash'=>'Trash',
                 'search'=>'Search',
-                'filter'=>'Filter'
+                'filter'=>'Filter',
+                'login'=>'Logout',
+                'logout'=>'Login',
+                'filter'=>'Filter',
+                'show'=>'Show',
+                'readme'=>'Read me'
               ],
     
-    'menu'=>['home'=>'Home']
+    'menu'=>[
+        'home'=>'Home',
+        'add'=>'Add',
+        'list'=>'List',        
+        'customer'=>'Customer',
+        'employee'=>'Employee',
+        'product'=>'Product',
+        'group_product'=>'Group product',
+        'report_analysis'=>'Report & Analysis',
+        'report'=>'Report',
+        'analysis'=>'Analysis',
+        'support'=>'Support',        
+        'ticket'=>'Ticket',
+        'new_ticket'=>'New ticket',
+        'my_ticket'=>'My ticket',
+        'faq'=>'Faq',
+        'news'=>'News',
+        'user'=>'User',
+        'language'=>'Language',
+        'setting'=>'Setting',
+        'invoice'=>'Invoice',
+        'knowledge_base'=>'Knowledge Base'
+        ],
 
 );

@@ -195,11 +195,11 @@
                                                         <td> {{$product->deadline_from}}</td>
                                                         <td> {{$product->code}}</td>
                                                         <td><div class="btn-group pull-left">
-                                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
+                                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">{{trans('common.button.action')}}
                                                             <span class="caret"></span>
                                                         </button>
                                                         <ul class="dropdown-menu" role="menu">
-                                                            <li><a href="{{Request::root()}}/manager/purchases/{{$product->code}}"><i class="icon icon-monitor"></i>Detail</a>
+                                                            <li><a href="{{Request::root()}}/manager/purchases/{{$product->code}}"><i class="icon icon-monitor"></i>{{trans('common.button.detail')}}</a>
                                                             </li>  
                                                         </ul>
                                                     </div>

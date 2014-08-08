@@ -32,8 +32,10 @@ class TicketController extends \BaseController {
                         ->paginate(5);  
 
                // $list_ticket = Ticket::with('Profile')->where('tickets.client_id','=',$user_id)->paginate(5);         
-               
-		$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket);  
+        $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')]];       
+		$this->layout->content = View::make('client.ticket.index')
+            ->with('list_ticket',$list_ticket)
+            ->with('breadcrumb',$breadcrumb);  
 	}
 
 	/**
@@ -46,11 +48,12 @@ class TicketController extends \BaseController {
 	{
                 $support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
+                $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>trans('common.button.create')]]; 
 		        $this->layout->content = View::make('client.ticket.create')
                         ->with('priority',$priority)
-                        ->with('support_type',$support_type);
-	}
-
+                        ->with('support_type',$support_type)
+                        ->with('breadcrumb',$breadcrumb);
+    }
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /tickets
@@ -145,12 +148,14 @@ class TicketController extends \BaseController {
                                                 ->get();
               
                 $attach = Upload::where('ticket_id','=',$ticket->code)->get();   
-                $news = News::where('category_id',1)->orderBy('id','desc')->paginate(5); 
-                
+                //$news = News::where('category_id',1)->orderBy('id','desc')->paginate(5); 
+                $news = News::orderBy('id','desc')->paginate(5); 
+                $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>$id]]; 
 		        $this->layout->content = View::make('client.ticket.show')->with('ticket',$ticket)
                         ->with('list_comment',$list_comment)
                         ->with('attach',$attach)
-                        ->with('news',$news);
+                        ->with('news',$news)
+                        ->with('breadcrumb',$breadcrumb);
                       
                 }else{
                     return Redirect::to('client/customer/ticket');
@@ -205,7 +210,7 @@ class TicketController extends \BaseController {
                 $comment->save();
                 
                 $ticket = Ticket::where('code','=',$id)->first();
-                $ticket->status = User::STATUS_PROCESS;
+                //$ticket->status = User::STATUS_PROCESS;
                 $ticket->update();
 
                 $server_id = User::find($ticket->server_id);
@@ -262,13 +267,15 @@ class TicketController extends \BaseController {
                         ->join('users','users.id','=','tickets.client_id')                
                         ->where('tickets.client_id','=',$user_id)
                         ->where('tickets.code','like','%'.Input::get('key_find').'%')
-                       // ->orWhere('tickets.subject','like','%'.Input::get('key_find').'%')                        
+                        ->orWhere('tickets.subject','like','%'.Input::get('key_find').'%')                        
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
                         ->paginate(5); 
                 $parameter_panginate = ['key_find'=>Input::get('key_find')];
-		$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket)
-                           ->with('parameter_panginate',$parameter_panginate);
+                $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets#','title'=>trans('common.button.search')]]; 
+	           	$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket)
+                             ->with('parameter_panginate',$parameter_panginate)
+                             ->with('breadcrumb',$breadcrumb);
             }
            
         }

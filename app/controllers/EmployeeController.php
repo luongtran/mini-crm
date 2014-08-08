@@ -11,7 +11,10 @@ class EmployeeController extends \BaseController {
 	public function index()
 	{
 	        $employee = User::where('customer_id','=',Auth::id())->paginate(5);            
-            $this->layout->content = View::make('client.employee.index')->with('list',$employee);
+          $breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')]];
+          $this->layout->content = View::make('client.employee.index')
+                ->with('list',$employee)
+                ->with('breadcrumb',$breadcrumb);
 	}
 
 	/**
@@ -22,8 +25,9 @@ class EmployeeController extends \BaseController {
 	 */
 	public function create()
 	{
-           $id='';
-            $this->layout->content = View::make('client.employee.create')->with('customer_id',$id);
+            $breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')],['link'=>'client/employee#','title'=>trans('common.button.create')]];
+            $this->layout->content = View::make('client.employee.create')->with('customer_id',Auth::id())
+                 ->with('breadcrumb',$breadcrumb);
 	}
 
 	/**
@@ -79,11 +83,9 @@ class EmployeeController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $profile = DB::table('profiles')->rightJoin('users','profiles.user_id','=','users.id')
-                                         ->where('users.id',$id)
-                                         ->first();                  
+      $profile = User::with('profile')->where('users.id',$id)->first();                  
             //dd($profile);
-	    $this->layout->content = View::make('manager.employees.show')->with('profile',$profile);
+	    $this->layout->content = View::make('client.employee.show')->with('profile',$profile);
 	}
 
 	/**
@@ -111,7 +113,7 @@ class EmployeeController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($customer_id,$id)
+	public function update($id)
 	{
 		$validation = Validator::make(Input::all(),Employees::$rule_edit);
                 if($validation->passes()){
@@ -135,8 +137,8 @@ class EmployeeController extends \BaseController {
                         $profile->save();                        
                     }
                     
-                     Session::flash('msg_flash', CommonHelper::print_msg('success','Created success'));
-                     return Redirect::to('manager/customer/'.$customer_id.'/employees');
+                     Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
+                     return Redirect::to('client/employee');
                 }
                 Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter full fields success'));
                 return Redirect::back()->withInput()->withErrors($validation);
@@ -150,27 +152,25 @@ class EmployeeController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($customer_id,$id)
+	public function destroy($id)
 	{
            Profile::where('user_id','=',$id)->delete(); 
-	   User::find($id)->delete();           
+	         User::find($id)->delete();           
            return Redirect::back();
 	}
-        public function find($customer_id)
+  public function find()
         {
             $key = Input::get('key_find');
             if($key){
-            $employee = DB::table('users')->leftJoin('profiles','profiles.user_id','=','users.id')
-                                    ->where('users.customer_id',$customer_id)
+            $employee = User::where('customer_id','=',Auth::id())                                  
                                     ->where('first_name','like','%'.$key.'%')
-                                    ->get(['users.id','users.customer_id','last_name','first_name',
-                                     'users.activated','profiles.address','profiles.phone_number','email',
-                                        'users.created_at'
-                                        ]);
-            
-            $customer = Profile::where('user_id','=',$customer_id)->first();
-            $this->layout->content = View::make('manager.employees.search')->with('list',$employee)->with('customer',$customer);
+                                    //->orWhere('last_name','like','%'.$key.'%')
+                                    ->paginate(10);
+            $breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')],['link'=>'client/employee#','title'=>trans('common.button.search')]];                        
+            $this->layout->content = View::make('client.employee.index')
+                 ->with('list',$employee)
+                 ->with('breadcrumb',$breadcrumb);
             }            
-        }
+  }
 
 }

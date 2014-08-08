@@ -65,7 +65,7 @@ class ImagesController extends BaseController {
                 $upload =  new Upload;
                 $upload->name = $filename;
                 $upload->type = $fileinfo->getClientmimeType();
-                $upload->path = $Path;// ltrim($Path,"public/");
+                $upload->path = $Path.'/'.$filename;
                 $upload->type_file = $type_file;
                 $upload->$type_content = $content;
                 $upload->save();              
@@ -92,7 +92,7 @@ class ImagesController extends BaseController {
           $ar=Upload::find($id);  
           try
           {                                
-            $public_path = public_path($ar->path);  
+            $public_path = public_path($ar->path);              
             File::delete($public_path);//unlink($public_path);  
             $ar->delete();                                
           }

@@ -26,11 +26,15 @@ return array(
 		'invoice'=>'invoice',
 		'resource'=>'Resource',
 		'view_profile'=>'View profile',
+		'my_profile'=>'My profile',
+		'see_all'=>'See all',
+		'new_ticket'=>'New ticket'
 
 	),
 	'other'=>array(
 		'group_user'=>'Group User',
 		'other'=>'Other',
+		'order_ticket'=>'Order ticket',
 	),
 	'table'=>array(
 		'name'=>'Name',
@@ -50,8 +54,12 @@ return array(
 		'expiry'=>'Expiry',
 		'deadline'=>'Deadline',
 		'code'=>'Code',
-		''=>'',
-		''=>'',
+		'subject'=>'Subject',
+		'description'=>'Description',
+		'status'=>'Status',
+		'upload'=>'Upload',
+		'document'=>'Document',
+
 	)
 	
 

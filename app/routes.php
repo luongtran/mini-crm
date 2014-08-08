@@ -116,6 +116,7 @@ Route::post('/register',array('uses'=>'CustomerController@store'));
 Route::get('/active-customer/{id}',array('uses'=>'CustomerController@active'));
 //Route::resource('client/customer', 'CustomerController');
 /* Employee of client */
+Route::get('client/employee/find', array('uses'=>'EmployeeController@find'));
 Route::resource('client/employee', 'EmployeeController');
 
 /* Ticket of Client - customer and employee */
@@ -135,7 +136,11 @@ Route::get('client/fqa/find', array('uses'=>'FqaController@find'));
 Route::get('client/fqa/{id}', array('uses'=>'FqaController@show'));
 
 /*New of Client*/
-Route::get('client/news/{id}', array('uses'=>'NewsController@showClient'));
+Route::get('client/news', array('uses'=>'NewController@index'));
+Route::get('client/news/find', array('uses'=>'NewController@find'));
+Route::get('client/news/{id}', array('uses'=>'NewController@show'));
+
+
 
 
 /*upload of Client*/
@@ -149,8 +154,6 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
 
 
 /*-----------filter----------*/
- Route::when('manager', 'auth');
- Route::when('manager/*', 'auth');
  Route::when('client', 'auth');
  Route::when('client/*', 'auth');
  Route::when('client/customer/races', 'auth');
@@ -166,6 +169,9 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
  
  
  /*staff customer*/
+ Route::when('manager', 'staff');
+ Route::when('manager*', 'staff');
+
  Route::when('manager/customer', 'staff');
  Route::when('manager/customer*', 'staff');
  /*staff employee*/

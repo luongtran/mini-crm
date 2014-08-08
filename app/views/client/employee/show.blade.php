@@ -10,7 +10,7 @@
 
                                     <ul class="list-group">
                                         <li class="list-group-item text-left">
-                                            <span class="entypo-user"></span>&nbsp;&nbsp;Profile</li>
+                                            <span class="entypo-user"></span>&nbsp;&nbsp;{{trans('title.form.view_profile')}}</li>
                                         <li class="list-group-item text-center">
                                             <img class="img-circle img-responsive img-profile" alt="" src="">
 
@@ -29,15 +29,7 @@
                                                 <a href="#">
                                                     <span class="fa fa-star"></span>
                                                 </a>
-                                                <a href="#">
-                                                    <span class="fa fa-star"></span>
-                                                </a>
-                                                <a href="#">
-                                                    <span class="fa fa-star"></span>
-                                                </a>
-                                                <a href="#">
-                                                    <span class="fa fa-star-o"></span>
-                                                </a>
+                                               
 
                                             </div>
 
@@ -172,7 +164,7 @@
 
                                     <div class="row">
                                         <!--begin form -->
-                                           {{Form::open(array('url'=>'manager/customer-edit/'.$profile->id, 'method' => 'post','role'=>'form','class'=>'form-horizontal','id'=>'frm-profile','enctype'=>'multipart/form-data','name'=>'frm-profile'))}}                                             
+                                           {{Former::open(url('client/employee/'.$profile->id))->method('PUT')->enctype('multipart/form-data')}}                                             
                                         <!-- left column -->
                                         <div class="col-md-3">
                                             <div class="text-center">
@@ -183,8 +175,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
                                                         <span class="btn btn-primary btn-file">
-                                                            Browse
-                                                            <input type="file" multiple="" name="avatar">
+                                                            {{Former::file('avatar')}}
                                                         </span>
                                                     </span>                                                 
                                                 </div>
@@ -197,79 +188,62 @@
                                           
                                                 {{Session::get('msg_flash')}}
                                            
+                                                <?php Former::populate($profile);?>
                                             <h3>Personal info</h3>
                                          
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">First name:</label>
-                                                    <div class="col-lg-8">
-                                                         {{Form::hidden('id',null)}}     
-                                                         {{Form::text('first_name',$profile->first_name,array('class' => 'form-control'))}}                                                              
-                                                         <span class="alert-danger">{{$errors->first('first_name')}}</span>
+                                                <div class="form-group">                                                  
+                                                    <div class="col-lg-8">    
+                                                         {{Former::text('first_name')}}                                                         
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Last name:</label>
+                                                <div class="form-group">                                                   
                                                     <div class="col-lg-8">
-                                                      {{Form::text('last_name',$profile->last_name,array('class' => 'form-control'))}}                                                               
-                                                         <span class="alert-danger">{{$errors->first('last_name')}}</span>
+                                                      {{Former::text('last_name')}}                                                         
                                                     </div>
                                                 </div>
                                              
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Email:</label>
+                                                <div class="form-group">                                                 
                                                     <div class="col-lg-8">
-                                                      {{Form::text('email',$profile->email,array('class' => 'form-control'))}}                                                               
-                                                         <span class="alert-danger">{{$errors->first('email')}}</span>
+                                                      {{Former::text('email')->disable()}}                             
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Phone number:</label>
+                                                <div class="form-group">                                                   
                                                     <div class="col-lg-8">
-                                                      {{Form::text('phone_number',$profile->phone_number,array('class' => 'form-control'))}}                                                               
-                                                         <span class="alert-danger">{{$errors->first('phone_number')}}</span>
+                                                      {{Former::text('phone_number')->value($profile->profile->phone_number)}}
                                                     </div>
                                                 </div>
-                                                 <div class="form-group">
-                                                    <label class="col-lg-3 control-label">Address:</label>
+                                                 <div class="form-group">                                                   
                                                     <div class="col-lg-8">
-                                                      {{Form::text('address',$profile->address,array('class' => 'form-control'))}}                                                               
-                                                         <span class="alert-danger">{{$errors->first('address')}}</span>
+                                                      {{Former::text('address')->value($profile->profile->address)}}
                                                     </div>
                                                 </div>
                                                
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Password:</label>
+                                                <div class="form-group">                                                 
                                                     <div class="col-md-8">
-                                                         {{Form::password('password',array('class' => 'form-control'))}}     
-                                                         <span class="alert-danger">{{$errors->first('password')}}</span>
+                                                         {{Former::password('password')}}                                                     
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Confirm password:</label>
+                                                <div class="form-group">                                                
                                                     <div class="col-md-8">
-                                                          {{Form::password('password_confirmation',array('class' => 'form-control'))}}    
-                                                          <span class="alert-danger">{{$errors->first('password_confirmation')}}</span>
+                                                          {{Former::password('password_confirmation')}}                                                          
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label">Activated:</label>
+                                                <div class="form-group">                                                 
                                                     <div class="col-md-8">
-                                                    {{ Form::select('activated',array('1'=>'True','0'=>'False') ,$profile->activated,array('class'=>'form-control'))}}                  
+                                                    {{ Former::select('activated')->options(array('1'=>'True','0'=>'False'),$profile->activated)}}                  
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"></label>
                                                     <div class="col-md-8">
-                                                        <input type="submit" value="Save Changes" class="btn btn-primary">
-                                                        <span></span>
-                                                        <input type="reset" value="Cancel" class="btn btn-default">
+                                                        {{Former::actions()->larger_primary_submit('update')}}                                                      
                                                     </div>
                                                 </div>
                                                   <div id="output"></div>
                                           
                                         </div>
                                     </div>
-                                    {{Form::close()}}
+                                    {{Former::close()}}
                                         <!--end form -->
                                 </div>
                             </div>

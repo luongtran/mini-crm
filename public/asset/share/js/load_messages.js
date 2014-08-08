@@ -5,6 +5,7 @@
                   function load_message()
                   {
                      var Vstring ="";
+                     var see_all = "See all";
                      $.getJSON(spBaseUrl+"/share/message/list",function(list){
                             $.each(list, function (_idx, item) {                                
                                   var title= item.title;
@@ -12,7 +13,7 @@
                                   var create= item.created_at;
                                   Vstring = Vstring+ "<li><a href='"+spBaseUrl+"/share/message/read/"+id+"'  title='"+create+"'  >"+title+"</a></li><li class='divider'></li>";          
                               });        
-                               Vstring = Vstring+ "<li><a href='"+spBaseUrl+"/share/message/see-all'>See all</a></li>";                                              
+                               Vstring = Vstring+ "<li><a href='"+spBaseUrl+"/share/message/see-all'>"+see_all+"</a></li>";                                              
                                $("#load_message").html(Vstring);
                          });
                          

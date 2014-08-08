@@ -1,76 +1,13 @@
 @section('content')
+<link rel="stylesheet" href="{{asset('asset/backend/assets/css/social.css')}}">
+<script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
       <!-- CONTENT -->
             <!--TITLE -->
-            <div class="row">
-                <div id="paper-top">
-                    <div class="col-sm-3">
-                        <h2 class="tittle-content-header">
-                            <i class="icon-document-edit"></i> 
-                            <span>Client
-                            </span>
-                        </h2>
-
-                    </div>
-
-                    <div class="col-sm-7">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="tittle-middle-header">
-
-                            <div class="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <span class="tittle-alert entypo-info-circled"></span>
-                                Welcome back,&nbsp;
-                                <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="devider-vertical visible-lg"></div>
-                        <div class="btn-group btn-wigdet pull-right visible-lg">
-                            <div class="btn">
-                                Widget</div>
-                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li>
-                                    <a href="{{Request::root()}}/client/tickets/create">
-                                        <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>                             
-                            </ul>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
+                  @include('client.ticket.title')         
             <!--/ TITLE -->
-
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><a href="{{Request::root()}}/client" title="Sample page 1">Client</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/client/tickets" title="Sample page 1">Ticket</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">{{$ticket->code}}</a>
-                </li>
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
-
-            <!-- END OF BREADCRUMB -->
+                  @include('client.ticket.breadcrumb')
+            <!-- END OF BREADCRUMB -->   
 {{Session::get('msg_flash')}}
 
 
@@ -113,9 +50,9 @@ else if($ticket->status == 'resolve')
                                     <label></label>
                                     <p>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                        <span class="title">Company:</span> <a target="_blank" href="#">{{$ticket->company_name}}</a>
+                                        <span class="title">{{trans('title.table.company')}} :</span> <a target="_blank" href="#">{{$ticket->company_name}}</a>
                                     </p>  
-                                    <label>Description</label>
+                                    <label>{{trans('title.table.description')}}</label>
                                     <p>{{$ticket->description}}</p>                                                                       
                                         @if($attach)                                        
                                            @foreach($attach as $at)

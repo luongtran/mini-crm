@@ -161,20 +161,7 @@ class NewsController extends \BaseController {
 	/*client*/
 	public function showClient($id)
 	{		
-		$new = News::where('permalink','=',$id)->first();		
-		if($new)
-		{
-		$breadcrumb = array(array('link'=>'#','title'=>'News'),array('link'=>'#','title'=>'show'));		
-		$listNew = News::where('category_id',1)
-          						->where('id','<>',$new->id)
-          						->orderBy('id','desc')
-          						->paginate(10);
-
-		return View::make('client.new.show')->with('view',$new)->with('breadcrumb',$breadcrumb)->with('listNew',$listNew);
-		}
-		else
-		{			
-		}
+		
 	}
 
 }

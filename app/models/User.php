@@ -16,7 +16,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         
         const STATUS_NEW ='new';  
         const STATUS_PROCESS ='in-process';  
-        const STATUS_CLOSE ='close';  
+        const STATUS_RESOLVE ='resolve';  
+        const STATUS_CLOSE ='close'; 
 	/**
 	 * The database table used by the model.
 	 *

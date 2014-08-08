@@ -23,7 +23,7 @@ class TicketsController extends \BaseController {
                         ->paginate(5); 
                 
                 if(Auth::user()->group_users == User::STAFF){
-                   $list_ticket = DB::table('tickets')
+                    $list_ticket = DB::table('tickets')
                         ->where('tickets.status','<>','close')
                         ->where('tickets.server_id','=',Auth::id())
                         ->join('users','users.id','=','tickets.client_id')                              
@@ -32,8 +32,10 @@ class TicketsController extends \BaseController {
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5);  
                 }                               
-                
-		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket);  	
+        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')]] ;    
+		$this->layout->content = View::make('manager.tickets.index')
+             ->with('list_ticket',$list_ticket)
+             ->with('breadcrumb',$breadcrumb);     
 	}
 
 	/**
@@ -49,11 +51,13 @@ class TicketsController extends \BaseController {
                 $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->lists('first_name','id');
                 $assign_client = User::where('group_users','=',User::CUSTOMER)
                         ->join('profiles','profiles.user_id','=','users.id')->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');                               
+        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
 		$this->layout->content = View::make('manager.tickets.create')
                         ->with('priority',$priority)
                         ->with('support_type',$support_type)
                         ->with('assign_to',$assign_to)
-                        ->with('assign_client',$assign_client);
+                        ->with('assign_client',$assign_client)
+                        ->with('breadcrumb',$breadcrumb);   
 	}
 
 	/**
@@ -160,12 +164,14 @@ class TicketsController extends \BaseController {
                 $status = CommonHelper::list_base('status');
                 $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->lists('first_name','id');
 		
+        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.show')]] ;    
 		$this->layout->content = View::make('manager.tickets.show')->with('ticket',$ticket)->with('list_comment',$list_comment)
                                         ->with('support_type',$support_type)
                                         ->with('priority',$priority)
                                         ->with('assign_to',$assign_to)
                                         ->with('status',$status)
-                                        ->with('attach',$attach);
+                                        ->with('attach',$attach)
+                                        ->with('breadcrumb',$breadcrumb);
                 }else{
                     return Redirect::to('manager/tickets');
                 }
@@ -261,7 +267,26 @@ class TicketsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$ticket = Ticket::where('code','=',$id)->first();        
+        if($ticket)
+        {
+            if($ticket->status == User::STATUS_CLOSE)
+            {
+                if(Auth::user()->group_users == User::MANAGER)
+                {   
+                    $support_tickets = SupportTicket::where('ticket_id','=',$id)->get();
+                    foreach($support_tickets as $detail):
+                        $detail->delete();
+                    endforeach;
+                    $ticket->delete();                    
+                }
+                else
+                {
+                    Session::flash('msg_flash',CommonHelper::print_msg('errors',trans('message.not_permission')));
+                }
+            }
+        }
+        return Redirect::back();
 	}
         
           public function addComment($id='')
@@ -339,8 +364,12 @@ class TicketsController extends \BaseController {
                         ->paginate(5); 
                 }
                 $parameter_panginate = ['key'=>Input::get('key')];
-		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
-                        ->with('parameter_panginate',$parameter_panginate);
+
+                 $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.filter')]] ;    
+
+		        $this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
+                        ->with('parameter_panginate',$parameter_panginate)
+                        ->with('breadcrumb',$breadcrumb);
             }
         }
          public function find()
@@ -365,9 +394,11 @@ class TicketsController extends \BaseController {
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5); 
                 }     
-                $parameter_panginate = ['key_find'=>Input::get('key_find')];
+        $parameter_panginate = ['key_find'=>Input::get('key_find')];
+        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.search')]] ;    
 		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
-                           ->with('parameter_panginate',$parameter_panginate);
+                           ->with('parameter_panginate',$parameter_panginate)
+                            ->with('breadcrumb',$breadcrumb);
             }
         }
         

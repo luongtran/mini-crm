@@ -3,10 +3,10 @@
 <script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
 <!-- CONTENT -->
             <!--TITLE -->
-            @include('manager.news.title')
+            @include('client.new.title')
             <!--/ TITLE -->
             <!-- BREADCRUMB -->
-            @include('manager.news.breadcrumb')
+            @include('client.new.breadcrumb')
             <!-- END OF BREADCRUMB -->
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">

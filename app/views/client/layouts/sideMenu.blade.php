@@ -49,14 +49,14 @@
                         <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Customer">
                                 <i class="icon icon-user-group"></i>
-                                <span>Employee</span>
+                                <span>{{trans('common.menu.employee')}}</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/employee/create" title="Employee add"><i class="icon icon-plus"></i><span>Add</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/employee/create" title="Employee add"><i class="icon icon-plus"></i><span>{{trans('common.menu.add')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/employee" title="Employee list"><i class="icon-view-list"></i><span>List</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/employee" title="Employee list"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -64,29 +64,29 @@
                          <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Purchase">
                                 <i class="icon icon-message"></i>
-                                <span>Ticket</span>
+                                <span>{{trans('common.menu.ticket')}}</span>
                             </a>
                             <ul>   
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets/create" title="Article list"><i class="icon icon-plus"></i><span>New ticket</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets/create" title="Article list"><i class="icon icon-plus"></i><span>{{trans('common.menu.new_ticket')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets" title="Article list"><i class="icon-view-list"></i><span>My ticket</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/tickets" title="Article list"><i class="icon-view-list"></i><span>{{trans('common.menu.my_ticket')}}</span></a>
                                 </li>
                             </ul>
                         </li>
                         
                         <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Report">
-                                <i class="icon icon-question"></i>
-                                <span>Knowledge Base</span>
+                                <i class="icon icon-graph-line"></i>
+                                <span>{{trans('common.menu.knowledge_base')}}</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/" title="Article add"><i class="icon icon-feed"></i><span>See</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/" title="Article add"><i class="icon icon-question"></i><span>{{trans('common.menu.faq')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/popular" title="Article list"><i class="icon icon-graph-line"></i><span>Popular</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/popular" title="Article list"><i class="icon icon-feed"></i><span>{{trans('common.menu.news')}}</span></a>
                                 </li>
                             </ul>
                         </li>           
@@ -94,27 +94,22 @@
                          <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Report">
                                 <i class="icon icon-folder"></i>
-                                <span>Resource</span>
+                                <span>{{trans('title.menu.resource')}}</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/" title="Article add"><i class="icon icon-upload"></i><span>Upload</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/" title="Article add"><i class="icon icon-upload"></i><span>{{trans('title.menu.upload')}}</span></a>
                                 </li>                                                              
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/document" title="Article list"><i class="icon icon-calendar"></i><span>Document</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/document" title="Article list"><i class="icon icon-calendar"></i><span>{{trans('title.menu.document')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/invoice" title="Article list"><i class="icon icon-document"></i><span>Invoice</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/invoice" title="Article list"><i class="icon icon-document"></i><span>{{trans('title.form.invoice')}}</span></a>
                                 </li>
                             </ul>
-                        </li>    
-                     
+                        </li>  
                     </ul>
                   
-         
-                             
-                   
-         
 
                     <div class="side-dash">
                       

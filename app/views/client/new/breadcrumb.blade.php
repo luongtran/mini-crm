@@ -4,7 +4,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Home</a>
+                <li><a href="{{Request::root()}}/client" title="">Home</a>
                 </li>
                 @if(isset($breadcrumb))
                 @foreach($breadcrumb as $value)
@@ -13,7 +13,7 @@
                 @endforeach                 
                 @endif 
                 <li class="pull-right">
-                   {{ Form::open(array('url' => 'manager/news/find','method'=>'get','role'=>'form','id'=>'myform')) }}  
+                   {{ Form::open(array('url' => 'client/news/find','method'=>'get','role'=>'form','id'=>'myform')) }}  
                                    <div style="margin-right:10px" class="btn-group pull-left"> 
                                        <div class="btn-group pull-left">                                 
                                            <input type="text" name="key_find" class="form-control" placeholder="Search..." style="border-radius:5px" >                                         

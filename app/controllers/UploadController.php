@@ -17,10 +17,14 @@ class UploadController extends \BaseController {
 	{
 		//$input = Input::file('file');
 		  $check = true;
+		  $uploadImage = Input::file('file');	
+          $str_val = "";   
 
-		  $uploadImage = Input::file('file'); 
-                /*validation file*/
-          $str_val = "";      
+	         if(!(Input::hasfile('file')))			
+				{
+					dd();
+				}
+
                foreach($uploadImage as $img) :   
 
                  $validation = Validator::make(            
@@ -28,10 +32,9 @@ class UploadController extends \BaseController {
                         'file'=>$img
                     ),
                     array(
-                        'file'=> 'required|mimes:jpeg,bmp,png,gif,pdf,doc,docx',
-                      // 'file'=>'mimes:png,gif,jpg,jpge,bmp',
-                    )
-                     );        
+                        'file'=> 'required|mimes:xls,pdf,doc,docx,xlsx,ppt,gif,jpg,jpeg,png,bmp'                   
+                    ));        
+
                     if ($validation->fails())
                     {
                     	$str_val = $str_val.'</br>File name '.$img->getClientOriginalName().'</br>'.CommonHelper::print_msgs('error',$validation->messages());                        

@@ -4,30 +4,10 @@
            <!-- CONTENT -->
             <!--TITLE -->
                 @include('client.employee.title')
-            <!--/ TITLE -->
-
-            <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="">Home</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}" title="">Employee</a>
-                </li>
-               
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
-
+            <!--/ TITLE -->                
+            <!-- BREADCRUMB -->          
+                @include('client.employee.breadcrumb')
             <!-- END OF BREADCRUMB -->
-
-
 
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">
@@ -73,12 +53,8 @@
                                         <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
                                             <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">                                            
-                                            <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/client/employee/{{$users->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
-                                            </li>                                            
-                                            <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/client/employee/{{$users->id}}/delete" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                        <ul class="dropdown-menu" role="menu"> 
+                                            <li><a class='btn-del' href="{{Request::root()}}/client/employee/{{$users->id}}" ><i class="fa fa-trash-o"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -105,4 +81,6 @@
                            
 
                     </div>    
+
+<script type="text/javascript" src="{{asset('asset/share/js/form_del.js')}}"></script>      
 @stop
