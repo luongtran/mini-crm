@@ -2,10 +2,10 @@
 <script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
 <!-- CONTENT -->
             <!--TITLE -->
-            @include('manager.fqas.title')
+            @include('client.fqa.title')
             <!--/ TITLE -->
             <!-- BREADCRUMB -->
-            @include('manager.fqas.breadcrumb')
+            @include('client.fqa.breadcrumb')
             <!-- END OF BREADCRUMB -->
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">

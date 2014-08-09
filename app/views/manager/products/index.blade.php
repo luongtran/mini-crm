@@ -18,11 +18,11 @@
                                         <th class="small-col">
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th>
-                                        <th>Name</th>
-                                        <th>Cost</th>
-                                        <th>Discount</th>
-                                        <th>Group products</th>
-                                        <th>Create at</th>
+                                        <th>{{trans('title.table.name')}}</th>
+                                        <th>{{trans('title.table.cost')}}</th>
+                                        <th>{{trans('title.table.discount')}}</th>
+                                        <th>{{trans('title.table.group_product')}}</th>
+                                        <th>{{trans('title.table.created')}}</th>
                                         <th></th>
                                        
                                     </tr>
@@ -38,18 +38,15 @@
                                         <td> {{$product->group_name}}</td>
                                         <td> {{$product->created_at}}</td>
                                         <td>
-                                            <div class="btn-group pull-left">
-                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
+                                           <div class="btn-group pull-left">
+                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">{{trans('common.button.action')}}
                                             <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/products/{{$product->id}}"><i class="icon icon-monitor"></i>View profile</a>
-                                            </li>   
-                                            <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/products/{{$product->id}}/edit"><i class="fa fa-pencil"></i>edit</a>
+                                        <ul class="dropdown-menu" role="menu">                                           
+                                            <li><a href="{{Request::root()}}/manager/products/{{$product->id}}/edit"><i class="fa fa-pencil"></i>{{trans('common.button.edit')}}</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/products/{{$product->id}}/delete" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <li><a href="{{Request::root()}}/manager/products/{{$product->id}}" class="btn-del"><i class="fa fa-trash-o"></i> {{trans('common.button.delete')}} </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -76,4 +73,6 @@
                            
 
                     </div>    
+                    
+<script type="text/javascript" src="{{asset('asset/share/js/form_del.js')}}"></script>   
 @stop

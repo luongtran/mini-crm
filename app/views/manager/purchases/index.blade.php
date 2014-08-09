@@ -60,25 +60,7 @@
             <!--/ TITLE -->
 
             <!-- BREADCRUMB -->
-            <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager" title="">Manager</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="{{Request::root()}}/manager/purchase" title="">Purchase</a>
-                </li>
-                 <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li class="pull-right">
-                    
-                </li>
-            </ul>
-
+           @include('manager.purchases.breadcrumb')
             <!-- END OF BREADCRUMB -->
 
 
@@ -87,8 +69,7 @@
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
-                               <div class="col-sm-10">
-                                   @include('manager.products.form_search')                                  
+                               <div class="col-sm-10">                                                                
                                 </div>
                                 <div class="col-sm-6">                                   
                                     
@@ -129,11 +110,8 @@
                                         <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
                                             <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{Request::root()}}/manager/purchases/{{$purchase->id}}"><i class="icon icon-monitor"></i>View profile</a>
-                                            </li>                                                                                       
-                                            <li class="divider"></li>
-                                            <li><a href="{{Request::root()}}/manager/purchases/{{$purchase->id}}/delete" onclick="return confirm('Are you want delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                                        <ul class="dropdown-menu" role="menu">                                                                                                                                                                             
+                                            <li><a class='btn-del' href="{{Request::root()}}/manager/purchases/{{$purchase->id}}"><i class="fa fa-trash-o"></i>{{trans('common.button.delete')}}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -160,4 +138,6 @@
                            
 
                     </div>    
+
+<script type="text/javascript" src="{{asset('asset/share/js/form_del.js')}}"></script>                       
 @stop

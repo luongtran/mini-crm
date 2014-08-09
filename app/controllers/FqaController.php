@@ -25,8 +25,8 @@ class FqaController extends \BaseController {
 	 */
 	public function create()
 	{
-		$this->layout->content = View::make('client.fqa.create')
-		->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FAQ'),array('link'=>'create','title'=>'Create')));
+		// $this->layout->content = View::make('client.fqa.create')
+		// ->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FAQ'),array('link'=>'create','title'=>'Create')));
 	}
 
 	/**
@@ -37,17 +37,17 @@ class FqaController extends \BaseController {
 	 */
 	public function store()
 	{		
-		$validation = Validator::make(Input::all(),Fqa::$rule);
-		if($validation->passes())
-		{
-			$fqa = new Fqa();	
-			$fqa->fill(Input::all());
-			$fqa->save();
-			Session::flash('msg_flash',CommonHelper::print_msg('success','Created successfully'));	
-			return Redirect::to('client/fqa');
-		}
-		Session::flash('msg_flash',CommonHelper::print_msg('error','Created problem!'));
-		return Redirect::back()->withInput()->withErrors($validation);		
+		// $validation = Validator::make(Input::all(),Fqa::$rule);
+		// if($validation->passes())
+		// {
+		// 	$fqa = new Fqa();	
+		// 	$fqa->fill(Input::all());
+		// 	$fqa->save();
+		// 	Session::flash('msg_flash',CommonHelper::print_msg('success','Created successfully'));	
+		// 	return Redirect::to('client/fqa');
+		// }
+		// Session::flash('msg_flash',CommonHelper::print_msg('error','Created problem!'));
+		// return Redirect::back()->withInput()->withErrors($validation);		
 	}
 
 	/**
@@ -145,7 +145,7 @@ class FqaController extends \BaseController {
 		$par_link=['key_find'=>$keyword];
 
 		$this->layout->content = View::make('client.fqa.index')
-			->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FQA'),array('link'=>'client/fqa#','title'=>'Search')))
+			->with('breadcrumb',array(array('link'=>'client/fqa','title'=>'FAQ'),array('link'=>'client/fqa#','title'=>'Search')))
 			->with('lists',$fqa)
 			->with('par_link',$par_link);
 	}

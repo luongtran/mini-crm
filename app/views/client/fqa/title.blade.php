@@ -25,19 +25,14 @@
                     <div class="col-sm-2">
                         <div class="devider-vertical visible-lg"></div>
                         <div class="btn-group btn-wigdet pull-right visible-lg">
-                            <div class="btn">
+                            <!-- <div class="btn">
                                 <a href="{{Request::root()}}/manager/fqa/create" > Create </a> 
                             </div>
                             <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li>
-                                    <a href="{{Request::root()}}/manager/fqa/create" >
-                                        <span class="entypo-plus-circled margin-iconic"></span>Empty</a>
-                                </li>
-                            </ul>
+                             -->
                         </div>
 
 

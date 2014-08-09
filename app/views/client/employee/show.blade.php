@@ -53,32 +53,24 @@
                                     <hr>
 
                                     <dl class="dl-horizontal-profile">
-                                        <dt>User Id</dt>
+                                        <dt>ID</dt>
                                         <dd>{{$profile->id}}</dd>
 
-                                        <dt>FirstName</dt>
+                                        <dt>{{trans('title.table.first_name')}}</dt>
                                         <dd>{{$profile->first_name}}</dd>
 
-                                        <dt>LastName</dt>
+                                        <dt>{{trans('title.table.last_name')}}</dt>
                                         <dd>{{$profile->last_name}}</dd>
                                         
-                                        <dt>Email</dt>
+                                        <dt>{{trans('title.table.email')}}</dt>
                                         <dd>{{$profile->email}}</dd>
 
-                                        <dt>Phone</dt>
-                                        <dd>{{$profile->phone_number}}</dd>
-                                                                                
-                                        <dt>Last Update</dt>
-                                        <dd>{{$profile->updated_at}}</dd>                                     
+                                        <dt>{{trans('title.table.phone_number')}}</dt>
+                                        <dd>{{$profile->phone_number}}</dd>    
+                                       <dt>{{trans('title.table.last_login')}}</dt>
+                                        <dd>{{$profile->last_login}}</dd>                                                                              
 
                                     </dl>
-
-
-                                    <hr>
-
-                                    <h5>
-                                        <span class="entypo-arrows-ccw"></span>&nbsp;&nbsp;Recent Activities</h5>
-
                                     <div class="table-responsive">
                                        <!--  <table class="table table-hover table-striped table-condensed">
 
@@ -97,36 +89,7 @@
 
                             </div>
                             <div class="col-xs-12 divider text-center">
-                                <div class="col-xs-12 col-sm-4 emphasis">
-                                    <h2>
-                                        <strong>20,7K</strong>
-                                    </h2>
-                                    <p>
-                                        <small>Followers</small>
-                                    </p>
-                                    <button class="btn btn-success btn-block">
-                                        <span class="fa fa-plus-circle"></span>&nbsp;&nbsp;Follow</button>
-                                </div>
-                                <div class="col-xs-12 col-sm-4 emphasis">
-                                    <h2>
-                                        <strong>245</strong>
-                                    </h2>
-                                    <p>
-                                        <small>Following</small>
-                                    </p>
-                                    <button class="btn btn-info btn-block">
-                                        <span class="fa fa-user"></span>&nbsp;&nbsp;View Profile</button>
-                                </div>
-                                <div class="col-sm-4 emphasis">
-                                    <h2>
-                                        <strong>43</strong>
-                                    </h2>
-                                    <p>
-                                        <small>Likes</small>
-                                    </p>
-                                    <button class="btn btn-default btn-block">
-                                        <span class="fa fa-user"></span>&nbsp;&nbsp;Likes</button>
-                                </div>
+                              
                             </div>
                         </div>
                     </div>
@@ -143,7 +106,7 @@
                             <div id="Blank_PageClose" class="nest" style="margin:-20px 15px;">
                                 <div class="title-alt">
                                     <h6>
-                                        Edit Profile</h6>
+                                      {{trans('title.form.edit_profile')}}</h6>
                                     <div class="titleClose">
                                         <a href="#Blank_PageClose" class="gone">
                                             <span class="entypo-cancel"></span>
@@ -169,8 +132,7 @@
                                         <div class="col-md-3">
                                             <div class="text-center">
 
-                                                <img alt="avatar" class="avatar img-circle" src="" width="200">
-                                                <h6>Upload a different photo...</h6>
+                                                <img alt="avatar" class="avatar img-circle" src="" width="200">                                               
 
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
@@ -184,13 +146,9 @@
                                         </div>
 
                                         <!-- edit form column -->
-                                        <div class="col-md-9 personal-info">
-                                          
-                                                {{Session::get('msg_flash')}}
-                                           
-                                                <?php Former::populate($profile);?>
-                                            <h3>Personal info</h3>
-                                         
+                                        <div class="col-md-9 personal-info">                                          
+                                                {{Session::get('msg_flash')}}                                           
+                                                <?php Former::populate($profile);?>  
                                                 <div class="form-group">                                                  
                                                     <div class="col-lg-8">    
                                                          {{Former::text('first_name')}}                                                         

@@ -4,7 +4,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Home</a>
+                <li><a href="{{Request::root()}}/client" title="">{{trans('common.menu.home')}}</a>
                 </li>
                 @if(isset($breadcrumb))
                 @foreach($breadcrumb as $value)
@@ -23,7 +23,6 @@
                                         <span class="icon icon-search"></span>&nbsp;&nbsp;Search</button>
                                         </div>
                                     </div>
-                    {{Form::close()}}
-                    
+                    {{Form::close()}}                    
                 </li>
 </ul>

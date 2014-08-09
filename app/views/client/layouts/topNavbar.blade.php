@@ -12,7 +12,7 @@
 
                 <div id="logo-mobile" class="visible-xs">
                     <h1>CRM
-                        <span>v1.2</span>
+                        <span></span>
                     </h1>
                 </div>
 
@@ -32,10 +32,15 @@
                         </ul>
                     </li>
                     <li>
-
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i style="font-size:19px;" class="entypo-export"></i><div class="noft-green">2</div></a>
                         <ul style="margin: 12px 0 0 0;" role="menu" class="dropdown-menu dropdown-wrap">
-
+                            <?php $language =  Language::where('status','=','publish')->get(); if($language){?>
+                            @foreach($language as $lang)
+                            <li>
+                               <a href="<?php echo Route('change_language', array('lang' =>$lang->code, 'return_url' => Request::url()) );?>"><span class="<?php if(Session::get('current_locale')==$lang->code){echo 'label label-default';}?>" > {{$lang->name}} </span></a>                                                                 
+                            </li>
+                            @endforeach
+                            <?php }?>
                         </ul>
                     </li>
                     <li><a href="#"><i data-toggle="tooltip" data-placement="bottom" title="Help" style="font-size:20px;" class="icon-help tooltitle"></i></a>

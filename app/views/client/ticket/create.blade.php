@@ -41,7 +41,7 @@
                     {{Former::actions()->large_primary_submit('create')}}
                     
                 </div><!--col left -->     
-                {{Form::close()}}
+                {{Former::close()}}
             </div>
         </div>
     </div>

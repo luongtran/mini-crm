@@ -44,7 +44,7 @@
                                                     <li><a href="{{Request::root()}}/manager/news/{{$row->id}}/edit"><i class="fa fa-pencil"></i>Edits</a>
                                                     </li> 
                                                     <li class="divider"></li>
-                                                    <li><a href="{{Request::root()}}/manager/news/{{$row->id}}/del"  onclick="return confirm('Are you want delete this record?');" ><i class="fa fa-trash-o"></i>Delete</a>
+                                                    <li><a class='btn-del' href="{{Request::root()}}/manager/news/{{$row->id}}"><i class="fa fa-trash-o"></i>Delete</a>
                                                     </li> 
 		                                        </ul>
                                    			 </div>
@@ -71,4 +71,6 @@
                             </div>
                             
 </div>  <!-- end col 12 -->   
+
+<script src="{{asset('asset/share/js/form_del.js')}}"></script>
 @stop

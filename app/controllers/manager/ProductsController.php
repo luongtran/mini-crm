@@ -119,7 +119,7 @@ class ProductsController extends \BaseController {
              if($check==0)
              {
                  Product::find($id)->delete();
-                 Session::flash('msg_flash',  CommonHelper::print_msg('warning','Delete succcess'));
+                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Delete succcess'));
                  return Redirect::route('manager.products.index');
              }
              Session::flash('msg_flash',  CommonHelper::print_msg('error','Can not delete this product, have relationship with table Purchar'));

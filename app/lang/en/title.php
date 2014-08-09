@@ -27,8 +27,10 @@ return array(
 		'resource'=>'Resource',
 		'view_profile'=>'View profile',
 		'my_profile'=>'My profile',
+		'edit_profile'=>'Edit Profile',
 		'see_all'=>'See all',
-		'new_ticket'=>'New ticket'
+		'new_ticket'=>'New ticket',
+		'register'=>'Register'
 
 	),
 	'other'=>array(
@@ -45,6 +47,7 @@ return array(
 		'last_login'=>'Last login',
 		'last_name'=>'Last name',
 		'first_name'=>'First name',
+		'last_login'=>'Last login',
 		'count_access'=>'Count access',
 		'company'=>'Company',
 		'sector'=>'Sector',
@@ -59,6 +62,9 @@ return array(
 		'status'=>'Status',
 		'upload'=>'Upload',
 		'document'=>'Document',
+		'category'=>'Category',
+		'question'=>'Question',
+		'group_product'=>'Group product',
 
 	)
 	

@@ -21,8 +21,8 @@
                                        <!--  <th class="small-col">
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th> -->
-                                        <th>Question</th>
-                                        <th>Categoy</th>                                       
+                                        <th>{{trans('title.table.question')}}</th>
+                                        <th>{{trans('title.table.category')}}</th>                                       
                                         <th></th>                                       
                                     </tr>
                                     @foreach($lists as $row)

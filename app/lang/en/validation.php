@@ -117,7 +117,8 @@ return array(
 		'client_id'=>'Assign to Company',
 		'server_id'=>'Assign to Staff',
 		'file'=>'Upload File',
-
+		'title'=>'Title',
+		'content'=>'Content',
 		),
 
 );

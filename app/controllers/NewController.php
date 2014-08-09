@@ -50,8 +50,7 @@ class NewController extends \BaseController {
 		if($new)
 		{
 		$breadcrumb = array(array('link'=>'client/news','title'=>trans('title.form.news')),array('link'=>'client/news#','title'=>trans('common.button.show')));		
-		$listNew = News::where('category_id',1)
-          						->where('id','<>',$new->id)
+		$listNew = News::where('id','<>',$new->id)
           						->orderBy('id','desc')
           						->paginate(10);
 

@@ -1,5 +1,4 @@
 @section('content')
-<script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
 <!-- CONTENT -->
             <!--TITLE -->
             @include('client.new.title')
@@ -40,4 +39,5 @@
 </div>                        
                             
 </div>  <!-- end col 12 -->   
+
 @stop

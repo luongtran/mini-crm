@@ -4,7 +4,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Home</a>
+                <li><a href="{{Request::root()}}" title="">{{trans('common.menu.home')}}</a>
                 </li>
                 @if(isset($breadcrumb))
                 @foreach($breadcrumb as $value)

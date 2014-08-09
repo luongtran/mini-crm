@@ -34,30 +34,24 @@
 
 			                    </div>
 
-			                    {{Form::open(array('method'=>'post','url'=>'manager/news','enctype'=>'multipart/form-data'))}}
+			                    {{Former::open(url('manager/news'))->method('post')->enctype('multipart/form-data')}}
 			                    <div class="body-nest" id="basic">				                  
 				                    <div class="form-group">
-				                    {{Form::label('Title')}} <span class='val-star'>(*)</span>
-				                    {{Form::text('title',Input::old('title'),array('class'=>'form-control','required'))}}
-				                        <span class="alert-danger">{{$errors->first('title')}}</span>
+				                    {{Former::text('title')->required()}}
 				                    </div>
-				                    <div class="form-group">
-				                        {{Form::label('Content')}} <span class='val-star'>(*)</span>                   
-				                        {{ Form::textarea('content', Input::old('content'),array('class'=>'form-control ckeditor')) }}
-				                        <span class="alert-danger">{{$errors->first('content')}}</span>
+				                    <div class="form-group">                 
+				                        {{ Former::textarea('content')->class('ckeditor')}}				                       
+				                    </div>
+
+				                    <div class="form-group">				                      			                 
+				                        {{Former::select('category_id')->options($category,Input::old('category_id'))}}   
 				                    </div>
 
 				                    <div class="form-group">
-				                        {{Form::label('Category')}} 				                 
-				                        {{Form::select('category_id',$category,Input::old('category_id'),array('class'=>'form-control'))}}       
-				                        <span class="alert-danger">{{$errors->first('category_id')}}</span>
-				                    </div>
-
-				                    <div class="form-group">
-				                        {{Form::submit('Create',array('class'=>'btn btn-success'))}} 				                        				                        
+				                        {{Former::actions()->larger_primary_submit('Create')}} 				                        				                        
 				                    </div>
 				            	</div>
-				            	{{Form::close()}}  
+				            	{{Former::close()}}  
 
 				            	</div>
 				            		

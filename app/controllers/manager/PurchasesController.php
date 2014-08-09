@@ -30,8 +30,9 @@ class PurchasesController extends \BaseController {
 	 */
 	public function create()
 	{
-		$product = Product::all();
-		$this->layout->content = View::make('manager.purchases.create');
+		$customer = User::where('group_users',User::CUSTOMER)->join('profiles','profiles.user_id','=','users.id')
+					->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');				
+		$this->layout->content = View::make('manager.purchases.create')->with('customer',$customer);
 	}
 
 	/**
@@ -99,7 +100,12 @@ class PurchasesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$invoice = Purchase::find($id);
+		if($invoice)
+		{
+			//$invoice->delete();
+		}
+		return Redirect::back();
 	}
 
 }

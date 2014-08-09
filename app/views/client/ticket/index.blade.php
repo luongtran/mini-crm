@@ -14,11 +14,11 @@
                                         <th class="small-col">
                                         <input type="checkbox" id="ckbCheckAll">                        
                                         </th>
-                                        <th>Order Ticket</th>
-                                        <th>Subject</th>
-                                        <th>Author</th>
-                                        <th>Status</th>
-                                        <th>Create at</th>
+                                        <th>{{trans('title.other.order_ticket')}}</th>
+                                        <th>{{trans('title.table.subject')}}</th>
+                                        <th>{{trans('title.table.author')}}</th>
+                                        <th>{{trans('title.table.status')}}</th>
+                                        <th>{{trans('title.table.created')}}</th>
                                         <th></th>
                                        
                                     </tr>

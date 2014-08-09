@@ -13,6 +13,14 @@
                 @endforeach                 
                 @endif 
                 <li class="pull-right">
-                     @include('manager.products.form_search')
+                   {{ Form::open(array('url' => 'manager/products/find','method'=>'get','role'=>'form','id'=>'frm-add')) }}  
+                                   <div style="margin-right:10px" class="btn-group pull-left">   
+                                       <div class="btn-group pull-left">                                 
+                                           <input type="text" name="key_find" class="form-control" placeholder="Search..." style="border-radius:5px"  required="">                                         
+                                       </div>
+                                        <div class="btn-group pull-left">      
+                                        </div>
+                                    </div>
+                    {{Form::close()}}
                 </li>
 </ul>

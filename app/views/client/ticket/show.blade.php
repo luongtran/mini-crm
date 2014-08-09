@@ -94,7 +94,7 @@ else if($ticket->status == 'resolve')
                                         <textarea class='form-control ckeditor' name='content'></textarea>                                                                            
                                     </div> 
                                     <div class="pull-right">
-                                    <button type="submit" class="btn btn-success">Reply</i> </button>                                 
+                                    <button type="submit" class="btn btn-success">{{trans('common.button.reply')}}</i> </button>                                 
                                     </div>
                                {{Form::close()}}
 

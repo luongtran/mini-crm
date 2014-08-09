@@ -1,7 +1,7 @@
 <div id="skin-select">
         <div id="logo">
             <a href="{{Request::root()}}/client"><h1>CRM- Client
-                <span>v1.0</span>
+                <span></span>
             </h1></a>
         </div>
 
@@ -86,7 +86,7 @@
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/" title="Article add"><i class="icon icon-question"></i><span>{{trans('common.menu.faq')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/fqa/popular" title="Article list"><i class="icon icon-feed"></i><span>{{trans('common.menu.news')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/news" title="Article list"><i class="icon icon-feed"></i><span>{{trans('common.menu.news')}}</span></a>
                                 </li>
                             </ul>
                         </li>           
@@ -94,14 +94,14 @@
                          <li>
                             <a class="tooltip-tip ajax-load" href="#" title="Report">
                                 <i class="icon icon-folder"></i>
-                                <span>{{trans('title.menu.resource')}}</span>
+                                <span>{{trans('common.menu.resource')}}</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/" title="Article add"><i class="icon icon-upload"></i><span>{{trans('title.menu.upload')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/" title="Article add"><i class="icon icon-upload"></i><span>{{trans('title.table.upload')}}</span></a>
                                 </li>                                                              
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/document" title="Article list"><i class="icon icon-calendar"></i><span>{{trans('title.menu.document')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/upload/document" title="Article list"><i class="icon icon-calendar"></i><span>{{trans('title.table.document')}}</span></a>
                                 </li>
                                 <li>
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/client/invoice" title="Article list"><i class="icon icon-document"></i><span>{{trans('title.form.invoice')}}</span></a>

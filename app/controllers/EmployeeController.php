@@ -83,9 +83,11 @@ class EmployeeController extends \BaseController {
 	 */
 	public function show($id)
 	{
-      $profile = User::with('profile')->where('users.id',$id)->first();                  
-            //dd($profile);
-	    $this->layout->content = View::make('client.employee.show')->with('profile',$profile);
+      $profile = User::with('profile')->where('users.id',$id)->where('customer_id',Auth::id())->first();                  
+      if($profile)  
+	    {
+        $this->layout->content = View::make('client.employee.show')->with('profile',$profile);
+      }
 	}
 
 	/**

@@ -143,11 +143,11 @@
                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/users" title="Users"><i class="icon icon-user"></i><span>{{trans('common.menu.user')}}</span></a>                              
                         </li>
                           <li>
-                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/language" title="Language"><i class="entypo-export"></i><span>{{trans('common.menu.language')}}</span></a>
+                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/language" title="Language"><i class="entypo-export"></i><span>{{trans('common.menu.language')}}</span></a>
                               
                         </li>
                         <li>
-                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/backend/setting" title="Setting"><i class="entypo-layout"></i><span>{{trans('common.menu.setting')}}</span></a>                                
+                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/setting" title="Setting"><i class="entypo-layout"></i><span>{{trans('common.menu.setting')}}</span></a>                                
                         </li>                      
                     </ul>
                  @endif

@@ -48,7 +48,6 @@ Route::get('/manager/customers-find',array('as'=>'manager-customer-find','uses'=
 Route::resource('/manager/customers', 'CustomersController');
 
 /*News of Manager*/
-Route::get('/manager/news/{id}/del',array('uses'=>'NewsController@destroy'));
 Route::get('/manager/news/find',array('uses'=>'NewsController@find'));
 Route::resource('/manager/news', 'NewsController');
 
@@ -62,8 +61,7 @@ Route::resource('/manager/news', 'NewsController');
 Route::resource('manager/group-products', 'GroupProductsController');
 
 /*Product of Manager*/
-Route::resource('manager/products/find', 'ProductsController@find');
-Route::resource('manager/products/{id}/delete', 'ProductsController@destroy');
+Route::get('manager/products/find', 'ProductsController@find');
 Route::resource('manager/products', 'ProductsController');
 
 /*Group product of Manager*/
@@ -161,8 +159,8 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
  Route::when('share/*', 'auth');
  
  /*client customer*/
- Route::when('client/tickets', 'client_employee');
- Route::when('client/tickets/*', 'client_employee');
+ Route::when('client', 'client_employee');
+ Route::when('client/*', 'client_employee');
  /*client employee*/
  Route::when('client/employee', 'client_customer');
  Route::when('client/employee/*', 'client_customer');
@@ -172,24 +170,6 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
  Route::when('manager', 'staff');
  Route::when('manager*', 'staff');
 
- Route::when('manager/customer', 'staff');
- Route::when('manager/customer*', 'staff');
- /*staff employee*/
- Route::when('manager/employees', 'staff');
- Route::when('manager/employees*', 'staff');
- /*staff support*/
- Route::when('manager/support', 'staff');
- Route::when('manager/support*', 'staff');
-  /*staff products*/
- Route::when('manager/products', 'staff');
- Route::when('manager/products*', 'staff');
-   /*staff purchases*/
- Route::when('manager/purchases', 'staff');
- Route::when('manager/purchases*', 'staff');
- 
- Route::when('manager/tickets', 'staff');
- Route::when('manager/tickets/*', 'staff');
- 
   /*admin*/
  Route::when('manager/setting', 'admin');
  Route::when('manager/setting*', 'admin');

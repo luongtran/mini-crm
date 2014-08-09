@@ -206,25 +206,27 @@ class TicketController extends \BaseController {
                 $comment = new SupportTicket();
                 $comment->user_id = Auth::id();
                 $comment->ticket_id = $id;
-                $comment->content = CommonHelper::removeXSS(Input::get('content'));
-                $comment->save();
-                
-                $ticket = Ticket::where('code','=',$id)->first();
-                //$ticket->status = User::STATUS_PROCESS;
-                $ticket->update();
-
-                $server_id = User::find($ticket->server_id);
-                if($server_id)
+                $comment->content = CommonHelper::removeXSS(Input::get('content')); 
+                if(Input::get('content'))               
                 {
-                    /*send message to staff*/
-                    $data = array(
-                    'content'=>$comment->content.' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
-                    'title'=>'Titcket CRM From customer - '.$ticket->subject.' - '.$ticket->code.'',
-                    'assign_to'=>$server_id->id,
-                    'type'=>'work'                  
-                    );                 
-                    $send_msm = new MessagesController();                            
-                    $send_msm->addMessage($data);                    
+                    $comment->save(); 
+                    $ticket = Ticket::where('code','=',$id)->first();
+                    //$ticket->status = User::STATUS_PROCESS;
+                    $ticket->update();
+
+                    $server_id = User::find($ticket->server_id);
+                    if($server_id)
+                    {
+                        /*send message to staff*/
+                        $data = array(
+                        'content'=>$comment->content.' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
+                        'title'=>'Titcket CRM From customer - '.$ticket->subject.' - '.$ticket->code.'',
+                        'assign_to'=>$server_id->id,
+                        'type'=>'work'                  
+                        );                 
+                        $send_msm = new MessagesController();                            
+                        $send_msm->addMessage($data);                    
+                    }
                 }
                 return Redirect::to('client/tickets/'.$id);
             }
