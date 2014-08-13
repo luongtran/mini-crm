@@ -1,7 +1,7 @@
 <div id="skin-select">
         <div id="logo">
             <a href="{{Request::root()}}/manager"><h1>CRM
-                <span>v1.0</span>
+                <span></span>
             </h1></a>
         </div>
 
@@ -97,7 +97,15 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article/add" title="Article add"><i class="entypo-chart-bar"></i><span>{{trans('common.menu.report')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="#" title="Article add"><i class="entypo-chart-bar"></i><span>{{trans('common.menu.report')}}</span></a>
+                                         <ul>                              
+                                            <li>
+                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/ticket" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.ticket')}}</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.customer')}}</span></a>
+                                            </li>
+                                        </ul>
                                 </li>
                                 <li>
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article" title="Article list"><i class="entypo-chart-area"></i><span>{{trans('common.menu.analysis')}}</span></a>
@@ -143,7 +151,7 @@
                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/users" title="Users"><i class="icon icon-user"></i><span>{{trans('common.menu.user')}}</span></a>                              
                         </li>
                           <li>
-                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/language" title="Language"><i class="entypo-export"></i><span>{{trans('common.menu.language')}}</span></a>
+                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/languages" title="Language"><i class="entypo-export"></i><span>{{trans('common.menu.language')}}</span></a>
                               
                         </li>
                         <li>

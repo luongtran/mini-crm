@@ -1,0 +1,1 @@
+C:\xampp\htdocs\project\mini-crm\app/views/settings/edit.blade.php

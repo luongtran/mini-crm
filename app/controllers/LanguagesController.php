@@ -1,7 +1,7 @@
 <?php
 
-class LanguagesController extends \BaseController {
-
+class LanguageController extends \BaseController {
+	protected $layout = "manager.layouts.default";
 	/**
 	 * Display a listing of the resource.
 	 * GET /languages
@@ -16,7 +16,11 @@ class LanguagesController extends \BaseController {
 
 	public function index()
 	{
-		//
+		$list =  Language::all();
+		$breadcrumb = [['link'=>'manager/languages','title'=>'Language']];
+		$this->layout->content = View::make('manager.languages.index')
+					->with('lists',$list)
+					->with('breadcrumb',$breadcrumb);
 	}
 
 	/**
@@ -27,7 +31,9 @@ class LanguagesController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$breadcrumb = array(array('link'=>'manager/languages','title'=>'Language'),array('link'=>'#','title'=>'create'));			
+		$this->layout->content = View::make('manager.languages.create')
+		->with('breadcrumb',$breadcrumb);
 	}
 
 	/**
@@ -38,7 +44,18 @@ class LanguagesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+			
+		$validation = Validator::make(Input::all(),array('name'=>'required|unique:languages','code'=>'required|unique:languages'));
+		if($validation->passes())
+		{
+			$language = new Language();	
+			$language->fill(Input::all());
+			$language->save();
+			Session::flash('msg_flash',CommonHelper::print_msg('success','Created successfully'));	
+			return Redirect::to('manager/languages');
+		}
+		Session::flash('msg_flash',CommonHelper::print_msg('error','Created problem!'));
+		return Redirect::back()->withInput()->withErrors($validation);		
 	}
 
 	/**
@@ -50,7 +67,16 @@ class LanguagesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$Language = Language::find($id);		
+		if($Language)
+		{
+		$breadcrumb = array(array('link'=>'manager/languages','title'=>'Languages'),array('link'=>'#','title'=>'show'));		
+		$this->layout->content = View::make('manager.languages.show')		
+			 ->with('view',$Language)->with('breadcrumb',$breadcrumb);
+		}
+		else
+		{			
+		}
 	}
 
 	/**
@@ -62,7 +88,16 @@ class LanguagesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$Language = Language::find($id);		
+		if($Language)
+		{
+		$breadcrumb = array(array('link'=>'manager/languages','title'=>'Languages'),array('link'=>'#','title'=>'Edit'));		
+		$this->layout->content = View::make('manager.languages.edit')	
+			 ->with('view',$Language)->with('breadcrumb',$breadcrumb);
+		}
+		else
+		{			
+		}
 	}
 
 	/**
@@ -74,7 +109,22 @@ class LanguagesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		
+		$language = Language::find($id);
+		if($language)
+		{
+			$validation= Validator::make(Input::all(),array('name'=>'required','code'=>'required'));
+			if($validation->passes())
+			{
+				$language->fill(Input::all());
+				$language->update();
+				Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
+				return Redirect::to('manager/languages');	
+			}
+			Session::flash('msg_flash',CommonHelper::print_msg('error','Edit problem'));	
+			return Redirect::back()->withInput()->withErrors($validation);
+			
+		}
 	}
 
 	/**
@@ -86,7 +136,30 @@ class LanguagesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+			
+		$language = Language::find($id);
+		if($language)
+		{
+			$language->delete();
+			Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
+			return Redirect::to('manager/languages');				
+		}
+		Session::flash('msg_flash',CommonHelper::print_msg('error',"You cant'n delete this record"));	
+		//return Redirect::back()->withInput()->withErrors($validation);
+		return Redirect::to('manager/languages');	
+	}
+
+
+	public function find()
+	{
+		$keyword = Input::get('key_find');
+		$new = Language::where('name','like','%'.$keyword.'%')->orWhere('code','like','%'.$keyword.'%')->paginate(5);
+		$par_link=['key_find'=>$keyword];
+
+		$this->layout->content = View::make('manager.languages.index')
+			->with('breadcrumb',array(array('link'=>'manager/languages','title'=>'Language'),array('link'=>'#','title'=>'Search')))
+			->with('lists',$new)
+			->with('par_link',$par_link);
 	}
 
 }

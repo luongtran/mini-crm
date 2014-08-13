@@ -4,6 +4,74 @@
 		"selected_items":
 		[
 			[
+				"lan",
+				"languages"
+			],
+			[
+				"la",
+				"language"
+			],
+			[
+				"rep",
+				"report"
+			],
+			[
+				"ticket",
+				"tickets"
+			],
+			[
+				"supp",
+				"support_type"
+			],
+			[
+				"Suppo",
+				"support_type"
+			],
+			[
+				"re",
+				"report"
+			],
+			[
+				"co",
+				"count"
+			],
+			[
+				"s",
+				"status"
+			],
+			[
+				"j",
+				"json"
+			],
+			[
+				"from",
+				"fromDay"
+			],
+			[
+				"req",
+				"required"
+			],
+			[
+				"u",
+				"urlForm"
+			],
+			[
+				"to",
+				"toString"
+			],
+			[
+				"fi",
+				"FirstDayMonth"
+			],
+			[
+				"f",
+				"format"
+			],
+			[
+				"dp",
+				"dp1"
+			],
+			[
 				"Pur",
 				"purchases"
 			],
@@ -18,10 +86,6 @@
 			[
 				"con",
 				"content"
-			],
-			[
-				"ticket",
-				"ticket_id"
 			],
 			[
 				"Sup",
@@ -108,20 +172,12 @@
 				"employee"
 			],
 			[
-				"from",
-				"from_id"
-			],
-			[
 				"get",
 				"getID"
 			],
 			[
 				"mar",
 				"margin-left"
-			],
-			[
-				"u",
-				"userID"
 			],
 			[
 				"h",
@@ -136,20 +192,12 @@
 				"list_nameID"
 			],
 			[
-				"f",
-				"formHtml"
-			],
-			[
 				"form",
 				"form-horizontal"
 			],
 			[
 				"catego",
 				"category"
-			],
-			[
-				"rep",
-				"respond_to"
 			],
 			[
 				"pub",
@@ -220,10 +268,6 @@
 				"border"
 			],
 			[
-				"lan",
-				"language"
-			],
-			[
 				"mod",
 				"module"
 			],
@@ -242,10 +286,6 @@
 			[
 				"ema",
 				"email"
-			],
-			[
-				"re",
-				"required"
 			],
 			[
 				"Re",
@@ -367,23 +407,39 @@
 			"file": "app/routes.php",
 			"settings":
 			{
-				"buffer_size": 7337,
+				"buffer_size": 8223,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/manager/layouts/sideMenu.blade.php",
+			"file": "app/controllers/manager/SettingsController.php",
 			"settings":
 			{
-				"buffer_size": 8569,
+				"buffer_size": 1337,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/views/manager/purchases/show.blade.php",
+			"file": "app/views/manager/settings/title.blade.php",
 			"settings":
 			{
-				"buffer_size": 8664,
+				"buffer_size": 1421,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/manager/settings/index.blade.php",
+			"settings":
+			{
+				"buffer_size": 724,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/manager/settings/show.blade.php",
+			"settings":
+			{
+				"buffer_size": 604,
 				"line_ending": "Windows"
 			}
 		}
@@ -412,9 +468,33 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/SettingsController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/models/Setting.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/LanguagesController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/edit.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/NewsController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/create.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/lang/en/validation.php",
+		"/C/xampp/htdocs/project/mini-crm/app/models/Language.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/show.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/news/index.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/ReportsController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/title.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/index.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/lang/en/title.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/breadcrumb.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/sideMenu.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/home/default.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/reports/ticket.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/reports/chart.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/ImagesController.php",
+		"/C/xampp/htdocs/project/mini-crm/public/asset/backend/assets/js/datepicker/bootstrap-datetimepicker.js",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/reports/title.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/reports/breacrumb.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/ProductsController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/products/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/lang/en/title.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/breadcrumb.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/PurchasesController.php",
@@ -423,9 +503,6 @@
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/create.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/news/breadcrumb.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/public/asset/share/js/form_del.js",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/news/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/lang/en/validation.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/NewsController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/news/create.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/client/new/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/NewController.php",
@@ -460,7 +537,6 @@
 		"/C/xampp/htdocs/project/mini-crm/app/models/News.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/client/ticket/title.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/client/new/title.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/sideMenu.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/tickets/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/models/User.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php",
@@ -473,7 +549,6 @@
 		"/C/xampp/htdocs/project/mini-crm/app/models/Ticket.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/share/upload/client.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/ImagesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/products/title.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/default.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/share/login.blade.php",
@@ -494,19 +569,16 @@
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/edit.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/config/packages/anahkiasen/former/config.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/create.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/LanguagesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/config/mail.php",
 		"/C/xampp/htdocs/project/mini-crm/composer.json",
 		"/C/xampp/htdocs/project/mini-crm/app/config/packages/anahkiasen/former/Bootsrap3.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/filter.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/title.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/models/Language.php",
 		"/C/xampp/htdocs/project/mini-crm/app/lang/en/title",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/news/title.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/CustomerController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/client/customer/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/home/default.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/public/asset/backend/assets/css/custom.css",
 		"/C/xampp/htdocs/project/mini-crm/app/database/migrations/2014_08_06_012812_create_News_table.php",
 		"/C/xampp/htdocs/project/mini-crm/app/database/migrations/2014_08_06_021445_create_newcategory_table.php",
@@ -523,27 +595,11 @@
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/fqas/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/client/fqa/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/home/message.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/rightSliderContent.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/client/layouts/rightSliderContent.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/EmailController.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/HomeController.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/home/contact.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/home/about.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/models/FqaCategory.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/share/profile/manager_profile.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/share/profile/client_profile.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/client/customer/invoice.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/client/customer/show_invoice.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/home/start.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/home/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/fqas/create.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/models/Fqa.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/fqas/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/fqas/edit.blade.php"
+		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/rightSliderContent.blade.php"
 	],
 	"find":
 	{
-		"height": 109.0
+		"height": 107.0
 	},
 	"find_in_files":
 	{
@@ -557,6 +613,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"sign",
+			"arr_category ",
+			"datepicker",
+			" language",
+			"endday",
+			"end",
+			"max",
+			"datepicker",
+			"datetimepicker",
 			"news/find",
 			"manager/news/find",
 			"manager/news/find]",
@@ -594,7 +659,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -602,15 +667,15 @@
 					"file": "app/routes.php",
 					"settings":
 					{
-						"buffer_size": 7337,
+						"buffer_size": 8223,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2297,
-								2297
+								4902,
+								4905
 							]
 						],
 						"settings":
@@ -618,53 +683,52 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3089.0,
+						"translation.y": 2076.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/manager/layouts/sideMenu.blade.php",
+					"file": "app/controllers/manager/SettingsController.php",
 					"settings":
 					{
-						"buffer_size": 8569,
+						"buffer_size": 1337,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8169,
-								8169
+								709,
+								713
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 370.0,
-						"translation.y": 2536.0,
+						"translation.x": 0.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "app/views/manager/purchases/show.blade.php",
+					"file": "app/views/manager/settings/title.blade.php",
 					"settings":
 					{
-						"buffer_size": 8664,
+						"buffer_size": 1421,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6371,
-								6371
+								1319,
+								1319
 							]
 						],
 						"settings":
@@ -673,8 +737,60 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 177.0,
-						"translation.y": 1429.0,
+						"translation.x": 134.0,
+						"translation.y": 132.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/manager/settings/index.blade.php",
+					"settings":
+					{
+						"buffer_size": 724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								250,
+								250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/manager/settings/show.blade.php",
+					"settings":
+					{
+						"buffer_size": 604,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								567,
+								567
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -738,6 +854,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 279.0,
+	"side_bar_width": 271.0,
 	"status_bar_visible": true
 }

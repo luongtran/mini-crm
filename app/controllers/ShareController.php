@@ -105,8 +105,9 @@ class ShareController extends \BaseController {
                $login->count_access = (Auth::user()->count_access + 1);
                $login->update();               
                
-                Session::flash('msg_flash',  CommonHelper::print_msg('success','Login success'));                
-                if(Auth::user()->group_users == User::EMPLOYEE){
+               Session::flash('msg_flash',  CommonHelper::print_msg('success','Login success'));                
+               /*check permission*/
+               if(Auth::user()->group_users == User::EMPLOYEE){
                 return Redirect::to('client/tickets');    
                 }
                 else if(Auth::user()->group_users == User::CUSTOMER){
@@ -117,12 +118,14 @@ class ShareController extends \BaseController {
                 }                
                 else if(Auth::user()->group_users == User::MANAGER){
                 return Redirect::to('manager');        
-                }
+                }        
                 
            }
            Session::flash('msg_flash',  CommonHelper::print_msg('error','Email or password is false!'));
            return Redirect::back()->withInput();           
-	}        
+	}
+
+  
         
         public function logout()
 	{

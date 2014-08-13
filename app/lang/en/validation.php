@@ -119,6 +119,8 @@ return array(
 		'file'=>'Upload File',
 		'title'=>'Title',
 		'content'=>'Content',
+		'name'=>'Name',
+		'code'=>'Code'
 		),
 
 );

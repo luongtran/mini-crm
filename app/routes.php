@@ -25,7 +25,15 @@ Route::get('/manager', function()
 
 /*Login*/
 Route::get('/crm-login',function(){
-    return View::make('share.login');
+	if(Auth::check())
+	{
+	   Session::flash('msg_flash',CommonHelper::print_msg('error','You have login'));	
+       return Redirect::to('');
+	}
+	else
+    {
+      return View::make('share.login');
+    }
 });
 Route::post('/crm-login',array('uses'=>'ShareController@login'));
 Route::get('/crm-logout',function(){
@@ -83,6 +91,13 @@ Route::get('manager/tickets/filter',array('uses'=>'TicketsController@filter'));
 Route::get('manager/tickets/confirm/{id}',array('uses'=>'TicketsController@confirm'));
 Route::resource('manager/tickets', 'TicketsController');
 
+/*report and analysis*/
+Route::get('manager/reports',array('uses'=>'ReportsController@index'));
+Route::get('manager/reports/ticket',array('uses'=>'ReportsController@ticket'));
+Route::post('manager/reports/ticket',array('uses'=>'ReportsController@postTicket'));
+Route::get('manager/reports/ticket1',array('uses'=>'ReportsController@postTicket1'));
+
+
 /*View profile*/
 Route::get('manager/view-profile',array('uses'=>'ShareController@viewProfile'));
 Route::post('manager/update-profile',array('uses'=>'ShareController@updateProfile'));
@@ -98,6 +113,13 @@ Route::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));
 
 /*Language*/
 Route::get('change-language/{id}',array('as' => 'change_language', 'uses' =>'LanguagesController@getChangeLanguage'));
+Route::get('manager/languages/find',array('uses'=>'LanguageController@find'));
+Route::resource('manager/languages', 'LanguageController');
+
+/*Setting of Manager*/
+Route::get('manager/setting', array('uses'=>'SettingsController@index'));
+Route::get('manager/setting/show',array('uses'=>'SettingsController@show'));
+//Route::resource('manager/languages', 'LanguageController');
 
 
 /* ------ */

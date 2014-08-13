@@ -38,7 +38,11 @@
                                     <li><a href="{{Request::root()}}/page/contact">CONTACT</a></li>
                                 </ul>
                                 <form class="navbar-form pull-left">
+                                    @if(Auth::check())
+                                    <a class="btn btn-primary" href="{{Request::root()}}/crm-logout">SIGN OUT</a>
+                                    @else
                                     <a class="btn btn-primary" href="{{Request::root()}}/crm-login">SIGN IN</a>
+                                    @endif
                                     <a name='link-top'></a>
                                 </form>
                             </div>

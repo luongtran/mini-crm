@@ -30,7 +30,8 @@ return array(
 		'edit_profile'=>'Edit Profile',
 		'see_all'=>'See all',
 		'new_ticket'=>'New ticket',
-		'register'=>'Register'
+		'register'=>'Register',
+		'language'=>'Language',
 
 	),
 	'other'=>array(
