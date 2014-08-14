@@ -106,6 +106,11 @@
                                          }
                                          ?>                                    
                                     </div>
+                                    <div class="btn-group pull-right">
+                                         @if(isset($count)) 
+                                           <i class='btn'>{{$count}} </i>
+                                         @endif
+                                    </div>
                                 </div>
                             <!-- /.table-responsive -->
 

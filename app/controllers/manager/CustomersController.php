@@ -95,7 +95,7 @@ class  CustomersController extends \BaseController {
                     );     
                 if($email->manager_sendEmail($message))
                 {
-                Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));
+                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                 }
                 /*end send mail*/
                 return Redirect::to('manager/customers');
@@ -144,7 +144,7 @@ class  CustomersController extends \BaseController {
              /*breadcumb*/
             $breadcrumb = [
                         ['link'=>'manager/customers','title'=>trans('title.form.customer')],
-		                  	['link'=>'#','title'=>trans('common.button.edit')]
+		                ['link'=>'#','title'=>trans('common.button.edit')]
                      ];  
           $customer =  User::with('profile')->find($id);           
           $this->layout->content = View::make('manager.customers.edit')
@@ -199,7 +199,7 @@ class  CustomersController extends \BaseController {
                                 $profile->user_id = $customer->id;
                                 $profile->save();                        
                             }
-                            Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));                            
+                            Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.update')));                            
                     }
                     return Redirect::to('manager/customers');
                     
@@ -222,7 +222,10 @@ class  CustomersController extends \BaseController {
                 if($check==0){
 		             User::find($id)->delete();
                 Profile::where('user_id','=',$id)->delete();                
-                Session::flash('msg_flash', CommonHelper::print_msg('success','Deleted success'));
+                Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.delete')));
+                {
+
+                }
                 return Redirect::to('manager/customers');
                 }                                
                 Session::flash('msg_flash', CommonHelper::print_msg('error','Can not delete this customer, have relationship table employee'));

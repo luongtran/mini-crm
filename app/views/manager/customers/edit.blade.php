@@ -98,7 +98,8 @@
 
                                         <div class="form-group">                                     
                                             @if($customer->avatar)
-                                                <img src="{{url($customer->avatar)}}" class='avatar img-circle' with='200'/>
+                                                <img src="{{url($customer->avatar)}}" class='avatar img-circle' width='200'/>
+                                               
                                             @endif
 
                                              {{Former::file('avatar')}}                                          

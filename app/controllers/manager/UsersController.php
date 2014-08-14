@@ -19,9 +19,11 @@ class UsersController extends BaseController {
                      ->orderBy('users.id','desc')
                      ->where('users.trash','<>',1)
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);           
+                     ->paginate(5);          
+            $count = User::count();          
             $this->layout->content = View::make('manager.users.index')
                     ->with('list',$list)
+                    ->with('count',$count)
                     ->with('breadcrumb',$breadcrumb);
 	}
        

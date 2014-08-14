@@ -12,9 +12,10 @@ return array(
 	| you want to customize your views to better match your application.
 	|
 	*/
-        'create'=>'Your has been created successfully',
-        'update'=>'Your has been updated successfully',
-        'delete'=>'Your has been deleted successfully',
-        'exits'=>'Exits relationship'
+        'create'=>'You have been created successfully',
+        'update'=>'You have been updated successfully',
+        'delete'=>'You have been deleted successfully',
+        'exits'=>'Exits relationship',
+        'ticket_have_close'=>'The ticket must closed before deleted',
 
 );

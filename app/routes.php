@@ -66,6 +66,7 @@ Route::resource('/manager/news', 'NewsController');
 //Route::resource('manager/customer/{id_customer}/employees', 'EmployeesController');
 
 /*Group product of Manager*/
+Route::get('manager/group-products/find',array('uses'=>'GroupProductsController@find'));
 Route::resource('manager/group-products', 'GroupProductsController');
 
 /*Product of Manager*/
@@ -113,12 +114,14 @@ Route::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));
 
 /*Language*/
 Route::get('change-language/{id}',array('as' => 'change_language', 'uses' =>'LanguagesController@getChangeLanguage'));
-Route::get('manager/languages/find',array('uses'=>'LanguageController@find'));
-Route::resource('manager/languages', 'LanguageController');
+Route::get('manager/languages/find',array('uses'=>'LanguagesController@find'));
+Route::resource('manager/languages', 'LanguagesController');
 
 /*Setting of Manager*/
 Route::get('manager/setting', array('uses'=>'SettingsController@index'));
 Route::get('manager/setting/show',array('uses'=>'SettingsController@show'));
+Route::post('manager/setting', array('uses'=>'SettingsController@store'));
+Route::get('manager/setting/create', array('uses'=>'SettingsController@create'));
 //Route::resource('manager/languages', 'LanguageController');
 
 

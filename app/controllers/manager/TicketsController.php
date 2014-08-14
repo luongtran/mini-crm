@@ -279,11 +279,16 @@ class TicketsController extends \BaseController {
                         $detail->delete();
                     endforeach;
                     $ticket->delete();                    
+                    Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.delete')));
                 }
                 else
                 {
-                    Session::flash('msg_flash',CommonHelper::print_msg('errors',trans('message.not_permission')));
+                    Session::flash('msg_flash',CommonHelper::print_msg('error',trans('message.not_permission')));
                 }
+            }
+            else
+            {
+                  Session::flash('msg_flash',CommonHelper::print_msg('error',trans('message.ticket_have_close')));
             }
         }
         return Redirect::back();

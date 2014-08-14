@@ -1,6 +1,6 @@
 <?php
 
-class LanguageController extends \BaseController {
+class LanguagesController extends \BaseController {
 	protected $layout = "manager.layouts.default";
 	/**
 	 * Display a listing of the resource.
@@ -50,6 +50,7 @@ class LanguageController extends \BaseController {
 		{
 			$language = new Language();	
 			$language->fill(Input::all());
+			$language->status = 'publish';
 			$language->save();
 			Session::flash('msg_flash',CommonHelper::print_msg('success','Created successfully'));	
 			return Redirect::to('manager/languages');

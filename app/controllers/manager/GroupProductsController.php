@@ -61,7 +61,10 @@ class GroupProductsController extends \BaseController {
                             'purchase_products.updated_at','purchase_products.cost','purchase_products.discount',
                             'purchase_group_products.name as group_name'
                            ]);
+            if($product)                           
+            {
             $this->layout->content = View::make('manager.products.show')->with('product',$product);                            
+            }
 	}
 
 	/**
@@ -121,6 +124,20 @@ class GroupProductsController extends \BaseController {
              }
              Session::flash('msg_flash',  CommonHelper::print_msg('error','Can not delete this product, have relationship with table Purchar'));
              return Redirect::route('manager.products.index');
+	}
+
+
+	public function find()
+	{
+
+		$keyword = Input::get('key_find');
+		$GroupProduct = GroupProduct::where('name','like','%'.$keyword.'%')->paginate(15);
+		$par_link=['key_find'=>$keyword];
+		$breadcrumb = array(array('link'=>'manager/group-products','title'=>trans('title.form.group_product')),array('link'=>'manager/group-products#','title'=>trans('common.button.search')));
+		$this->layout->content = View::make('client.new.index')
+			->with('breadcrumb',$breadcrumb)
+			->with('lists',$GroupProduct)
+			->with('par_link',$par_link);
 	}
 
 }

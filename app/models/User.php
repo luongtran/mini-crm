@@ -25,15 +25,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
         protected $fillable = array('email','activated','first_name','last_name');
-        public static $rule_create_users = ['password'=>'required|confirmed|min:4',
-                                            'password_confirmation'=>'required:4',
+        public static $rule_create_users = ['password'=>'required|confirmed|min:6',
+                                            'password_confirmation'=>'required:6',
                                             'email'=>'required|email|unique:users',
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20'
                                             ];
         
-        public static $rule_create_customers = ['password'=>'required|confirmed|min:4',
-                                            'password_confirmation'=>'required:4',
+        public static $rule_create_customers = ['password'=>'required|confirmed|min:6',
+                                            'password_confirmation'=>'required:6',
                                             'email'=>'required|email|unique:users',
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20',
@@ -43,7 +43,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                                             'contact_employee_company'=>'required|min:6|max:25',
                                             'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
                                             ];
-        public static $rule_edit_customers = ['password'=>'confirmed|min:4',
+        public static $rule_edit_customers = ['password'=>'confirmed|min:6',
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20',
                                             'company_name'=>'required|min:3|max:60',
