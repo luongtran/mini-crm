@@ -28,6 +28,8 @@ return array(
                 'show'=>'Show',
                 'readme'=>'Read me',
                 'reply'=>'Reply',
+                'active'=>'Active',
+                'no_active'=>'No active',
               ],
         
         'menu'=>[

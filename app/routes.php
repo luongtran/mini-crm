@@ -77,6 +77,7 @@ Route::resource('manager/products', 'ProductsController');
 Route::resource('manager/group-products', 'GroupProductsController');
 
 /*Purchase of Manager*/
+Route::get('manager/purchases/find',array('uses'=>'PurchasesController@find'));
 Route::resource('manager/purchases', 'PurchasesController');
 
 /*FQA of Manager*/

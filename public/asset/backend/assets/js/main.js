@@ -279,7 +279,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/chart/jquery.sparkline.js", function
 //------------------------------------------------------------- 
 
 //DIGITAL CLOCK
-head.js(spBaseUrl+"/asset/backend/assets/js/clock/jquery.clock.js", function() {
+/*head.js(spBaseUrl+"/asset/backend/assets/js/clock/jquery.clock.js", function() {
 
     //clock
     $('#digital-clock').clock({
@@ -288,7 +288,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/clock/jquery.clock.js", function() {
     });
 
 
-});
+});*/
 
 
 //------------------------------------------------------------- 

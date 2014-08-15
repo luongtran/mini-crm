@@ -9,12 +9,14 @@ class ProductsController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-            $products = DB::table('purchase_products')->leftjoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
+	{   
+          $products = DB::table('purchase_products')->leftjoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
                         ->orderBy('purchase_products.id','desc')
                         ->select(DB::RAW('purchase_products.id,purchase_products.name,purchase_products.created_at,purchase_products.activated,purchase_products.cost,purchase_products.discount,purchase_group_products.name as group_name'))
                         ->paginate(5);
-		  $this->layout->content = View::make('manager.products.index')->with('products',$products);
+          $breadcrumb = [['link'=>'manager/products','title'=>'Products']];              
+		  $this->layout->content = View::make('manager.products.index',compact('breadcrumb','products'));
+		  							
 	}
 
 	/**
@@ -24,9 +26,9 @@ class ProductsController extends \BaseController {
 	 * @return Response
 	 */
 	public function create()
-	{
-            $group_products = DB::table('purchase_group_products')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('manager.products.create')->with('group_products',$group_products);                
+	{            
+            $breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.create')]];           
+            $this->layout->content = View::make('manager.products.create',compact('breadcrumb'));
 	}
 
 	/**
@@ -43,10 +45,10 @@ class ProductsController extends \BaseController {
                     $product = new Product;
                     $product->fill(Input::all());
                     $product->save();
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Created succcess'));
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                     return Redirect::route('manager.products.index');
                 }
-                Session::flash('msg_flash',  CommonHelper::print_msg('error','Please enter all field!'));
+                Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
                 return Redirect::back()->withInput()->withErrors($validation);
 	}
 
@@ -59,12 +61,13 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
+			$breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.show')]];           
             $product = Product::where('purchase_products.id','=',$id)->leftJoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
                     ->first(['purchase_products.id','purchase_products.name','purchase_products.description','purchase_products.created_at',
                             'purchase_products.updated_at','purchase_products.cost','purchase_products.discount',
                             'purchase_group_products.name as group_name'
                            ]);
-            $this->layout->content = View::make('manager.products.show')->with('product',$product);                            
+            $this->layout->content = View::make('manager.products.show',compact('breadcrumb','product'));
 	}
 
 	/**
@@ -75,14 +78,14 @@ class ProductsController extends \BaseController {
 	 * @return Response
 	 */
 	public function edit($id)
-	{
-	     $product = Product::where('purchase_products.id','=',$id)->leftJoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
+	{	
+		$breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.edit')]];           
+	    $product = Product::where('purchase_products.id','=',$id)->leftJoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
                     ->first(['purchase_products.id','purchase_products.name','purchase_products.description','purchase_products.created_at',
                             'purchase_products.updated_at','purchase_products.cost','purchase_products.discount',
-                            'purchase_group_products.name as group_name'
-                           ]);
-            $group_products = DB::table('purchase_group_products')->orderBy('name', 'asc')->lists('name','id');
-            $this->layout->content = View::make('manager.products.edit')->with('group_products',$group_products)->with('product',$product);                            
+                            'purchase_group_products.name as group_name','purchase_products.activated'
+                           ]);        
+        $this->layout->content = View::make('manager.products.edit',compact('breadcrumb','product'));
 	}
 
 	/**
@@ -99,10 +102,10 @@ class ProductsController extends \BaseController {
                     $product = Product::find($id);
                     $product->fill(Input::all());
                     $product->update();                    
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Updated succcess'));
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));
                     return Redirect::route('manager.products.index');
                 }
-                  Session::flash('msg_flash',  CommonHelper::print_msg('error','Please enter all field!'));
+                  Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
                 return Redirect::back()->withInput()->withErrors($validation);
 	}
 
@@ -119,10 +122,10 @@ class ProductsController extends \BaseController {
              if($check==0)
              {
                  Product::find($id)->delete();
-                 Session::flash('msg_flash',  CommonHelper::print_msg('success','Delete succcess'));
+                 Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.delete')));
                  return Redirect::route('manager.products.index');
              }
-             Session::flash('msg_flash',  CommonHelper::print_msg('error','Can not delete this product, have relationship with table Purchar'));
+             Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.exist_relationship',array('name'=>'Product','with_name'=>'Purchase'))));
              return Redirect::route('manager.products.index');
 	}
         
@@ -137,7 +140,7 @@ class ProductsController extends \BaseController {
                         ->paginate(20);
 	          $this->layout->content = View::make('manager.products.index')->with('products',$products);                          
              }
-        }
+    }
 
 
 }

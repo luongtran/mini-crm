@@ -309,16 +309,16 @@ class TicketsController extends \BaseController {
                 $ticket->update();
                 /*send message*/
                 $send_msm = new MessagesController();                                                       
-                /*send to company*/
+                /*send to admin*/
                             $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
-                                   'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
+                                   'content'=>Input::get('content').'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
                                    'type'=>'work',
                                    'assign_to'=>$ticket->client_id
-                                   ];
+                            ];
+                    //$send_msm->addMessage($data);
                 /*send to employee*/                                   
                 if($ticket->client_id != $ticket->author_id)
-                {                   
-                            $send_msm->addMessage($data);
+                {          
                             $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
                                    'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
                                    'type'=>'work',
@@ -412,6 +412,7 @@ class TicketsController extends \BaseController {
             $ticket = Ticket::where('code','=',$id)->first();
             if($ticket)
             {
+               /*save message*/ 
                $message = new Message();
                $message->title = "Please confirm ticket ".$id;
                $message->content = "You have created <a href='".Request::root()."/client/tickets/".$id."'>".$id."</a> 
@@ -421,7 +422,7 @@ class TicketsController extends \BaseController {
                $message->assign_to = $ticket->client_id;
                $message->from = Auth::id();
                $message->save();
-               
+               /*send email*/
                $email = new EmailController();               
                     $message = array(
                     'text'=>"You have created <a href='".Request::root()."/client/tickets/".$id."'>".$id."</a> 
@@ -430,9 +431,9 @@ class TicketsController extends \BaseController {
                     'to_email'=>User::where('id','=',$ticket->client_id)->first()->email,
                     'to_name'=>$ticket->first_name
                     );
-               $email->manager_sendEmail($message);              
+               $email->manager_sendEmail($message);  
                
-               Session::flash('msg_flash',  CommonHelper::print_msg('success','Send confirm success'));
+               Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.send_confirm')));
             }
             return Redirect::back();
         }

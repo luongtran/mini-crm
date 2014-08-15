@@ -16,7 +16,7 @@
                          {{Session::get('msg_flash')}}   
                         <div class="nest" id="basicClose">
                             <div class="title-alt">
-                                <h6>Basic</h6>
+                                <h6>{{trans('title.form.primary')}}</h6>
                                 <div class="titleClose">
                                     <a class="gone" href="#basicClose">
                                         <span class="entypo-cancel"></span>
@@ -62,7 +62,7 @@
                         <div class="col-sm-10">
                         <div class="nest" id="profileClose">
                             <div class="title-alt">
-                                <h6>Profile</h6>
+                                <h6>{{trans('title.form.profile')}}</h6>
                                 <div class="titleClose">
                                     <a class="gone" href="#profileClose">
                                         <span class="entypo-cancel"></span>
@@ -85,7 +85,7 @@
                                             {{Former::text('website')->value($customer->profile->website)}} 
                                         </div>
                                         <div class="form-group">
-                                           {{Former::text('phone_number')->value($customer->profile->phone_number)->required()}}  </div>
+                                           {{Former::tel('phone_number')->value($customer->profile->phone_number)->required()}}  </div>
                                         <div class="form-group">          
                                            {{ Former::select('sector_id')->fromQuery(Sector::all(),'name','id')}} 
                                         </div>
@@ -98,10 +98,8 @@
 
                                         <div class="form-group">                                     
                                             @if($customer->avatar)
-                                                <img src="{{url($customer->avatar)}}" class='avatar img-circle' width='200'/>
-                                               
+                                                <img src="{{url($customer->avatar)}}" class='avatar img-circle' width='200'/>                                               
                                             @endif
-
                                              {{Former::file('avatar')}}                                          
                                         </div>
                                         <div class="form-group">                                            

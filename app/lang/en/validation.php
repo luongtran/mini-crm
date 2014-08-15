@@ -120,7 +120,15 @@ return array(
 		'title'=>'Title',
 		'content'=>'Content',
 		'name'=>'Name',
-		'code'=>'Code'
+		'code'=>'Code',
+		'trash'=>'Trash',
+		'activated'=>'Activated',
+		'title'=>'Title',
+		'description'=>'Description',
+		'cost'=>'Cost',
+		'discount'=>'Discount',
+		'group_products'=>'Group Product',
+		
 		),
 
 );

@@ -13,7 +13,7 @@
                          {{Session::get('msg_flash')}}   
                         <div class="nest" id="basicClose">
                             <div class="title-alt">
-                                <h6>Basic</h6>
+                                <h6>{{trans('title.form.primary')}}</h6>
                                 <div class="titleClose">
                                     <a class="gone" href="#basicClose">
                                         <span class="entypo-cancel"></span>
@@ -30,7 +30,7 @@
                             <div class="body-nest" id="basic">
                              
                                 <div class="form-group">                        
-                                    {{Former::text('email')->required()}}
+                                    {{Former::email('email')->required()}}
                                 </div>
 
                                 <div class="form-group">                                     
@@ -60,7 +60,7 @@
                         <div class="col-sm-10">
                         <div class="nest" id="profileClose">
                             <div class="title-alt">
-                                <h6>PROFILE</h6>
+                                <h6>{{trans('title.form.profile')}}</h6>
                                 <div class="titleClose">
                                     <a class="gone" href="#profileClose">
                                         <span class="entypo-cancel"></span>
@@ -85,7 +85,7 @@
                                               {{Former::text('website')}}
                                         </div>
                                         <div class="form-group">
-                                             {{Former::number('phone_number')->required()}}  </div>
+                                             {{Former::tel('phone_number')->required()}}  </div>
                                         <div class="form-group">          
                                             {{ Former::select('sector_id')->fromQuery(Sector::all(),'name','id')}}
                                         </div>                                        

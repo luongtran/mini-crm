@@ -74,14 +74,16 @@ class EmailController extends \BaseController {
                }
                catch(Exception $e)
                {
-                 Session::flash('msg_flash','Have error with config email, please  try again !</br></br><p>'.$e.'</p>');                 
+                 Session::flash('msg_flash',CommonHelper::print_msg('error','<h2>'.trans('message.error_config_email').'</h2><p>'.$e.'</p>'));                 
                  $status = false;
                }
                return $status;
         }
 
         public function configEmail()
-        {      
+        { 
+
+          /*
           $email_host = Setting::where('name','=','host_mail')->first();
           $email_username = Setting::where('name','=','host_username')->first();
           $email_password = Setting::where('name','=','host_password')->first();
@@ -89,18 +91,20 @@ class EmailController extends \BaseController {
           $email_port = Setting::where('name','=','host_port')->first(); 
 
           $email_port = (int)$email_port->value;
+
           Config::set('mail.host',$email_host->value);
           Config::set('mail.port',$email_port);
           Config::set('mail.encryption',$email_encryption->value);
           Config::set('mail.username',$email_username->value);    
           Config::set('mail.password',$email_password->value);  
-         
-          /*
+           */
+          
           Config::set('mail.host','gator3228.hostgator.com');
           Config::set('mail.port','587');
           Config::set('mail.encryption','tls');
           Config::set('mail.username','abulayla');    
           Config::set('mail.password','Xqi1llvM:nx8');  
-          */
+         
+          //dd(Config::get('mail'));
         }
 }

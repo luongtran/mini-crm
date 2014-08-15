@@ -10,7 +10,7 @@ class UsersController extends BaseController {
 	 */
                         
 	public function index()
-	{            
+	{         
             $breadcrumb = [
                            ['link'=>'manager/users','title'=>trans('title.form.user')]		              	
                          ]; 
@@ -144,6 +144,7 @@ class UsersController extends BaseController {
                     $user->first_name = Input::get('first_name');
                     $user->last_name = Input::get('last_name');
                     $user->activated = Input::get('activated');     
+                    $user->trash= Input::get('trash');
                     $user->update();
                     Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));                    
                 }                
@@ -171,7 +172,7 @@ class UsersController extends BaseController {
                 $image = new ImagesController();
                 $image->destroy($upload->id);                    
                 }
-                
+                Profile::where('user_id','=',$id)->delete();                          
                 $user->delete();
                 Session::flash('msg_flash', CommonHelper::print_msg('success','You have deleted success!'));
             }
@@ -248,7 +249,21 @@ class UsersController extends BaseController {
                      ->orderBy('users.id','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
                      ->paginate(5);  
-             }             
+             }
+             if(Input::get('field_filter')=='active'){
+                $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+                     ->where('activated','=',1)
+                     ->orderBy('users.id','desc')
+                     ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
+                     ->paginate(5);  
+             }   
+             if(Input::get('field_filter')=='no_active'){
+                $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
+                     ->where('activated','=',0)
+                     ->orderBy('users.id','desc')
+                     ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
+                     ->paginate(5);  
+             }                 
              $this->layout->content = View::make('manager.users.index')
                     ->with('list',$list)
                     ->with('par_link',$par_link)
@@ -269,6 +284,7 @@ class UsersController extends BaseController {
             if($key_find){             
              $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('first_name','like','%'.$key_find.'%')
+                     ->orWhere('email','like','%'.$key_find.'%')
                      ->orderBy('users.first_name','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
                      ->paginate(5);

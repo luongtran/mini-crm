@@ -50,6 +50,14 @@
                                                     <a href="{{Request::root()}}/manager/users/filter?field_filter=trash">
                                                         <span class="entypo-plus-circled margin-iconic"></span>{{trans('common.button.trash')}}</a>
                                                 </li>  
+                                                <li> 
+                                                    <a href="{{Request::root()}}/manager/users/filter?field_filter=active">
+                                                        <span class="entypo-plus-circled margin-iconic"></span>{{trans('common.button.active')}}</a>
+                                                </li>  
+                                                <li> 
+                                                    <a href="{{Request::root()}}/manager/users/filter?field_filter=no_active">
+                                                        <span class="entypo-plus-circled margin-iconic"></span>{{trans('common.button.no_active')}}</a>
+                                                </li> 
                             </ul>                
                             </div>
                     </div>

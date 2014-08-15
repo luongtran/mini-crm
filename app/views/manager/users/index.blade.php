@@ -20,7 +20,7 @@
                                    <div style="margin-right:10px" class="btn-group pull-left">
                                       
                                         <div class="btn-group pull-left">  
-                                             {{ Form::select('action',array('active'=>'Active','pending'=>'Pending','trash'=>'Trash','del'=>'Delete') ,'hide' ,array('class'=>'form-control'))}}                                   
+                                             {{ Form::select('action',array('active'=>'Active','pending'=>'No active','trash'=>'Trash','del'=>'Delete') ,'hide' ,array('class'=>'form-control'))}}                                   
                                         </div>
                                         <div class="btn-group pull-left">      
                                         <button style="margin-right:10px" type="submit" data-color="#39B3D7" data-opacity="0.95" class="btn button test pull-left">
@@ -77,9 +77,9 @@
                                             <ul class="dropdown-menu" role="menu">
                                                 <li><a href="{{url('manager/users/'.$users->id)}}/edit"><i class="fa fa-pencil"></i>{{trans('common.button.edit')}}</a>
                                                 </li>                                            
-                                                <li class="divider"></li>
-                                                <li><a class="btn-del" href="{{Request::root()}}/manager/users/del/{{$users->id}}" ><i class="fa fa-trash-o"></i> Delete</a>
-                                                </li>
+                                                <!-- <li class="divider"></li>
+                                                <li><a class="btn-del" href="{{Request::root()}}/manager/users/{{$users->id}}" ><i class="fa fa-trash-o"></i> Delete</a>
+                                                </li> -->
                                             </ul>
                                         </div>
 
@@ -117,5 +117,5 @@
                     </div>  
 
 
-                    
+    <script type="text/javascript" src="{{asset('asset/share/js/form_del.js')}}"></script>                                    
 @stop

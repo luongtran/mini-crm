@@ -26,14 +26,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'users';
         protected $fillable = array('email','activated','first_name','last_name');
         public static $rule_create_users = ['password'=>'required|confirmed|min:6',
-                                            'password_confirmation'=>'required:6',
+                                            'password_confirmation'=>'required|min:6',
                                             'email'=>'required|email|unique:users',
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20'
                                             ];
         
         public static $rule_create_customers = ['password'=>'required|confirmed|min:6',
-                                            'password_confirmation'=>'required:6',
+                                            'password_confirmation'=>'required|min:6',
                                             'email'=>'required|email|unique:users',
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20',
@@ -44,6 +44,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                                             'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
                                             ];
         public static $rule_edit_customers = ['password'=>'confirmed|min:6',
+                                              'password_confirmation'=>'min:6',  
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20',
                                             'company_name'=>'required|min:3|max:60',
@@ -56,7 +57,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                                             'first_name'=>'required|min:3|max:20',
                                             'last_name'=>'required|min:3|max:20',
                                             'company_name'=>'min:3|max:60',
-                                            'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
+                                            'avatar'=>'image'
                                             ];
         /**
 	 * The attributes excluded from the model's JSON form.
@@ -97,4 +98,5 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         {
         return 'remember_token';
         }*/
+       
 }

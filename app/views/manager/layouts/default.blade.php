@@ -42,25 +42,13 @@
     @include('manager.layouts.sideMenu')
     <!-- END OF SIDE MENU -->
 
-
-
     <!--  PAPER WRAP -->
     <div class="wrap-fluid">
         <div class="container-fluid paper-wrap bevel tlbr">
 
-            <!-- CONTENT -->
-            <!--TITLE -->
-            @section('title')
-            @show
-            <!--/ TITLE -->
-
-            <!-- BREADCRUMB -->
-            @section('breadcrumb')
-            
-            @show
-            <!-- END OF BREADCRUMB -->
-
+           
             <div class="content-wrap">
+                <!-- CONTENT -->
                 <div class='row'>
                     @yield('content')
                 </div>
@@ -92,7 +80,7 @@
         <!-- MAIN EFFECT -->        
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/preloader.js')}}"></script>
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/bootstrap.js')}}"></script>
-        <script type="text/javascript" src="{{asset('asset/backend/assets/js/app.js')}}"></script>
+        <!--<script type="text/javascript" src="{{asset('asset/backend/assets/js/app.js')}}"></script>-->
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/load.js')}}"></script>
         <script type="text/javascript" src="{{asset('asset/backend/assets/js/main.js')}}"></script>
         <script>

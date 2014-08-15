@@ -9,21 +9,22 @@ class  CustomersController extends \BaseController {
 	 */
    public function __construct()
      {       
-     parent::__construct();     
-            //Common::globalXssClean();  
+      parent::__construct();     
+      //Common::globalXssClean();  
     }
 	public function index()
 	{          
-             /*breadcumb*/
+            /*breadcumb*/
             $breadcrumb = [
-                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
+                            ['link'=>'manager/customers','title'=>trans('title.form.customer')],
 		                  	['link'=>'#','title'=>trans('title.form.index')]
-                     ];  
+                         ];  
 
             $list= DB::table('profiles')
                  ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                  ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                  ->where('group_users','=',User::CUSTOMER)
+                 ->where('users.trash','=',false)
                  ->orderBy('users.id','desc')
                  ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                  ->paginate(5);            
@@ -43,7 +44,7 @@ class  CustomersController extends \BaseController {
             /*breadcrumb*/
             $breadcrumb = [
                         ['link'=>'manager/customers','title'=>trans('title.form.customer')],
-			                   ['link'=>'#','title'=>trans('common.button.create')]
+			            ['link'=>'#','title'=>trans('common.button.create')]
                      ];                   
             $this->layout->content = View::make('manager.customers.create')->with('breadcrumb',$breadcrumb);
 	}
@@ -95,12 +96,12 @@ class  CustomersController extends \BaseController {
                     );     
                 if($email->manager_sendEmail($message))
                 {
-                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
+                  Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                 }
                 /*end send mail*/
                 return Redirect::to('manager/customers');
             }
-            Session::flash('msg_flash',  CommonHelper::print_msg('error','Please check all field!'));
+            Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
             //Session::flash('msg_flash',  CommonHelper::print_msgs('error',$validation->messages()));
             return Redirect::back()->withInput()->withErrors($validation);
 	}
@@ -170,7 +171,7 @@ class  CustomersController extends \BaseController {
                             if(Input::get('password')){
                             $customer->password = Hash::make(Input::get('password'));
                             }
-                            $customer->activated= Input::get('activated');
+                            $customer->activated= Input::get('activated');                          
                             $customer->first_name= Input::get('first_name');
                             $customer->last_name= Input::get('last_name');
                             /*check avatar*/
@@ -220,13 +221,11 @@ class  CustomersController extends \BaseController {
 	{
                 $check = User::where('customer_id','=',$id)->count();    
                 if($check==0){
-		             User::find($id)->delete();
-                Profile::where('user_id','=',$id)->delete();                
-                Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.delete')));
-                {
-
-                }
-                return Redirect::to('manager/customers');
+                    $user = User::find($id);
+                    $user->trash =1;
+                    $user->update();            
+                    Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.trash')));          
+                    return Redirect::to('manager/customers');
                 }                                
                 Session::flash('msg_flash', CommonHelper::print_msg('error','Can not delete this customer, have relationship table employee'));
                 return Redirect::to('manager/customers');
@@ -242,6 +241,7 @@ class  CustomersController extends \BaseController {
                  ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                  ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                  ->where('group_users','=',User::CUSTOMER)
+                 ->where('users.trash','=',false)
                  ->where('username','like','%'.Input::get('key_find').'%')
                  ->orderBy('users.id','desc')
                  ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
@@ -254,6 +254,7 @@ class  CustomersController extends \BaseController {
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                         ->where('group_users','=',User::CUSTOMER)                        
+                        ->where('users.trash','=',false)
                         ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')                        
                         ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                         ->paginate(5); 
@@ -262,7 +263,8 @@ class  CustomersController extends \BaseController {
                     $customer = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
-                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where('group_users','=',User::CUSTOMER)
+                        ->where('users.trash','=',false)                        
                         ->where(Input::get('field_find'),'>=',Input::get('key_find'))                     
                         ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                         ->paginate(5); 
@@ -271,7 +273,8 @@ class  CustomersController extends \BaseController {
                     $customer = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
-                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where('group_users','=',User::CUSTOMER)   
+                        ->where('users.trash','=',false)                     
                         ->where(Input::get('field_find'),'<=',Input::get('key_find'))                  
                         ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                         ->paginate(5); 
@@ -280,7 +283,8 @@ class  CustomersController extends \BaseController {
                       $customer = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
-                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where('group_users','=',User::CUSTOMER)  
+                        ->where('users.trash','=',false)                      
                         ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')              
                         ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                         ->paginate(5); 
@@ -289,7 +293,8 @@ class  CustomersController extends \BaseController {
                     $customer = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
-                        ->where('group_users','=',User::CUSTOMER)                        
+                        ->where('group_users','=',User::CUSTOMER)        
+                        ->where('users.trash','=',false)                
                         ->where(Input::get('field_find'),'=',Input::get('key_find'))
                         ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                         ->paginate(5); 

@@ -43,7 +43,7 @@ class ShareController extends \BaseController {
                 $user->last_name = Input::get('last_name');
                  if(Input::file('avatar'))
                 {
-                    $check = Upload::where('user_id','=',Auth::id())->first(); 
+                    $check = Upload::where('user_id','=',Auth::id())->first();                                      
                     $image = new ImagesController();
                     if($check)
                     {
@@ -55,10 +55,10 @@ class ShareController extends \BaseController {
                 
                 $user->update();
                 
-                Session::flash('msg_flash',  CommonHelper::print_msg('success','Updated success'));
+                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));
                 return Redirect::back();
             }
-            Session::flash('msg_flash',  CommonHelper::print_msgs('error','Problem updated'));
+            Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
             return Redirect::back()->withInput()->withErrors($validation);
         }
 
@@ -73,10 +73,10 @@ class ShareController extends \BaseController {
                  {
                     $user->password = Hash::make(Input::get('password'));
                     $user->update();
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Updated success'));
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));
                     return Redirect::back();
                  }
-                  Session::flash('msg_flash',  CommonHelper::print_msg('error','Problem updated'));
+                  Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
                   return Redirect::back()->withInput()->withErrors($validation);
 
               }

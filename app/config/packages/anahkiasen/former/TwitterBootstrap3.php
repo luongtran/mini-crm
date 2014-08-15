@@ -38,4 +38,7 @@
 	'select'=>array(
 		'class'=>'form-control',
 	),
+	'textarea'=>array(
+		 'class'=>'ckeditor',
+		)
 );

@@ -55,7 +55,7 @@
                                             <li><a href="{{Request::root()}}/manager/customers/{{$users->id}}/edit"><i class="fa fa-pencil"></i>{{trans('common.button.edit')}}</a>
                                             </li>                                            
                                             <li class="divider"></li>
-                                            <li><a class='btn-del' href="{{Request::root()}}/manager/customers/{{$users->id}}" ><i class="fa fa-trash-o"></i> {{trans('common.button.delete')}}</a>
+                                            <li><a class='btn-del' href="{{Request::root()}}/manager/customers/{{$users->id}}" ><i class="fa fa-trash-o"></i> {{trans('common.button.trash')}}</a>
                                             </li>
                                         </ul>
                                          </div>

@@ -32,6 +32,9 @@ return array(
 		'new_ticket'=>'New ticket',
 		'register'=>'Register',
 		'language'=>'Language',
+		'primary'=>'Primary',
+		'profile'=>'Profile',
+		'group_product'=>'Group product',
 
 	),
 	'other'=>array(

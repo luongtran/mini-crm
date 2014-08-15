@@ -38,6 +38,10 @@
                     {{Former::select('activated')->fromQuery(array('1'=>'True','0'=>'False'))}}                                                      
                 </div> 
 
+                <div class="form-group">
+                    {{Former::select('trash')->fromQuery(array('1'=>'True','0'=>'False'))}}                                                      
+                </div> 
+
                 <div class="form-group">                      
                     {{Former::actions()->large_primary_submit('update')}}                    
                 </div>

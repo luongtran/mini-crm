@@ -40,8 +40,8 @@ class CustomerController extends \BaseController {
 	public function store()
 	{	   
             $rule =['email'=>'required|email|unique:users',
-                    'password'=>'required|confirmed',
-                    'password_confirmation'=>'required',
+                    'password'=>'required|confirmed|min:6',
+                    'password_confirmation'=>'required|min:6',
                     'employee_count'=>'required|numeric|min:1',
                     'company_name'=>'required|min:3',
                     'phone_number'=>'required',
@@ -76,10 +76,10 @@ class CustomerController extends \BaseController {
                    'to_name'=>Input::get('company_name'),
                );
                $email->manager_sendEmail($data);               
-               Session::flash('msg_flash', CommonHelper::print_msg('success','Register success'));
+               Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
                return Redirect::to('/page/message');
             } 
-            Session::flash('msg_flash',  CommonHelper::print_msg('error','Please enter full'));
+            Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
             return Redirect::back()->withInput()->withErrors($validation);
         }
 
