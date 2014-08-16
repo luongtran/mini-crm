@@ -41,7 +41,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                                             'phone_number'=>'required',
                                             'employee_count'=>'required|numeric',
                                             'contact_employee_company'=>'required|min:6|max:25',
-                                            'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
+                                            'avatar'=>'image'
                                             ];
         public static $rule_edit_customers = ['password'=>'confirmed|min:6',
                                               'password_confirmation'=>'min:6',  
@@ -51,7 +51,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                                             'phone_number'=>'required',
                                             'employee_count'=>'required|numeric',
                                             'contact_employee_company'=>'required|min:6|max:25',
-                                            'avatar'=>'mimes:jpeg,bmp,png,ico,gif,jpg'
+                                            'avatar'=>'image'
                                             ];
         public static $rule_profile_manager = [
                                             'first_name'=>'required|min:3|max:20',
@@ -94,9 +94,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->remember_token = $value;
         }   
 
-        /*public function getRememberTokenName()
-        {
-        return 'remember_token';
-        }*/
+      
        
 }

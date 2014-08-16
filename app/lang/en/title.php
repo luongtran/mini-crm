@@ -36,6 +36,7 @@ return array(
 		'profile'=>'Profile',
 		'group_product'=>'Group product',
 
+
 	),
 	'other'=>array(
 		'group_user'=>'Group User',
@@ -69,6 +70,7 @@ return array(
 		'category'=>'Category',
 		'question'=>'Question',
 		'group_product'=>'Group product',
+		'author'=>'Author',
 
 	)
 	
