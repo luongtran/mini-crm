@@ -24,4 +24,5 @@ return array(
         'message_success'=>'You have been send message successfully',
         'send_confirm'=>'You have been send confirm successfully',
         'error_config_email'=>'Fix problems with setup email, please contact the admin be support',
+        'success_race'=>'Thank for you have race from service of us',
 );

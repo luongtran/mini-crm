@@ -440,43 +440,11 @@
 			}
 		},
 		{
-			"file": "app/models/Employees.php",
+			"file": "app/views/share/upload/document_client.blade.php",
 			"settings":
 			{
-				"buffer_size": 728,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/lang/en/message.php",
-			"settings":
-			{
-				"buffer_size": 1292,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/EmailController.php",
-			"settings":
-			{
-				"buffer_size": 4023,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/ShareController.php",
-			"settings":
-			{
-				"buffer_size": 6106,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/models/User.php",
-			"settings":
-			{
-				"buffer_size": 4204,
-				"line_ending": "Unix"
+				"buffer_size": 483,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -504,12 +472,18 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/project/mini-crm/app/lang/en/title.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/ReportsController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/models/User.php",
+		"/C/xampp/htdocs/project/mini-crm/app/models/Employees.php",
+		"/C/xampp/htdocs/project/mini-crm/app/lang/en/message.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/EmailController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/create.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/models/Purchase.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/PurchasesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/show.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/models/User.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/CustomerController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/CustomersController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/title.blade.php",
@@ -522,10 +496,8 @@
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/group_products/edit.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/group_products/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/products/edit.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/lang/en/message.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/group_products/title.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/group_products/show.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/lang/en/title.php",
 		"/C/xampp/htdocs/project/mini-crm/app/lang/en/validation.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/products/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/models/Product.php",
@@ -540,7 +512,6 @@
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/UsersController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/EmailController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/default.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/breadcrumb.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/edit.blade.php",
@@ -550,7 +521,6 @@
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/search.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/group_products/breadcrumb.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/models/Employees.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/MessagesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/LanguagesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/settings/show.blade.php",
@@ -564,13 +534,11 @@
 		"/C/xampp/htdocs/project/mini-crm/app/models/Language.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/news/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/ReportsController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/title.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/index.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/languages/breadcrumb.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/sideMenu.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/home/default.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/reports/ticket.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/reports/chart.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/ImagesController.php",
@@ -697,7 +665,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -712,8 +680,8 @@
 						"selection":
 						[
 							[
-								6573,
-								6578
+								4707,
+								4707
 							]
 						],
 						"settings":
@@ -730,140 +698,26 @@
 				},
 				{
 					"buffer": 1,
-					"file": "app/models/Employees.php",
+					"file": "app/views/share/upload/document_client.blade.php",
 					"settings":
 					{
-						"buffer_size": 728,
+						"buffer_size": 483,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								547,
-								547
+								467,
+								467
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/lang/en/message.php",
-					"settings":
-					{
-						"buffer_size": 1292,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1270,
-								1270
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/controllers/EmailController.php",
-					"settings":
-					{
-						"buffer_size": 4023,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2737,
-								2737
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 382.0,
-						"translation.y": 1200.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/controllers/ShareController.php",
-					"settings":
-					{
-						"buffer_size": 6106,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2271,
-								2271
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 102.0,
-						"translation.y": 780.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/models/User.php",
-					"settings":
-					{
-						"buffer_size": 4204,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3274,
-								3274
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 914.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

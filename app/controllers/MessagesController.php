@@ -8,7 +8,11 @@ class MessagesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-       
+    const TYPE_TICKET = "ticket";   
+    const TYPE_RACE = "race";
+    const TYPE_DEFAULT = "default";
+    
+
     public function index()
     {
     	 if(Auth::check())

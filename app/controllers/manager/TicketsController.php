@@ -221,12 +221,13 @@ class TicketsController extends \BaseController {
                 
                 if(Input::get('status')=='close')
                 {
-                  /*send email to customer*/
-                    $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->first();                
-                    if($ticket->author_id!=$ticket->client_id){
-                    $infor_client =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->first();                    
-                    }
-                    
+                    /*send email to customer*/
+                    $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                
+                    /*check ticket employee than send employee*/       
+                    $check_author =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                                                                             
+                    if($check_author->group_users == User::EMPLOYEE ){
+                        $infor_client = $check_author;           
+                    }                
                     $email = new EmailController();
                     /*send message*/
                     $send_msm = new MessagesController();
@@ -250,7 +251,7 @@ class TicketsController extends \BaseController {
                     
                     if($email->manager_sendEmail($send_mail))
                     {
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Update success'));
+                        Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));
                     }
                     /*end send mail*/
                 }
