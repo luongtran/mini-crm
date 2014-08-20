@@ -11,11 +11,10 @@ class FqasController extends \BaseController {
 	 */
 	public function index()
 	{		   
-		    $lists = Fqa::with('FqaCategory')->paginate(5);	 
+		    $lists = Fqa::with('FqaCategory')->orderBy('id','desc')->paginate(5);	 
 			$this->layout->content = View::make('manager.fqas.index')
-			->with('breadcrumb',array(array('link'=>'fqa','title'=>'FAQ')))
-			->with('lists',$lists);
-			
+			->with('breadcrumb',array(array('link'=>'fqa','title'=>trans('title.form.faq'))))
+			->with('lists',$lists);			
 	}
 
 	/**
@@ -27,7 +26,7 @@ class FqasController extends \BaseController {
 	public function create()
 	{
 		$this->layout->content = View::make('manager.fqas.create')
-		->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'create','title'=>'Create')));
+		->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>trans('title.form.faq')),array('link'=>'create','title'=>trans('common.button.create'))));
 	}
 
 	/**
@@ -44,10 +43,10 @@ class FqasController extends \BaseController {
 			$fqa = new Fqa();	
 			$fqa->fill(Input::all());
 			$fqa->save();
-			Session::flash('msg_flash',CommonHelper::print_msg('success','Created successfully'));	
+			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.create')));	
 			return Redirect::to('manager/fqa');
 		}
-		Session::flash('msg_flash',CommonHelper::print_msg('error','Created problem!'));
+		Session::flash('msg_flash',CommonHelper::print_msg('error',trans('message.required_fields')));
 		return Redirect::back()->withInput()->withErrors($validation);		
 	}
 
@@ -64,7 +63,7 @@ class FqasController extends \BaseController {
 		if($fqa)
 		{
 		$this->layout->content = View::make('manager.fqas.show')
-		->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Show')))
+		->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>trans('title.form.faq')),array('link'=>'manager/fqa#','title'=>trans('common.button.show'))))
 		->with('view',$fqa);
 		}
 		else
@@ -87,7 +86,7 @@ class FqasController extends \BaseController {
 		{
 			$category  = FqaCategory::lists('name','id');
 			$this->layout->content = View::make('manager.fqas.edit')
-			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Edit')))
+			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>trans('title.form.faq')),array('link'=>'manager/fqa#','title'=>trans('common.button.edit'))))
 			->with('view',$fqa)->with('category',$category);
 		}
 		
@@ -112,10 +111,10 @@ class FqasController extends \BaseController {
 				$fqa->content = Input::get('content');
 				$fqa->category_id = Input::get('category_id');
 				$fqa->update();
-				Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
+				Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.update')));	
 				return Redirect::to('manager/fqa');	
 			}
-			Session::flash('msg_flash',CommonHelper::print_msg('success','Edit problem'));	
+			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.required_fields')));	
 			return Redirect::back()->withInput()->withErrors($validation);
 			
 		}
@@ -134,10 +133,10 @@ class FqasController extends \BaseController {
 		if($fqa)
 		{
 			$fqa->delete();
-			Session::flash('msg_flash',CommonHelper::print_msg('success','Updated successfully'));	
+			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.delete')));	
 			return Redirect::to('manager/fqa');				
 		}
-		Session::flash('msg_flash',CommonHelper::print_msg('error',"You cant'n delete this record"));	
+		Session::flash('msg_flash',CommonHelper::print_msg('error',trans('message.error_delete')));	
 		//return Redirect::back()->withInput()->withErrors($validation);
 		return Redirect::to('manager/fqa');	
 	}
@@ -149,7 +148,7 @@ class FqasController extends \BaseController {
 		$par_link=['key_find'=>$keyword];
 
 		$this->layout->content = View::make('manager.fqas.index')
-			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>'FQA'),array('link'=>'manager/fqa#','title'=>'Search')))
+			->with('breadcrumb',array(array('link'=>'manager/fqa','title'=>trans('title.form.faq')),array('link'=>'manager/fqa#','title'=>trans('common.button.search'))))
 			->with('lists',$fqa)
 			->with('par_link',$par_link);
 	}

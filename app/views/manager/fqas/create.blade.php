@@ -21,7 +21,7 @@
 			                         {{Session::get('msg_flash')}}   
 			                    <div class="nest" id="basicClose">
 			                    <div class="title-alt">
-			                                <h6>Create Anser question ?</h6>
+			                                <h6></h6>
 			                                <div class="titleClose">
 			                                    <a class="gone" href="#basicClose">
 			                                        <span class="entypo-cancel"></span>
@@ -35,30 +35,25 @@
 
 			                    </div>
 
-			                    {{Form::open(array('method'=>'post','url'=>'manager/fqa','enctype'=>'multipart/form-data'))}}
+			                    {{Former::open(url('manager/fqa'))->method('post')->enctype('multipart/form-data')}}
 			                    <div class="body-nest" id="basic">				                  
-				                    <div class="form-group">
-				                    {{Form::label('Title')}} <span class='val-star'>(*)</span>
-				                    {{Form::text('title',Input::old('title'),array('class'=>'form-control','required'))}}
-				                        <span class="alert-danger">{{$errors->first('email')}}</span>
+				                    <div class="form-group">				                   
+				                    	{{Former::text('title')->required()}}				                        
 				                    </div>
 				                    <div class="form-group">
-				                        {{Form::label('Content')}} <span class='val-star'>(*)</span>                   
-				                        {{ Form::textarea('content', Input::old('content'),array('class'=>'form-control ckeditor')) }}
-				                        <span class="alert-danger">{{$errors->first('password')}}</span>
+				                       {{Former::textarea('content')->class('ckeditor')->required()}}		
+				                    </div>
+
+				                    <div class="form-group">				                      			                 
+				                        {{Former::select('category_id')->fromQuery(FqaCategory::all(),'name','id')}}       				                        
 				                    </div>
 
 				                    <div class="form-group">
-				                        {{Form::label('Category')}} 				                 
-				                        {{Form::text('category_id',Input::old('category_id'),array('class'=>'form-control'))}}       
-				                        <span class="alert-danger">{{$errors->first('category_id')}}</span>
+				                        {{Former::actions()->larger_success_submit('Create')}} 				                        				                        
 				                    </div>
 
-				                    <div class="form-group">
-				                        {{Form::submit('Create',array('class'=>'btn btn-success'))}} 				                        				                        
-				                    </div>
 				            	</div>
-				            	{{Form::close()}}  
+				            	{{Former::close()}}  
 
 				            	</div>
 				            		

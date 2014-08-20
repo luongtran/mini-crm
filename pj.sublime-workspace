@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"au",
+				"check_author"
+			],
+			[
+				"tic",
+				"tickets"
+			],
+			[
 				"cus",
 				"customer"
 			],
@@ -432,19 +440,111 @@
 	"buffers":
 	[
 		{
+			"contents": "<?php\n\n/*\n|--------------------------------------------------------------------------\n| Application Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register all of the routes for an application.\n| It's a breeze. Simply tell Laravel the URIs it should respond to\n| and give it the Closure to execute when that URI is requested.\n|\n*/\n\nRoute::get('/',array('uses'=>'HomeController@index'));\n\n\nRoute::get('/manager', function()\n{\n	return View::make('hello');\n});\n\n\n/*share*/\n//Route::get('/lock-screen',array('as'=>'lock_screen','uses'=>'ShareController@lockScreen'));\n\n/*Login*/\nRoute::get('/crm-login',function(){\n	if(Auth::check())\n	{\n	   Session::flash('msg_flash',CommonHelper::print_msg('error','You have login'));	\n       return Redirect::to('');\n	}\n	else\n    {\n      return View::make('share.login');\n    }\n});\nRoute::post('/crm-login',array('uses'=>'ShareController@login'));\nRoute::get('/crm-logout',function(){\n    Auth::logout();\n    return View::make('share.login');\n});\n\n/*User of manager */\nRoute::get('/manager/users/find',array('uses'=>'UsersController@find'));\nRoute::get('/manager/users/del/{id}',array('uses'=>'UsersController@destroy'));\nRoute::post('/manager/users/action',array('uses'=>'UsersController@action'));\nRoute::get('/manager/users/filter',array('uses'=>'UsersController@filter'));\nRoute::resource('/manager/users', 'UsersController');\n\n\n/*Customer of Manager*/\n// /-----------/ //\n//Route::get('/manager/customers-del/{id}',array('as'=>'manager-customer-del','uses'=>'CustomersController@destroy'));\nRoute::get('/manager/customers-find',array('as'=>'manager-customer-find','uses'=>'CustomersController@find'));\nRoute::resource('/manager/customers', 'CustomersController');\n\n/*News of Manager*/\nRoute::get('/manager/news/find',array('uses'=>'NewsController@find'));\nRoute::resource('/manager/news', 'NewsController');\n\n/*Employee of Manager*/\n// /-----------/ //\n//Route::get('/manager/customer/{id_customer}/employees/{id}/delete',array('as'=>'manager-employee-delete','uses'=>'EmployeesController@destroy'));\n//Route::get('/manager/customer/{id_customer}/employees/find',array('as'=>'manager-employee-find','uses'=>'EmployeesController@find'));\n//Route::resource('manager/customer/{id_customer}/employees', 'EmployeesController');\n\n/*Group product of Manager*/\nRoute::get('manager/group-products/find',array('uses'=>'GroupProductsController@find'));\nRoute::resource('manager/group-products', 'GroupProductsController');\n\n/*Product of Manager*/\nRoute::get('manager/products/find', 'ProductsController@find');\nRoute::resource('manager/products', 'ProductsController');\n\n/*Group product of Manager*/\nRoute::resource('manager/group-products', 'GroupProductsController');\n\n/*Purchase of Manager*/\nRoute::get('manager/purchases/find',array('uses'=>'PurchasesController@find'));\nRoute::resource('manager/purchases', 'PurchasesController');\n\n/*FQA of Manager*/\nRoute::get('manager/fqa/{id}/del', array('uses'=>'FqasController@destroy'));\nRoute::get('manager/fqa/find', array('uses'=>'FqasController@find'));\nRoute::resource('manager/fqa', 'FqasController');\n\n\n/*Support ticket of Manager */\nRoute::post('manager/tickets/add-comment/{id}',array('uses'=>'TicketsController@addComment'));\nRoute::get('manager/tickets/find',array('uses'=>'TicketsController@find'));\nRoute::get('manager/tickets/filter',array('uses'=>'TicketsController@filter'));\nRoute::get('manager/tickets/confirm/{id}',array('uses'=>'TicketsController@confirm'));\nRoute::resource('manager/tickets', 'TicketsController');\n\n/*report and analysis*/\nRoute::get('manager/reports',array('uses'=>'ReportsController@index'));\nRoute::get('manager/reports/ticket',array('uses'=>'ReportsController@ticket'));\nRoute::post('manager/reports/ticket',array('uses'=>'ReportsController@postTicket'));\nRoute::get('manager/reports/ticket1',array('uses'=>'ReportsController@postTicket1'));\n\n\n/*View profile*/\nRoute::get('manager/view-profile',array('uses'=>'ShareController@viewProfile'));\nRoute::post('manager/update-profile',array('uses'=>'ShareController@updateProfile'));\nRoute::get('client/view-profile',array('uses'=>'ShareController@viewProfile'));\nRoute::post('client/update-profile',array('uses'=>'ShareController@updateProfile'));\nRoute::post('update-password',array('uses'=>'ShareController@updatePassword'));\n\n/*load message */\nRoute::get('share/message/list',array('uses'=>'MessagesController@getMessage'));\nRoute::get('share/message/count',array('uses'=>'MessagesController@getCountMessage'));\nRoute::get('share/message/see-all',array('uses'=>'MessagesController@index'));\nRoute::get('share/message/read/{id}',array('uses'=>'MessagesController@show'));\n\n/*Language*/\nRoute::get('change-language/{id}',array('as' => 'change_language', 'uses' =>'LanguagesController@getChangeLanguage'));\nRoute::get('manager/languages/find',array('uses'=>'LanguagesController@find'));\nRoute::resource('manager/languages', 'LanguagesController');\n\n/*Setting of Manager*/\nRoute::get('manager/setting', array('uses'=>'SettingsController@index'));\nRoute::get('manager/setting/show',array('uses'=>'SettingsController@show'));\nRoute::post('manager/setting', array('uses'=>'SettingsController@store'));\nRoute::get('manager/setting/create', array('uses'=>'SettingsController@create'));\n//Route::resource('manager/languages', 'LanguageController');\n\n\n/* ------ */\n/*Home section frontend*/\nRoute::post('/page/contact',array('uses'=>'HomeController@contact'));\nRoute::get('/page',array('uses'=>'HomeController@index'));\nRoute::get('/page/{id}',array('uses'=>'HomeController@page'));\n\n\nRoute::get('/client',array('uses'=>'CustomerController@index'));\n/*Customer of client*/\nRoute::get('/register',array('uses'=>'CustomerController@create'));\nRoute::post('/register',array('uses'=>'CustomerController@store'));\nRoute::get('/active-customer/{id}',array('uses'=>'CustomerController@active'));\n//Route::resource('client/customer', 'CustomerController');\n/* Employee of client */\nRoute::get('client/employee/find', array('uses'=>'EmployeeController@find'));\nRoute::resource('client/employee', 'EmployeeController');\n\n/* Ticket of Client - customer and employee */\nRoute::post('client/ticket-comment/{id}',array('uses'=>'TicketController@addComment'));\nRoute::get('client/tickets/filter',array('uses'=>'TicketController@filter'));\nRoute::get('client/tickets/find',array('uses'=>'TicketController@find'));\nRoute::resource('client/tickets', 'TicketController');\n\n\n/*View race*/\nRoute::get('client/races/{id}', array('uses'=>'RacesController@show'));\nRoute::post('client/races/{id}', array('uses'=>'RacesController@addComment'));\n\n/*FQA of Client*/\nRoute::get('client/fqa', array('uses'=>'FqaController@index'));\nRoute::get('client/fqa/find', array('uses'=>'FqaController@find'));\nRoute::get('client/fqa/{id}', array('uses'=>'FqaController@show'));\n\n/*New of Client*/\nRoute::get('client/news', array('uses'=>'NewController@index'));\nRoute::get('client/news/find', array('uses'=>'NewController@find'));\nRoute::get('client/news/{id}', array('uses'=>'NewController@show'));\n\n\n\n\n/*upload of Client*/\nRoute::get('client/upload', array('uses'=>'UploadController@client'));\nRoute::post('client/upload', array('uses'=>'UploadController@uploadClient'));\nRoute::get('client/upload/delete/{id}', array('uses'=>'UploadController@deleteClient'));\nRoute::get('client/upload/document', array('uses'=>'UploadController@documentClient'));\n/*invoice of client*/\nRoute::get('client/invoice', array('uses'=>'CustomerController@invoice'));\nRoute::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInvoice'));\n\n\n/*-----------filter----------*/\n Route::when('client', 'auth');\n Route::when('client/*', 'auth');\n Route::when('client/customer/races', 'auth');\n Route::when('share/', 'auth');\n Route::when('share/*', 'auth');\n \n /*client customer*/\n Route::when('client', 'client_employee');\n Route::when('client/*', 'client_employee');\n /*client employee*/\n Route::when('client/employee', 'client_customer');\n Route::when('client/employee/*', 'client_customer');\n \n \n /*staff customer*/\n Route::when('manager', 'staff');\n Route::when('manager*', 'staff');\n\n  /*admin*/\n Route::when('manager/setting', 'admin');\n Route::when('manager/setting*', 'admin');\n Route::when('manager/users', 'admin');\n Route::when('manager/users*', 'admin');\n \n \n \n/*debug*/ \n \nRoute::get('debug/email',array('uses'=>'EmailController@test'));\nRoute::post('debug/email',array('uses'=>'EmailController@postTest'));\n//Route::get('test/read',array('uses'=>'HomeController@test'));\n\n\n",
 			"file": "app/routes.php",
+			"file_size": 8551,
+			"file_write_time": 130528314912063489,
 			"settings":
 			{
-				"buffer_size": 8551,
+				"buffer_size": 8552,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/share/upload/document_client.blade.php",
+			"file": "app/controllers/manager/FqasController.php",
 			"settings":
 			{
-				"buffer_size": 483,
+				"buffer_size": 4250,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/lang/en/message.php",
+			"settings":
+			{
+				"buffer_size": 1419,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/manager/fqas/breadcrumb.blade.php",
+			"settings":
+			{
+				"buffer_size": 1530,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/manager/fqas/title.blade.php",
+			"settings":
+			{
+				"buffer_size": 2003,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/manager/fqas/create.blade.php",
+			"settings":
+			{
+				"buffer_size": 3406,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/lang/sa/validation.php",
+			"settings":
+			{
+				"buffer_size": 5850,
+				"line_ending": "Windows",
+				"name": "<?php"
+			}
+		},
+		{
+			"file": "app/lang/en/validation.php",
+			"settings":
+			{
+				"buffer_size": 5843,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/manager/fqas/show.blade.php",
+			"settings":
+			{
+				"buffer_size": 2690,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/manager/fqas/edit.blade.php",
+			"settings":
+			{
+				"buffer_size": 3504,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/controllers/EmailController.php",
+			"settings":
+			{
+				"buffer_size": 4081,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/share/test/testmail.blade.php",
+			"settings":
+			{
+				"buffer_size": 476,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/controllers/manager/TicketsController.php",
+			"settings":
+			{
+				"buffer_size": 24866,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -472,11 +572,17 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/project/mini-crm/public/asset/backend/assets/js/main.js",
+		"/C/xampp/htdocs/project/mini-crm/app/views/share/upload/document_client.blade.php",
+		"/C/xampp/htdocs/project/mini-crm/app/database/migrations/2014_07_14_023454_create_users_table.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/MessagesController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php",
+		"/C/xampp/htdocs/project/mini-crm/app/lang/en/message.php",
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/RacesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/lang/en/title.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/ReportsController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/models/User.php",
 		"/C/xampp/htdocs/project/mini-crm/app/models/Employees.php",
-		"/C/xampp/htdocs/project/mini-crm/app/lang/en/message.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/EmailController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/ShareController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/purchases/create.blade.php",
@@ -511,17 +617,14 @@
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/edit.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/UsersController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/index.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/manager/TicketsController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/layouts/default.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/breadcrumb.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/edit.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/create.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/public/asset/backend/assets/js/main.js",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/title.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/search.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/group_products/breadcrumb.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/MessagesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/controllers/LanguagesController.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/settings/show.blade.php",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/settings/index.blade.php",
@@ -596,14 +699,11 @@
 		"/C/xampp/htdocs/project/mini-crm/app/models/Profile.php",
 		"/C/xampp/htdocs/project/mini-crm/public/asset/backend/assets/js/custom.js",
 		"/C/xampp/htdocs/project/mini-crm/app/views/manager/customers/form_search_customer.blade.php",
-		"/C/xampp/htdocs/project/mini-crm/app/controllers/BaseController.php",
-		"/C/xampp/htdocs/project/mini-crm/app/config/app.php",
-		"/C/xampp/htdocs/project/mini-crm/app/config/packages/anahkiasen/former/config.php",
-		"/C/xampp/htdocs/project/mini-crm/app/views/manager/users/create.blade.php"
+		"/C/xampp/htdocs/project/mini-crm/app/controllers/BaseController.php"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -617,6 +717,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"category",
 			"product",
 			"profile",
 			"sign",
@@ -665,7 +766,6 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
 				{
@@ -673,15 +773,15 @@
 					"file": "app/routes.php",
 					"settings":
 					{
-						"buffer_size": 8551,
+						"buffer_size": 8552,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4707,
-								4707
+								7724,
+								7730
 							]
 						],
 						"settings":
@@ -691,25 +791,136 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2041.0,
+						"translation.y": 1741.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/share/upload/document_client.blade.php",
+					"file": "app/controllers/manager/FqasController.php",
 					"settings":
 					{
-						"buffer_size": 483,
+						"buffer_size": 4250,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								467,
-								467
+								2384,
+								2388
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1620.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/lang/en/message.php",
+					"settings":
+					{
+						"buffer_size": 1419,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1368,
+								1380
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/manager/fqas/breadcrumb.blade.php",
+					"settings":
+					{
+						"buffer_size": 1530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1313,
+								1313
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 144.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/manager/fqas/title.blade.php",
+					"settings":
+					{
+						"buffer_size": 2003,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1447,
+								1447
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 93.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/manager/fqas/create.blade.php",
+					"settings":
+					{
+						"buffer_size": 3406,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2237,
+								2237
 							]
 						],
 						"settings":
@@ -717,7 +928,198 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/lang/sa/validation.php",
+					"settings":
+					{
+						"buffer_size": 5850,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5808,
+								5840
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<?php",
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2160.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/lang/en/validation.php",
+					"settings":
+					{
+						"buffer_size": 5843,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5832,
+								5832
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2160.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/views/manager/fqas/show.blade.php",
+					"settings":
+					{
+						"buffer_size": 2690,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1855,
+								1855
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 399.0,
+						"translation.y": 420.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/views/manager/fqas/edit.blade.php",
+					"settings":
+					{
+						"buffer_size": 3504,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2730,
+								2736
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 129.0,
+						"translation.y": 700.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/controllers/EmailController.php",
+					"settings":
+					{
+						"buffer_size": 4081,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2716,
+								2716
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 660.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/views/share/test/testmail.blade.php",
+					"settings":
+					{
+						"buffer_size": 476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								334,
+								334
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/controllers/manager/TicketsController.php",
+					"settings":
+					{
+						"buffer_size": 24866,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18553,
+								18553
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 112.0,
+						"translation.y": 6403.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

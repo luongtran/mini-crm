@@ -16,8 +16,8 @@
     <p>{{$text}}</p> 
     
     <p>From CRM </p>    
-    <?php echo $message->embed('http://completermp.com/marketing/'); ?>
-    <img src='http://completermp.com/marketing/asset/frontend/img/logo.png'/>
+    <?php echo Url(); ?>
+    <img src='http://www.monread.ie/wp-content/uploads/2013/10/crm-automation-saves-time-drives-revenue.jpg'/>
 </div>
 </body>    
 </html>

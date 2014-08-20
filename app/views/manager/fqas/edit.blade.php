@@ -36,30 +36,26 @@
 			                    </div>
 			                   
 
-			                    {{Form::open(array('method'=>'PUT','url'=>'manager/fqa/'.$view->id,'enctype'=>'multipart/form-data'))}}
+			                   {{Former::open(url('manager/fqa'))->method('post')->enctype('multipart/form-data')}}
+			                   <?php Former::populate($view);?>
 			                    <div class="body-nest" id="basic">				                  
-				                    <div class="form-group">
-				                    {{Form::label('Title')}} <span class='val-star'>(*)</span>
-				                    {{Form::text('title',$view->title,array('class'=>'form-control','required'))}}
-				                        <span class="alert-danger">{{$errors->first('email')}}</span>
+				                    <div class="form-group">				                   
+				                    	{{Former::text('title')->required()}}				                        
 				                    </div>
 				                    <div class="form-group">
-				                        {{Form::label('Content')}} <span class='val-star'>(*)</span>                   
-				                        {{ Form::textarea('content',$view->content,array('class'=>'form-control ckeditor')) }}
-				                        <span class="alert-danger">{{$errors->first('password')}}</span>
+				                       {{Former::textarea('content')->class('ckeditor')->required()}}		
+				                    </div>
+
+				                    <div class="form-group">				                      			                 
+				                        {{Former::select('category_id')->fromQuery(FqaCategory::all(),'name','id')}}       				                        
 				                    </div>
 
 				                    <div class="form-group">
-				                        {{Form::label('Category')}} 				                 
-				                        {{Form::select('category_id',$category,Input::old('category_id'),array('class'=>'form-control'))}}       
-				                        <span class="alert-danger">{{$errors->first('category_id')}}</span>
+				                        {{Former::actions()->larger_success_submit('update')}} 				                        				                        
 				                    </div>
 
-				                    <div class="form-group">
-				                        {{Form::submit('Update',array('class'=>'btn btn-success'))}} 				                        				                        
-				                    </div>
 				            	</div>
-				            	{{Form::close()}}  
+				            	{{Former::close()}}  
 
 				            	</div>
 				            		

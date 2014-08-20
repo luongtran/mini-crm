@@ -128,7 +128,7 @@ return array(
 		'cost'=>'Cost',
 		'discount'=>'Discount',
 		'group_products'=>'Group Product',
-		'category_id'=>'Category'
+		'category_id'=>'Category ?trans'
 		),
 
 );

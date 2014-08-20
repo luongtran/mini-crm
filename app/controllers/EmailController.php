@@ -8,7 +8,8 @@ class EmailController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	      const EMAIL_ADMIN ="test@completermp.com";
+	      //const EMAIL_ADMIN ="test@completermp.com";
+        const EMAIL_ADMIN ="thanhtruyen1001@gmail.com";
         const EMAIL_STAFF ="ltt.develop@gmail.com";
         const EMAIL_TEST ="taikhoanlive100@outlook.com.vn";
         public function sendEmail()
@@ -83,7 +84,7 @@ class EmailController extends \BaseController {
         public function configEmail()
         { 
 
-          /*
+         
           $email_host = Setting::where('name','=','host_mail')->first();
           $email_username = Setting::where('name','=','host_username')->first();
           $email_password = Setting::where('name','=','host_password')->first();
@@ -97,14 +98,14 @@ class EmailController extends \BaseController {
           Config::set('mail.encryption',$email_encryption->value);
           Config::set('mail.username',$email_username->value);    
           Config::set('mail.password',$email_password->value);  
-           */
+          /*
           
           Config::set('mail.host','gator3228.hostgator.com');
           Config::set('mail.port','587');
           Config::set('mail.encryption','tls');
           Config::set('mail.username','abulayla');    
           Config::set('mail.password','Xqi1llvM:nx8');  
-         
+           */
           //dd(Config::get('mail'));
         }
 }

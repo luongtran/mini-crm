@@ -4,7 +4,7 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}" title="">Home</a>
+                <li><a href="{{Request::root()}}" title="">{{trans('common.menu.home')}}</a>
                 </li>
                 @if(isset($breadcrumb))
                 @foreach($breadcrumb as $value)
@@ -18,9 +18,7 @@
                                        <div class="btn-group pull-left">                                 
                                            <input type="text" name="key_find" class="form-control" placeholder="Search..." style="border-radius:5px" >                                         
                                        </div>
-                                        <div class="btn-group pull-left">      
-                                        <button style="margin-right:10px" type="submit" data-color="#39B3D7" data-opacity="0.95" class="btn button test pull-left">
-                                        <span class="icon icon-search"></span>&nbsp;&nbsp;Search</button>
+                                        <div class="btn-group pull-left">                                              
                                         </div>
                                     </div>
                     {{Form::close()}}

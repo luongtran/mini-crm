@@ -1,15 +1,15 @@
 //Sliding Effect Control
-head.js(spBaseUrl+"/asset/backend/assets/js/skin-select/jquery.cookie.js");
+//head.js(spBaseUrl+"/asset/backend/assets/js/skin-select/jquery.cookie.js");
 head.js(spBaseUrl+"/asset/backend/assets/js/skin-select/skin-select.js");
 
 //Showing Date
-head.js(spBaseUrl+"/asset/backend/assets/js/clock/date.js");
+//head.js(spBaseUrl+"/asset/backend/assets/js/clock/date.js");
 
 //Bootstrap
 //head.js(spBaseUrl+"/asset/backend/assets/js/bootstrap.js");
 
 //NEWS STICKER
-head.js(spBaseUrl+"/asset/backend/assets/js/newsticker/jquery.newsTicker.js", function() {
+/*head.js(spBaseUrl+"/asset/backend/assets/js/newsticker/jquery.newsTicker.js", function() {
 
     var nt_title = $('#nt-title').newsTicker({
         row_height: 18,
@@ -20,7 +20,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/newsticker/jquery.newsTicker.js", fu
 
 
 });
-
+*/
 //------------------------------------------------------------- 
 
 

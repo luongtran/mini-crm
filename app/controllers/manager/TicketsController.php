@@ -216,8 +216,7 @@ class TicketsController extends \BaseController {
                 $ticket->support_type = Input::get('support_type');
                 $ticket->priority = Input::get('priority');
                 $ticket->update();
-                
-               
+                               
                 
                 if(Input::get('status')=='close')
                 {
@@ -308,41 +307,41 @@ class TicketsController extends \BaseController {
                 $ticket = Ticket::where('code','=',$id)->first();
                 $ticket->status = User::STATUS_PROCESS;
                 $ticket->update();
+                   
                 /*send message*/
                 $send_msm = new MessagesController();                                                       
                 /*send to admin*/
                             $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
-                                   'content'=>Input::get('content').'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
+                                   'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
                                    'type'=>'work',
                                    'assign_to'=>$ticket->client_id
                             ];
-                    //$send_msm->addMessage($data);
-                /*send to employee*/                                   
-                if($ticket->client_id != $ticket->author_id)
-                {          
-                            $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
+                    $send_msm->addMessage($data);                  
+                /*send to employee*/    
+                $check_author =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                                                                             
+                    if($check_author->group_users == User::EMPLOYEE ){
+                              $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
                                    'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
                                    'type'=>'work',
-                                   'assign_to'=>$ticket->author_id
+                                   'assign_to'=>$check_author->id
                                    ];
-                            $send_msm->addMessage($data);
-                }
-
+                        $send_msm->addMessage($data); 
+                    }                                  
+             
 
                 /*send email client*/
                 $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.client_id')->where('tickets.code',$id)->first();                    
-                if($ticket->author_id!=$ticket->client_id)
-                {                
-                 $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.author_id')->where('tickets.code',$id)->first();                    
-                }
-                $email = new EmailController();
+                if($check_author->group_users == User::EMPLOYEE ){
+                  $client = $check_author;
+                 }   
+                   $email = new EmailController();
                     $message = array(
                     'text'=>Input::get('content').' - <a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Visit</a>',
-                    'subject'=>'Titcket CRM - '.$client->subject.' - '.$id,
+                    'subject'=>'Titcket CRM - '.$ticket->subject.' - '.$id,
                     'to_email'=>$client->email,
                     'to_name'=>$client->first_name
                     );  
-                $email->manager_sendEmail($message);
+                    $email->manager_sendEmail($message);            
                 
                 return Redirect::to('manager/tickets/'.$id);
             }
