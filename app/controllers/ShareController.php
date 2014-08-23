@@ -124,13 +124,94 @@ class ShareController extends \BaseController {
            Session::flash('msg_flash',  CommonHelper::print_msg('error','Email or password is false!'));
            return Redirect::back()->withInput();           
 	}
-
   
-        
-        public function logout()
-	{
-		//
-	}        
+  public function forgetPassword()
+  {
+     //die();
+     $email = Input::get('email');
+     $user =  User::where('email','=',$email)->where('activated','=',1)->first();     
+     if($user)
+     {
+        $email = new EmailController();
+          $data=array(
+                   'subject'=>'Forget password',
+                   'text'=>'Welcome to CRM, please click link be reset password  <a href="'.url('crm-reset-password?user='.$user->email.'&token='.$user->remember_token).'">Reset password</a>',                           
+                   'to_email'=>$user->email,
+                   'to_name'=>$user->first_name.' '.$user->last_name,
+               );       
+        if($email->manager_sendEmail($data))
+          Session::flash('msg_flash',  CommonHelper::print_msg('success','Please visit email active reset password'));
+        else
+          Session::flash('msg_flash',  CommonHelper::print_msg('warning','Problem with address email'));
+
+
+        return Redirect::to('/page/message');
+
+     }
+     else
+     {
+       Session::flash('msg_flash',  CommonHelper::print_msg('error',"Email  hasn't exist in system"));
+       return Redirect::back()->withInput();  
+     }
+
+  }
+  
+  public function checkResetPassword()
+  {
+     $Validator = Validator::make(Input::all(),array('user'=>'email|required','token'=>'required'));
+      if($Validator->passes())
+      {
+        $email = Input::get('user');
+        $token = Input::get('token');
+        $user = User::where('email','=',$email)->where('remember_token','=',$token)->first();
+        if($user)
+        {
+          return View::make('share.resetPassword',compact('email','token'));
+        }
+        else
+        {
+          Session::flash('msg_flash',  CommonHelper::print_msg('error','Error token'));
+          return Redirect::to('/page/message');
+        }
+      }
+      Session::flash('msg_flash',  CommonHelper::print_msgs('error',$Validator->messages()));
+      return Redirect::to('/page/message');
+  }
+
+  public function resetPassword()
+  {
+      $Validator = Validator::make(Input::all(),
+        array('email'=>'email|required','token'=>'required','password'=>'required|min:6|confirmed','password_confirmation'=>'required|min:6')
+        );
+
+      if($Validator->passes())
+      {
+        $email = Input::get('email');
+        $tokent = Input::get('token');
+        $user = User::where('email','=',$email)->where('remember_token','=',$tokent)->first();
+        if($user)
+        {
+            $user->password = Hash::make(Input::get('password'));
+            $user->update();
+            Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));     
+            $email = new EmailController();
+            $data=array(
+                     'subject'=>'Create new password',
+                     'text'=>'<p>Welcome to CRM, you have change new password : <b>'.Input::get('password').'</b></p>At ip :'.Request::getClientIp(),                           
+                     'to_email'=>$user->email,
+                     'to_name'=>$user->first_name.' '.$user->last_name,
+                 );       
+            $email->manager_sendEmail($data);
+
+            return Redirect::to('/page/message');
+        }
+
+      }
+      Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
+      return Redirect::back()->withInput()->withErrors($Validator);  
+  } 
+   
+
         
         public function lockScreen()
 	{

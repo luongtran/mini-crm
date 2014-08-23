@@ -87,9 +87,24 @@ class TicketController extends \BaseController {
                        $path = "asset/share/uploads/ticket";      
                        $image->store_single(Input::file('file'),$path,$type_content='ticket_id',$ticket->code,'ticket'); 
                     }
-                                                            
-                    $email = new EmailController();
+                                                        
+                    /*save activity*/                                                            
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::create;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
+                    $activity->save();
+
+                    /*save history*/
+                    $History = new TicketHistory();
+                    $History->ticket_id = $ticket->code;                   
+                    $History->status = Ticket::ST_new;                                        
+                    $History->save();
+
+
                     /*send email to admin*/
+                    $email = new EmailController();                    
                     $message = array(
                     'text'=>Input::get('description').' - <a href="'.Request::root().'/mamanger/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
@@ -105,7 +120,7 @@ class TicketController extends \BaseController {
                     'to_email'=>Auth::user()->email,
                     'to_name'=>'Customer - Ticket'
                     );  
-                    $email->manager_sendEmail($message);
+                    $email->manager_sendEmail($message);                    
                     
                     Session::flash('msg_flash',  CommonHelper::print_msg('success','Created ticket success'));
                     return Redirect::to('client/tickets');
@@ -209,9 +224,10 @@ class TicketController extends \BaseController {
                 $comment->content = CommonHelper::removeXSS(Input::get('content')); 
                 if(Input::get('content'))               
                 {
+
                     $comment->save(); 
                     $ticket = Ticket::where('code','=',$id)->first();
-                    //$ticket->status = User::STATUS_PROCESS;
+                    $ticket->status = User::STATUS_PROCESS;
                     $ticket->update();
 
                     $server_id = User::find($ticket->server_id);
@@ -227,6 +243,16 @@ class TicketController extends \BaseController {
                         $send_msm = new MessagesController();                            
                         $send_msm->addMessage($data);                    
                     }
+
+                    /*save activity*/                                                            
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::reply;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
+                    $activity->content = Input::get('content');
+                    $activity->save();
+
                 }
                 return Redirect::to('client/tickets/'.$id);
             }
@@ -268,8 +294,10 @@ class TicketController extends \BaseController {
                 $list_ticket = DB::table('tickets')                       
                         ->join('users','users.id','=','tickets.client_id')                
                         ->where('tickets.client_id','=',$user_id)
-                        ->where('tickets.code','like','%'.Input::get('key_find').'%')
-                        ->orWhere('tickets.subject','like','%'.Input::get('key_find').'%')                        
+                        ->where(function($query) {
+                            $query->where('tickets.code', 'LIKE', '%'.Input::get('key_find').'%');
+                            $query->orWhere('tickets.subject', 'LIKE', '%'.Input::get('key_find').'%');
+                        })
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
                         ->paginate(5); 

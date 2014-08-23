@@ -98,6 +98,21 @@ class TicketsController extends \BaseController {
                        $path = "asset/share/uploads/ticket";      
                        $image->store_single(Input::file('file'),$path,$type_content='ticket_id',$ticket->code,'ticket'); 
                     }
+
+                    /*save activity*/                                                            
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::create;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
+                    $activity->save();
+
+                    /*save history*/
+                    $History = new TicketHistory();
+                    $History->ticket_id = $ticket->code;                   
+                    $History->status = Ticket::ST_new;                                        
+                    $History->save();
+
                     /*send mail*/                                                           
                     $email = new EmailController();
                     $message = array(
@@ -211,14 +226,25 @@ class TicketsController extends \BaseController {
                                    ];
                             $send_msm->addMessage($data);
                     endif;
-                endif;
-                $ticket->status = Input::get('status');
+                endif;                
                 $ticket->support_type = Input::get('support_type');
                 $ticket->priority = Input::get('priority');
+                /*save activity*/       
+                if($ticket->status != Input::get('status'))
+                {                                                    
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::update;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
+                    $activity->content = 'Change <i>status</i> <b>'.$ticket->status.'</b> to <b>'.Input::get('status').'</b>';
+                    $activity->save();
+                }
+                $ticket->status = Input::get('status');
                 $ticket->update();
                                
                 
-                if(Input::get('status')=='close')
+                if(Input::get('status')==Ticket::ST_new)
                 {
                     /*send email to customer*/
                     $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                
@@ -254,7 +280,15 @@ class TicketsController extends \BaseController {
                     }
                     /*end send mail*/
                 }
-                
+
+                if(Input::get('status')==Ticket::ST_resovle || Input::get('status')==Ticket::ST_close)
+                {
+                    /*save history*/
+                    $History = new TicketHistory();
+                    $History->ticket_id = $ticket->code;                   
+                    $History->status = Input::get('status');                                       
+                    $History->save();
+                }                
                 return Redirect::back();
 	}
 
@@ -301,13 +335,24 @@ class TicketsController extends \BaseController {
                 $comment = new SupportTicket();
                 $comment->user_id = Auth::id();
                 $comment->ticket_id = $id;
-                $comment->content = Input::get('content');
-                $comment->save();
+                if(Input::get('content'))
+                {
+                    $comment->content = Input::get('content');
+                    $comment->save();
                 
                 $ticket = Ticket::where('code','=',$id)->first();
                 $ticket->status = User::STATUS_PROCESS;
                 $ticket->update();
-                   
+                
+                /*save activity*/                                                            
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::reply;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
+                    $activity->content = Input::get('content');
+                    $activity->save();
+
                 /*send message*/
                 $send_msm = new MessagesController();                                                       
                 /*send to admin*/
@@ -342,7 +387,8 @@ class TicketsController extends \BaseController {
                     'to_name'=>$client->first_name
                     );  
                     $email->manager_sendEmail($message);            
-                
+                }
+
                 return Redirect::to('manager/tickets/'.$id);
             }
 	}

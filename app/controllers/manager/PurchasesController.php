@@ -60,6 +60,9 @@ class PurchasesController extends \BaseController {
 		$perchase_detail->deadline_from = Input::get('deadline_from');
 		$perchase_detail->expiry = Input::get('expiry');
 		$perchase_detail->save();
+
+		/*Need use method send email to customer .........*/
+
         Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
              
 		return Redirect::to('manager/purchases');

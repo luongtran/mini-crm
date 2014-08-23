@@ -41,6 +41,16 @@ Route::get('/crm-logout',function(){
     return View::make('share.login');
 });
 
+Route::get('/crm-forget',function(){
+    //Auth::logout();
+    return View::make('share.forget');
+});
+
+Route::post('/crm-forget',array('uses'=>'ShareController@forgetPassword'));
+Route::get('/crm-reset-password',array('uses'=>'ShareController@checkResetPassword'));
+Route::post('/crm-reset-password',array('uses'=>'ShareController@ResetPassword'));
+
+
 /*User of manager */
 Route::get('/manager/users/find',array('uses'=>'UsersController@find'));
 Route::get('/manager/users/del/{id}',array('uses'=>'UsersController@destroy'));
@@ -97,7 +107,7 @@ Route::resource('manager/tickets', 'TicketsController');
 Route::get('manager/reports',array('uses'=>'ReportsController@index'));
 Route::get('manager/reports/ticket',array('uses'=>'ReportsController@ticket'));
 Route::post('manager/reports/ticket',array('uses'=>'ReportsController@postTicket'));
-Route::get('manager/reports/ticket1',array('uses'=>'ReportsController@postTicket1'));
+Route::get('manager/reports/ticket/default',array('uses'=>'ReportsController@index'));
 
 
 /*View profile*/
@@ -209,4 +219,5 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
 Route::get('debug/email',array('uses'=>'EmailController@test'));
 Route::post('debug/email',array('uses'=>'EmailController@postTest'));
 //Route::get('test/read',array('uses'=>'HomeController@test'));
+
 

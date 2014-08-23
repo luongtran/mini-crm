@@ -24,7 +24,7 @@ Priority
             <div class="col-sm-4">
 	            <div class="well"> 	            	
 	            		<div class="pull-left"> 	
-	            			 {{Form::select('optionRP',array('support_type'=>'Support type','priority'=>'Priority','status'=>'Status'),null,array('class'=>'form-control'))}}           		            			            	
+	            			 {{Form::select('optionRP',array('status'=>'Status','priority'=>'Priority'),'status',array('class'=>'form-control'))}}           		            			            	
 	            		</div>
 	            		<div class="pull-right">	            			
 		            	 	<button class="btn btn-success" id="btn-view" type="button">View</button>		            	 		
@@ -54,8 +54,9 @@ Priority
 
 
 <script type="text/javascript">
-  $(function() {
-  		loadIndex();  			
+  $(function() {  	
+   	loadIndex();  			  		
+	loadDefault();
 });
 
 /*load Index*/
@@ -97,6 +98,13 @@ function checkDay(){
 				}	
 };
 
+/*load default*/
+function loadDefault()
+{	
+	$("#resultRP").load(spBaseUrl+"/manager/reports/ticket/default");
+}
+
+
 /* btn view*/			
 $("#btn-view").click(function(){
 	$("#statusLoad").show();	
@@ -121,16 +129,19 @@ $("#btn-view").click(function(){
    			$("#resultRP").html("Not known");
    		}*/
    		$("#resultRP").html(data);
-   	} 	   		
+   	},
+   	error: function() {
+          alert('Error occurs!');
+       } 	   		
    	
    });
 });
 </script>  
 
 
+   <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <link rel="stylesheet" href="{{asset('asset/backend/assets/js/morris/morris-0.4.3.min.css')}}">
 	<script src="{{asset('asset/backend/assets/js/morris/morris-0.4.3.min.js')}}"></script>
 	<script src="{{asset('asset/backend/assets/js/morris/raphael-min.js')}}"></script>
 
-    
 @stop

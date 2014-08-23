@@ -5,9 +5,12 @@
 		</div>
 </section>
 <section class='logos'>
-	<div class='container'>		
-	    <h4>Message </h4>
-		<p>{{Session::get('msg_flash')}}</p>
+	<div class='container'>	
+		<div class='col-md-6'>
+			<h4>Message </h4>
+	    {{Session::get('msg_flash')}}
+
+	    </div>
 	</div>
 
 </section>

@@ -48,7 +48,7 @@ class CommonHelper {
     {
         $list= null;
         switch($key){
-            case'status':$list = array('new'=>'New','in-process'=>'In process','resolve'=>'Resolve','close'=>'Close');
+            case'status':$list = array('new'=>'New','in-process'=>'In process','resovle'=>'Resovle','close'=>'Close');
                 break;
             case'priority':$list = array('nomal'=>'Nomal','hight'=>'Hight','urgent'=>'Urgent');
                 break;

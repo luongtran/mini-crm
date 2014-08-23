@@ -48,7 +48,7 @@
                             <div class="form-group">
                                
                                 <label for="inputUsernameEmail">Email</label>
-                                 {{Form::text('email','',array('class' => 'form-control','id'=>'inputUsernameEmail','required'))}}  
+                                 {{Form::email('email','',array('class' => 'form-control','id'=>'inputUsernameEmail','required'))}}  
                             </div>
                             <div class="form-group">
                                 
@@ -66,11 +66,11 @@
                         <a class="forgotLnk" href="#"></a>
                         <div class="or-box">
                           
-                            <center><span class="text-center login-with">Login or <b>Sign Up</b></span></center>
+                            <center><span class="text-center login-with"><a href="{{url('crm-forget')}}">Forget password</a></span></center>
                             <div class="row">
                                 <div class="col-md-6 row-block">
                                     <a href="#" class="btn btn-facebook btn-block">
-                                        <span class="entypo-facebook space-icon"></span>Facebook</a>
+                                       <span class="entypo-facebook space-icon"></span>Facebook</a>
                                 </div>
                                 <div class="col-md-6 row-block">
                                     <a href="#" class="btn btn-twitter btn-block">

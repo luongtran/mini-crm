@@ -17,7 +17,14 @@ class MessagesController extends \BaseController {
     {
     	 if(Auth::check())
             {
-            $message = Message::where('assign_to','=',Auth::id())->orderBy('id','desc')->paginate(20);
+
+            $message = Message::where('assign_to','=',Auth::id())->orderBy('id','desc')->paginate(20);            
+            foreach($message as $msg){               
+            	$msg = Message::find($msg->id);
+               	$msg->activated=1;    
+               	$msg->update();
+            }
+
             	if((Auth::user()->group_users == User::MANAGER)||(Auth::user()->group_users == User::STAFF))
                	return View::make('share.message.index')->with('messages',$message);    
                	else

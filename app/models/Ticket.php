@@ -8,8 +8,17 @@ class Ticket extends \Eloquent {
                                       'file'=>'mimes:jpeg,bmp,png,ico,gif,jpg,doc,docx,xls,xlsx,pdf'
                 );
 
+    const ST_new = "new";
+    const ST_process = "in_process";
+    const ST_resovle = "resolve";
+    const ST_close = "close";
+
 	public function Profile()
 	{		 
        return $this->belongsTo('Profile','user_id');
 	}    
+
+
+
+
 }

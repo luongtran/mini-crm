@@ -10,84 +10,103 @@ class ReportsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		        $rp_total =  DB::table('ticket_history')
+							//->where(DB::raw('date(created_at)'),'>=','2014-7-22')						
+							->groupBy('ticket_history.status')
+							->orderBy('y','asc')
+							->select(DB::raw('status as label,count(status) as y'))
+							->get(); 							
+
+	 			$rp_status= DB::table('ticket_history')						 		
+	 						->groupBy('status')
+							->groupBy(DB::raw('month(created_at)'))								
+							->orderBy('status','asc')
+							->select(DB::raw('status,count(status) as count,month(created_at) as month'))
+							->get();
+
+				 $rp_month= DB::table('ticket_history')						 	
+										->groupBy(DB::raw('month(created_at)'))		
+										->groupBy(DB::raw('year(created_at)'))	
+										->orderBy('year','asc')						
+										->orderBy('month','asc')														
+										->select(DB::raw('month(created_at) as month,year(created_at) as year'))
+										->get();
+				$rp_column = "[";	
+						foreach($rp_month as $rp):						
+				$rp_column.= "{month:'".$rp->month."/".$rp->year."'";
+
+			            	foreach($rp_status as $status):
+
+			            		if($rp->month == $status->month)
+			            			$rp_column.= ",".$status->status.":".$status->count;			    	
+			            		else
+			            			$rp_column.= ",".$status->status.": 0";		
+			            		
+							endforeach;	
+				$rp_column.= "},";					
+						endforeach;	
+				$rp_column.= "]";
+		return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column);		 								
 	}
 
 	public function ticket()
 	{
-
-		$test = DB::table('tickets')
-							->join('support_type','support_type.id','=','tickets.support_type')
-							->groupBy('tickets.support_type')
-							->select(DB::raw('support_type.name as label,count(tickets.support_type) as value'))
-							->get();
-							//->toArray();
-
-							
-       // var_dump($test);
-        //$test =  json_encode($test);								
-        //var_dump($test);
-        //die();
-
 		$breadcrumb = [['link'=>'manager/reports','title'=>'Report']];
 		$this->layout->content = View::make('manager.reports.ticket')
-		->with('breadcrumb',$breadcrumb)
-		->with('test',$test);
+		->with('breadcrumb',$breadcrumb);
 	}
 	public function postTicket()
 	{
-		// if (Request::ajax())	
-		  
+		
 		  $ruler = array('fromDay'=>'required','toDay'=>'required','optionRP'=>'required');
 		  $validation = Validator::make(Input::all(),$ruler);
 		  if($validation->passes())
 		  {
 		  	$fromDay = Input::get('fromDay');
 		  	$toDay = Input::get('toDay');			
-			$rp_column="";
-			$rp_circle="";
-		  	if(Input::get('optionRP')=='status')
-		  	  {
-		  	  	$rp_circle =  DB::table('tickets')							
-							->where(DB::raw('date(tickets.created_at)'),'>=',$fromDay)
-							->where(DB::raw('date(tickets.created_at)'),'<=',$toDay)
-							->groupBy('status')
-							->select(DB::raw('status as label,count(status) as value'))
-							->get(); 
-		  	  }
-		  	  else if(Input::get('optionRP')=='priority')
-			  	  {
-			  			$rp_circle =  DB::table('tickets')							
-							->where(DB::raw('date(tickets.created_at)'),'>=',$fromDay)
-							->where(DB::raw('date(tickets.created_at)'),'<=',$toDay)
-							->groupBy('priority')
-							->select(DB::raw('priority as label,count(priority) as value'))
-							->get(); 	
-			  	  }
-			  else if(Input::get('optionRP')=='support_type')
-			  	 {
-			  	 	$rp_circle =  DB::table('tickets')
-							->join('support_type','support_type.id','=','tickets.support_type')
-							->where(DB::raw('date(tickets.created_at)'),'>=',$fromDay)
-							->where(DB::raw('date(tickets.created_at)'),'<=',$toDay)
-							->groupBy('tickets.support_type')
-							->select(DB::raw('support_type.name as label,count(tickets.support_type) as value'))
-							->get(); 
-					 $rp_column= DB::table('tickets')
-						 		->where(DB::raw('date(tickets.created_at)'),'>=',$fromDay)
-								->where(DB::raw('date(tickets.created_at)'),'<=',$toDay)
-								->groupBy(DB::raw('month(tickets.created_at)'))
-								->select(DB::raw('
-									month(tickets.created_at) as month,
-									sum(IF(tickets.support_type = 1,1,0)) as ST1,
-									sum(IF(tickets.support_type = 2,1,0)) as ST2,
-									sum(IF(tickets.support_type = 3,1,0)) as ST3,
-									sum(IF(tickets.support_type = 4,1,0)) as ST4				
-									'))
-								->get();
-			  	 }	  
+								
 
-		  	return View::make('manager.reports.chart')->with('rp_circle',$rp_circle)->with('rp_column',$rp_column);		 
+      			 $rp_total =  DB::table('ticket_history')
+							->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
+							->where(DB::raw('date(created_at)'),'<=',$toDay)						
+							->groupBy('ticket_history.status')
+							->orderBy('y','asc')
+							->select(DB::raw('status as label,count(status) as y'))
+							->get(); 							
+
+	 			$rp_status= DB::table('ticket_history')		
+	 						->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
+							->where(DB::raw('date(created_at)'),'<=',$toDay)					 		
+	 						->groupBy('status')
+							->groupBy(DB::raw('month(created_at)'))								
+							->orderBy('status','asc')
+							->select(DB::raw('status,count(status) as count,month(created_at) as month'))
+							->get();
+
+				 $rp_month= DB::table('ticket_history')		
+				 						->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
+										->where(DB::raw('date(created_at)'),'<=',$toDay)					 	
+										->groupBy(DB::raw('month(created_at)'))	
+										->groupBy(DB::raw('year(created_at)'))																
+										->orderBy('year','asc')						
+										->orderBy('month','asc')														
+										->select(DB::raw('month(created_at) as month,year(created_at) as year'))
+										->get();
+				$rp_column = "[";	
+						foreach($rp_month as $rp):						
+				$rp_column.= "{month:'".$rp->month."/".$rp->year."'";
+			            	foreach($rp_status as $status):
+			            		if($rp->month == $status->month)
+			            			$rp_column.= ",".$status->status.":".$status->count;			    	
+			            		else
+			            			$rp_column.= ",".$status->status.": 0";	
+
+							endforeach;	
+				$rp_column.= "},";					
+						endforeach;	
+				$rp_column.= "]";
+
+		  	return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column);		 								
 		  }
 
 		  else
