@@ -16,7 +16,8 @@ Route::get('/',array('uses'=>'HomeController@index'));
 
 Route::get('/manager', function()
 {
-	return View::make('hello');
+  $activity = TicketActivity::orderBy('id','desc')->paginate(20);
+	return View::make('manager.home')->with('activity',$activity);
 });
 
 

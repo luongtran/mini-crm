@@ -1,7 +1,7 @@
 <div class="row">	
  <div class="panel panel-default">
     <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i>Report for status /Month</h3>
+            <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i>Report of month</h3>
     </div>
     <div class="panel-body">
       <div id="bar-example"></div>
@@ -12,28 +12,26 @@
  <?php    
    //  echo "var arr_char3 = ".json_encode($rp_column);
   echo "var arr_char3 = ".$rp_column.";";
- ?>  
-
- var key_label  = ['new','resolve','close'];
- var label  = ['New','Resovle','Close'];
- 
+  echo "var key_label = ".$rp_key_label.";";
+  echo "var label = ".$rp_key.";";
+ ?>   
    //if(arr_char3.length != 0)    
-  //{
+   //{
     Morris.Bar({
-      element: 'bar-example',
+      element: 'bar-example',     
       data:arr_char3,
       xkey: 'month',
       ykeys: key_label,
       labels: label
     });
- // }
+   // }
 </script>
 
 
 <div class="row"> 
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i>Report for status /Total</h3>
+                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i>Report total</h3>
               </div>
               <div class="panel-body">
                

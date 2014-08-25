@@ -35,6 +35,7 @@ return array(
 		'primary'=>'Primary',
 		'profile'=>'Profile',
 		'group_product'=>'Group product',
+		'activity'=>'Activity'
 
 
 	),

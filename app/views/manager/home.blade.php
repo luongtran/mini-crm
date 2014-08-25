@@ -1,9 +1,12 @@
+@extends('manager.layouts.default')
+
+@section('content')
  <div class="row">
                 <div id="paper-top">
                     <div class="col-sm-3">
                         <h2 class="tittle-content-header">
                             <i class="icon-mail"></i> 
-                            <span>{{trans('common.menu.report')}}
+                            <span>{{trans('title.form.activity')}}
                             </span>
                         </h2>
                     </div>
@@ -29,3 +32,31 @@
 
             </div>
 </div>
+
+
+<div class="row">          
+ <div class="col-lg-10"> 
+ 	<ul class="timeline">
+ @foreach($activity as $at)
+<li>
+<div class="panel panel-default">	
+<div class="timeline-item">
+            <span class="time"><i class="fa fa-clock-o"></i>   {{$at->created_at}}</span>
+            <h4 class="timeline-header no-border">
+
+            <img src="<?php $avatar = User::find($at->author_id); if($avatar->avatar){echo url($avatar->avatar);} else  {echo url('asset/backend/assets/img/small-bg13.jpg');} ?>" class="admin-pic img-circle">
+             {{$at->title}}  <a href="{{url('manager/tickets/'.$at->ticket_id)}}">{{$at->ticket_id}}</a>   </h4>
+
+            <div class="timeline-body">
+                {{str_limit($at->content,100)}}  
+            </div>
+
+</div>
+</div>
+</li>	
+ @endforeach
+ 	</ul>
+ </div>  	
+
+</div>
+@stop

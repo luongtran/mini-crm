@@ -62,19 +62,41 @@ Priority
 /*load Index*/
 function loadIndex()
 {
-		var currentDate = new Date();  	
+		var currentDate = new Date(); 
+		var monthNow = currentDate.getMonth(); 	
+		var yearNow = currentDate.getFullYear();
 
-			$("#dp1").datepicker({ dateFormat: 'yy/mm/dd' });	
+			$("#dp1").datepicker(
+				{ dateFormat: 'yy/mm/dd',				 		  
+				  changeMonth: true,
+        		  changeYear: true,
+        		  showButtonPanel: true,
+        		  //setDate:new Date(yearNow,monthNow,1),
+        		  maxDate:currentDate       		  
+			   });	
+			/*load set day*/   	
+			$("#dp1").datepicker("setDate",new Date(yearNow,monthNow,1));  
+			//$('#dp1').datepicker('setDate',new Date(yearNow,monthNow,1));			
+			//$('#dp1').datepicker('option','maxDate',currentDate);
 
-			$("#dp2").datepicker({ dateFormat: 'yy/mm/dd' });
-		
-  			$('#dp1').datepicker('setDate',currentDate);
-			$('#dp1').datepicker('option','maxDate',currentDate);
-					
-	
-  			$('#dp2').datepicker('setDate',currentDate);
-			$('#dp2').datepicker('option','maxDate',currentDate);
+			//$("#dp1").datepicker({ dateFormat: 'yy/mm' });
+			//$('#dp1').datepicker('option','dateFormat','mm/yy');	
+				
+
+			//$("#dp2").datepicker({ dateFormat: 'yy/mm/dd' });
+  			//$('#dp2').datepicker('setDate',currentDate);
+			//$('#dp2').datepicker('option','maxDate',currentDate);
+			//$('#dp2').datepicker('option','dateFormat','mm/yy');	
 		    
+			$("#dp2").datepicker(
+				{ dateFormat: 'yy/mm/dd',				 		  
+				  changeMonth: true,
+        		  changeYear: true,
+        		  showButtonPanel: true,        		
+        		  maxDate:currentDate        		  
+			   });		
+			$("#dp2").datepicker("setDate",currentDate);  
+
 			var fromDay = $("#dp1").val();
 			var toDay = $("#dp2").val();		
 			$("#dp1").change(function(){			 
@@ -84,6 +106,9 @@ function loadIndex()
 			 	checkDay();
 			});
 
+
+
+
 $("#statusLoad").hide();
 }
 
@@ -91,7 +116,7 @@ $("#statusLoad").hide();
 function checkDay(){
 				var fromDay = $("#dp1").val();
 				var toDay = $("#dp2").val();
-				if(fromDay>toDay)
+				if(fromDay.getMonth>toDay.getMonth)
 				{
 				 alert('Please choose fromDay > toDay')
 				 $('#dp2').datepicker('setDate',fromDay);

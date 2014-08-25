@@ -15,38 +15,43 @@ class ReportsController extends BaseController {
 							->groupBy('ticket_history.status')
 							->orderBy('y','asc')
 							->select(DB::raw('status as label,count(status) as y'))
-							->get(); 							
+							->get(); 	
+
 
 	 			$rp_status= DB::table('ticket_history')						 		
 	 						->groupBy('status')
 							->groupBy(DB::raw('month(created_at)'))								
+							->groupBy(DB::raw('year(created_at)'))								
 							->orderBy('status','asc')
-							->select(DB::raw('status,count(status) as count,month(created_at) as month'))
+							->select(DB::raw('status,count(status) as count,month(created_at) as month,year(created_at) as year'))
 							->get();
 
-				 $rp_month= DB::table('ticket_history')						 	
+				$rp_month= DB::table('ticket_history')						 	
 										->groupBy(DB::raw('month(created_at)'))		
 										->groupBy(DB::raw('year(created_at)'))	
 										->orderBy('year','asc')						
 										->orderBy('month','asc')														
 										->select(DB::raw('month(created_at) as month,year(created_at) as year'))
 										->get();
+
 				$rp_column = "[";	
 						foreach($rp_month as $rp):						
 				$rp_column.= "{month:'".$rp->month."/".$rp->year."'";
 
 			            	foreach($rp_status as $status):
 
-			            		if($rp->month == $status->month)
-			            			$rp_column.= ",".$status->status.":".$status->count;			    	
-			            		else
-			            			$rp_column.= ",".$status->status.": 0";		
+			            		if($rp->month == $status->month && $rp->year == $status->year)
+			            			$rp_column.= ",".$status->status.":".$status->count;			    				            			
 			            		
 							endforeach;	
 				$rp_column.= "},";					
 						endforeach;	
 				$rp_column.= "]";
-		return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column);		 								
+
+		$rp_key_label = "['new','resolve','close']";		
+		$rp_key = "['New','Resolve','Close']";
+
+		return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column)->with('rp_key_label',$rp_key_label)->with('rp_key',$rp_key);		 								
 	}
 
 	public function ticket()
@@ -64,9 +69,9 @@ class ReportsController extends BaseController {
 		  {
 		  	$fromDay = Input::get('fromDay');
 		  	$toDay = Input::get('toDay');			
-								
-
-      			 $rp_total =  DB::table('ticket_history')
+			/*report for status*/			
+			if(Input::get('optionRP')=='status'){						
+      			$rp_total =  DB::table('ticket_history')
 							->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
 							->where(DB::raw('date(created_at)'),'<=',$toDay)						
 							->groupBy('ticket_history.status')
@@ -80,7 +85,7 @@ class ReportsController extends BaseController {
 	 						->groupBy('status')
 							->groupBy(DB::raw('month(created_at)'))								
 							->orderBy('status','asc')
-							->select(DB::raw('status,count(status) as count,month(created_at) as month'))
+							->select(DB::raw('status,count(status) as count,month(created_at) as month,year(created_at) as year'))
 							->get();
 
 				 $rp_month= DB::table('ticket_history')		
@@ -96,17 +101,69 @@ class ReportsController extends BaseController {
 						foreach($rp_month as $rp):						
 				$rp_column.= "{month:'".$rp->month."/".$rp->year."'";
 			            	foreach($rp_status as $status):
-			            		if($rp->month == $status->month)
-			            			$rp_column.= ",".$status->status.":".$status->count;			    	
-			            		else
-			            			$rp_column.= ",".$status->status.": 0";	
+			            		if($rp->month == $status->month && $rp->year == $status->year)
+			            			$rp_column.= ",".$status->status.":".$status->count;	
 
 							endforeach;	
 				$rp_column.= "},";					
 						endforeach;	
 				$rp_column.= "]";
 
-		  	return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column);		 								
+				$rp_key_label = "['new','resolve','close']";		
+				$rp_key = "['New','Resolve','Close']";
+
+		  	return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column)->with('rp_key_label',$rp_key_label)->with('rp_key',$rp_key);		 								
+		    }
+		    elseif (Input::get('optionRP')=='priority') {
+
+		    	$rp_total =  DB::table('ticket_history')
+							->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
+							->where(DB::raw('date(created_at)'),'<=',$toDay)						
+							->groupBy('ticket_history.priority')
+							->orderBy('y','asc')
+							->select(DB::raw('priority as label,count(priority) as y'))
+							->get(); 	
+
+				$rp_status= DB::table('ticket_history')			
+							->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
+							->where(DB::raw('date(created_at)'),'<=',$toDay)				 		
+	 						->groupBy('priority')
+							->groupBy(DB::raw('month(created_at)'))								
+							->groupBy(DB::raw('year(created_at)'))								
+							->orderBy('priority','asc')
+							->select(DB::raw('priority,count(priority) as count,month(created_at) as month,year(created_at) as year'))
+							->get();
+
+				$rp_month= DB::table('ticket_history')						 	
+										->where(DB::raw('date(created_at)'),'>=',$fromDay)			 		
+										->where(DB::raw('date(created_at)'),'<=',$toDay)	
+										->groupBy(DB::raw('month(created_at)'))		
+										->groupBy(DB::raw('year(created_at)'))	
+										->orderBy('year','asc')						
+										->orderBy('month','asc')														
+										->select(DB::raw('month(created_at) as month,year(created_at) as year'))
+										->get();
+
+				$rp_column = "[";	
+						foreach($rp_month as $rp):						
+				$rp_column.= "{month:'".$rp->month."/".$rp->year."'";
+
+			            	foreach($rp_status as $status):
+
+			            		if($rp->month == $status->month && $rp->year == $status->year)
+			            			$rp_column.= ",".$status->priority.":".$status->count;			    				            			
+			            		
+							endforeach;	
+				$rp_column.= "},";					
+						endforeach;	
+				$rp_column.= "]";
+
+				$rp_key_label = "['nomal','hight','urgent']";		
+				$rp_key = "['Nomal','Hight','Urgent']";
+
+		    	return View::make('manager.reports.chart')->with('rp_total',$rp_total)->with('rp_column',$rp_column)->with('rp_key_label',$rp_key_label)->with('rp_key',$rp_key);		 									
+		    }
+
 		  }
 
 		  else

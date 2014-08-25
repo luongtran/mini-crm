@@ -110,7 +110,8 @@ class TicketsController extends \BaseController {
                     /*save history*/
                     $History = new TicketHistory();
                     $History->ticket_id = $ticket->code;                   
-                    $History->status = Ticket::ST_new;                                        
+                    $History->status = Ticket::ST_new; 
+                    $History->priority = Input::get('priority');                                         
                     $History->save();
 
                     /*send mail*/                                                           
@@ -286,7 +287,8 @@ class TicketsController extends \BaseController {
                     /*save history*/
                     $History = new TicketHistory();
                     $History->ticket_id = $ticket->code;                   
-                    $History->status = Input::get('status');                                       
+                    $History->status = Input::get('status');   
+                    $History->priority = Input::get('priority');                                      
                     $History->save();
                 }                
                 return Redirect::back();
