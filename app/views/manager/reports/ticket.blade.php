@@ -67,7 +67,8 @@ function loadIndex()
 		var yearNow = currentDate.getFullYear();
 
 			$("#dp1").datepicker(
-				{ dateFormat: 'yy/mm/dd',				 		  
+				{ dateFormat: 'yy/mm/dd',	
+				  changeDay: true,			 		  
 				  changeMonth: true,
         		  changeYear: true,
         		  showButtonPanel: true,
@@ -90,6 +91,7 @@ function loadIndex()
 		    
 			$("#dp2").datepicker(
 				{ dateFormat: 'yy/mm/dd',				 		  
+				  changeDay: true,
 				  changeMonth: true,
         		  changeYear: true,
         		  showButtonPanel: true,        		
@@ -97,8 +99,8 @@ function loadIndex()
 			   });		
 			$("#dp2").datepicker("setDate",currentDate);  
 
-			var fromDay = $("#dp1").val();
-			var toDay = $("#dp2").val();		
+			//var fromDay = $("#dp1").val();
+			//var toDay = $("#dp2").val();		
 			$("#dp1").change(function(){			 
 			 	checkDay();
 			});
@@ -116,7 +118,8 @@ $("#statusLoad").hide();
 function checkDay(){
 				var fromDay = $("#dp1").val();
 				var toDay = $("#dp2").val();
-				if(fromDay.getMonth>toDay.getMonth)
+				
+				if(fromDay>toDay)
 				{
 				 alert('Please choose fromDay > toDay')
 				 $('#dp2').datepicker('setDate',fromDay);
@@ -126,7 +129,7 @@ function checkDay(){
 /*load default*/
 function loadDefault()
 {	
-	$("#resultRP").load(spBaseUrl+"/manager/reports/ticket/default");
+	$("#resultRP").load(spBaseUrl+"/manager/reports");
 }
 
 

@@ -34,12 +34,12 @@
                                     <li> 
                                         <span class="entypo-plus-circled margin-iconic">{{trans('common.button.filter')}}</span>
                                     </li>
-                                     <?php  $status= CommonHelper::list_base('status');?>
+                                     <?php  $status = Status::all();?>
                                                 @if($status)
-                                                    @foreach($status as $k=>$v)
+                                                    @foreach($status as $get)
                                                     <li> 
-                                                        <a href="{{Request::root()}}/manager/tickets/filter?key={{$k}}">
-                                                            <span class="entypo-plus-circled margin-iconic"></span>{{$v}}</a>
+                                                        <a href="{{Request::root()}}/manager/tickets/filter?key={{$get->id}}">
+                                                            <span class="entypo-plus-circled margin-iconic"></span>{{$get->name}}</a>
                                                     </li>                                                
                                                     @endforeach
                                      @endif         

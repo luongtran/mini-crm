@@ -57,6 +57,14 @@
  @endforeach
  	</ul>
  </div>  	
+ </div> 
 
+
+<div class="row">
+    <div class="col-lg-10">
+        <div class="pull-right">    
+            {{$activity->links()}}
+        </div>
+    </div>   
 </div>
 @stop

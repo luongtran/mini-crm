@@ -49,7 +49,7 @@ class HomeController extends BaseController {
 		$email = new EmailController();
 		$data = array(
 			'subject'=>'Client contact from crm'.rand(1000,9999),
-			'text'=>'From email:'.Input::get('email').'</br>'.Input::get('message'),
+			'text'=>'<p>From email:'.Input::get('email').'</p><div>'.Input::get('message').'</br>',
 			'to_email'=>EmailController::EMAIL_ADMIN,
 			'to_name'=>'Admin',
 			);		

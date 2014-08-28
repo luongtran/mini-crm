@@ -2,9 +2,10 @@
 
 class TicketActivity extends \Eloquent {
 
-		const create = "Create";
-		const update = "Update";
-		const reply = "Reply";
+		const create = "Created";
+		const update = "Updated";
+		const reply = "Replied";
+		const close = "Closed";
 
         protected  $table="ticket_activity";
 		protected $fillable = [];

@@ -55,6 +55,7 @@ return array(
             'invoice'=>'Invoice',
             'knowledge_base'=>'Knowledge Base',
             'resource'=>'Resource',
+            'staff'=>'Staff'
             ],
 
 );

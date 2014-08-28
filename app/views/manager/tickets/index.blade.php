@@ -28,7 +28,7 @@
                                     </tr>
                                     
                                     @foreach($list_ticket as $ticket)
-                                    <tr @if($ticket->status=='new') {{'class="success"'}} @elseif($ticket->status=='resolve'){{'class="danger"'}} @endif >
+                                    <tr @if($ticket->status==Ticket::S_NEW) {{'class="success"'}} @elseif($ticket->status==Ticket::S_RESOLVE){{'class="danger"'}} @endif >
                                         <td class="small-col">
                                               <input type="checkbox" value="{{$ticket->id}}" name="checkID[]" class="checkBoxClass"/>
                                         </td>                                       

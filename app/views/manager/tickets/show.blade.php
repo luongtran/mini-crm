@@ -8,19 +8,19 @@
 <div class="row">
 <?php 
 $status_bg="panel-primary";
-if($ticket->status == 'new')
+if($ticket->status == Ticket::S_NEW)
 {
   $status_bg="panel-fb tweet-bgcolor";
 }
-if($ticket->status == 'close')
+if($ticket->status == Ticket::S_CLOSE)
 {
   $status_bg="panel-fb gplus-color";   
 }
-else if($ticket->status == 'in-process')
+else if($ticket->status == Ticket::S_INPROCESS)
 {
   $status_bg="panel-fb instagram-color";   
 }
-else if($ticket->status == 'resolve')
+else if($ticket->status == Ticket::S_RESOLVE)
 {
   $status_bg="panel-fb gplus-color";   
 }
@@ -50,23 +50,21 @@ else if($ticket->status == 'resolve')
                                             <p><i class="icon icon-attachment" ></i><a href="{{Request::root().'/'.$at->path}}">{{$at->name}}</a></p>
                                            @endforeach                                        
                                         @endif
+
+                                    <label>{{trans('title.form.customer')}}</label> 
+                                    <p> 
+                                      <h3><i class="entypo-export"></i>  <a target="_blank" href="{{Request::root()}}/manager/customers/{{$ticket->company_id}}">{{$ticket->company_name}}</a></h3>
+                                    </p>    
                                     <label>{{trans('title.table.created')}}</label>
                                     <p>
                                         <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                    </br>
-                                        <span class="title">{{trans('title.form.customer')}}:</span> <a target="_blank" href="{{Request::root()}}/manager/customers/{{$ticket->company_id}}">{{$ticket->company_name}}</a>
                                     </p>
-                                </div>                               
-
-                                <div class="clearfix"></div>
-                                <hr>
-                                <div class="social-content">                                    
-                                    <div class="social-header">                                                                                
-                                                                                  
-                                    </div>
+                                    
+                                </div>                                   
+                                <div class="social-content"> 
                                     <ul>                                        
                                         @foreach($list_comment as $comment)
-                                        <li>
+                                        <li><hr>
                                             @if($comment->avatar)
                                             <img class="img-social-content img-circle pull-left" src="{{Request::root()}}/{{$comment->avatar}}">
                                             @else
@@ -80,15 +78,11 @@ else if($ticket->status == 'resolve')
 
                                         </li>
                                         @endforeach
-
                                     </ul>
-
-
                                 </div>
-
-
-
                                 <hr>
+
+                               @if($ticket->close!=1) 
                                {{Form::open(array('url'=>'manager/tickets/add-comment/'.$ticket->code,'method'=>'post'))}}
                                     <div class="form-group">
                                         {{form::textarea('content',Input::old('content'),array('class'=>'ckeditor'))}}
@@ -98,6 +92,7 @@ else if($ticket->status == 'resolve')
                                             <button type="submit" class="btn btn-success">Reply</button>
                                      </div>   
                                {{Form::close()}}
+                               @endif
 
                             </div>
                             
@@ -126,14 +121,23 @@ else if($ticket->status == 'resolve')
                          <span class="alert-danger">{{$errors->first('server_id')}}</span>
                 </div>  
                @endif
-                {{Form::open(array('url'=>'manager/tickets/'.$ticket->code,'method'=>'PUT'))}}
+               @if($ticket->close != true) 
                <div class="form-group">
                         <label>Status</label>
                         {{Form::select('status',$status,$ticket->status,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('status')}}</span>
                 </div>  
-                {{Form::submit('Update',array('class'=>'btn btn-primary'))}}
-                <a onclick="return confirm('yes or no?');" href='{{Request::root()}}/manager/tickets/confirm/{{$ticket->code}}'>{{Form::button('Confirm',array('class'=>'btn btn-success'))}}</a>
+                @endif
+
+                @if($ticket->close != 1)
+                {{Form::submit('Save',array('class'=>'btn btn-primary'))}}  
+                @endif
+
+                @if($ticket->status == Ticket::S_RESOLVE)
+                <a onclick="return confirm('Are you sure close?');" href='{{Request::root()}}/manager/tickets/close/{{$ticket->code}}'>{{Form::button('Close',array('class'=>'btn btn-danger'))}}</a>
+                @else
+                <a onclick="return confirm('Are you want send confirm to customer?');" href='{{Request::root()}}/manager/tickets/confirm/{{$ticket->code}}'>{{Form::button('Confirm',array('class'=>'btn btn-success'))}}</a>
+                @endif
             </div>    
         </div>
              

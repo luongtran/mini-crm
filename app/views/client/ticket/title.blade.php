@@ -34,18 +34,19 @@
                                 <li>
                                     <a href="{{Request::root()}}/client/tickets/create">
                                         <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
-                                </li>                              
+                                </li>  
+                                <li class="divider"></li>                            
                                 <li>
                                     <a href="#">
-                                        <span class="entypo-plus-circled margin-iconic"></span>Filter status</a>
+                                        <span class="margin-iconic"></span><b>Filter status</b></a>
                                 </li> 
-                                <?php $status = CommonHelper::list_base('status');                              
-                                               foreach($status as $key=>$value):
+                                <?php $status = Status::all();                              
+                                               foreach($status as $value):
                                             ?>
                                             <li>
-                                                <a href="{{Request::root()}}/client/tickets/filter?key={{$key}}">
-                                                    <span class="margin-iconic"></span>{{$value}}</a>
-                                            </li>
+                                                <a href="{{Request::root()}}/client/tickets/filter?key={{$value->id}}">
+                                                 <span class="entypo-plus-circled margin-iconic"></span>{{$value->name}}</a>
+                                            </li>                       
                                 <?php endforeach;?>              
                                </ul>                
                             </div>

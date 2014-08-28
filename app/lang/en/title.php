@@ -73,7 +73,27 @@ return array(
 		'group_product'=>'Group product',
 		'author'=>'Author',
 
-	)
+	),
+	'ticket'=>array(
+		'change_status'=>'Change <i>status </i> <b>  :from </b> to <b> :to </b>',
+		'change_staff'=>'<i>Assign staff to</i> <b>  :staff  </b>',
+		'close'=>'<strong> Closed ticket </strong>'
+		),
+
+	'report'=>array(
+		'month'=>'Month',
+		'resolved'=>'Resolved',
+		'total_ticket'=>'Total status tickets',
+		'report_total'=>'Report status total',
+		'report_month'=>'Report status of month',
+		'nomal'=>'Nomal',
+		'hight'=>'Hight',
+		'urgent'=>'Urgent',
+		'analysis_support'=>'Analysis section support type',
+		'race'=>'Report section race',
+		'overdue'=>'Report section overdue'
+		)
+
 	
 
 );

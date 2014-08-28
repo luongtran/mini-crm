@@ -14,21 +14,17 @@
 <div class="row">
 <?php 
 $status_bg="panel-success";
-if($ticket->status == 'new')
+if($ticket->status_id == Ticket::S_NEW)
 {
   $status_bg="panel-fb tweet-bgcolor";
 }
-if($ticket->status == 'close')
+else if($ticket->status_id == Ticket::S_INPROCESS)
+{
+  $status_bg="panel-fb instagram-color";   
+}
+else if($ticket->status_id == Ticket::S_RESOLVE)
 {
   $status_bg="panel-fb gplus-color";   
-}
-else if($ticket->status == 'in-process')
-{
-  $status_bg="panel-fb instagram-color";   
-}
-else if($ticket->status == 'resolve')
-{
-  $status_bg="panel-fb instagram-color";   
 }
 ?>
 <div class="col-sm-8">
@@ -88,7 +84,8 @@ else if($ticket->status == 'resolve')
 
 
                                 </div>
-                                <hr>                               
+                                <hr> 
+                               @if($ticket->close != 1)                               
                                {{Form::open(array('url'=>'client/ticket-comment/'.$ticket->code,'method'=>'post'))}}
                                     <div class="form-group">
                                         <textarea class='form-control ckeditor' name='content'></textarea>                                                                            
@@ -97,6 +94,7 @@ else if($ticket->status == 'resolve')
                                     <button type="submit" class="btn btn-success">{{trans('common.button.reply')}}</i> </button>                                 
                                     </div>
                                {{Form::close()}}
+                               @endif
 
                             </div>
                             

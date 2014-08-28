@@ -15,11 +15,12 @@ class TicketsController extends \BaseController {
 	public function index()
 	{	             
                 $list_ticket = DB::table('tickets')
-                        ->where('tickets.status','<>','close')                        
+                        ->where('tickets.close','<>',1)                        
                         ->join('users','users.id','=','tickets.client_id')                              
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                                  
+                        ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5); 
                 
                 if(Auth::user()->group_users == User::STAFF){
@@ -27,9 +28,10 @@ class TicketsController extends \BaseController {
                         ->where('tickets.status','<>','close')
                         ->where('tickets.server_id','=',Auth::id())
                         ->join('users','users.id','=','tickets.client_id')                              
-                        ->leftjoin('profiles','profiles.user_id','=','users.id')                              
+                        ->leftjoin('profiles','profiles.user_id','=','users.id')  
+                        ->leftjoin('status','status.id','=','tickets.status')                                
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5);  
                 }                               
         $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')]] ;    
@@ -74,13 +76,13 @@ class TicketsController extends \BaseController {
                     $ticket->fill(Input::all());                    
                     $ticket->author_id = Auth::id();
                     $ticket->client_id = Input::get('client_id');                    
-                    $ticket->status = User::STATUS_NEW;                    
+                    $ticket->status = Ticket::S_NEW;                    
                     $ticket->save();           
                     
                     $ticket->code = 'TK'.$ticket->id.'-'.Auth::id();
                     if(Input::get('server_id'))
                     {
-                        $ticket->server_id = Input::get('server_id'); 
+                            $ticket->server_id = Input::get('server_id'); 
                             $send_msm = new MessagesController();
                             $data = ['title'=>'Support ticket from customer'.$ticket->code,
                                    'content'=>'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
@@ -104,17 +106,10 @@ class TicketsController extends \BaseController {
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::create;
                     $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
+                    $activity->title = '<b>'.Auth::user()->firs_tname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
                     $activity->save();
-
-                    /*save history*/
-                    $History = new TicketHistory();
-                    $History->ticket_id = $ticket->code;                   
-                    $History->status = Ticket::ST_new; 
-                    $History->priority = Input::get('priority');                                         
-                    $History->save();
-
-                    /*send mail*/                                                           
+                    
+                    /*send mail to admin*/                                                           
                     $email = new EmailController();
                     $message = array(
                     'text'=>Input::get('description').' - <a href="'.Request::root().'/mamanger/tickets/'.$ticket->code.'">Visit</a>',
@@ -123,7 +118,7 @@ class TicketsController extends \BaseController {
                     'to_name'=>'Admin'
                     );
                     $email->manager_sendEmail($message);
-                    
+                    /*send mail to customer*/           
                     $message = array(
                     'text'=>Input::get('description').' - <a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
@@ -153,7 +148,7 @@ class TicketsController extends \BaseController {
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                        
                         ->where('tickets.code','=',$id)
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id,tickets.close'))
                         ->first();  
                 if(Auth::user()->group_users == User::STAFF){
                  $ticket =DB::table('tickets')                        
@@ -165,7 +160,7 @@ class TicketsController extends \BaseController {
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id'))
                         ->first();    
                 }
-                
+                /*IF NOT EXIST TICKET*/
                 if($ticket){
                 $list_comment = DB::table('support_tickets')->join('tickets','tickets.code','=','support_tickets.ticket_id')
                                                 ->join('users','users.id','=','support_tickets.user_id')
@@ -177,20 +172,19 @@ class TicketsController extends \BaseController {
                 
                 $support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
-                $status = CommonHelper::list_base('status');
+                /*show status*/
+                if($ticket->status!=Ticket::S_NEW)
+                $status = DB::table('status')->where('name','<>','new')->where('name','<>','close')->lists('name','id');
+                else
+                $status = DB::table('status')->where('name','<>','close')->lists('name','id');    
+                /*list staff*/
                 $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->lists('first_name','id');
 		
-        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.show')]] ;    
-		$this->layout->content = View::make('manager.tickets.show')->with('ticket',$ticket)->with('list_comment',$list_comment)
-                                        ->with('support_type',$support_type)
-                                        ->with('priority',$priority)
-                                        ->with('assign_to',$assign_to)
-                                        ->with('status',$status)
-                                        ->with('attach',$attach)
-                                        ->with('breadcrumb',$breadcrumb);
-                }else{
-                    return Redirect::to('manager/tickets');
+                $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.show')]] ;    
+        		$this->layout->content = View::make('manager.tickets.show',compact('support_type','priority','assign_to','status','attach','breadcrumb','ticket','list_comment'));                                              
+
                 }
+                else{ return Redirect::to('manager/tickets');  }
 	}
 
 	/**
@@ -201,8 +195,7 @@ class TicketsController extends \BaseController {
 	 * @return Response
 	 */
 	public function edit($id)
-	{
-	
+	{	
               
 	}
 
@@ -216,82 +209,56 @@ class TicketsController extends \BaseController {
 	public function update($id)
 	{
 		$ticket = Ticket::where('code',$id)->first();
-                if(Auth::user()->group_users == User::MANAGER):  
-                    if(Input::get('server_id')):                        
-                            $ticket->server_id = Input::get('server_id'); 
-                            $send_msm = new MessagesController();
-                            $data = ['title'=>'Support ticket from customer '.$ticket->code,
-                                   'content'=>'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
-                                   'type'=>'work',
-                                   'assign_to'=>Input::get('server_id')
-                                   ];
-                            $send_msm->addMessage($data);
-                    endif;
-                endif;                
+
+            if($ticket->server_id != Input::get('server_id')):               
+                /*save activity assign to staff*/ 
+                $activity = new TicketActivity();
+                $activity->ticket_id = $ticket->code;
+                $activity->event = TicketActivity::update;
+                $activity->author_id = Auth::id();                    
+                $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
+                $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
+                $activity->save();            
+                $ticket->server_id = Input::get('server_id');
+                $ticket->update();
+            endif;        
+
                 $ticket->support_type = Input::get('support_type');
                 $ticket->priority = Input::get('priority');
-                /*save activity*/       
-                if($ticket->status != Input::get('status'))
-                {                                                    
+
+                   /*save activity*/  
+            if($ticket->status != Input::get('status')):                                                                    
                     $activity = new TicketActivity();
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::update;
                     $activity->author_id = Auth::id();                    
                     $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
-                    $activity->content = 'Change <i>status</i> <b>'.$ticket->status.'</b> to <b>'.Input::get('status').'</b>';
-                    $activity->save();
-                }
-                $ticket->status = Input::get('status');
-                $ticket->update();
-                               
-                
-                if(Input::get('status')==Ticket::ST_new)
-                {
-                    /*send email to customer*/
-                    $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                
-                    /*check ticket employee than send employee*/       
-                    $check_author =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                                                                             
-                    if($check_author->group_users == User::EMPLOYEE ){
-                        $infor_client = $check_author;           
-                    }                
-                    $email = new EmailController();
-                    /*send message*/
-                    $send_msm = new MessagesController();
-                            $data = ['title'=>'Close ticket'.$id,
-                                   'content'=> '<p>Thank you!, we happy when served customer</p>
-                                                </br><a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Conplete ticket '.$ticket->code.'</a>
-                                                </br><a href="'.Request::root().'/client/races/'.$id.'">Please Race ticket at </a>',
-                                   'type'=>'work',
-                                   'assign_to'=>$infor_client->id
-                                   ];                    
-                    $send_msm->addMessage($data);
-                    /*send mail*/
-                    $send_mail = array(
-                        'text'=>'<p>Thank you!, we happy when served customer</p>
-                        </br><a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Conplete ticket '.$ticket->code.'</a>
-                        </br><a href="'.Request::root().'/client/races/'.$id.'">Please Race ticket at </a>',
-                        'subject'=>'Close ticket '.$id,
-                        'to_email'=>$infor_client->email,
-                        'to_name'=>$infor_client->first_name
-                        );    
-                    
-                    if($email->manager_sendEmail($send_mail))
+                    $server_id_old = 'None'; 
+                    if(Status::find($ticket->status)->name)
                     {
-                        Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));
+                        $server_id_old = Status::find($ticket->status)->name;
                     }
-                    /*end send mail*/
-                }
-
-                if(Input::get('status')==Ticket::ST_resovle || Input::get('status')==Ticket::ST_close)
-                {
+                    $activity->content = trans('title.ticket.change_status',array('from'=>$server_id_old,'to'=>Status::find(Input::get('status'))->name));
+                    $activity->save();
+                  
                     /*save history*/
-                    $History = new TicketHistory();
-                    $History->ticket_id = $ticket->code;                   
-                    $History->status = Input::get('status');   
-                    $History->priority = Input::get('priority');                                      
-                    $History->save();
-                }                
-                return Redirect::back();
+                    // $History = new TicketHistory();
+                    // $History->ticket_id = $ticket->code;                   
+                    // $History->status = Input::get('status');   
+                    // $History->priority = Input::get('priority');                                      
+                    // $History->save();
+
+                    $ticket->status = Input::get('status');   
+            endif; /*end status on change*/
+                
+                $ticket->update();
+                if(Input::get('status') == Ticket::S_RESOLVE)
+                    {
+                       $ticket->resolved_at =  $ticket->updated_at; 
+                       $ticket->update();
+                    }
+                           
+        return Redirect::back();
 	}
 
 	/**
@@ -306,15 +273,16 @@ class TicketsController extends \BaseController {
 		$ticket = Ticket::where('code','=',$id)->first();        
         if($ticket)
         {
-            if($ticket->status == User::STATUS_CLOSE)
+            if($ticket->close == true)
             {
                 if(Auth::user()->group_users == User::MANAGER)
                 {   
                     $support_tickets = SupportTicket::where('ticket_id','=',$id)->get();
-                    foreach($support_tickets as $detail):
-                        $detail->delete();
-                    endforeach;
-                    $ticket->delete();                    
+                        foreach($support_tickets as $detail):
+                            $detail->delete();
+                        endforeach;
+                    $ticket->delete();  
+
                     Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.delete')));
                 }
                 else
@@ -330,7 +298,7 @@ class TicketsController extends \BaseController {
         return Redirect::back();
 	}
         
-          public function addComment($id='')
+        public function addComment($id='')
 	{
             if($id!='')
             {
@@ -343,7 +311,7 @@ class TicketsController extends \BaseController {
                     $comment->save();
                 
                 $ticket = Ticket::where('code','=',$id)->first();
-                $ticket->status = User::STATUS_PROCESS;
+                $ticket->status = Ticket::S_INPROCESS;
                 $ticket->update();
                 
                 /*save activity*/                                                            
@@ -354,16 +322,15 @@ class TicketsController extends \BaseController {
                     $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
                     $activity->content = Input::get('content');
                     $activity->save();
-
                 /*send message*/
                 $send_msm = new MessagesController();                                                       
-                /*send to admin*/
+                /*send to customer*/
                             $data =['title'=>'Support ticket Admin '.$ticket->subject.' - '.$ticket->code,
                                    'content'=>Input::get('content').'<a href="'.Request::root().'/client/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
                                    'type'=>'work',
                                    'assign_to'=>$ticket->client_id
                             ];
-                    $send_msm->addMessage($data);                  
+                $send_msm->addMessage($data);                  
                 /*send to employee*/    
                 $check_author =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                                                                             
                     if($check_author->group_users == User::EMPLOYEE ){
@@ -373,13 +340,12 @@ class TicketsController extends \BaseController {
                                    'assign_to'=>$check_author->id
                                    ];
                         $send_msm->addMessage($data); 
-                    }                                  
-             
+                    } 
 
                 /*send email client*/
                 $client  = DB::table('tickets')->leftjoin('users','users.id','=','tickets.client_id')->where('tickets.code',$id)->first();                    
                 if($check_author->group_users == User::EMPLOYEE ){
-                  $client = $check_author;
+                    $client = $check_author;
                  }   
                    $email = new EmailController();
                     $message = array(
@@ -390,7 +356,6 @@ class TicketsController extends \BaseController {
                     );  
                     $email->manager_sendEmail($message);            
                 }
-
                 return Redirect::to('manager/tickets/'.$id);
             }
 	}
@@ -402,23 +367,37 @@ class TicketsController extends \BaseController {
                 $list_ticket = DB::table('tickets')
                         ->where('tickets.status','=',Input::get('key'))
                         ->join('users','users.id','=','tickets.client_id')                              
-                        ->leftjoin('profiles','profiles.user_id','=','users.id')  
+                        ->leftjoin('profiles','profiles.user_id','=','users.id')                          
+                        ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))                       
                         ->paginate(5); 
+                if(Input::get('key')==Ticket::S_CLOSE)        
+                {
+                   $list_ticket = DB::table('tickets')
+                        ->where('tickets.close','=',1)
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->leftjoin('profiles','profiles.user_id','=','users.id')                          
+                        ->leftjoin('status','status.id','=','tickets.status')                                  
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))                       
+                        ->paginate(5);  
+                }
+
                 if(Auth::user()->group_users == User::STAFF){
                    $list_ticket = DB::table('tickets')
                         ->where('tickets.server_id','=',Auth::id())
                         ->where('tickets.status','=',Input::get('key'))
-                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->leftjoin('users','users.id','=','tickets.client_id')                              
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                              
+                        ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5); 
                 }
                 $parameter_panginate = ['key'=>Input::get('key')];
 
-                 $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.filter')]] ;    
+                $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.filter')]] ;    
 
 		        $this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
                         ->with('parameter_panginate',$parameter_panginate)
@@ -464,7 +443,7 @@ class TicketsController extends \BaseController {
                $message = new Message();
                $message->title = "Please confirm ticket ".$id;
                $message->content = "You have created <a href='".Request::root()."/client/tickets/".$id."'>".$id."</a> 
-                       if customer agree or after 2 days no actions come from customer. We will change status of ticket to resolved.";                      
+                if customer agree or after 2 days no actions come from customer. We will change status of ticket to resolved.";                      
                $message->activated = 0;
                $message->type = "work";               
                $message->assign_to = $ticket->client_id;
@@ -486,4 +465,64 @@ class TicketsController extends \BaseController {
             return Redirect::back();
         }
 
+        public function close($id)
+        {
+                            $ticket = Ticket::where('code','=',$id)->first();
+                            $ticket->update();
+                            $ticket->closed_at = $ticket->updated_at;
+                            $ticket->status = Ticket::S_RESOLVE;
+                            $ticket->close = true;
+                            $ticket->update();
+
+                            /*save activity*/     
+                            $activity = new TicketActivity();
+                            $activity->ticket_id = $ticket->code;
+                            $activity->event = TicketActivity::update;
+                            $activity->author_id = Auth::id();                    
+                            $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::close.' the ticket';                            
+                            $activity->save();            
+                            $ticket->server_id = Input::get('server_id');
+
+                            /*send email to customer*/
+                            $infor_client =  DB::table('users')->join('tickets','tickets.client_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                
+                            /*if check ticket employee than send employee*/       
+                            $check_author =  DB::table('users')->join('tickets','tickets.author_id','=','users.id')->where('tickets.code',$id)->select(DB::raw('users.id,users.email,users.group_users,users.first_name,users.last_name'))->first();                                                                             
+                            if($check_author->group_users == User::EMPLOYEE ){
+                                $infor_client = $check_author;           
+                            }                    
+                            /*send message*/
+                            $send_msm = new MessagesController();
+                                    $data = ['title'=>'Close ticket'.$id,
+                                           'content'=> '<p>Thank you!, we happy when have served customer</p>
+                                                        </br><a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Conplete ticket '.$ticket->code.'</a>
+                                                        </br><a href="'.Request::root().'/client/races/'.$id.'">Please Race ticket at </a>',
+                                           'type'=>'work',
+                                           'assign_to'=>$infor_client->id
+                                           ];                    
+                            $send_msm->addMessage($data);
+                            /*send mail*/
+                            $email = new EmailController();
+                            $send_mail = array(
+                                'text'=>'<p>Thank you!, we happy when served customer</p>
+                                </br><a href="'.Request::root().'/client/tickets/'.$ticket->code.'">Conplete ticket '.$ticket->code.'</a>
+                                </br><a href="'.Request::root().'/client/races/'.$id.'">Please Race ticket at </a>',
+                                'subject'=>'Close ticket '.$id,
+                                'to_email'=>$infor_client->email,
+                                'to_name'=>$infor_client->first_name
+                                );    
+                            
+                            if($email->manager_sendEmail($send_mail))
+                            {
+                                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));
+                            }
+                            /*end send mail*/
+
+
+
+
+                    return Redirect::to('manager/tickets/'.$id);
+
+
+        }
 }
+

@@ -18,7 +18,7 @@ return array(
         'delete'=>'You have been deleted successfully',
         'trash'=>'You have been move trash successfully',       
         'exist_relationship'=>'Can not delete this :name , have relationship with table :with_name',
-        'ticket_have_close'=>'The ticket must closed before deleted',
+        'ticket_have_close'=>'The ticket have to closed before deleted',
         'required_fields'=>'Please make sure all required fields are filled out correctly',
         'mail_success'=>'You have been send mail successfully',
         'message_success'=>'You have been send message successfully',

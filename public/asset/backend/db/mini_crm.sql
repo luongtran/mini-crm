@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50616
 File Encoding         : 65001
 
-Date: 2014-08-23 18:16:23
+Date: 2014-08-28 18:05:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -168,7 +168,7 @@ CREATE TABLE `messages` (
   `from` int(11) DEFAULT NULL,
   `link` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of messages
@@ -188,8 +188,8 @@ INSERT INTO `messages` VALUES ('144', 'Support ticket from customer TK81-107', '
 INSERT INTO `messages` VALUES ('145', 'Support ticket from customer TK82-99', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK82-99\">At TK82-99</a>', '0', '2014-08-22 01:45:35', '2014-08-22 01:45:35', 'work', null, '93', '1', null);
 INSERT INTO `messages` VALUES ('146', 'Close ticketTK82-99', '<p>Thank you!, we happy when served customer</p>\n                                                </br><a href=\"http://192.168.1.123:8000/client/tickets/TK82-99\">Conplete ticket TK82-99</a>\n                                                </br><a href=\"http://192.168.1.123:8000/client/races/TK82-99\">Please Race ticket at </a>', '1', '2014-08-23 14:31:47', '2014-08-23 07:31:47', 'work', null, '99', '1', null);
 INSERT INTO `messages` VALUES ('147', 'Support ticket from customerTK92-1', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK92-1\">At TK92-1</a>', '0', '2014-08-22 07:33:28', '2014-08-22 07:33:28', 'work', null, '93', '1', null);
-INSERT INTO `messages` VALUES ('148', 'Support ticket Admin tjuuuuuuuuuu - TK92-1', '<p>&#39;f</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK92-1\">At TK92-1</a>', '0', '2014-08-22 07:33:47', '2014-08-22 07:33:47', 'work', null, '107', '1', null);
-INSERT INTO `messages` VALUES ('149', 'Support ticket Admin tjuuuuuuuuuu - TK92-1', '<p>klgh</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK92-1\">At TK92-1</a>', '0', '2014-08-22 07:35:07', '2014-08-22 07:35:07', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('148', 'Support ticket Admin tjuuuuuuuuuu - TK92-1', '<p>&#39;f</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK92-1\">At TK92-1</a>', '1', '2014-08-25 10:14:35', '2014-08-25 03:14:35', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('149', 'Support ticket Admin tjuuuuuuuuuu - TK92-1', '<p>klgh</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK92-1\">At TK92-1</a>', '1', '2014-08-25 10:14:35', '2014-08-25 03:14:35', 'work', null, '107', '1', null);
 INSERT INTO `messages` VALUES ('150', 'Support ticket from customerTK93-1', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK93-1\">At TK93-1</a>', '1', '2014-08-23 14:45:53', '2014-08-23 07:45:53', 'work', null, '98', '1', null);
 INSERT INTO `messages` VALUES ('151', 'Support ticket from customerTK94-1', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK94-1\">At TK94-1</a>', '0', '2014-08-23 02:08:27', '2014-08-23 02:08:27', 'work', null, '143', '1', null);
 INSERT INTO `messages` VALUES ('152', 'Support ticket Admin rjartujhs - TK94-1', '<p>;kjm;/</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK94-1\">At TK94-1</a>', '1', '2014-08-23 15:04:08', '2014-08-23 08:04:08', 'work', null, '99', '1', null);
@@ -207,6 +207,38 @@ INSERT INTO `messages` VALUES ('163', 'Support ticket from customer TK103-99', '
 INSERT INTO `messages` VALUES ('164', 'Support ticket from customer TK103-99', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK103-99\">At TK103-99</a>', '1', '2014-08-23 13:42:46', '2014-08-23 06:42:46', 'work', null, '98', '1', null);
 INSERT INTO `messages` VALUES ('165', 'Support ticket Admin reeeeeeeeeeeeeeeg - TK103-99', '<p>ffffffffff</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK103-99\">At TK103-99</a>', '1', '2014-08-23 15:04:04', '2014-08-23 08:04:04', 'work', null, '99', '1', null);
 INSERT INTO `messages` VALUES ('166', 'Support ticket Admin reeeeeeeeeeeeeeeg - TK103-99', '<p>eeeeeeeeeeeeeeeeeeeeeeeeeeeee</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK103-99\">At TK103-99</a>', '1', '2014-08-23 13:44:26', '2014-08-23 06:44:26', 'work', null, '99', '98', null);
+INSERT INTO `messages` VALUES ('167', 'Titcket CRM From customer - adfijsd;fsdfjjsdfljsdjfl - TK108-98', '<p>alfjlasf</p>\r\n - <a href=\"http://192.168.1.123:8000/manager/tickets/TK108-98\">Visit</a>', '0', '2014-08-23 11:18:02', '2014-08-23 11:18:02', 'work', null, '98', '102', null);
+INSERT INTO `messages` VALUES ('168', 'Support ticket from customer TK112-107', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK112-107\">At TK112-107</a>', '0', '2014-08-25 02:36:57', '2014-08-25 02:36:57', 'work', null, '98', '1', null);
+INSERT INTO `messages` VALUES ('169', 'Close ticketTK112-107', '<p>Thank you!, we happy when served customer</p>\n                                                </br><a href=\"http://192.168.1.123:8000/client/tickets/TK112-107\">Conplete ticket TK112-107</a>\n                                                </br><a href=\"http://192.168.1.123:8000/client/races/TK112-107\">Please Race ticket at </a>', '1', '2014-08-25 10:14:13', '2014-08-25 03:14:13', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('170', 'Support ticket Admin ancvg;QÁDA - TK111-113', '<p>anh da doc, chu co the ve</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK111-113\">At TK111-113</a>', '1', '2014-08-25 11:39:46', '2014-08-25 04:39:46', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('171', 'Support ticket from customer TK105-99', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK105-99\">At TK105-99</a>', '0', '2014-08-25 09:50:15', '2014-08-25 09:50:15', 'work', null, '98', '1', null);
+INSERT INTO `messages` VALUES ('172', 'Support ticket from customerTK113-1', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK113-1\">At TK113-1</a>', '0', '2014-08-26 01:24:08', '2014-08-26 01:24:08', 'work', null, '143', '1', null);
+INSERT INTO `messages` VALUES ('173', 'Support ticket Admin ddddddddd - TK113-1', '<p>ffffffffffffliafjs</p>\r\n\r\n<p>&nbsp;</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK113-1\">At TK113-1</a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('174', 'Support ticket from customer TK113-1', '<a href=\"http://192.168.1.123:8000/manager/tickets/TK113-1\">At TK113-1</a>', '0', '2014-08-26 04:08:04', '2014-08-26 04:08:04', 'work', null, '143', '1', null);
+INSERT INTO `messages` VALUES ('175', 'Support ticket Admin uuuuuuuu - TK109-98', '<p>faljflaf</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK109-98\">At TK109-98</a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('176', 'Support ticket Admin i think , i will pass - TK112-107', '<p>dddddddddd</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK112-107\">At TK112-107</a>', '0', '2014-08-26 08:23:40', '2014-08-26 08:23:40', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('177', 'Support ticket Admin ancvg;QÁDA - TK111-113', '<p>test data sad</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK111-113\">At TK111-113</a>', '1', '2014-08-26 16:09:28', '2014-08-26 09:09:28', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('178', 'Support ticket Admin ancvg;QÁDA - TK111-113', '<p>met qua di oi troi oi la troi</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK111-113\">At TK111-113</a>', '1', '2014-08-26 16:09:28', '2014-08-26 09:09:28', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('179', 'Please confirm ticket TK112-107', 'You have created <a href=\'http://192.168.1.123:8000/client/tickets/TK112-107\'>TK112-107</a> \n                       if customer agree or after 2 days no actions come from customer. We will change status of ticket to resolved.', '0', '2014-08-26 09:16:45', '2014-08-26 09:16:45', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('180', 'Support ticket Admin ancvg;QÁDA - TK110-113', '<p>DDDDDD</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK110-113\">At TK110-113</a>', '1', '2014-08-26 18:09:36', '2014-08-26 11:09:36', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('181', 'Support ticket Admin ancvg;QÁDA - TK110-113', '<p>HHHHHHHHHHHHHH</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK110-113\">At TK110-113</a>', '1', '2014-08-26 17:59:09', '2014-08-26 10:59:09', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('182', 'Close ticketTK112-107', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK112-107\">Conplete ticket TK112-107</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK112-107\">Please Race ticket at </a>', '0', '2014-08-26 11:21:26', '2014-08-26 11:21:26', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('183', 'Close ticketTK112-107', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK112-107\">Conplete ticket TK112-107</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK112-107\">Please Race ticket at </a>', '0', '2014-08-26 11:22:16', '2014-08-26 11:22:16', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('184', 'Close ticketTK114-99', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK114-99\">Conplete ticket TK114-99</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK114-99\">Please Race ticket at </a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('185', 'Close ticketTK114-99', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK114-99\">Conplete ticket TK114-99</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK114-99\">Please Race ticket at </a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('186', 'Titcket CRM From customer - I need you help me - TK114-99', '<p>sssssssssss</p>\r\n - <a href=\"http://192.168.1.123:8000/manager/tickets/TK114-99\">Visit</a>', '0', '2014-08-27 02:08:22', '2014-08-27 02:08:22', 'work', null, '93', '99', null);
+INSERT INTO `messages` VALUES ('187', 'Close ticketTK114-99', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK114-99\">Conplete ticket TK114-99</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK114-99\">Please Race ticket at </a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('188', 'Support ticket Admin I need you help me - TK114-99', '<p>dm</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK114-99\">At TK114-99</a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('189', 'Please confirm ticket TK114-99', 'You have created <a href=\'http://192.168.1.123:8000/client/tickets/TK114-99\'>TK114-99</a> \n                if customer agree or after 2 days no actions come from customer. We will change status of ticket to resolved.', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('190', 'Close ticketTK102-99', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK102-99\">Conplete ticket TK102-99</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK102-99\">Please Race ticket at </a>', '1', '2014-08-27 10:59:40', '2014-08-27 03:59:40', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('191', 'Close ticketTK114-99', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK114-99\">Conplete ticket TK114-99</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK114-99\">Please Race ticket at </a>', '1', '2014-08-27 10:59:32', '2014-08-27 03:59:32', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('192', 'Close ticketTK112-107', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK112-107\">Conplete ticket TK112-107</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK112-107\">Please Race ticket at </a>', '0', '2014-08-27 04:08:32', '2014-08-27 04:08:32', 'work', null, '107', '1', null);
+INSERT INTO `messages` VALUES ('193', 'Support ticket Admin 3000 tu vung oxford - TK116-99', '<p>sssssssssssss</p>\r\n<a href=\"http://192.168.1.123:8000/client/tickets/TK116-99\">At TK116-99</a>', '1', '2014-08-27 11:22:43', '2014-08-27 04:22:43', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('194', 'Close ticketTK110-113', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK110-113\">Conplete ticket TK110-113</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK110-113\">Please Race ticket at </a>', '1', '2014-08-27 13:37:38', '2014-08-27 06:37:38', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('195', 'Close ticketTK117-99', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK117-99\">Conplete ticket TK117-99</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK117-99\">Please Race ticket at </a>', '1', '2014-08-28 10:56:43', '2014-08-28 03:56:43', 'work', null, '99', '1', null);
+INSERT INTO `messages` VALUES ('196', 'Racing for me from ticketTK117-99', '<p>Customer have race for you with level <b>unhappy</b> <h3></h3>', '0', '2014-08-28 03:57:04', '2014-08-28 03:57:04', 'race', null, '93', '99', null);
+INSERT INTO `messages` VALUES ('197', 'Close ticketTK111-113', '<p>Thank you!, we happy when have served customer</p>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/tickets/TK111-113\">Conplete ticket TK111-113</a>\n                                                        </br><a href=\"http://192.168.1.123:8000/client/races/TK111-113\">Please Race ticket at </a>', '1', '2014-08-28 10:58:48', '2014-08-28 03:58:48', 'work', null, '113', '1', null);
+INSERT INTO `messages` VALUES ('198', 'Racing for me from ticketTK111-113', '<p>Customer have race for you with level <b>happy</b> <h3></h3>', '0', '2014-08-28 03:59:07', '2014-08-28 03:59:07', 'race', null, '93', '113', null);
 
 -- ----------------------------
 -- Table structure for `migrations`
@@ -287,6 +319,25 @@ INSERT INTO `news` VALUES ('8', 'What is CRM?', 'what_is_crm', '<div class=\"faq
 INSERT INTO `news` VALUES ('9', 'Document Management', 'document_management', '<p style=\"margin: 0px 0px 17px; padding: 0px; font-size: 14px; direction: ltr; font-family: \'Helvetica Neue\', Helvetica, Helvetica, Arial, sans-serif; line-height: 1.6; color: rgb(69, 73, 81);\"><img alt=\"The sweetest form of customer service\" class=\"noborder alignnone\" height=\"317\" src=\"http://d13f94alzxkv7n.cloudfront.net/blog/2014/07/sweetest-form-of-self-service.jpg\" style=\"height: auto; max-width: 100%; vertical-align: middle; border: none; box-shadow: none; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;\" width=\"700\" /></p>\r\n', '1', '2014-08-06 04:00:20', '2014-08-09 03:38:39', '');
 
 -- ----------------------------
+-- Table structure for `priority`
+-- ----------------------------
+DROP TABLE IF EXISTS `priority`;
+CREATE TABLE `priority` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of priority
+-- ----------------------------
+INSERT INTO `priority` VALUES ('1', 'Nomal', null, null);
+INSERT INTO `priority` VALUES ('2', 'Hight', null, null);
+INSERT INTO `priority` VALUES ('3', 'Urgent', null, null);
+
+-- ----------------------------
 -- Table structure for `profiles`
 -- ----------------------------
 DROP TABLE IF EXISTS `profiles`;
@@ -307,7 +358,7 @@ CREATE TABLE `profiles` (
   `country` int(11) DEFAULT NULL,
   `birth_day` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of profiles
@@ -332,8 +383,9 @@ INSERT INTO `profiles` VALUES ('81', '133', '', '', 'dfsssssssssssssssssss', '1'
 INSERT INTO `profiles` VALUES ('88', '140', 'vn24s', '', '0000-0', '1', '3', 'truyen', '2014-08-19 04:51:45', '2014-08-21 01:21:12', 'vn24s', null, null, null, '2014-08-21 08:21:12');
 INSERT INTO `profiles` VALUES ('89', '141', 'Fsoft', '', '0972101203', '1', '10', 'Anh Dai', '2014-08-19 04:54:43', '2014-08-19 06:50:26', 'Fsoft', null, null, null, '2014-08-19 13:50:26');
 INSERT INTO `profiles` VALUES ('90', '142', 'nguyen', '', '0972101021', '0', '0', '', '2014-08-20 02:07:00', '2014-08-20 02:17:30', null, null, null, null, '2014-08-20 09:17:30');
-INSERT INTO `profiles` VALUES ('91', '143', '', '', '', '0', '0', '', '2014-08-20 03:28:55', '2014-08-20 03:28:55', null, null, null, null, null);
+INSERT INTO `profiles` VALUES ('91', '143', 'aaaaaaaa', '', 'aaaaaaa', '0', '0', '', '2014-08-20 03:28:55', '2014-08-20 03:28:55', null, null, null, null, '2014-08-28 16:11:11');
 INSERT INTO `profiles` VALUES ('92', '144', '', '', '232323235434444444444', '1', '3', '444444444444444', '2014-08-21 01:19:46', '2014-08-21 01:19:46', 'opera', null, null, null, null);
+INSERT INTO `profiles` VALUES ('93', '145', '', '', '', '0', '0', '', '2014-08-26 04:28:33', '2014-08-26 04:28:33', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `purchase_detail`
@@ -451,19 +503,19 @@ CREATE TABLE `races` (
   `score` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `happy` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unhappy` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of races
 -- ----------------------------
-INSERT INTO `races` VALUES ('1', 'TK26-88', '', 'happy', '', '2014-07-29 03:08:43', '2014-07-29 03:56:48');
-INSERT INTO `races` VALUES ('2', 'TK27-88', '', 'happy', '', '2014-07-29 04:40:48', '2014-07-29 04:40:48');
-INSERT INTO `races` VALUES ('3', 'TK56-107', '', 'happy', '', '2014-07-31 09:13:58', '2014-07-31 09:13:58');
-INSERT INTO `races` VALUES ('4', 'TK59-115', '', 'happy', '', '2014-08-02 03:10:25', '2014-08-02 03:10:25');
-INSERT INTO `races` VALUES ('5', 'TK61-115', '', 'unhappy', '', '2014-08-17 02:50:17', '2014-08-17 03:08:36');
-INSERT INTO `races` VALUES ('6', 'TK60-115', 'NHư shit', 'other', '', '2014-08-17 03:21:43', '2014-08-17 03:28:05');
-INSERT INTO `races` VALUES ('7', 'TK105-99', '', 'unhappy', '', '2014-08-23 06:14:42', '2014-08-23 06:14:42');
+INSERT INTO `races` VALUES ('9', 'TK40-130', '', 'unhappy', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', null, null);
+INSERT INTO `races` VALUES ('10', 'TK95-99', '', 'happy', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', null, null);
+INSERT INTO `races` VALUES ('11', 'TK112-107', '', 'happy', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', null, null);
+INSERT INTO `races` VALUES ('12', 'TK111-113', '', 'happy', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', null, null);
+INSERT INTO `races` VALUES ('13', 'TK117-99', '', 'unhappy', '', '2014-08-28 03:57:04', '2014-08-28 03:57:04', null, null);
 
 -- ----------------------------
 -- Table structure for `sector`
@@ -522,6 +574,26 @@ INSERT INTO `setting` VALUES ('site_name', 'Website Name', 'CRM', '1', null);
 INSERT INTO `setting` VALUES ('twitter', 'Twitter', 'Twitter', '13', null);
 
 -- ----------------------------
+-- Table structure for `status`
+-- ----------------------------
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of status
+-- ----------------------------
+INSERT INTO `status` VALUES ('1', 'New', null, null);
+INSERT INTO `status` VALUES ('2', 'In process', null, null);
+INSERT INTO `status` VALUES ('3', 'Resolve', '2014-08-27 13:16:01', '2014-08-27 13:16:01');
+INSERT INTO `status` VALUES ('4', 'Close', null, null);
+
+-- ----------------------------
 -- Table structure for `support_tickets`
 -- ----------------------------
 DROP TABLE IF EXISTS `support_tickets`;
@@ -533,7 +605,7 @@ CREATE TABLE `support_tickets` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of support_tickets
@@ -561,6 +633,19 @@ INSERT INTO `support_tickets` VALUES ('85', 'TK101-99', '99', '<p style=\"margin
 INSERT INTO `support_tickets` VALUES ('86', 'TK101-99', '99', '<p>kkk</p>\r\n', '2014-08-23 07:33:28', '2014-08-23 07:33:28');
 INSERT INTO `support_tickets` VALUES ('87', 'TK101-99', '99', '<p>kkk</p>\r\n', '2014-08-23 07:33:41', '2014-08-23 07:33:41');
 INSERT INTO `support_tickets` VALUES ('88', 'TK101-99', '99', '<p>dddddđ</p>\r\n', '2014-08-23 07:35:03', '2014-08-23 07:35:03');
+INSERT INTO `support_tickets` VALUES ('89', 'TK108-98', '102', '<p>alfjlasf</p>\r\n', '2014-08-23 11:18:02', '2014-08-23 11:18:02');
+INSERT INTO `support_tickets` VALUES ('90', 'TK111-113', '1', '<p>anh da doc, chu co the ve</p>\r\n', '2014-08-25 04:32:10', '2014-08-25 04:32:10');
+INSERT INTO `support_tickets` VALUES ('91', 'TK113-1', '1', '<p>ffffffffffffliafjs</p>\r\n\r\n<p>&nbsp;</p>\r\n', '2014-08-26 04:07:20', '2014-08-26 04:07:20');
+INSERT INTO `support_tickets` VALUES ('92', 'TK109-98', '1', '<p>faljflaf</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n', '2014-08-26 07:36:12', '2014-08-26 07:36:12');
+INSERT INTO `support_tickets` VALUES ('93', 'TK112-107', '1', '<p>dddddddddd</p>\r\n', '2014-08-26 08:23:40', '2014-08-26 08:23:40');
+INSERT INTO `support_tickets` VALUES ('94', 'TK111-113', '1', '<p>test data sad</p>\r\n', '2014-08-26 08:32:38', '2014-08-26 08:32:38');
+INSERT INTO `support_tickets` VALUES ('95', 'TK111-113', '1', '<p>met qua di oi troi oi la troi</p>\r\n', '2014-08-26 08:38:49', '2014-08-26 08:38:49');
+INSERT INTO `support_tickets` VALUES ('96', 'TK110-113', '1', '<p>DDDDDD</p>\r\n', '2014-08-26 10:33:58', '2014-08-26 10:33:58');
+INSERT INTO `support_tickets` VALUES ('97', 'TK110-113', '1', '<p>HHHHHHHHHHHHHH</p>\r\n', '2014-08-26 10:34:42', '2014-08-26 10:34:42');
+INSERT INTO `support_tickets` VALUES ('98', 'TK114-99', '99', '<p>alo fuck you!</p>\r\n', '2014-08-27 01:34:27', '2014-08-27 01:34:27');
+INSERT INTO `support_tickets` VALUES ('99', 'TK114-99', '99', '<p>sssssssssss</p>\r\n', '2014-08-27 02:08:22', '2014-08-27 02:08:22');
+INSERT INTO `support_tickets` VALUES ('100', 'TK114-99', '1', '<p>dm</p>\r\n', '2014-08-27 02:37:06', '2014-08-27 02:37:06');
+INSERT INTO `support_tickets` VALUES ('102', 'TK116-99', '1', '<p>sssssssssssss</p>\r\n', '2014-08-27 04:14:04', '2014-08-27 04:14:04');
 
 -- ----------------------------
 -- Table structure for `support_type`
@@ -596,7 +681,7 @@ CREATE TABLE `ticket_activity` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ticket_activity
@@ -627,6 +712,95 @@ INSERT INTO `ticket_activity` VALUES ('23', 'TK103-99', 'Update', 'Change <i>sta
 INSERT INTO `ticket_activity` VALUES ('24', 'TK103-99', 'Update', 'Change <i>status</i> <b>close</b> to <b>resolve</b>', '98', '2014-08-23 07:58:55', '2014-08-23 07:58:55', '<b> lui</b> Update the ticket');
 INSERT INTO `ticket_activity` VALUES ('25', 'TK108-98', 'Create', null, '98', '2014-08-23 10:45:52', '2014-08-23 10:45:52', '<b> lui</b> Create the ticket');
 INSERT INTO `ticket_activity` VALUES ('26', 'TK109-98', 'Create', null, '98', '2014-08-23 10:51:28', '2014-08-23 10:51:28', '<b> lui</b> Create the ticket');
+INSERT INTO `ticket_activity` VALUES ('27', 'TK108-98', 'Reply', '<p>alfjlasf</p>\r\n', '102', '2014-08-23 11:18:02', '2014-08-23 11:18:02', '<b> luong</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('28', 'TK110-113', 'Create', null, '113', '2014-08-25 01:49:00', '2014-08-25 01:49:00', '<b> MR/MS</b> Create the ticket');
+INSERT INTO `ticket_activity` VALUES ('29', 'TK111-113', 'Create', null, '113', '2014-08-25 01:49:20', '2014-08-25 01:49:20', '<b> MR/MS</b> Create the ticket');
+INSERT INTO `ticket_activity` VALUES ('30', 'TK112-107', 'Create', null, '107', '2014-08-25 02:36:09', '2014-08-25 02:36:09', '<b> MR/MS</b> Create the ticket');
+INSERT INTO `ticket_activity` VALUES ('31', 'TK111-113', 'Reply', '<p>anh da doc, chu co the ve</p>\r\n', '1', '2014-08-25 04:32:10', '2014-08-25 04:32:10', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('32', 'TK105-99', 'Update', 'Change <i>status</i> <b>close</b> to <b>resovle</b>', '1', '2014-08-25 09:50:15', '2014-08-25 09:50:15', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('33', 'TK113-1', 'Create', null, '1', '2014-08-26 01:24:08', '2014-08-26 01:24:08', '<b> tran duc</b> Create the ticket');
+INSERT INTO `ticket_activity` VALUES ('34', 'TK113-1', 'Reply', '<p>ffffffffffffliafjs</p>\r\n\r\n<p>&nbsp;</p>\r\n', '1', '2014-08-26 04:07:20', '2014-08-26 04:07:20', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('35', 'TK113-1', 'Update', 'Change <i>status</i> <b>in-process</b> to <b>close</b>', '1', '2014-08-26 04:08:04', '2014-08-26 04:08:04', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('36', 'TK111-113', 'Update', '<i>Assign to</i> <b>0</b>', '1', '2014-08-26 07:04:08', '2014-08-26 07:04:08', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('37', 'TK111-113', 'Update', 'Change <i>status</i> <b>in-process</b> to <b>2</b>', '1', '2014-08-26 07:04:08', '2014-08-26 07:04:08', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('38', 'TK111-113', 'Update', '<i>Assign to</i> <b>143</b>', '1', '2014-08-26 07:05:44', '2014-08-26 07:05:44', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('39', 'TK111-113', 'Update', 'Change <i>status</i> <b>2</b> to <b>3</b>', '1', '2014-08-26 07:07:37', '2014-08-26 07:07:37', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('40', 'TK111-113', 'Update', 'Change <i>status</i> <b>2</b> to <b>3</b>', '1', '2014-08-26 07:19:58', '2014-08-26 07:19:58', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('41', 'TK111-113', 'Update', 'Change <i>status</i> <b>3</b> to <b>4</b>', '1', '2014-08-26 07:22:24', '2014-08-26 07:22:24', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('42', 'TK111-113', 'Update', 'Change <i>status</i> <b>4</b> to <b>2</b>', '1', '2014-08-26 07:24:13', '2014-08-26 07:24:13', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('43', 'TK109-98', 'Update', 'Change <i>status</i> <b>new</b> to <b>4</b>', '1', '2014-08-26 07:33:34', '2014-08-26 07:33:34', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('44', 'TK109-98', 'Reply', '<p>faljflaf</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n', '1', '2014-08-26 07:36:12', '2014-08-26 07:36:12', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('45', 'TK112-107', 'Update', 'Change <i>status</i> <b>new</b> to <b>2</b>', '1', '2014-08-26 07:44:42', '2014-08-26 07:44:42', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('46', 'TK112-107', 'Update', 'Change <i>status</i> <b>2</b> to <b>4</b>', '1', '2014-08-26 07:47:24', '2014-08-26 07:47:24', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('47', 'TK112-107', 'Reply', '<p>dddddddddd</p>\r\n', '1', '2014-08-26 08:23:40', '2014-08-26 08:23:40', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('48', 'TK112-107', 'Update', 'Change <i>status</i> <b>in-process</b> to <b>4</b>', '1', '2014-08-26 08:31:00', '2014-08-26 08:31:00', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('49', 'TK111-113', 'Reply', '<p>test data sad</p>\r\n', '1', '2014-08-26 08:32:39', '2014-08-26 08:32:39', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('50', 'TK111-113', 'Reply', '<p>met qua di oi troi oi la troi</p>\r\n', '1', '2014-08-26 08:38:49', '2014-08-26 08:38:49', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('51', 'TK110-113', 'Update', 'Change <i>status</i> <b>new</b> to <b>2</b>', '1', '2014-08-26 10:07:00', '2014-08-26 10:07:00', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('52', 'TK110-113', 'Update', '<i>Assign to</i> <b>Staff 02</b>', '1', '2014-08-26 10:17:27', '2014-08-26 10:17:27', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('53', 'TK110-113', 'Reply', '<p>DDDDDD</p>\r\n', '1', '2014-08-26 10:33:58', '2014-08-26 10:33:58', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('54', 'TK110-113', 'Reply', '<p>HHHHHHHHHHHHHH</p>\r\n', '1', '2014-08-26 10:34:42', '2014-08-26 10:34:42', '<b> tran duc</b> Reply the ticket');
+INSERT INTO `ticket_activity` VALUES ('55', 'TK110-113', 'Update', 'Change <i>status</i> <b>in-process</b> to <b>3</b>', '1', '2014-08-26 10:38:27', '2014-08-26 10:38:27', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('56', 'TK110-113', 'Update', 'Change <i>status</i> <b>3</b> to <b>In process</b>', '1', '2014-08-26 10:45:15', '2014-08-26 10:45:15', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('57', 'TK110-113', 'Update', 'Change <i>status</i> <b>{\"id\":2,\"name\":\"In process\",\"created_at\":null,\"updated_at\":null}</b> to <b>Resovel</b>', '1', '2014-08-26 10:45:45', '2014-08-26 10:45:45', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('58', 'TK110-113', 'Update', 'Change <i>status</i> <b>Resovel</b> to <b>In process</b>', '1', '2014-08-26 10:46:11', '2014-08-26 10:46:11', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('59', 'TK110-113', 'Update', 'Array', '1', '2014-08-26 10:51:48', '2014-08-26 10:51:48', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('60', 'TK110-113', 'Update', 'Array', '1', '2014-08-26 10:53:10', '2014-08-26 10:53:10', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('61', 'TK110-113', 'Update', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-26 10:53:50', '2014-08-26 10:53:50', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('62', 'TK110-113', 'Update', 'Change <i>status </i> <b>  Resovel </b> to <b> In process </b>', '1', '2014-08-26 10:53:54', '2014-08-26 10:53:54', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('63', 'TK112-107', 'Update', 'Change <i>status </i> <b>  Close </b> to <b> In process </b>', '1', '2014-08-26 11:01:38', '2014-08-26 11:01:38', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('64', 'TK112-107', 'Update', '<i>Assign to</i> <b>Staff 01</b>', '1', '2014-08-26 11:02:02', '2014-08-26 11:02:02', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('65', 'TK112-107', 'Update', '<i>Assign to</i> <b>ABC</b>', '1', '2014-08-26 11:04:24', '2014-08-26 11:04:24', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('66', 'TK112-107', 'Update', '<i>Assign staff to</i> <b>ABC</b>', '1', '2014-08-26 11:05:58', '2014-08-26 11:05:58', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('67', 'TK112-107', 'Update', '<i>Assign staff to</i> <b>  Staff 01  </b>', '1', '2014-08-26 11:08:56', '2014-08-26 11:08:56', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('68', 'TK112-107', 'Update', '<i>Assign staff to</i> <b>  Staff 02  </b>', '1', '2014-08-26 11:09:12', '2014-08-26 11:09:12', '<b> tran duc</b> Update the ticket');
+INSERT INTO `ticket_activity` VALUES ('69', 'TK114-99', 'Create', null, '99', '2014-08-27 01:30:57', '2014-08-27 01:30:57', '<b> tttd</b> Create the ticket');
+INSERT INTO `ticket_activity` VALUES ('70', 'TK114-99', 'Replied', '<p>alo fuck you!</p>\r\n', '99', '2014-08-27 01:34:27', '2014-08-27 01:34:27', '<b> tttd</b> Replied the ticket');
+INSERT INTO `ticket_activity` VALUES ('71', 'TK114-99', 'Updated', '<i>Assign staff to</i> <b>  Staff 01  </b>', '1', '2014-08-27 01:35:41', '2014-08-27 01:35:41', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('72', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 01:41:47', '2014-08-27 01:41:47', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('73', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  Resovel </b> to <b> In process </b>', '1', '2014-08-27 01:41:55', '2014-08-27 01:41:55', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('74', 'TK114-99', 'Updated', '<i>Assign staff to</i> <b>  Staff 02  </b>', '1', '2014-08-27 01:42:03', '2014-08-27 01:42:03', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('75', 'TK114-99', 'Updated', '<strong> Closed ticket </strong>', '1', '2014-08-27 01:48:52', '2014-08-27 01:48:52', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('76', 'TK114-99', 'Replied', '<p>sssssssssss</p>\r\n', '99', '2014-08-27 02:08:22', '2014-08-27 02:08:22', '<b> tttd</b> Replied the ticket');
+INSERT INTO `ticket_activity` VALUES ('77', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  New </b> to <b> In process </b>', '1', '2014-08-27 02:18:40', '2014-08-27 02:18:40', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('78', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 02:18:50', '2014-08-27 02:18:50', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('79', 'TK114-99', 'Updated', null, '1', '2014-08-27 02:18:59', '2014-08-27 02:18:59', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('80', 'TK114-99', 'Replied', '<p>dm</p>\r\n', '1', '2014-08-27 02:37:06', '2014-08-27 02:37:06', '<b> tran duc</b> Replied the ticket');
+INSERT INTO `ticket_activity` VALUES ('81', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  Resovel </b> to <b> In process </b>', '1', '2014-08-27 02:47:54', '2014-08-27 02:47:54', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('82', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 02:48:48', '2014-08-27 02:48:48', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('83', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  Resovel </b> to <b> In process </b>', '1', '2014-08-27 02:49:47', '2014-08-27 02:49:47', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('84', 'TK102-99', 'Updated', 'Change <i>status </i> <b>  New </b> to <b> In process </b>', '1', '2014-08-27 02:54:54', '2014-08-27 02:54:54', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('85', 'TK102-99', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 02:55:28', '2014-08-27 02:55:28', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('86', 'TK102-99', 'Updated', null, '1', '2014-08-27 02:55:40', '2014-08-27 02:55:40', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('87', 'TK115-99', 'Created', null, '99', '2014-08-27 02:58:49', '2014-08-27 02:58:49', '<b> tttd</b> Created the ticket');
+INSERT INTO `ticket_activity` VALUES ('88', 'TK115-99', 'Updated', 'Change <i>status </i> <b>  New </b> to <b> Resovel </b>', '1', '2014-08-27 03:03:43', '2014-08-27 03:03:43', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('89', 'TK114-99', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 03:09:26', '2014-08-27 03:09:26', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('90', 'TK114-99', 'Updated', null, '1', '2014-08-27 03:09:31', '2014-08-27 03:09:31', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('91', 'TK112-107', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 03:27:25', '2014-08-27 03:27:25', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('92', 'TK102-99', 'Updated', '<i>Assign staff to</i> <b>  Staff 02  </b>', '1', '2014-08-27 03:28:31', '2014-08-27 03:28:31', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('93', 'TK102-99', 'Updated', '<i>Assign staff to</i> <b>  Staff 02  </b>', '1', '2014-08-27 03:28:48', '2014-08-27 03:28:48', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('94', 'TK115-99', 'Updated', 'Change <i>status </i> <b>  Resovel </b> to <b> In process </b>', '1', '2014-08-27 03:39:46', '2014-08-27 03:39:46', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('95', 'TK112-107', 'Updated', 'Change <i>status </i> <b>  Resovel </b> to <b> In process </b>', '1', '2014-08-27 04:06:11', '2014-08-27 04:06:11', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('96', 'TK112-107', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 04:08:01', '2014-08-27 04:08:01', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('97', 'TK112-107', 'Updated', null, '1', '2014-08-27 04:08:32', '2014-08-27 04:08:32', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('98', 'TK116-99', 'Created', null, '99', '2014-08-27 04:12:12', '2014-08-27 04:12:12', '<b> tttd</b> Created the ticket');
+INSERT INTO `ticket_activity` VALUES ('99', 'TK116-99', 'Replied', '<p>sssssssssssss</p>\r\n', '1', '2014-08-27 04:14:05', '2014-08-27 04:14:05', '<b> tran duc</b> Replied the ticket');
+INSERT INTO `ticket_activity` VALUES ('100', 'TK110-113', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resovel </b>', '1', '2014-08-27 04:47:44', '2014-08-27 04:47:44', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('101', 'TK110-113', 'Updated', null, '1', '2014-08-27 04:47:49', '2014-08-27 04:47:49', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('102', 'TK117-99', 'Created', null, '99', '2014-08-27 07:13:40', '2014-08-27 07:13:40', '<b>customer 1 tttd</b> Created the ticket');
+INSERT INTO `ticket_activity` VALUES ('103', 'TK116-99', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resolve </b>', '1', '2014-08-28 01:24:53', '2014-08-28 01:24:53', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('104', 'TK117-99', 'Updated', '<i>Assign staff to</i> <b>  Staff 02  </b>', '1', '2014-08-28 03:55:33', '2014-08-28 03:55:33', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('105', 'TK117-99', 'Updated', 'Change <i>status </i> <b>  New </b> to <b> Resolve </b>', '1', '2014-08-28 03:55:40', '2014-08-28 03:55:40', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('106', 'TK117-99', 'Updated', null, '1', '2014-08-28 03:55:48', '2014-08-28 03:55:48', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('107', 'TK111-113', 'Updated', '<i>Assign staff to</i> <b>  Staff 02  </b>', '1', '2014-08-28 03:57:34', '2014-08-28 03:57:34', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('108', 'TK111-113', 'Updated', 'Change <i>status </i> <b>  New </b> to <b> In process </b>', '1', '2014-08-28 03:57:35', '2014-08-28 03:57:35', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('109', 'TK111-113', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> Resolve </b>', '1', '2014-08-28 03:57:39', '2014-08-28 03:57:39', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('110', 'TK111-113', 'Updated', null, '1', '2014-08-28 03:57:44', '2014-08-28 03:57:44', '<b> tran duc</b> Closed the ticket');
+INSERT INTO `ticket_activity` VALUES ('111', 'TK118-113', 'Created', null, '113', '2014-08-28 04:00:16', '2014-08-28 04:00:16', '<b>Shinosuke MR/MS</b> Created the ticket');
+INSERT INTO `ticket_activity` VALUES ('112', 'TK40-113', 'Updated', '<i>Assign staff to</i> <b>  ABC  </b>', '1', '2014-08-28 08:56:54', '2014-08-28 08:56:54', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('113', 'TK40-113', 'Updated', 'Change <i>status </i> <b>  In process </b> to <b> New </b>', '1', '2014-08-28 08:56:54', '2014-08-28 08:56:54', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('114', 'TK40-113', 'Updated', '<i>Assign staff to</i> <b>  ABC  </b>', '1', '2014-08-28 09:07:57', '2014-08-28 09:07:57', '<b> tran duc</b> Updated the ticket');
+INSERT INTO `ticket_activity` VALUES ('115', 'TK40-113', 'Updated', '<i>Assign staff to</i> <b>  ABC  </b>', '1', '2014-08-28 09:14:08', '2014-08-28 09:14:08', '<b> tran duc</b> Updated the ticket');
 
 -- ----------------------------
 -- Table structure for `ticket_history`
@@ -645,36 +819,58 @@ CREATE TABLE `ticket_history` (
   `location` text COLLATE utf8_unicode_ci,
   `type_history` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ticket_history
 -- ----------------------------
-INSERT INTO `ticket_history` VALUES ('1', 'code01', '2014-06-17 17:25:39', '2014-08-22 08:51:57', 'close', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('2', 'code02', '2014-08-21 17:27:08', '2014-08-22 08:51:59', 'close', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('3', 'code01', '2010-08-23 15:15:49', '2014-08-23 15:54:57', 'resolve', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('4', 'code02', '2012-08-23 15:33:22', '2014-08-23 15:57:17', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('5', 'code01', '2011-08-23 15:33:21', '2014-08-23 15:54:52', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('6', 'code01', '2014-08-23 16:00:43', '2009-08-23 15:33:21', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('7', 'code01', '2014-08-23 15:33:20', '2014-08-23 15:33:20', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('8', 'code03', '2014-08-23 15:33:20', '2014-08-23 15:33:20', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('9', 'code01', '2014-08-23 15:33:20', '2014-08-23 15:33:20', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('10', 'code02', '2014-08-23 15:33:19', '2014-08-23 15:33:19', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('11', 'code01', '2009-08-13 17:26:14', '2014-08-23 16:02:22', 'close', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('12', 'code05', '2014-08-21 22:26:48', '2014-08-21 17:27:28', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('13', 'code01', '2014-07-16 17:26:17', '2014-08-23 16:03:00', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('14', 'code01', '2013-10-15 08:49:29', '2014-08-23 15:40:15', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('15', 'code01', '2013-10-15 08:49:29', '2014-08-23 15:40:47', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('16', 'code01', '2014-08-22 08:49:32', '2014-08-22 08:49:32', 'close', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('17', 'code03', '2014-08-23 16:57:59', '2014-08-23 16:57:59', 'close', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('18', 'code01', '2014-08-23 15:33:24', '2014-08-23 15:33:24', 'resolve', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('19', 'code01', '2014-08-23 15:33:25', '2014-08-23 15:33:25', 'resolve', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('20', 'TK106-99', '2014-08-23 07:53:28', '2014-08-23 07:53:28', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('21', 'TK103-99', '2014-08-23 07:58:45', '2014-08-23 07:58:45', 'close', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('23', 'TK103-99', '2010-09-01 07:58:45', '2014-08-23 15:58:26', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('24', 'TK103-94', '2008-08-20 16:01:20', '2008-08-20 16:01:20', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('25', 'TK108-98', '2014-08-23 10:45:52', '2014-08-23 10:45:52', 'new', null, null, null, null, null, null);
-INSERT INTO `ticket_history` VALUES ('26', 'TK109-98', '2014-08-23 10:51:28', '2014-08-23 10:51:28', 'new', null, null, null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('1', 'code01', '2008-08-25 11:42:48', '2014-08-25 11:57:23', 'close', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('2', 'code02', '2009-08-25 11:42:00', '2014-08-25 11:57:29', 'close', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('3', 'code01', '2010-08-25 11:42:00', '2014-08-25 11:57:33', 'resolve', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('4', 'code02', '2011-08-25 11:42:00', '2014-08-25 11:57:37', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('5', 'code01', '2012-08-25 11:42:08', '2014-08-25 11:57:41', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('6', 'code01', '2013-08-25 11:42:08', '2014-08-25 11:57:47', 'new', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('7', 'code01', '2013-05-25 11:42:08', '2014-08-25 11:58:02', 'new', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('8', 'code03', '2014-06-25 11:42:09', '2014-08-25 11:58:06', 'new', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('9', 'code01', '2014-07-25 11:42:09', '2014-08-25 11:58:09', 'new', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('10', 'code02', '2014-08-25 11:42:09', '2014-08-25 11:42:09', 'new', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('11', 'code01', '2014-08-25 11:42:42', '2014-08-25 11:42:42', 'close', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('12', 'code05', '2014-08-25 11:42:43', '2014-08-25 11:42:43', 'new', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('13', 'code01', '2014-06-25 11:42:43', '2014-08-25 11:58:22', 'new', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('14', 'code01', '2014-07-25 11:42:51', '2014-08-25 11:58:25', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('15', 'code01', '2014-04-25 11:42:51', '2014-08-25 11:58:33', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('16', 'code01', '2014-08-25 11:42:51', '2014-08-25 11:42:51', 'close', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('17', 'code03', '2014-08-25 11:42:52', '2014-08-25 11:42:52', 'close', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('18', 'code01', '2014-08-25 11:42:52', '2014-08-25 11:42:52', 'resolve', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('19', 'code01', '2014-08-25 11:42:53', '2014-08-25 11:42:53', 'resolve', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('20', 'TK106-99', '2014-08-25 11:42:53', '2014-08-25 11:42:53', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('21', 'TK103-99', '2014-08-25 11:42:53', '2014-08-25 11:42:53', 'close', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('23', 'TK103-99', '2014-08-25 11:42:54', '2014-08-25 11:42:54', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('24', 'TK103-94', '2014-08-25 11:42:54', '2014-08-25 11:42:54', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('25', 'TK108-98', '2014-08-25 11:42:55', '2014-08-25 11:42:55', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('26', 'TK109-98', '2014-08-25 11:42:47', '2014-08-25 11:42:47', 'new', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('27', 'TK110-113', '2014-08-25 11:42:47', '2014-08-25 11:42:47', 'new', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('28', 'TK111-113', '2014-08-25 11:42:46', '2014-08-25 11:42:46', 'new', null, 'urgent', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('29', 'TK112-107', '2014-08-25 11:43:03', '2014-08-25 11:43:03', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('30', 'TK113-1', '2014-08-26 01:24:08', '2014-08-26 01:24:08', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('31', 'TK113-1', '2014-08-26 04:08:04', '2014-08-26 04:08:04', 'close', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('32', 'TK111-113', '2014-08-26 07:19:59', '2014-08-26 07:19:59', '3', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('33', 'TK111-113', '2014-08-26 07:22:24', '2014-08-26 07:22:24', '4', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('34', 'TK111-113', '2014-08-26 07:24:13', '2014-08-26 07:24:13', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('35', 'TK109-98', '2014-08-26 07:33:34', '2014-08-26 07:33:34', '4', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('36', 'TK112-107', '2014-08-26 07:44:42', '2014-08-26 07:44:42', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('37', 'TK112-107', '2014-08-26 07:47:24', '2014-08-26 07:47:24', '4', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('38', 'TK112-107', '2014-08-26 08:31:00', '2014-08-26 08:31:00', '4', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('39', 'TK110-113', '2014-08-26 10:07:00', '2014-08-26 10:07:00', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('40', 'TK110-113', '2014-08-26 10:38:27', '2014-08-26 10:38:27', '3', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('41', 'TK110-113', '2014-08-26 10:45:15', '2014-08-26 10:45:15', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('42', 'TK110-113', '2014-08-26 10:45:45', '2014-08-26 10:45:45', '3', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('43', 'TK110-113', '2014-08-26 10:46:11', '2014-08-26 10:46:11', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('44', 'TK110-113', '2014-08-26 10:53:50', '2014-08-26 10:53:50', '3', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('45', 'TK110-113', '2014-08-26 10:53:54', '2014-08-26 10:53:54', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('46', 'TK112-107', '2014-08-26 11:01:38', '2014-08-26 11:01:38', '2', null, 'hight', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('47', 'TK114-99', '2014-08-27 01:30:57', '2014-08-27 01:30:57', 'new', null, 'nomal', null, null, null, null);
+INSERT INTO `ticket_history` VALUES ('48', 'TK115-99', '2014-08-27 02:58:49', '2014-08-27 02:58:49', 'new', null, 'nomal', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `tickets`
@@ -693,49 +889,60 @@ CREATE TABLE `tickets` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `author_id` int(11) DEFAULT NULL,
+  `resolved_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `closed_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `close` tinyint(2) unsigned zerofill NOT NULL,
+  `overdue` tinyint(2) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tickets
 -- ----------------------------
-INSERT INTO `tickets` VALUES ('72', 'TK72-1', '141', '98', 'Can you help me?', '<p>ob la lallal la lal al</p>\r\n', '4', 'hight', 'in_process', '2014-07-08 01:16:05', '2014-08-20 02:23:10', '1');
-INSERT INTO `tickets` VALUES ('73', 'TK73-110', '99', '93', 'eeeeeeeeeeee', '<p>eeeeeeeeeeeeeeeeeeeeeeeeeee</p>\r\n', '1', 'nomal', 'in_process', '2014-08-20 02:20:48', '2014-08-20 02:21:43', '110');
-INSERT INTO `tickets` VALUES ('74', 'TK73-111', '99', '93', 'Can you help me?', '<p>ob la lallal la lal al</p>\r\n', '1', 'nomal', 'in_process', '2014-08-20 02:20:48', '2014-08-20 02:21:43', null);
-INSERT INTO `tickets` VALUES ('75', 'TK73-112\r\n', '99', '93', ' Hell with haggling! f', '<p>ob la lallal la lal al</p>\r\n', '2', 'nomal', 'new', '2014-08-20 02:20:48', '2014-08-20 02:21:43', null);
-INSERT INTO `tickets` VALUES ('76', 'TK73-113', '99', '93', ' Hell with haggling! t', '<p>ob la lallal la lal al</p>\r\n', '3', 'nomal', 'new', '2014-07-08 02:20:48', '2014-08-20 02:21:43', null);
-INSERT INTO `tickets` VALUES ('77', 'TK73-114', '99', '93', ' Hell with haggling! df', '<p>ob la lallal la lal al</p>\r\n', '4', 'nomal', 'new', '2014-08-20 02:20:48', '2014-08-20 02:21:43', null);
-INSERT INTO `tickets` VALUES ('78', 'TK73-115', '99', '93', ' Hell with haggling! 4', '<p>ob la lallal la lal al</p>\r\n', '2', 'nomal', 'new', '2014-08-20 02:20:48', '2014-08-20 02:21:43', null);
-INSERT INTO `tickets` VALUES ('79', 'TK79-107', '107', '98', ' Hell with haggling! 5', '<p>ob la lallal la lal al</p>\r\n', '1', 'nomal', 'resolve', '2014-08-22 01:39:58', '2014-08-22 01:44:49', '107');
-INSERT INTO `tickets` VALUES ('80', 'TK80-107', '107', '98', '   It serves you right', '<p>what the hell</p>\r\n', '3', 'hight', 'resolve', '2014-08-22 01:41:38', '2014-08-22 01:45:06', '107');
-INSERT INTO `tickets` VALUES ('81', 'TK81-107', '107', '93', 'Love me love my dog', '<p>what the hell</p>\r\n', '4', 'hight', 'resolve', '2014-08-22 01:42:20', '2014-08-22 01:45:21', '107');
-INSERT INTO `tickets` VALUES ('82', 'TK82-99', '99', '93', ' To eat well and can dress beautyfully', '<p>what the hell</p>\r\n', '4', 'nomal', 'new', '2014-08-22 01:43:28', '2014-08-22 01:45:35', '99');
-INSERT INTO `tickets` VALUES ('83', 'TK83-113', '113', '0', 'superman return', '<p><span style=\"color: rgb(0, 0, 0); font-family: arial, sans, sans-serif; font-weight: bold; line-height: normal; white-space: pre-wrap;\">To check whether the Entered Email and Password are vaild or Invaild when user is register</span></p>\r\n', '2', 'nomal', 'new', '2014-08-22 02:23:47', '2014-08-22 02:23:47', '113');
-INSERT INTO `tickets` VALUES ('84', 'TK84-113', '113', '0', 'Man of steel', '<p><span style=\"font-weight: bold; color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">Man</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">&nbsp;of&nbsp;</span><span style=\"font-weight: bold; color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">Steel</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">&nbsp;is a 2013 superhero film based on the DC Comics character ..... trademark winter mist and rough seas are passed&nbsp;</span><span style=\"font-weight: bold; color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">off</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">&nbsp;as Alaska in the film.&nbsp;</span></p>\r\n', '1', 'nomal', 'new', '2014-08-22 02:30:12', '2014-08-22 02:30:12', '113');
-INSERT INTO `tickets` VALUES ('85', '', '0', '0', '', '', '0', '', 'close', '2014-06-10 10:38:44', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('86', '', '0', '0', '', '', '0', '', 'close', '2014-05-26 10:38:51', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('87', '', '0', '0', '', '', '0', '', 'resolve', '2014-05-25 10:38:56', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('88', '', '0', '0', '', '', '0', '', 'resovle', '2014-05-18 10:39:02', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('89', '', '0', '0', '', '', '0', '', 'resovle', '2014-06-18 10:39:08', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('90', '', '0', '0', '', '', '0', '', 'new', '2014-06-22 10:39:13', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('91', '', '0', '0', '', '', '0', '', 'new', '2014-03-20 11:04:53', '0000-00-00 00:00:00', null);
-INSERT INTO `tickets` VALUES ('92', 'TK92-1', '107', '93', 'tjuuuuuuuuuu', '<p>jjjjjjjjjjjjjjjjjjj</p>\r\n', '3', 'nomal', 'in_process', '2014-08-22 07:33:28', '2014-08-22 07:33:47', '1');
-INSERT INTO `tickets` VALUES ('93', 'TK93-1', '114', '98', 'aaaaaaaaaaaaa', '<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>\r\n', '1', 'nomal', 'new', '2014-08-23 02:07:40', '2014-08-23 02:07:40', '1');
-INSERT INTO `tickets` VALUES ('94', 'TK94-1', '99', '143', 'rjartujhs', '<p>rghsrghsrthsrrth</p>\r\n', '1', 'nomal', 'in_process', '2014-08-23 02:08:27', '2014-08-23 02:28:57', '1');
-INSERT INTO `tickets` VALUES ('95', 'TK95-99', '99', '0', 'CCssssssssssssss', '<p>đ&acirc;sdd asdasd &aacute; d&nbsp;</p>\r\n', '1', 'nomal', 'new', '2014-08-23 02:59:49', '2014-08-23 02:59:49', '99');
-INSERT INTO `tickets` VALUES ('96', 'TK96-99', '99', '0', 'CCssssssssssssss', '<p>đ&acirc;sdd asdasd &aacute; d&nbsp;</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:00:16', '2014-08-23 03:00:16', '99');
-INSERT INTO `tickets` VALUES ('97', 'TK97-99', '99', '0', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:30:08', '2014-08-23 03:30:08', '99');
-INSERT INTO `tickets` VALUES ('98', 'TK98-99', '99', '0', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:30:26', '2014-08-23 03:30:26', '99');
-INSERT INTO `tickets` VALUES ('99', 'TK99-99', '99', '0', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:30:48', '2014-08-23 03:30:48', '99');
-INSERT INTO `tickets` VALUES ('100', 'TK100-99', '99', '0', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:31:27', '2014-08-23 03:31:27', '99');
-INSERT INTO `tickets` VALUES ('101', 'TK101-99', '99', '0', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', 'in-process', '2014-08-23 03:33:57', '2014-08-23 07:35:03', '99');
-INSERT INTO `tickets` VALUES ('102', 'TK102-99', '99', '0', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:34:55', '2014-08-23 03:34:55', '99');
-INSERT INTO `tickets` VALUES ('103', 'TK103-99', '99', '98', 'reeeeeeeeeeeeeeeg', '<p>eeeeeeeeeeeeeeeeeeee</p>\r\n', '1', 'nomal', 'resolve', '2014-08-23 03:35:28', '2014-08-23 07:58:55', '99');
-INSERT INTO `tickets` VALUES ('104', 'TK104-99', '99', '0', 'reeeeeeeeeeeeeeeg', '<p>eeeeeeeeeeeeeeeeeeee</p>\r\n', '1', 'nomal', 'new', '2014-08-23 03:48:17', '2014-08-23 03:48:17', '99');
-INSERT INTO `tickets` VALUES ('105', 'TK105-99', '99', '98', 'ffffff', '<p>fffffffffffffffffffffffff</p>\r\n', '1', 'nomal', 'close', '2014-08-23 03:57:44', '2014-08-23 04:33:09', '99');
-INSERT INTO `tickets` VALUES ('106', 'TK106-99', '99', '98', 'dddddddddddddd', '<p>ddddddddddddd</p>\r\n', '1', 'nomal', 'new', '2014-08-23 07:53:28', '2014-08-23 07:53:28', '99');
-INSERT INTO `tickets` VALUES ('108', 'TK108-98', '102', '98', 'adfijsd;fsdfjjsdfljsdjfl', '<p>;gjlksjglkjklsjg;l</p>\r\n', '2', 'nomal', 'new', '2014-08-23 10:45:52', '2014-08-23 10:45:52', '98');
-INSERT INTO `tickets` VALUES ('109', 'TK109-98', '99', '98', 'uuuuuuuu', '<p>uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu</p>\r\n', '1', 'nomal', 'new', '2014-08-23 10:51:28', '2014-08-23 10:51:28', '98');
+INSERT INTO `tickets` VALUES ('72', 'TK72-1', '141', '98', 'Can you help me?', '<p>ob la lallal la lal al</p>\r\n', '4', 'hight', '3', '2013-07-08 01:16:05', '2014-08-20 02:23:10', '110', '2013-07-27 15:34:24', '2014-08-28 09:04:48', '00', '00');
+INSERT INTO `tickets` VALUES ('73', 'TK73-110', '99', '93', 'eeeeeeeeeeee', '<p>eeeeeeeeeeeeeeeeeeeeeeeeeee</p>\r\n', '1', 'nomal', '3', '2012-08-20 02:20:48', '2014-08-20 02:21:43', '110', '2012-08-28 09:04:51', '2014-08-28 09:05:17', '00', '00');
+INSERT INTO `tickets` VALUES ('74', 'TK73-111', '99', '93', 'Can you help me?', '<p>ob la lallal la lal al</p>\r\n', '1', 'nomal', '3', '2010-08-20 02:20:48', '2014-08-20 02:21:43', null, '2010-08-28 09:04:53', '2014-08-28 09:05:09', '00', '00');
+INSERT INTO `tickets` VALUES ('75', 'TK72-132', '141', '93', ' Hell with haggling! f', '<p>ob la lallal la lal al</p>\r\n', '2', 'nomal', '3', '2013-07-09 01:16:52', '2014-08-20 02:21:43', null, '2014-07-27 17:17:53', '2014-08-27 17:22:04', '00', '00');
+INSERT INTO `tickets` VALUES ('76', 'TK73-113', '99', '93', ' Hell with haggling! t', '<p>ob la lallal la lal al</p>\r\n', '3', 'nomal', '1', '2014-07-08 02:20:48', '2014-08-20 02:21:43', null, '2014-08-27 08:40:04', '2014-08-27 08:40:04', '00', '00');
+INSERT INTO `tickets` VALUES ('77', 'TK73-114', '99', '93', ' Hell with haggling! df', '<p>ob la lallal la lal al</p>\r\n', '4', 'nomal', '1', '2014-08-20 02:20:48', '2014-08-20 02:21:43', null, '2014-08-27 08:40:05', '2014-08-27 08:40:05', '00', '00');
+INSERT INTO `tickets` VALUES ('78', 'TK73-115', '99', '93', ' Hell with haggling! 4', '<p>ob la lallal la lal al</p>\r\n', '2', 'nomal', '1', '2014-08-20 02:20:48', '2014-08-20 02:21:43', null, '2014-08-27 08:40:05', '2014-08-27 08:40:05', '00', '00');
+INSERT INTO `tickets` VALUES ('79', 'TK79-107', '107', '98', ' Hell with haggling! 5', '<p>ob la lallal la lal al</p>\r\n', '1', 'nomal', '3', '2014-08-22 01:39:58', '2014-08-22 01:44:49', '107', '2014-08-27 08:40:06', '2014-08-27 08:40:06', '00', '00');
+INSERT INTO `tickets` VALUES ('80', 'TK80-107', '107', '98', '   It serves you right', '<p>what the hell</p>\r\n', '3', 'hight', '3', '2014-08-22 01:41:38', '2014-08-22 01:45:06', '107', '2014-08-27 08:40:06', '2014-08-27 08:40:06', '00', '00');
+INSERT INTO `tickets` VALUES ('81', 'TK81-107', '107', '93', 'Love me love my dog', '<p>what the hell</p>\r\n', '4', 'hight', '3', '2014-08-22 01:42:20', '2014-08-22 01:45:21', '107', '2014-08-27 08:40:07', '2014-08-27 08:40:07', '00', '00');
+INSERT INTO `tickets` VALUES ('82', 'TK82-99', '99', '93', ' To eat well and can dress beautyfully', '<p>what the hell</p>\r\n', '4', 'nomal', '1', '2014-08-22 01:43:28', '2014-08-22 01:45:35', '99', '2014-08-27 08:40:07', '2014-08-27 08:40:07', '00', '00');
+INSERT INTO `tickets` VALUES ('83', 'TK83-113', '113', '93', 'superman return', '<p><span style=\"color: rgb(0, 0, 0); font-family: arial, sans, sans-serif; font-weight: bold; line-height: normal; white-space: pre-wrap;\">To check whether the Entered Email and Password are vaild or Invaild when user is register</span></p>\r\n', '2', 'nomal', '1', '2014-08-22 02:23:47', '2014-08-22 02:23:47', '113', '2014-08-27 08:40:08', '2014-08-27 08:40:08', '00', '00');
+INSERT INTO `tickets` VALUES ('84', 'TK84-113', '113', '93', 'Man of steel', '<p><span style=\"font-weight: bold; color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">Man</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">&nbsp;of&nbsp;</span><span style=\"font-weight: bold; color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">Steel</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">&nbsp;is a 2013 superhero film based on the DC Comics character ..... trademark winter mist and rough seas are passed&nbsp;</span><span style=\"font-weight: bold; color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">off</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small; line-height: 20.22222328186035px;\">&nbsp;as Alaska in the film.&nbsp;</span></p>\r\n', '1', 'nomal', '1', '2014-08-22 02:30:12', '2014-08-22 02:30:12', '113', '2014-08-27 08:40:09', '2014-08-27 08:40:09', '00', '00');
+INSERT INTO `tickets` VALUES ('86', 'TK40-112', '113', '93', 'dfdfdfdfdfdfdf', 'dfdfdfdfdfdf', '1', 'nomal', '3', '2014-05-26 10:38:51', '0000-00-00 00:00:00', '113', '2014-08-28 16:12:41', '2014-08-28 16:12:41', '00', '00');
+INSERT INTO `tickets` VALUES ('87', 'TK40-110', '113', '93', '', '', '1', 'nomal', '3', '2014-05-25 10:38:56', '0000-00-00 00:00:00', '113', '2014-08-27 08:40:19', '2014-08-27 08:40:19', '00', '00');
+INSERT INTO `tickets` VALUES ('88', 'TK40-110', '113', '98', '', '', '1', 'nomal', '3', '2014-05-18 10:39:02', '0000-00-00 00:00:00', '113', '2014-08-27 08:40:19', '2014-08-27 08:40:19', '00', '00');
+INSERT INTO `tickets` VALUES ('89', 'TK40-104', '113', '98', '', '', '1', 'nomal', '3', '2014-06-18 10:39:08', '0000-00-00 00:00:00', '113', '2014-08-27 08:40:19', '2014-08-27 08:40:19', '00', '00');
+INSERT INTO `tickets` VALUES ('90', 'TK40-130', '113', '98', '', '', '1', 'nomal', '1', '2014-06-22 10:39:13', '0000-00-00 00:00:00', '113', '2014-08-27 08:40:20', '2014-08-27 08:40:20', '00', '00');
+INSERT INTO `tickets` VALUES ('91', 'TK40-113', '113', '143', 'ádddđ', 'sdsdsdsdsd', '1', 'nomal', '1', '2014-03-20 11:04:53', '2014-08-28 09:14:08', '113', '2014-08-28 16:14:08', '2014-08-28 16:14:08', '00', '00');
+INSERT INTO `tickets` VALUES ('92', 'TK92-1', '107', '93', 'tjuuuuuuuuuu', '<p>jjjjjjjjjjjjjjjjjjj</p>\r\n', '3', 'nomal', '2', '2014-08-22 07:33:28', '2014-08-22 07:33:47', '1', '2014-08-27 08:40:21', '2014-08-27 08:40:21', '00', '00');
+INSERT INTO `tickets` VALUES ('93', 'TK93-1', '114', '98', 'aaaaaaaaaaaaa', '<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>\r\n', '1', 'nomal', '1', '2014-08-23 02:07:40', '2014-08-23 02:07:40', '1', '2014-08-27 08:40:22', '2014-08-27 08:40:22', '00', '00');
+INSERT INTO `tickets` VALUES ('94', 'TK94-1', '99', '143', 'rjartujhs', '<p>rghsrghsrthsrrth</p>\r\n', '1', 'nomal', '2', '2014-08-23 02:08:27', '2014-08-23 02:28:57', '1', '2014-08-27 08:40:24', '2014-08-27 08:40:24', '00', '00');
+INSERT INTO `tickets` VALUES ('95', 'TK95-99', '99', '93', 'CCssssssssssssss', '<p>đ&acirc;sdd asdasd &aacute; d&nbsp;</p>\r\n', '1', 'nomal', '1', '2014-08-23 02:59:49', '2014-08-23 02:59:49', '99', '2014-08-28 16:07:22', '2014-08-28 16:07:22', '00', '00');
+INSERT INTO `tickets` VALUES ('96', 'TK96-99', '99', '93', 'CCssssssssssssss', '<p>đ&acirc;sdd asdasd &aacute; d&nbsp;</p>\r\n', '1', 'nomal', '1', '2014-08-23 03:00:16', '2014-08-23 03:00:16', '99', '2014-08-28 16:07:23', '2014-08-28 16:07:23', '00', '00');
+INSERT INTO `tickets` VALUES ('97', 'TK97-99', '99', '93', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', '1', '2014-08-23 03:30:08', '2014-08-23 03:30:08', '99', '2014-08-28 16:07:23', '2014-08-28 16:07:23', '00', '00');
+INSERT INTO `tickets` VALUES ('98', 'TK98-99', '99', '93', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', '1', '2014-08-23 03:30:26', '2014-08-23 03:30:26', '99', '2014-08-28 16:07:23', '2014-08-28 16:07:23', '00', '00');
+INSERT INTO `tickets` VALUES ('99', 'TK99-99', '99', '93', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', '1', '2014-08-23 03:30:48', '2014-08-23 03:30:48', '99', '2014-08-28 16:07:24', '2014-08-28 16:07:24', '00', '00');
+INSERT INTO `tickets` VALUES ('100', 'TK100-99', '99', '93', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', '1', '2014-08-23 03:31:27', '2014-08-23 03:31:27', '99', '2014-08-28 16:07:24', '2014-08-28 16:07:24', '00', '00');
+INSERT INTO `tickets` VALUES ('101', 'TK101-99', '99', '93', 'ccccccccccccccccccccccccccc', '<p>ccccccccccccccccccccccccccccc</p>\r\n', '1', 'nomal', '2', '2014-08-23 03:33:57', '2014-08-23 07:35:03', '99', '2014-08-28 16:07:25', '2014-08-28 16:07:25', '00', '00');
+INSERT INTO `tickets` VALUES ('103', 'TK103-99', '99', '98', 'reeeeeeeeeeeeeeeg', '<p>eeeeeeeeeeeeeeeeeeee</p>\r\n', '1', 'nomal', '3', '2014-08-23 03:35:28', '2014-08-23 07:58:55', '113', '2014-08-27 08:40:30', '2014-08-27 08:40:30', '00', '00');
+INSERT INTO `tickets` VALUES ('104', 'TK104-99', '99', '0', 'reeeeeeeeeeeeeeeg', '<p>eeeeeeeeeeeeeeeeeeee</p>\r\n', '1', 'nomal', '1', '2014-08-23 03:48:17', '2014-08-23 03:48:17', '99', '2014-08-27 08:40:30', '2014-08-27 08:40:30', '00', '00');
+INSERT INTO `tickets` VALUES ('105', 'TK105-99', '99', '98', 'ffffff', '<p>fffffffffffffffffffffffff</p>\r\n', '1', 'nomal', '3', '2014-08-23 03:57:44', '2014-08-25 09:50:15', '99', '2014-08-27 08:40:32', '2014-08-27 08:40:32', '00', '00');
+INSERT INTO `tickets` VALUES ('106', 'TK106-99', '99', '98', 'dddddddddddddd', '<p>ddddddddddddd</p>\r\n', '1', 'nomal', '1', '2014-08-23 07:53:28', '2014-08-23 07:53:28', '99', '2014-08-27 08:40:33', '2014-08-27 08:40:33', '00', '00');
+INSERT INTO `tickets` VALUES ('108', 'TK108-98', '102', '98', 'adfijsd;fsdfjjsdfljsdjfl', '<p>;gjlksjglkjklsjg;l</p>\r\n', '2', 'nomal', '2', '2014-08-23 10:45:52', '2014-08-23 11:18:02', '98', '2014-08-27 08:40:33', '2014-08-27 08:40:33', '00', '00');
+INSERT INTO `tickets` VALUES ('109', 'TK109-98', '99', '98', 'uuuuuuuu', '<p>uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu</p>\r\n', '1', 'nomal', '2', '2014-08-23 10:51:28', '2014-08-26 07:36:12', '98', '2014-08-27 08:40:35', '2014-08-27 08:40:35', '00', '00');
+INSERT INTO `tickets` VALUES ('110', 'TK110-113', '113', '143', 'ancvg;QÁDA', '<p>ADADASDFSDF</p>\r\n', '2', 'hight', '3', '2014-08-25 01:49:00', '2014-08-27 04:47:49', '113', '2014-08-27 11:47:49', '2014-08-27 04:47:44', '01', '00');
+INSERT INTO `tickets` VALUES ('111', 'TK111-113', '113', '93', 'ancvg;QÁDA', '<p>ADADASDFSDF</p>\r\n', '2', 'hight', '3', '2014-08-25 01:49:20', '2014-08-28 03:57:44', '113', '2014-08-28 10:57:44', '2014-08-28 03:57:39', '01', '00');
+INSERT INTO `tickets` VALUES ('112', 'TK112-107', '107', '93', 'i think , i will pass', '<p>bla bla bla !</p>\r\n', '3', 'hight', '3', '2014-08-25 02:36:09', '2014-08-27 04:08:32', '107', '2014-08-27 11:08:32', '2014-08-27 04:08:01', '01', '00');
+INSERT INTO `tickets` VALUES ('113', 'TK113-1', '99', '143', 'ddddddddd', '<p>sssssssssssssssssssssssssssssssssssssssssssssssssss</p>\r\n', '1', 'nomal', '3', '2014-08-26 01:24:08', '2014-08-26 04:08:04', '1', '2014-08-27 08:40:37', '2014-08-27 08:40:37', '00', '00');
+INSERT INTO `tickets` VALUES ('114', 'TK114-99', '99', '93', 'I need you help me', '<p>ssssssssssssssssdasdasdad</p>\r\n', '3', 'hight', '3', '2014-08-27 01:30:57', '2014-08-27 03:09:31', '99', '2014-08-27 10:09:31', '2014-08-27 03:09:26', '01', '00');
+INSERT INTO `tickets` VALUES ('115', 'TK115-99', '99', '0', 'sddddddddđ', '<p>dddddddddddddddddddđ</p>\r\n', '1', 'nomal', '2', '2014-08-27 02:58:48', '2014-08-27 03:39:46', '99', '2014-08-27 10:39:46', '2014-08-27 10:39:46', '00', '00');
+INSERT INTO `tickets` VALUES ('116', 'TK116-99', '99', '0', '3000 tu vung oxford', '<p>learn &aacute;dđ</p>\r\n', '1', 'nomal', '3', '2014-08-27 04:12:12', '2014-08-28 01:24:53', '99', '2014-08-28 01:24:53', '2014-08-28 08:24:53', '00', '00');
+INSERT INTO `tickets` VALUES ('117', 'TK117-99', '99', '93', 'aaaaaaaaaaaaaddsd', '<p>aaaaaaaaaaaaaaaa</p>\r\n', '1', 'nomal', '3', '2014-08-27 07:13:40', '2014-08-28 03:55:48', '99', '2014-08-28 10:55:48', '2014-08-28 03:55:40', '01', '00');
+INSERT INTO `tickets` VALUES ('118', 'TK118-113', '113', '0', '12222222222', '<p>12222222222222222222222222222222</p>\r\n', '1', 'nomal', '1', '2014-08-28 04:00:16', '2014-08-28 04:00:16', '113', '2014-08-28 11:00:16', '2014-08-28 11:00:16', '00', '00');
 
 -- ----------------------------
 -- Table structure for `uploads`
@@ -754,7 +961,7 @@ CREATE TABLE `uploads` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of uploads
@@ -781,6 +988,8 @@ INSERT INTO `uploads` VALUES ('51', '08-13-2014_1779847_779157438780166_54579280
 INSERT INTO `uploads` VALUES ('53', '08-15-2014_CRUDpng.png', 'asset/share/uploads/images/personal/08-15-2014_CRUDpng.png', 'image/png', null, 'image', null, '1', '2014-08-15 11:09:18', '2014-08-15 11:09:18', null);
 INSERT INTO `uploads` VALUES ('54', '08-16-2014_New Microsoft Word Document.docx', 'asset/share/uploads/resource/08-16-2014_New Microsoft Word Document.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', null, 'document', null, null, '2014-08-16 10:40:40', '2014-08-16 10:40:40', '99');
 INSERT INTO `uploads` VALUES ('55', '08-19-2014_CRM Requirement.docx', 'asset/share/uploads/ticket/08-19-2014_CRM Requirement.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', null, 'ticket', 'TK71-113', null, '2014-08-19 02:02:24', '2014-08-19 02:02:24', null);
+INSERT INTO `uploads` VALUES ('56', '08-25-2014_CRM Requirement.docx', 'asset/share/uploads/ticket/08-25-2014_CRM Requirement.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', null, 'ticket', 'TK111-113', null, '2014-08-25 01:49:20', '2014-08-25 01:49:20', null);
+INSERT INTO `uploads` VALUES ('57', '08-27-2014_3000-tu-vung-tieng-anh-thong-dung-nhat-cua-oxford.pdf', 'asset/share/uploads/ticket/08-27-2014_3000-tu-vung-tieng-anh-thong-dung-nhat-cua-oxford.pdf', 'application/pdf', null, 'ticket', 'TK116-99', null, '2014-08-27 04:12:12', '2014-08-27 04:12:12', null);
 
 -- ----------------------------
 -- Table structure for `users`
@@ -811,26 +1020,27 @@ CREATE TABLE `users` (
   `avatar` text COLLATE utf8_unicode_ci,
   `trash` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'luong@email.com', '$2y$10$gNxsJa7TpGse.1JlmEqZLuMpDkWQ4I3cNbKkjqa6sVOa4zlh5WcEe', '1', '1', '3fjDIgWRlk2c1uJ5Z7Y4poiWkHC9gFFmNkmo9dDmRcI5ZlkGkGMLd15Khoxr', null, null, null, null, 'luong', 'tran duc', '120', null, 'luongtranduc', '2014-08-23 09:23:55', '192.168.1.123', '10', '2014-08-23 09:23:55', '2014-07-15 04:30:54', null, 'asset/share/uploads/images/personal/08-15-2014_CRUDpng.png', '0');
+INSERT INTO `users` VALUES ('1', 'luong@email.com', '$2y$10$gNxsJa7TpGse.1JlmEqZLuMpDkWQ4I3cNbKkjqa6sVOa4zlh5WcEe', '1', '1', '6h70HQUV7To5WCQsunQ0mGzjQBIVPctPgtlKcZsFkInadEGTnh97HkdlhcTt', null, null, null, null, 'luong', 'tran duc', '138', null, 'luongtranduc', '2014-08-28 06:33:28', '192.168.1.108', '10', '2014-08-28 06:33:28', '2014-07-15 04:30:54', null, 'asset/share/uploads/images/personal/08-15-2014_CRUDpng.png', '0');
 INSERT INTO `users` VALUES ('93', 'staff_02@gmail.com', '$2y$10$f.q0IiBtsSCnMAbSlhNQdeIWqK9VcZ/1KcyMBQRi6wH8k/k3FrUYW', '2', '1', 'wzqaxYYw4zAMtIshp8pdTLjtiZRcsp5ZFQ5YIJI6uEIYHttUMOwYJSH32R4e', '59', null, null, null, 'Staff 02', 'Lui', '11', null, '', '2014-08-20 09:34:44', '192.168.1.123', '10', '2014-08-20 02:34:44', '2014-07-29 08:36:23', null, 'asset/share/uploads/images/personal/07-31-2014_7amMar20.If i fail.jpg', '0');
-INSERT INTO `users` VALUES ('98', 'staff_01@gmail.com', '$2y$10$1ok9TmjGEccRxJKUURa2heK.ngzEe6h7z1.L5rwUL8H9PxNQ.dfcG', '2', '1', 'zlV3ji1eJ8ASbaXFf0tPcbo11OLBS3D7CEg2OGizvwQr8rGm5lBW92vt86k6', '1', null, null, null, 'Staff 01', 'lui', '20', null, '', '2014-08-23 18:15:09', '192.168.1.123', '10', '2014-08-23 11:15:09', '2014-07-29 10:19:29', null, 'asset/share/uploads/images/personal/07-30-2014_chỉ mục.jpg', '0');
-INSERT INTO `users` VALUES ('99', 'taikhoanlive100@outlook.com.vn', '$2y$10$gpcSyZSNoh.NRiUSNMeqVeqCeCkeVgylkp2uJqBWfdbh.fs0AJuDe', '3', '1', 'QafuSBTN01fxgfgYEa3AprqsmITgatAaKW7rlMQeMwOUG0O56hb6RVouDOf7', '1', null, null, null, 'customer 1', 'tttd', '13', null, '', '2014-08-23 16:23:45', '192.168.1.123', '10', '2014-08-23 09:23:45', '2014-07-29 11:16:11', null, 'asset/share/uploads/images/personal/07-30-2014_mario2.png', '0');
-INSERT INTO `users` VALUES ('102', 'ltt.develop@gmail.com', '$2y$10$HS3awsbGkdjccTWC22T09OXaLdTeEWAltP.nVeIHjdSf8OBymqn6C', '3', '1', 'w19dkyt0UbTiopHpRX0qyyMURTa83LxIMtHYUUR21LXQl1lzZsfHS3s3meaM', '1', null, null, null, 'truyen', 'luong', '5', null, '', '2014-08-21 15:44:19', '192.168.1.123', '10', '2014-08-21 08:44:19', '2014-07-30 03:44:40', null, 'asset/share/uploads/images/personal/07-30-2014_IBM.jpeg', '0');
-INSERT INTO `users` VALUES ('107', 'taikhoanlive101@outlook.com.vn', '$2y$10$gNxsJa7TpGse.1JlmEqZLuMpDkWQ4I3cNbKkjqa6sVOa4zlh5WcEe', '3', '1', 'dGYJK9iqtD6yPHhWuWagt11KVxWgE1umTxHyHKsjj2M4ldtM6qNi1P6X4Ae1', null, null, null, null, 'Nguyễn anh tài', 'MR/MS', '30', '5111e3d5a14701293d85498684986be9', '', '2014-08-22 08:42:55', '192.168.1.123', '10', '2014-08-22 01:42:55', '2014-07-31 04:49:51', null, 'asset/share/uploads/images/personal/07-31-2014_images.jpg', '0');
+INSERT INTO `users` VALUES ('98', 'staff_01@gmail.com', '$2y$10$1ok9TmjGEccRxJKUURa2heK.ngzEe6h7z1.L5rwUL8H9PxNQ.dfcG', '2', '1', 'zlV3ji1eJ8ASbaXFf0tPcbo11OLBS3D7CEg2OGizvwQr8rGm5lBW92vt86k6', '1', null, null, null, 'Staff 01', 'lui', '21', null, '', '2014-08-25 07:46:40', '192.168.1.123', '10', '2014-08-25 07:46:40', '2014-07-29 10:19:29', null, 'asset/share/uploads/images/personal/07-30-2014_chỉ mục.jpg', '0');
+INSERT INTO `users` VALUES ('99', 'taikhoanlive100@outlook.com.vn', '$2y$10$gpcSyZSNoh.NRiUSNMeqVeqCeCkeVgylkp2uJqBWfdbh.fs0AJuDe', '3', '1', 'GjnlzmO9teS9WK1yTWhxpIQzLstYIvPzCM1Ad5tWrQhN15Lfz5hhHH1cwJpn', '1', null, null, null, 'customer 1', 'tttd', '16', null, '', '2014-08-28 10:58:16', '192.168.1.123', '10', '2014-08-28 03:58:16', '2014-07-29 11:16:11', null, 'asset/share/uploads/images/personal/07-30-2014_mario2.png', '0');
+INSERT INTO `users` VALUES ('102', 'ltt.develop@gmail.com', '$2y$10$HS3awsbGkdjccTWC22T09OXaLdTeEWAltP.nVeIHjdSf8OBymqn6C', '3', '1', '40B2qmngueH01UXFGve4htOSrlpD7vnt0q8zGOMJ63fMN4hFL9mmqzCMOEqI', '1', null, null, null, 'truyen', 'luong', '6', null, '', '2014-08-23 18:18:20', '192.168.1.123', '10', '2014-08-23 11:18:20', '2014-07-30 03:44:40', null, 'asset/share/uploads/images/personal/07-30-2014_IBM.jpeg', '0');
+INSERT INTO `users` VALUES ('107', 'taikhoanlive101@outlook.com.vn', '$2y$10$gNxsJa7TpGse.1JlmEqZLuMpDkWQ4I3cNbKkjqa6sVOa4zlh5WcEe', '3', '1', 'dGYJK9iqtD6yPHhWuWagt11KVxWgE1umTxHyHKsjj2M4ldtM6qNi1P6X4Ae1', null, null, null, null, 'Nguyễn anh tài', 'MR/MS', '31', '5111e3d5a14701293d85498684986be9', '', '2014-08-25 02:35:15', '192.168.1.123', '10', '2014-08-25 02:35:15', '2014-07-31 04:49:51', null, 'asset/share/uploads/images/personal/07-31-2014_images.jpg', '0');
 INSERT INTO `users` VALUES ('110', 'taikhoanlike102@outlook.com.vn', '$2y$10$vWSnI6fE2.0W7VuP70hzp.hS61D915nhWZYLO.AsLhNvZgLjXyaOO', '4', '1', '7EWNVel2bZOmQ8WymOYgNMfbGfC5WLkyL1oXsPmiXRM2h5gKYRGumuLQuHnl', null, null, '99', null, 'Big', 'mrD', '5', '904c9f010c5ec373d76e1967877de62a', '', '2014-08-20 09:23:56', '192.168.1.123', '10', '2014-08-20 02:23:56', '2014-07-31 10:35:46', null, 'asset/share/uploads/images/personal/07-31-2014_bg1.jpg', '0');
-INSERT INTO `users` VALUES ('113', 'nguyen.anh.tuan.241@gmail.com', '$2y$10$jdBMKTgm9U1RbJWQHOc/j.hrK54RfK4Q02.Q5bjV39RezoGv252vW', '3', '1', 'Hss9puWWUgMThede3rvB4T54RWVk11SXo0OQTZLC7hCDKU0j6nYArALz3gqf', null, null, null, null, 'Shinosuke', 'MR/MS', '45', 'c4827eaa4e752a7716ec0b0a8c3e6060', '', '2014-08-23 08:59:55', '192.168.1.104', '10', '2014-08-23 08:59:55', '2014-08-01 08:37:02', null, 'asset/share/uploads/images/personal/08-11-2014_1779847_779157438780166_545792806_n.jpg', '0');
+INSERT INTO `users` VALUES ('113', 'nguyen.anh.tuan.241@gmail.com', '$2y$10$jdBMKTgm9U1RbJWQHOc/j.hrK54RfK4Q02.Q5bjV39RezoGv252vW', '3', '1', 'Hss9puWWUgMThede3rvB4T54RWVk11SXo0OQTZLC7hCDKU0j6nYArALz3gqf', null, null, null, null, 'Shinosuke', 'MR/MS', '54', 'c4827eaa4e752a7716ec0b0a8c3e6060', '', '2014-08-28 06:35:17', '192.168.1.108', '10', '2014-08-28 06:35:17', '2014-08-01 08:37:02', null, 'asset/share/uploads/images/personal/08-11-2014_1779847_779157438780166_545792806_n.jpg', '0');
 INSERT INTO `users` VALUES ('114', 'thanhtruyen1001@gmail.com', '$2y$10$xnDi0s1nnSh9voXJQH6DLukeBuC7SugSWmjnB9/UDxZw2MHqIVP7i', '3', '1', 'pwRMN9R9cC8j79E1G8NcFzpqGRjh7uJTEXGIYXb4Olhy2R3UFKqVBeVcpmaq', null, null, null, null, 'Nguyen huy tuong', 'MR/MS', '5', '8375f102e968b323bb5099590d686660', '', '2014-08-09 10:12:54', '192.168.1.114', '10', '2014-08-09 03:12:54', '2014-08-02 01:19:42', null, null, '0');
 INSERT INTO `users` VALUES ('119', 'customer_04@gmail.com', '$2y$10$Uz2LbdjJM0MFHu0eZ7sYG.0H7Xduw/qqWbD6yfX8e8f1BSO1oBMTu', '3', '1', 'x2elj6V0ZFDqLzGPj9cKSiTB9shngBvb3ee6hXt0nfEwlOY3FFPW5C1LKOhj', null, null, null, null, 'SSSSSSSSSSSSSSSSS', 'MR/MS', '3', '38c4bb8443f3139129250dfbb00c1e49', '', '2014-08-06 15:47:43', '192.168.1.114', '10', '2014-08-06 08:47:43', '2014-08-05 11:05:57', null, null, '0');
 INSERT INTO `users` VALUES ('131', 'ltt.develop@gmail.com1', '$2y$10$PrUPpqXQrCdTYIG3w9sNWuDsCAca.Iv322iVOltM5xvWpJlUGkZOy', '4', '0', null, null, null, '99', null, 'staffssssssssss', 'ssssssssssssss', null, 'a1a030718e59c04aefb90e40f1197c30', '', null, '192.168.1.123', '10', '2014-08-16 09:50:56', '2014-08-16 09:50:56', null, null, '0');
 INSERT INTO `users` VALUES ('132', 'haanh@gmail.com', '$2y$10$yjO24PbvC4oWRyM.M2id.uIyrhXLqTqX2wFRzJKsomVHQuIbajTrK', '4', '1', null, null, null, '113', null, 'Mai Ha', 'Nguyen', null, 'c0154f09143f687834a376b7c312414e', '', null, '192.168.1.105', '10', '2014-08-18 02:36:08', '2014-08-18 02:36:08', null, null, '0');
 INSERT INTO `users` VALUES ('133', 'dddddd@s.com', '$2y$10$hr.QSDgkjocdfLkGRw0i3efvRw4.a6Yc0Y5UYK5rnXDIfx87gqBs.', '3', '1', null, '1', null, null, null, 'kjl', 'kjl', null, '0fd7ccf09a9a7b8deba6749c8fcda74a', '', null, '192.168.1.123', '10', '2014-08-18 08:47:22', '2014-08-18 08:47:22', null, null, '0');
-INSERT INTO `users` VALUES ('140', 'vn24s.com@gmail.com', '$2y$10$.ZVr8JWwMoz.ckWpadwq/um.kg74KGJGYmNVlsHkBMEFyTbA3V7RS', '3', '1', null, null, null, null, null, 'truyen', 'MR/MS', '1', '3ceefd20906cb46d6f7c4aa1a5a2479b', '', '2014-08-19 04:52:55', '192.168.1.123', '10', '2014-08-19 04:52:55', '2014-08-19 04:51:45', null, null, '0');
+INSERT INTO `users` VALUES ('140', 'vn24s.com@gmail.com', '$2y$10$.ZVr8JWwMoz.ckWpadwq/um.kg74KGJGYmNVlsHkBMEFyTbA3V7RS', '3', '1', 'JvVWOyQsCDFnOMZcDOzDKlbgDvUHRArZpmCJaWVdy1XPQcajtbWa327iecrJ', '1', null, null, null, 'truyen', 'MR/MS', '1', '3ceefd20906cb46d6f7c4aa1a5a2479b', '', '2014-08-28 16:09:12', '192.168.1.123', '10', '2014-08-19 04:52:55', '2014-08-19 04:51:45', null, null, '0');
 INSERT INTO `users` VALUES ('141', 'anhtuan11tlt@gmail.com', '$2y$10$d/rUfe12d0v9CL3zjsCcIuBxcE2BaCPiHamta9w6Y.I05w.tuhyVG', '3', '1', 'JvVWOyQsCDFnOMZcDOzDKlbgDvUHRArZpmCJaWVdy1XPQcajtbWa327iecrJ', null, null, null, null, 'Anh Dai', 'MR/MS', '1', '525adfe5e824495ec1e39bdc3172ee11', '', '2014-08-19 14:32:58', '192.168.1.105', '10', '2014-08-19 07:32:58', '2014-08-19 04:54:43', null, null, '0');
 INSERT INTO `users` VALUES ('142', 'tuan.rambo.01@gmail.com', '$2y$10$AcRsCaup7gjUwXb1Tu./g.fbHJiWv8R8thfuOZNPL4PmXHhTVytry', '4', '1', null, null, null, '113', null, 'Dai Ca', 'Nguyen', '1', 'c11ac31e5104d75efa1a01ee228b79f9', '', '2014-08-20 02:17:47', '192.168.1.104', '10', '2014-08-20 02:17:47', '2014-08-20 02:07:00', null, null, '0');
 INSERT INTO `users` VALUES ('143', 'tuan.rambo.02@gmail.com', '$2y$10$OJC7GjC1Xt1EjmNPJaGHTOq6269/H.U5UKB8I7JH0MHse54YU/II.', '2', '1', 'Quw21dTE1PWWcFaQNax2aZreSNAq3N3UyZf3IKyMFPqtD0BrtdFBWcYVThOa', '1', null, null, null, 'ABC', 'XYZ', '3', '9fda156afb2ea11e3a60eb8d791be548', '', '2014-08-21 09:49:29', '192.168.1.107', '10', '2014-08-21 02:49:29', '2014-08-20 03:28:55', null, null, '0');
 INSERT INTO `users` VALUES ('144', 'customer2@gmail.com', '$2y$10$/HybzP9QS2JKMffavWDDjO6I.7R8vSKBpKsqrP3XzcI2hfibwMqg2', '3', '1', null, '1', null, null, null, 'truyen1', 'luong 1', null, 'e117987839ea3d2477189334a9c5c2df', '', null, '192.168.1.123', '10', '2014-08-21 01:19:46', '2014-08-21 01:19:46', null, null, '0');
+INSERT INTO `users` VALUES ('145', 'tuan.rambo.03@gmail.com', '$2y$10$wU9rWmIX9omxE/ea71W4GuxmrcZcMq8gF8Hrrq9NEQeE0XXBSY1ty', '4', '1', null, null, null, '113', null, 'nguyen', 'anh', null, '0b9105a5851f9ed5f9bfc19040e2dc29', '', null, '192.168.1.107', '10', '2014-08-26 04:28:33', '2014-08-26 04:28:33', null, null, '0');

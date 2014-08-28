@@ -25,10 +25,11 @@ class TicketController extends \BaseController {
                      
                 $list_ticket = DB::table('tickets')
                         ->where('tickets.client_id','=',$user_id)
-                        ->where('tickets.status','<>','close')
+                        ->where('tickets.close','<>',1)
                         ->join('users','users.id','=','tickets.author_id')                        
+                        ->leftJoin('status','status.id','=','tickets.status')                        
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name'))
                         ->paginate(5);  
 
                // $list_ticket = Ticket::with('Profile')->where('tickets.client_id','=',$user_id)->paginate(5);         
@@ -76,7 +77,7 @@ class TicketController extends \BaseController {
                     {
                        $ticket->client_id = Auth::id();
                     }
-                    $ticket->status = User::STATUS_NEW;
+                    $ticket->status = Ticket::S_NEW;  
                     $ticket->save();                    
                     $ticket->code = 'TK'.$ticket->id.'-'.Auth::id();
                     $ticket->save();
@@ -93,16 +94,15 @@ class TicketController extends \BaseController {
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::create;
                     $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
+                    $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
                     $activity->save();
 
                     /*save history*/
-                    $History = new TicketHistory();
-                    $History->ticket_id = $ticket->code;                   
-                    $History->status = Ticket::ST_new;                                        
-                    $History->priority = Input::get('priority');   
-                    $History->save();
-
+                    // $History = new TicketHistory();
+                    // $History->ticket_id = $ticket->code;                   
+                    // $History->status = Ticket::ST_new;                                        
+                    // $History->priority = Input::get('priority');   
+                    // $History->save();
 
                     /*send email to admin*/
                     $email = new EmailController();                    
@@ -151,9 +151,10 @@ class TicketController extends \BaseController {
                         ->join('users','users.id','=','tickets.client_id')                        
                         ->join('profiles','profiles.user_id','=','users.id')
                         ->join('support_type','support_type.id','=','tickets.support_type')                        
+                        ->leftjoin('status','status.id','=','tickets.status')                        
                         ->where('tickets.code','=',$id)
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,support_type.name as support_type,tickets.priority,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,tickets.status as status_id,users.first_name,users.last_name,support_type.name as support_type,tickets.priority,profiles.company_name,tickets.close as close'))
                         ->first();  
                 if($ticket){
                 $list_comment = DB::table('support_tickets')->join('tickets','tickets.code','=','support_tickets.ticket_id')
@@ -269,13 +270,28 @@ class TicketController extends \BaseController {
                  {
                    $user_id = User::find($user_id)->customer_id;
                  } 
+                 
                 $list_ticket = DB::table('tickets')
                         ->where('tickets.status','=',Input::get('key'))
                         ->where('tickets.client_id','=',$user_id)
                         ->join('users','users.id','=','tickets.client_id')                              
+                        ->leftJoin('status','status.id','=','tickets.status')  
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
                         ->paginate(5); 
+
+                if(Input::get('key')==Ticket::S_CLOSE) :
+                    $list_ticket = DB::table('tickets')
+                        ->where('tickets.close','=',1)
+                        ->where('tickets.client_id','=',$user_id)
+                        ->join('users','users.id','=','tickets.client_id')                              
+                        ->leftJoin('status','status.id','=','tickets.status')  
+                        ->orderBy('tickets.id','desc')                        
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
+                        ->paginate(5); 
+                endif;        
+
+
                
                 $parameter_panginate = ['key'=>Input::get('key')];
 		$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket)
@@ -292,16 +308,20 @@ class TicketController extends \BaseController {
                  {
                    $user_id = User::find($user_id)->customer_id;
                  } 
-                $list_ticket = DB::table('tickets')                       
+                 $list_ticket = DB::table('tickets')                       
                         ->join('users','users.id','=','tickets.client_id')                
+                        ->leftJoin('status','status.id','=','tickets.status')  
                         ->where('tickets.client_id','=',$user_id)
                         ->where(function($query) {
                             $query->where('tickets.code', 'LIKE', '%'.Input::get('key_find').'%');
                             $query->orWhere('tickets.subject', 'LIKE', '%'.Input::get('key_find').'%');
                         })
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id'))
                         ->paginate(5); 
+
+
+
                 $parameter_panginate = ['key_find'=>Input::get('key_find')];
                 $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets#','title'=>trans('common.button.search')]]; 
 	           	$this->layout->content = View::make('client.ticket.index')->with('list_ticket',$list_ticket)

@@ -102,13 +102,21 @@ Route::post('manager/tickets/add-comment/{id}',array('uses'=>'TicketsController@
 Route::get('manager/tickets/find',array('uses'=>'TicketsController@find'));
 Route::get('manager/tickets/filter',array('uses'=>'TicketsController@filter'));
 Route::get('manager/tickets/confirm/{id}',array('uses'=>'TicketsController@confirm'));
+Route::get('manager/tickets/close/{id}',array('uses'=>'TicketsController@close'));
 Route::resource('manager/tickets', 'TicketsController');
 
 /*report and analysis*/
 Route::get('manager/reports',array('uses'=>'ReportsController@index'));
 Route::get('manager/reports/ticket',array('uses'=>'ReportsController@ticket'));
 Route::post('manager/reports/ticket',array('uses'=>'ReportsController@postTicket'));
-Route::get('manager/reports/ticket/default',array('uses'=>'ReportsController@index'));
+
+Route::get('manager/reports/staff',array('uses'=>'ReportsController@staff'));
+Route::post('manager/reports/staff',array('uses'=>'ReportsController@staffPost'));
+Route::get('manager/reports/staffRace',array('uses'=>'ReportsController@staffRace'));
+Route::get('manager/reports/overdue',array('uses'=>'ReportsController@overdue'));
+/*analysis*/
+Route::get('manager/analysis',array('uses'=>'ReportsController@analysis'));
+Route::get('manager/analysis/support-type',array('uses'=>'ReportsController@supportType'));
 
 
 /*View profile*/

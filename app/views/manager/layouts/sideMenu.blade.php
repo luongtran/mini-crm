@@ -102,13 +102,16 @@
                                             <li>
                                                 <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/ticket" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.ticket')}}</span></a>
                                             </li>
+                                             <li>
+                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/staff" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.staff')}}</span></a>
+                                            </li>
                                             <li>
                                                 <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.customer')}}</span></a>
                                             </li>
                                         </ul>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/backend/article" title="Article list"><i class="entypo-chart-area"></i><span>{{trans('common.menu.analysis')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}//manager/analysis/" title="Article list"><i class="entypo-chart-area"></i><span>{{trans('common.menu.analysis')}}</span></a>
                                 </li>
                             </ul>
                         </li>
