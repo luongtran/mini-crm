@@ -539,7 +539,7 @@
 			"file": "app/controllers/manager/ReportsController.php",
 			"settings":
 			{
-				"buffer_size": 9121,
+				"buffer_size": 9142,
 				"line_ending": "Unix"
 			}
 		},
@@ -820,6 +820,7 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -862,8 +863,8 @@
 						"selection":
 						[
 							[
-								10324,
-								10324
+								3128,
+								3128
 							]
 						],
 						"settings":
@@ -872,8 +873,8 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 123.0,
-						"translation.y": 3240.0,
+						"translation.x": 0.0,
+						"translation.y": 840.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -883,15 +884,15 @@
 					"file": "app/controllers/manager/ReportsController.php",
 					"settings":
 					{
-						"buffer_size": 9121,
+						"buffer_size": 9142,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5356,
-								5356
+								8605,
+								8605
 							]
 						],
 						"settings":
@@ -900,7 +901,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2365.0,
+						"translation.y": 4045.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

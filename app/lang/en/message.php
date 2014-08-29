@@ -26,4 +26,5 @@ return array(
         'error_config_email'=>'Fix problems with setup email, please contact the admin be support',
         'success_race'=>'Thank for you have race from service of us',
         'error_delete'=>"You cant'n delete this record",
+        'not_permission'=>"You haven't permission!"
 );

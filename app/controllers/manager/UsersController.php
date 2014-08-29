@@ -111,9 +111,19 @@ class UsersController extends BaseController {
                         ['link'=>'manager/users','title'=>trans('title.form.user')],
 		             	['link'=>'#','title'=>trans('common.button.edit')]
                      ];  
-		$user = User::find($id);
+		$user = User::find($id);        
                 if($user)
                 {
+
+                    if($user->group_users==User::MANAGER&&$user->id!=Auth::id())
+                    {
+                        if(Auth::user()->id!=$user->manager_id)
+                        {
+                            Session::flash('msg_flash', CommonHelper::print_msg('error',trans('message.not_permission')));
+                            return Redirect::back();     
+                        }
+                    }
+
                 $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
                 $this->layout->content = View::make('manager.users.edit')
                         ->with('user',$user)
@@ -131,7 +141,7 @@ class UsersController extends BaseController {
 	 */
 	public function update($id)
 	{
-            $rule=array('password'=>'confirmed');
+        $rule=array('password'=>'confirmed');
 	    $validation = Validator::make(Input::all(),$rule);
             if($validation->passes()){                                
                 $user = User::find($id);
@@ -166,15 +176,50 @@ class UsersController extends BaseController {
             $user =  User::where('trash',1)->where('id',$id)->first();            
             if($user)
             {  
-                $upload = Upload::where("user_id",'=',$user->id)->first();
-                if($upload)
-                {
-                $image = new ImagesController();
-                $image->destroy($upload->id);                    
-                }
-                Profile::where('user_id','=',$id)->delete();                          
-                $user->delete();
-                Session::flash('msg_flash', CommonHelper::print_msg('success','You have deleted success!'));
+                    if($user->id==Auth::id())
+                    {
+                        Session::flash('msg_flash', CommonHelper::print_msg('error',trans('message.not_permission')));
+                        return Redirect::back();  
+                    }
+                    else
+                    {       
+                         $check = User::find($id);
+                         if($check->group_users==User::MANAGER)
+                         {   
+                             if($check->manager_id==Auth::id())
+                             {      
+                                   $upload = Upload::where("user_id",'=',$user->id)->first();
+                                        if($upload)
+                                        {
+                                        $image = new ImagesController();
+                                        $image->destroy($upload->id);                    
+                                        }
+                                    Profile::where('user_id','=',$id)->delete();                          
+                                    $user->delete();
+                                    Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.delete')));               
+                                    return Redirect::back();                       
+                             }
+                             else
+                             {
+                                Session::flash('msg_flash', CommonHelper::print_msg('warning',trans('message.not_permission')));
+                             }
+                         }
+                         else
+                         {                           
+                                $upload = Upload::where("user_id",'=',$user->id)->first();
+                                    if($upload)
+                                    {
+                                    $image = new ImagesController();
+                                    $image->destroy($upload->id);                    
+                                    }
+                                Profile::where('user_id','=',$id)->delete();                          
+                                $user->delete();
+                                Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.delete')));               
+                                return Redirect::back();                               
+                         }
+
+                     
+                    }
             }
             else
             {
@@ -199,6 +244,7 @@ class UsersController extends BaseController {
                      case'active': 
                         foreach($list_check as $user=>$id){
                          $this->update_feild($id,'activated',1);
+                         $this->update_feild($id,'trash',0);
                         } 
                          break;   
                      case'pending': 
@@ -208,7 +254,25 @@ class UsersController extends BaseController {
                          break;  
                      case'trash':
                         foreach($list_check as $user=>$id){
-                         $this->update_feild($id,'trash',1);
+                            $check = User::find($id);
+                         if($check->group_users==User::MANAGER)
+                         {   
+                             if(Auth::id()!=$id&&$check->manager_id==Auth::id())
+                             {                                  
+                              $this->update_feild($id,'trash',1);
+                              $this->update_feild($id,'activated',0);
+                             }
+                             else
+                             {
+                                Session::flash('msg_flash', CommonHelper::print_msg('warning',trans('message.not_permission')));
+                             }
+                         }
+                         else
+                         {                            
+                             $this->update_feild($id,'trash',1);
+                             $this->update_feild($id,'activated',0);                          
+                         }
+
                         } 
                         break;    
                      case'del':

@@ -14,14 +14,17 @@
 App::before(function($request)
 {
         /*down xss sript in model common*/
-	//Common::globalXssClean();             
-       
+	      //Common::globalXssClean();            
+  
 });
 
 
 App::after(function($request, $response)
 {
-   	 
+      /*save url before check logi. because affter login redirect to url have save*/
+   	   if(Request::url() != url('crm-login') || Request::url() != url('crm-logout')){ 
+          Session::put('visitUrl',Request::url());         
+       }
 });
 
 /*
@@ -44,7 +47,7 @@ Route::filter('auth', function()
 			return Response::make('Unauthorized', 401);
 		}
 		else
-		{
+		{      
 			return Redirect::guest('crm-login');
 		}
 	}

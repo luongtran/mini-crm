@@ -166,10 +166,12 @@ $("#btn-view").click(function(){
 });
 </script>  
 
-
+	
    <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <link rel="stylesheet" href="{{asset('asset/backend/assets/js/morris/morris-0.4.3.min.css')}}">
 	<script src="{{asset('asset/backend/assets/js/morris/morris-0.4.3.min.js')}}"></script>
 	<script src="{{asset('asset/backend/assets/js/morris/raphael-min.js')}}"></script>
+
+	<script src="{{asset('asset/share/test/asset/highcharts.js')}}"></script>
 
 @stop

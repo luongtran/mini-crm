@@ -14,7 +14,7 @@ class ShareController extends \BaseController {
             {
                 if(Auth::user()->group_users == User::MANAGER || Auth::user()->group_users == User::STAFF)               
                 {
-                $view = User::find(Auth::id());                        
+                 $view = User::find(Auth::id());                        
                  return View::make('share.profile.manager_profile')->with('view',$view);
                 }
                 
@@ -106,6 +106,14 @@ class ShareController extends \BaseController {
                $login->update();               
                
                Session::flash('msg_flash',  CommonHelper::print_msg('success','Login success'));                
+              
+               /*Move to url old when access into*/
+               /*if(Session::get('visitUrl'))
+               {    
+                 dd(Session::get('visitUrl'));                 
+                 return Redirect::to(Session::get('visitUrl'));                  
+               }*/
+
                /*check permission*/
                if(Auth::user()->group_users == User::EMPLOYEE){
                 return Redirect::to('client/tickets');    

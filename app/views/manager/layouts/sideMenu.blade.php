@@ -105,9 +105,6 @@
                                              <li>
                                                 <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/staff" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.staff')}}</span></a>
                                             </li>
-                                            <li>
-                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.customer')}}</span></a>
-                                            </li>
                                         </ul>
                                 </li>
                                 <li>

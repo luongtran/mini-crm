@@ -9,20 +9,7 @@ Priority
 -->
 
 <div class="row">
-	<div class="col-sm-12">
-			{{Former::open(url('manager/reports/staff'))->id('form-report')}}		    
-	            <div class="well"> 	            	
-	            		<div class="pull-left"> 	
-	            			 {{Form::select('optionRP',array('race'=>'Race','overdue'=>'overdue'),'race',array('class'=>'form-control'))}}           		            			            	
-	            		</div>
-	            		<div class="pull-left">	            			
-		            	 	<button class="btn btn-success" id="btn-view" type="button">View</button>		            	 		
-		            	</div>
-				</div>
-            </div><!-- end col --> 
-
-            {{Former::close()}}     
-	</div>
+	
 </div><!-- end row-->   
 <div class="row">
 	<div class="col-sm-12">		
@@ -46,27 +33,6 @@ Priority
   $(function() {  	
    	$("#statusLoad").hide(); 			  		
     $("#resultRP").load(spBaseUrl+"/manager/reports/staffRace");
-
-		/* btn view*/			
-		$("#btn-view").click(function(){
-			$("#statusLoad").show();	
-			var myform = $("#form-report");
-
-		   $.ajax({
-		   	url: myform.attr('action'),
-		   	type: "post",
-		   	data: myform.serialize(),
-		   	success: function(data){   		
-		   		$("#statusLoad").hide();		   		
-		   		$("#resultRP").html(data);
-		   	},
-		   	error: function() {
-		          alert('Error occurs!');
-		       } 	   		
-		   	
-		   });
-	});
-
 });		
 
 </script>  
@@ -77,4 +43,5 @@ Priority
 	<script src="{{asset('asset/backend/assets/js/morris/morris-0.4.3.min.js')}}"></script>
 	<script src="{{asset('asset/backend/assets/js/morris/raphael-min.js')}}"></script>
 
+	<script src="{{asset('asset/share/test/asset/highcharts.js')}}"></script>
 @stop

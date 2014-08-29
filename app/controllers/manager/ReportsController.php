@@ -40,7 +40,7 @@ class ReportsController extends BaseController {
 
 	public function ticket()
 	{
-		$breadcrumb = [['link'=>'manager/reports','title'=>'Report']];
+		$breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Report']];
 		$this->layout->content = View::make('manager.reports.ticket')
 		->with('breadcrumb',$breadcrumb);
 	}
@@ -133,7 +133,7 @@ class ReportsController extends BaseController {
 	/*staff*/
 	public function staff()
 	{
-		$breadcrumb = [['link'=>'manager/reports','title'=>'Report'],['link'=>'','title'=>'Staff']];
+		$breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Report'],['link'=>'','title'=>'Staff']];
 		$this->layout->content = View::make('manager.reports.staff')
 		->with('breadcrumb',$breadcrumb);
 	}
@@ -155,6 +155,15 @@ class ReportsController extends BaseController {
 
 	public function staffRace()
 	{		
+		
+		$rp_staff =  User::where('group_users','=',User::STAFF)					
+				->where('activated',true)	
+				->orderBy('count_access','desc')
+				->select(DB::raw('id as server_id,first_name,last_name,avatar,count_access'))
+				->get(); 	
+
+		//dd($rp_staff);		
+
 		$rp_race =  DB::table('races')	
 				->join('tickets','tickets.code','=','races.code_ticket')															
 				->join('users','users.id','=','tickets.server_id')												
@@ -163,44 +172,29 @@ class ReportsController extends BaseController {
 				->select(DB::raw('level_comment as level,count(races.level_comment) as count,users.first_name,users.last_name,tickets.server_id,users.avatar'))
 				->get();
 
-		$rp_staff =  DB::table('races')	
-				->join('tickets','tickets.code','=','races.code_ticket')															
-				->join('users','users.id','=','tickets.server_id')												
-				->groupBy('tickets.server_id')												
-				->orderBy('users.first_name','asc')							
-				->select(DB::raw('tickets.server_id,users.first_name,users.last_name,users.avatar'))
-				->get(); 		
+	
 
 		$rp_total =  DB::table('races')	
 				->join('tickets','tickets.code','=','races.code_ticket')															
 				->join('users','users.id','=','tickets.server_id')												
 				->groupBy('races.level_comment')												
 				->select(DB::raw('level_comment as label,count(races.level_comment) as y'))
-				->get(); 
+				->get();      			
+
 			
-		return View::make('manager.reports.race',compact('rp_total','rp_race','rp_staff'));	
-	}
-
-	public function overdue()
-	{
-		  $rp_staff =  DB::table('tickets')                                 
-        ->join('users','users.id','=','tickets.server_id')                        
-        ->groupBy('tickets.server_id')                        
-        ->select(DB::raw('tickets.server_id,users.id as staffID,users.id as staffID,users.first_name,users.last_name,users.avatar'))
-        ->get();
-
-	     $rp_month =  DB::table('tickets')   
+		 $rp_overdue =  DB::table('tickets')   
 	        ->groupBy('tickets.server_id')                        
 	        ->select(DB::raw('month(tickets.created_at) as beginM, month(tickets.resolved_at) as endM,tickets.server_id as staffID'))
-	        ->get();   
-	    return View::make('manager.reports.overdue',compact('rp_staff','rp_month'));	
+	        ->get(); 
+	        	
+		return View::make('manager.reports.race',compact('rp_total','rp_race','rp_staff','rp_overdue'));	
 	}
 
 
     /*analysis*/
 	public function analysis()
 	{
-		$breadcrumb = [['link'=>'manager/reports','title'=>'Analysis']];
+		$breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Analysis']];
 		$this->layout->content = View::make('manager.reports.analysis')
 		->with('breadcrumb',$breadcrumb);
 	}

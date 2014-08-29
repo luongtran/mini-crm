@@ -29,16 +29,17 @@ Route::get('/crm-login',function(){
 	if(Auth::check())
 	{
 	   Session::flash('msg_flash',CommonHelper::print_msg('error','You have login'));	
-       return Redirect::to('');
+     return Redirect::to('');
 	}
 	else
-    {
+    {    
       return View::make('share.login');
     }
 });
 Route::post('/crm-login',array('uses'=>'ShareController@login'));
 Route::get('/crm-logout',function(){
-    Auth::logout();
+     Auth::logout();
+     Session::forget('visitUrl');        
     return View::make('share.login');
 });
 

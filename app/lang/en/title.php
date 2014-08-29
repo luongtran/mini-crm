@@ -72,6 +72,12 @@ return array(
 		'question'=>'Question',
 		'group_product'=>'Group product',
 		'author'=>'Author',
+		'group_users'=>'Group users',
+		'happy'=>'Happy',
+		'unhappy'=>'Unhappy',
+		'orther'=>'Orther',
+		'overdue'=>'Overdue',
+		'count_access'=>'Count Access'
 
 	),
 	'ticket'=>array(
@@ -83,9 +89,11 @@ return array(
 	'report'=>array(
 		'month'=>'Month',
 		'resolved'=>'Resolved',
-		'total_ticket'=>'Total status tickets',
-		'report_total'=>'Report status total',
-		'report_month'=>'Report status of month',
+		'report_total'=>'Report total',
+		'total_ticket'=>'Total tickets',
+		'report_status_ticket'=>'Report  <b>status</b> of ticket',
+		'report_priority_ticket'=>'Report  <b>priority</b> of ticket',
+		'report_colunm'=>'Report value for colunm',
 		'nomal'=>'Nomal',
 		'hight'=>'Hight',
 		'urgent'=>'Urgent',
