@@ -29,10 +29,7 @@
                             <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                             <ul role="menu" class="dropdown-menu">
-                                              
-                            </ul>                
+                            </button>                                            
                             </div>
                     </div>
 

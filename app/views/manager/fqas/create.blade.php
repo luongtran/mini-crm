@@ -10,9 +10,7 @@
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">
                             <div class="row">
-                            	<!-- session message -->
-                                  {{Session::get('msg_flash')}} 
-                                <!-- session message -->                              
+                            	                        
                             </div>
                         </div>
 
@@ -41,7 +39,7 @@
 				                    	{{Former::text('title')->required()}}				                        
 				                    </div>
 				                    <div class="form-group">
-				                       {{Former::textarea('content')->class('ckeditor')->required()}}		
+				                       {{Former::textarea('content')->class('ckeditor')}}		
 				                    </div>
 
 				                    <div class="form-group">				                      			                 

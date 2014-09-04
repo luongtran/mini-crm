@@ -90,7 +90,16 @@
                 <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">                          
-                            <img src="{{Request::root().'/'.Auth::user()->avatar}}" class="admin-pic img-circle">@if(Auth::check()) {{Auth::user()->first_name}} @endif<b class="caret"></b>
+                            @if(Auth::check())                                  
+                                <?php
+                                  if(Auth::user()->avatar)
+                                    {$avatar = url(Auth::user()->avatar);} 
+                                  else  
+                                    {$avatar = url('asset/backend/assets/img/small-bg13.jpg');} 
+                                  ?>
+                                  <img src="{{$avatar}}" class="admin-pic img-circle">
+                                 {{Auth::user()->first_name.' '.Auth::user()->last_name}} <b class="caret"></b>
+                            @endif
                         </a>
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>

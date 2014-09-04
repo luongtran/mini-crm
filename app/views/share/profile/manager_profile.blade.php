@@ -131,7 +131,7 @@
                          <span class="alert-danger">{{$errors->first('company_name')}}</span>
                 </div>
                 
-                  <div class="form-group">
+                <div class="form-group">
                       <label>Avatar</label>
                       <div class="text-left">
                                                 <img width="200" src="{{Request::root().'/'.$view->avatar}}" class="avatar img-circle" alt="avatar">
@@ -146,7 +146,7 @@
                                                    <span class="alert-danger">{{$errors->first('avatar')}}</span>
                                                 </div>
                          </div>
-                  </div>  
+                </div>  
                 
                    {{Form::submit('Update',array('class'=>'btn btn-success'))}}
                     {{Form::close()}}

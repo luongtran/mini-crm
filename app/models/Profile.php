@@ -9,11 +9,12 @@ class Profile extends \Eloquent {
        public function user()
         {
             return $this->belongsTo('User','user_id');
-       }
-         public function sector()
-        {
-            return $this->hasOne('Sector','sector_id');
         }
+        public function sector()
+        {
+            return $this->belongsTo('Sector','sector_id');
+        }
+
         /*end Relashionship*/
   
     public static function getProfile($id){

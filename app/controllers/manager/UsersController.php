@@ -92,7 +92,7 @@ class UsersController extends BaseController {
                             ['link'=>'manager/users','title'=>trans('title.form.user')],
 		                	['link'=>'#','title'=>trans('title.form.show')]
                     ];     
-		$user = User::find($id);                    
+		$user = User::with('groupUser')->find($id);                    
         $this->layout->content = View::make('manager.users.show')
                         ->with('user',$user)
                         ->with('breadcrumb',$breadcrumb);
@@ -156,7 +156,7 @@ class UsersController extends BaseController {
                     $user->activated = Input::get('activated');     
                     $user->trash= Input::get('trash');
                     $user->update();
-                    Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));                    
+                    Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.update')));                    
                 }                
                 return Redirect::route('manager.users.index');
             }

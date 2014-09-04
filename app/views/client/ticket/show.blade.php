@@ -13,10 +13,14 @@
 
 <div class="row">
 <?php 
-$status_bg="panel-success";
+$status_bg="panel-primary";
 if($ticket->status_id == Ticket::S_NEW)
 {
   $status_bg="panel-fb tweet-bgcolor";
+}
+if($ticket->status_id == Ticket::S_CLOSE)
+{
+  $status_bg="panel-fb gplus-color";   
 }
 else if($ticket->status_id == Ticket::S_INPROCESS)
 {

@@ -84,12 +84,7 @@
                                         <div class="form-group">
                                             {{Former::text('phone_number')->required()}}        
                                         </div>
-                                   
-                                       <!--  <div class="form-group">
-                                            <label class="control-label">Avatar</label>                                        
-                                               {{Form::file('avatar',array('placeholder'=>'Enter avatar','value'=>Input::old('avatar')))}}                                            
-                                               <span class="alert-danger">{{$errors->first('avatar')}}</span>                                                 
-                                        </div> -->
+                                        
                                         <div class="form-group">                                            
                                            {{Former::actions()->large_primary_submit('create')}}
                                         </div> 

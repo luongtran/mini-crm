@@ -21,7 +21,7 @@
                 <h4>{{$user->last_name}}</h4>
                 
                 <label>{{trans('title.table.group_users')}}</label>
-                <h4>{{$user->group_name}}</h4>
+                <h4>{{$user->groupUser->name}}</h4>
                 
                 <label>{{trans('title.table.created')}}</label>
                 <h4>{{$user->created_at}}</h4>

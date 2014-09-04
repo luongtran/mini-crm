@@ -123,19 +123,24 @@
                     <label>Phone number</label>
                      {{Form::text('phone_number',$view->profile->phone_number,array('class'=>'form-control'))}}
                      <span class="alert-danger">{{$errors->first('phone_number')}}</span>
-                </div>
-                
+                </div>               
+                @if(Auth::user()->group_users == User::CUSTOMER)
                 <div class='form-group'>
                     <label>Company</label>
                       {{Form::text('company_name',$view->profile->company_name,array('class'=>'form-control'))}}
-                         <span class="alert-danger">{{$errors->first('company_name')}}</span>
+                        <span class="alert-danger">{{$errors->first('company_name')}}</span>
                 </div>
-                
-                  <div class="form-group">
-                      <label>Avatar</label>
-                      <div class="text-left">
-                                                <img width="200" src="{{Request::root().'/'.$view->avatar}}" class="avatar img-circle" alt="avatar">
-                                                <h6>Upload a different photo...</h6>
+                <div class='form-group'>
+                    <label>Website</label>
+                      {{Form::text('website',$view->profile->website,array('class'=>'form-control'))}}
+                      <span class="alert-danger">{{$errors->first('website')}}</span>
+                </div>
+                @endif
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <div class="text-left">
+                                        <img width="200" src="{{Request::root().'/'.$view->avatar}}" class="avatar img-circle" alt="avatar">
+                                            <h6>Upload a different photo...</h6>
                                                 <div class="input-group">
                                                   <span class="input-group-btn">
                                                         <span class="btn btn-primary btn-file">

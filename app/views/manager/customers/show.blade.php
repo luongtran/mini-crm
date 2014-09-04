@@ -82,9 +82,12 @@
 
                                         <dt>{{trans('title.table.phone_number')}}</dt>
                                         <dd>{{$profile->profile->phone_number}}</dd>
+
+                                        <dt>{{trans('title.table.website')}}</dt>
+                                        <dd>{{$profile->profile->website}}</dd>
                                         
                                         <dt>{{trans('title.table.sector')}}</dt>
-                                        <dd></dd>                                                                                
+                                        <dd>{{$profile->profile->sector->name}}</dd>                                                                                
                                         <dt>Last Update</dt>
                                         <dd>{{$profile->updated_at}}</dd>                                     
 

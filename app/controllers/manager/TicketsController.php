@@ -112,7 +112,7 @@ class TicketsController extends \BaseController {
                     /*send mail to admin*/                                                           
                     $email = new EmailController();
                     $message = array(
-                    'text'=>Input::get('description').' - <a href="'.Request::root().'/mamanger/tickets/'.$ticket->code.'">Visit</a>',
+                    'text'=>Input::get('description').' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
                     'to_email'=>EmailController::EMAIL_ADMIN,
                     'to_name'=>'Admin'
@@ -157,7 +157,7 @@ class TicketsController extends \BaseController {
                         ->where('tickets.code','=',$id)
                         ->where('tickets.server_id','=',Auth::id())
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,users.first_name,users.last_name,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status,tickets.support_type,tickets.priority,tickets.server_id as assign_to,profiles.company_name,users.group_users,profiles.user_id as company_id,tickets.close'))
                         ->first();    
                 }
                 /*IF NOT EXIST TICKET*/
@@ -319,7 +319,7 @@ class TicketsController extends \BaseController {
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::reply;
                     $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
+                    $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
                     $activity->content = Input::get('content');
                     $activity->save();
                 /*send message*/

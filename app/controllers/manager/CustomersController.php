@@ -14,7 +14,9 @@ class  CustomersController extends \BaseController {
     }
 	public function index()
 	{          
-            /*breadcumb*/
+            $this->layout->page = trans('common.menu.customer');
+
+            /*breadcumb*/                        
             $breadcrumb = [
                             ['link'=>'manager/customers','title'=>trans('title.form.customer')],
 		                  	['link'=>'#','title'=>trans('title.form.index')]
@@ -67,17 +69,16 @@ class  CustomersController extends \BaseController {
                 $customer->code_forget = md5(Input::get('email'));        
                 
                 if(Auth::user()->group_users == User::STAFF)               
-                 $customer->staff_id = Auth::id();                
+                    $customer->staff_id = Auth::id();                
                 else if(Auth::user()->group_users == User::MANAGER)              
-                 $customer->manager_id = Auth::id();  
+                    $customer->manager_id = Auth::id();  
                 
                 if(Input::file('avatar'))
                 {
                     $image = new ImagesController();
                     $path = "asset/share/uploads/images/personal";      
                     $customer->avatar =  $image->store(Input::file('avatar'),$path,'image',$customer->id);
-                }
-                                
+                }                                
                 $customer->save();
                 
                 $profile = new Profile;
@@ -113,6 +114,7 @@ class  CustomersController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+    
 	public function show($id)
 	{
             $profile =  User::with('Profile')->find($id);   
@@ -122,7 +124,7 @@ class  CustomersController extends \BaseController {
                             ->join('purchase_products','purchase_products.id','=','purchase_detail.product_id')
                             ->where('users.id','=',$id)
                             ->orderBy('purchases.id','desc')
-                            ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from"))
+                            ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from,profiles.website as website"))
                             ->get();
 
             $documents = Upload::where('customer_id',$profile->user_id)->where('type_file','document')->orderBy('id','desc')->get();                                
@@ -142,13 +144,13 @@ class  CustomersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-             /*breadcumb*/
+            /*breadcumb*/
             $breadcrumb = [
                         ['link'=>'manager/customers','title'=>trans('title.form.customer')],
 		                ['link'=>'#','title'=>trans('common.button.edit')]
-                     ];  
-          $customer =  User::with('profile')->find($id);           
-          $this->layout->content = View::make('manager.customers.edit')
+                       ];  
+            $customer =  User::with('profile')->find($id);           
+            $this->layout->content = View::make('manager.customers.edit')
                  ->with('customer',$customer)                 
                  ->with('breadcrumb',$breadcrumb);
       

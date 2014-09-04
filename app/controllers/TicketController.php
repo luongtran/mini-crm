@@ -107,7 +107,7 @@ class TicketController extends \BaseController {
                     /*send email to admin*/
                     $email = new EmailController();                    
                     $message = array(
-                    'text'=>Input::get('description').' - <a href="'.Request::root().'/mamanger/tickets/'.$ticket->code.'">Visit</a>',
+                    'text'=>Input::get('description').' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
                     'to_email'=>EmailController::EMAIL_ADMIN,
                     'to_name'=>'Admin',
@@ -229,7 +229,7 @@ class TicketController extends \BaseController {
 
                     $comment->save(); 
                     $ticket = Ticket::where('code','=',$id)->first();
-                    $ticket->status = User::STATUS_PROCESS;
+                    $ticket->status = Ticket::S_INPROCESS;
                     $ticket->update();
 
                     $server_id = User::find($ticket->server_id);

@@ -11,6 +11,7 @@ class GroupProductsController extends \BaseController {
 	public function index()
 	{
             $group_products = GroupProduct::paginate(5);
+            $breadcrumb = [['link'=>'manager/group-products','title'=>'Products']];         
             $this->layout->content = View::make('manager.group_products.index')->with('group_products',$group_products);
 	}
 

@@ -14,7 +14,7 @@ class ShareController extends \BaseController {
             {
                 if(Auth::user()->group_users == User::MANAGER || Auth::user()->group_users == User::STAFF)               
                 {
-                 $view = User::find(Auth::id());                        
+                 $view = User::find(Auth::id());
                  return View::make('share.profile.manager_profile')->with('view',$view);
                 }
                 
@@ -35,7 +35,10 @@ class ShareController extends \BaseController {
                 $profile = Profile::where('user_id',Auth::id())->first();
                 $profile->address = Input::get('address');
                 $profile->phone_number = Input::get('phone_number');
+                if(Auth::user()->group_users == User::CUSTOMER){
                 $profile->company_name = Input::get('company_name');
+                $profile->website = Input::get('website');
+                }
                 $profile->update();
                 
                 $user = User::where('id','=',$profile->user_id)->first();                                

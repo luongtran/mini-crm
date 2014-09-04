@@ -112,9 +112,7 @@ Route::get('manager/reports/ticket',array('uses'=>'ReportsController@ticket'));
 Route::post('manager/reports/ticket',array('uses'=>'ReportsController@postTicket'));
 
 Route::get('manager/reports/staff',array('uses'=>'ReportsController@staff'));
-Route::post('manager/reports/staff',array('uses'=>'ReportsController@staffPost'));
 Route::get('manager/reports/staffRace',array('uses'=>'ReportsController@staffRace'));
-Route::get('manager/reports/overdue',array('uses'=>'ReportsController@overdue'));
 /*analysis*/
 Route::get('manager/analysis',array('uses'=>'ReportsController@analysis'));
 Route::get('manager/analysis/support-type',array('uses'=>'ReportsController@supportType'));

@@ -137,21 +137,7 @@ class ReportsController extends BaseController {
 		$this->layout->content = View::make('manager.reports.staff')
 		->with('breadcrumb',$breadcrumb);
 	}
-
-	public function staffPost()
-	{
-		if(Input::get('optionRP'))
-		{
-			if(Input::get('optionRP')=='race'):
-				return $this->staffRace();
-			endif;	
-
-			if(Input::get('optionRP')=='overdue'):
-				return $this->overdue();
-			endif;
-		}
-	}
-
+	
 
 	public function staffRace()
 	{		
@@ -194,7 +180,7 @@ class ReportsController extends BaseController {
     /*analysis*/
 	public function analysis()
 	{
-		$breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Analysis']];
+		$breadcrumb = [['link'=>'manager/reports/analysis','title'=>'Analysis']];
 		$this->layout->content = View::make('manager.reports.analysis')
 		->with('breadcrumb',$breadcrumb);
 	}

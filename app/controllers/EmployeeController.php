@@ -51,6 +51,8 @@ class EmployeeController extends \BaseController {
 
                $profile = new Profile();
                $profile->user_id = $employee->id;
+               $profile->address = Input::get('address');
+               $profile->phone_number = Input::get('phone_number');
                $profile->save();
                
                $email = new EmailController();
