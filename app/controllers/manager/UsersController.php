@@ -56,6 +56,7 @@ class UsersController extends BaseController {
                 $user->ip = Request::getClientIp();               
                 $user->code_forget = md5(Input::get('email'));                                
                 $user->save();
+                
                 $profile = new Profile();
                 $profile->user_id = $user->id;                
                 $profile->save();
