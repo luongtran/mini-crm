@@ -32,7 +32,7 @@
                      {{Former::text('last_name')}}
                 </div>    
                 <div class="form-group">                  
-                    {{ Former::select('group_users')->fromQuery(GroupUser::all(),'name','id')}}
+                    {{ Former::select('group_users')->fromQuery(GroupUser::where('name','<>','employee')->where('name','<>','customer')->get(),'name','id')}}
                 </div>           
                 <div class="form-group">
                     {{Former::select('activated')->fromQuery(array('1'=>'True','0'=>'False'))}}                                      

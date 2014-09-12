@@ -15,9 +15,14 @@ Route::get('/',array('uses'=>'HomeController@index'));
 
 
 Route::get('/manager', function()
-{
+{    
   $activity = TicketActivity::orderBy('id','desc')->paginate(20);
-	return View::make('manager.home')->with('activity',$activity);
+  if(Auth::user()->group_users == User::STAFF)
+  {      
+     $activity = TicketActivity::join('tickets','tickets.code','=','ticket_activity.ticket_id')->where('tickets.server_id',Auth::id())->orderBy('ticket_activity.id','desc')->paginate(20); 
+  }
+  
+  return View::make('manager.home')->with('activity',$activity);
 });
 
 
@@ -28,8 +33,19 @@ Route::get('/manager', function()
 Route::get('/crm-login',function(){
 	if(Auth::check())
 	{
-	   Session::flash('msg_flash',CommonHelper::print_msg('error','You have login'));	
-     return Redirect::to('');
+	             /*check permission*/
+               if(Auth::user()->group_users == User::EMPLOYEE){
+                return Redirect::to('client/tickets');    
+                }
+                else if(Auth::user()->group_users == User::CUSTOMER){
+                return Redirect::to('client/tickets');        
+                }
+                else if(Auth::user()->group_users == User::STAFF){
+                return Redirect::to('manager/tickets');        
+                }                
+                else if(Auth::user()->group_users == User::MANAGER){
+                return Redirect::to('manager');        
+                }    
 	}
 	else
     {    
@@ -71,6 +87,11 @@ Route::resource('/manager/customers', 'CustomersController');
 Route::get('/manager/news/find',array('uses'=>'NewsController@find'));
 Route::resource('/manager/news', 'NewsController');
 
+/*News category of Manager*/
+Route::resource('manager/news-category', 'NewsCategoryController');
+
+
+
 /*Employee of Manager*/
 // /-----------/ //
 //Route::get('/manager/customer/{id_customer}/employees/{id}/delete',array('as'=>'manager-employee-delete','uses'=>'EmployeesController@destroy'));
@@ -97,6 +118,19 @@ Route::get('manager/fqa/{id}/del', array('uses'=>'FqasController@destroy'));
 Route::get('manager/fqa/find', array('uses'=>'FqasController@find'));
 Route::resource('manager/fqa', 'FqasController');
 
+/*FQA Category of Manager*/
+Route::resource('manager/fqa-category', 'FqaCategoryController');
+
+/*Sector of Manager*/
+Route::resource('manager/sectors', 'SectorController');
+
+/*Priority of Manager*/
+Route::resource('manager/priorities', 'PrioritiesController');
+
+/*Support type of Manager*/
+Route::resource('manager/support-type', 'SupportTypeController');
+
+
 
 /*Support ticket of Manager */
 Route::post('manager/tickets/add-comment/{id}',array('uses'=>'TicketsController@addComment'));
@@ -116,6 +150,8 @@ Route::get('manager/reports/staffRace',array('uses'=>'ReportsController@staffRac
 /*analysis*/
 Route::get('manager/analysis',array('uses'=>'ReportsController@analysis'));
 Route::get('manager/analysis/support-type',array('uses'=>'ReportsController@supportType'));
+Route::get('manager/analysis/support-type-limit',array('uses'=>'ReportsController@supportTypeLimit'));
+
 
 
 /*View profile*/
@@ -224,8 +260,8 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
  
 /*debug*/ 
  
-Route::get('debug/email',array('uses'=>'EmailController@test'));
-Route::post('debug/email',array('uses'=>'EmailController@postTest'));
+//Route::get('debug/email',array('uses'=>'EmailController@test'));
+//Route::post('debug/email',array('uses'=>'EmailController@postTest'));
 //Route::get('test/read',array('uses'=>'HomeController@test'));
 
 

@@ -31,8 +31,9 @@
                                         <th>Code</th>
                                         <th>Company</th>                                                                                
                                         <th>Amount</th>
-                                        <th>Total</th>
+                                        <th>Total</th>                                        
                                         <th>Create at</th>
+                                        <th>Status Expiry</th>
                                         <th></th>
                                        
                                     </tr>
@@ -48,6 +49,13 @@
                                         <td> {{$purchase->total}} </td>
                                         <td> {{$purchase->created_at}}</td>
                                         <td>
+                                            <?php
+                                               
+                                            
+                                            
+                                            ?>
+                                        </td>
+                                        <td>
                                             <div class="btn-group pull-left">
                                         <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
                                             <span class="caret"></span>
@@ -56,8 +64,7 @@
                                             <li><a class='btn-del' href="{{Request::root()}}/manager/purchases/{{$purchase->id}}"><i class="fa fa-trash-o"></i>{{trans('common.button.delete')}}</a>
                                             </li>
                                         </ul>
-                                    </div>
-
+                                             </div>
                                         </td>                                        
                                     </tr>
                                     @endforeach    

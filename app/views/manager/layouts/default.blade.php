@@ -11,7 +11,7 @@
     <link type="text/css"  rel="stylesheet" href="{{asset('asset/backend/assets/css/style.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('asset/backend/assets/css/loader-style.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('asset/backend/assets/css/bootstrap.css')}}">
-    <link type="text/css" rel="stylesheet" href="{{asset('asset/backend/assets/js/button/ladda/ladda.min.css')}}">
+<!--    <link type="text/css" rel="stylesheet" href="{{asset('asset/backend/assets/js/button/ladda/ladda.min.css')}}">-->
     <link type="text/css" rel="stylesheet" href="{{asset('asset/backend/assets/css/custom.css')}}">    
     <link rel="shortcut icon" href="{{asset('asset/backend/assets/ico/minus.png')}}">
 

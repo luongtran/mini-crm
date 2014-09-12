@@ -32,3 +32,12 @@
 	width: 100%;
 	height: 80px;
 }
+/*color text ck-editor*/ 
+    .cke_dialog_ui_input_text,cke_contents cke_reset
+    {
+        color:black;
+    }
+    .cke_reset_all textarea, .cke_reset_all input[type="text"]
+    {
+         color:black;  
+    }

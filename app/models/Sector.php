@@ -2,9 +2,7 @@
 
 class Sector extends \Eloquent {
     protected $table="sector";
-    
-    public function profile()
-        {
-            return $this->hasOne('Profile','sector_id');
-       }
+    protected $fillable = ['name','description'];
+    public static $rule = array('name'=>'required|min:2');            
+   
 }

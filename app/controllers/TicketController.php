@@ -107,7 +107,7 @@ class TicketController extends \BaseController {
                     /*send email to admin*/
                     $email = new EmailController();                    
                     $message = array(
-                    'text'=>Input::get('description').' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
+                    'text'=>Input::get('description').' </br> <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit link</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
                     'to_email'=>EmailController::EMAIL_ADMIN,
                     'to_name'=>'Admin',
@@ -123,9 +123,9 @@ class TicketController extends \BaseController {
                     );  
                     $email->manager_sendEmail($message);                    
                     
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Created ticket success'));
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                     return Redirect::to('client/tickets');
-                }
+                }			      
                 return Redirect::back()->withInput()->withErrors($validation);
 	}
 
@@ -172,10 +172,11 @@ class TicketController extends \BaseController {
                         ->with('list_comment',$list_comment)
                         ->with('attach',$attach)
                         ->with('news',$news)
-                        ->with('breadcrumb',$breadcrumb);
-                      
-                }else{
-                    return Redirect::to('client/customer/ticket');
+                        ->with('breadcrumb',$breadcrumb);                      
+                }
+		else
+		{
+                    return Redirect::to('client/tickets');
                 }
 
 	}

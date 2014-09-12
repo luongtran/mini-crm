@@ -17,9 +17,42 @@ class PurchasesController extends \BaseController {
                             ->groupBy('purchases.id')
                             ->orderBy('purchases.id','desc')
                             ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,count(purchase_detail.id)as amount,sum(purchase_products.cost)as total"))
-                            ->paginate(5);
-        
+                            ->paginate(5);        
                 $this->layout->content =  View::make('manager.purchases.index')->with('purchases',$purchases);
+                
+                /*
+                Check expiry product
+                var Create;
+                var Now;
+                var expiry;
+                
+                (Now[year] - Create[year] >0)
+                 {
+                   if(Now[month]>Create[month])
+                    {
+                       $total thang = ((Now[year]-Create[year])*12 + (Now[month] - Create[month]));
+                    }
+                    else
+                    {
+                       $total thang = (12 - Create[month]) + Now[month]; 
+                    }
+                 }
+                 else
+                 {
+                  var check Month = Now[month] - Create[month];
+                  if(Month > 6) Het  
+                  if(Month = 6) Het  
+                  {
+                    if(Now[date]>Create[create]) con han
+                    else het han
+                  }
+                  if(Month < 6) Het  
+                 }
+                  
+                 
+                 * 
+                 *                  
+                 */
 	}
 
 	/**
@@ -34,8 +67,9 @@ class PurchasesController extends \BaseController {
                           ['link'=>'manager/purchases','title'=>trans('title.form.invoice')],
 			              ['link'=>'manager/purchases#','title'=>trans('common.button.create')]
                          ];  
-		$customer = User::where('group_users',User::CUSTOMER)->join('profiles','profiles.user_id','=','users.id')
-					->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');				
+		$customer = User::where('group_users',User::CUSTOMER)
+                                    ->join('profiles','profiles.user_id','=','users.id')
+                                    ->select(DB::RAW('CONCAT(company_name,"-ID",users.id) as company_name,users.id as id'))->lists('company_name','id');				
 		$this->layout->content = View::make('manager.purchases.create',compact('breadcrumb','customer'));
 	}
 
@@ -46,12 +80,20 @@ class PurchasesController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
+	{          
 		$perchase = new Purchase();
 		$perchase->fill(Input::all());
-		$perchase->user_id = Auth::id();
-		$perchase->save();
-		$perchase->code = 'CRM'.$perchase->id.'-OTHER';
+                $perchase->user_id = Auth::id();               
+		$perchase->save();                 
+                if(Input::get('type_customer')==1)
+                {
+                 $perchase->code = 'CRM'.$perchase->id.'-CUSTOMER';      
+		 $perchase->customer_id = Input::get('customer_id');
+                }
+                else
+                {
+                 $perchase->code = 'CRM'.$perchase->id.'-OTHER';   
+                }		
 		$perchase->update();
 
 		$perchase_detail = new PurchaseDetail();
@@ -62,9 +104,7 @@ class PurchasesController extends \BaseController {
 		$perchase_detail->save();
 
 		/*Need use method send email to customer .........*/
-
-        Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
-             
+                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));             
 		return Redirect::to('manager/purchases');
 	}
 
@@ -128,8 +168,8 @@ class PurchasesController extends \BaseController {
 		$invoice = Purchase::find($id);
 		if($invoice)
 		{
-            Session::flash('msg_flash',  CommonHelper::print_msg('warning','Feature not active'));             
-			//$invoice->delete();
+                      Session::flash('msg_flash',  CommonHelper::print_msg('warning','Feature not sure active'));             
+		      $invoice->delete();
 		}
 		return Redirect::back();
 	}

@@ -50,7 +50,7 @@ class TicketsController extends \BaseController {
 	{
 		$support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
-                $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->lists('first_name','id');
+                $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,'-ID',id) as first_name,id"))->lists('first_name','id');
                 $assign_client = User::where('group_users','=',User::CUSTOMER)
                         ->join('profiles','profiles.user_id','=','users.id')->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');                               
         $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
@@ -70,11 +70,11 @@ class TicketsController extends \BaseController {
 	 */
 	public function store()
 	{
-                $validation = Validator::make(Input::all(),Ticket::$rule_client);
+                $validation = Validator::make(Input::all(),Ticket::$rule_server);
                 if($validation->passes()){
                     $ticket = new Ticket();
                     $ticket->fill(Input::all());                    
-                    $ticket->author_id = Auth::id();
+                    $ticket->author_id = Auth::id();                    
                     $ticket->client_id = Input::get('client_id');                    
                     $ticket->status = Ticket::S_NEW;                    
                     $ticket->save();           
@@ -91,7 +91,7 @@ class TicketsController extends \BaseController {
                                    ];
                             $send_msm->addMessage($data);
                     }                    
-                    $ticket->save();
+                    $ticket->update();
                     
                     /*add file*/
                     if(Input::file('file'))
@@ -106,7 +106,7 @@ class TicketsController extends \BaseController {
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::create;
                     $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firs_tname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
+                    $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
                     $activity->save();
                     
                     /*send mail to admin*/                                                           
@@ -127,7 +127,7 @@ class TicketsController extends \BaseController {
                     );
                     $email->manager_sendEmail($message);
                     /*end*/
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Created ticket success'));
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                     return Redirect::to('manager/tickets');
                 }
                 return Redirect::back()->withInput()->withErrors($validation);
@@ -210,17 +210,19 @@ class TicketsController extends \BaseController {
 	{
 		$ticket = Ticket::where('code',$id)->first();
 
-            if($ticket->server_id != Input::get('server_id')):               
-                /*save activity assign to staff*/ 
-                $activity = new TicketActivity();
-                $activity->ticket_id = $ticket->code;
-                $activity->event = TicketActivity::update;
-                $activity->author_id = Auth::id();                    
-                $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
-                $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
-                $activity->save();            
-                $ticket->server_id = Input::get('server_id');
-                $ticket->update();
+            if(Auth::user()->group_users == User::MANAGER):
+                if($ticket->server_id != Input::get('server_id')):               
+                    /*save activity assign to staff*/ 
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::update;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
+                    $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
+                    $activity->save();            
+                    $ticket->server_id = Input::get('server_id');
+                    $ticket->update();
+                endif;        
             endif;        
 
                 $ticket->support_type = Input::get('support_type');
@@ -301,18 +303,19 @@ class TicketsController extends \BaseController {
         public function addComment($id='')
 	{
             if($id!='')
-            {
-                $comment = new SupportTicket();
-                $comment->user_id = Auth::id();
-                $comment->ticket_id = $id;
+            {                
                 if(Input::get('content'))
                 {
+                /*save comment ticket*/    
+                    $comment = new SupportTicket();
+                    $comment->user_id = Auth::id();
+                    $comment->ticket_id = $id;
                     $comment->content = Input::get('content');
                     $comment->save();
-                
-                $ticket = Ticket::where('code','=',$id)->first();
-                $ticket->status = Ticket::S_INPROCESS;
-                $ticket->update();
+                /*change status ticket tot inprocess*/
+                    $ticket = Ticket::where('code','=',$id)->first();
+                    $ticket->status = Ticket::S_INPROCESS;
+                    $ticket->update();
                 
                 /*save activity*/                                                            
                     $activity = new TicketActivity();

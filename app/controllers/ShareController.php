@@ -97,9 +97,12 @@ class ShareController extends \BaseController {
 	 */
 	public function login()
 	{            
-           $input = array('email'=>Input::get('email'),'password'=>Input::get('password'),'activated'=>1);
+           $input = array('email'=>Input::get('email'),'password'=>Input::get('password'));
            $remeber = Input::get('remember');
            if(Auth::attempt($input,$remeber)){
+		   
+			  $input = array('email'=>Input::get('email'),'password'=>Input::get('password'),'activated'=>1);              
+              if(Auth::attempt($input)){
                                             
                $login = User::find(Auth::id());
                $login->ip = Request::getClientIp();               
@@ -125,15 +128,26 @@ class ShareController extends \BaseController {
                 return Redirect::to('client/tickets');        
                 }
                 else if(Auth::user()->group_users == User::STAFF){
-                return Redirect::to('manager/tickets');        
+                return Redirect::to('manager');        
                 }                
                 else if(Auth::user()->group_users == User::MANAGER){
                 return Redirect::to('manager');        
-                }        
+                }   
+
+			}
+			else
+			{				
+				Session::flash('msg_flash',  CommonHelper::print_msg('warning',trans('message.account_not_active')));
+				return Redirect::back();
+			}
                 
            }
-           Session::flash('msg_flash',  CommonHelper::print_msg('error','Email or password is false!'));
-           return Redirect::back()->withInput();           
+           else
+           {             
+              Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.login_valid')));
+              return Redirect::back()->withInput();  
+           }
+                    
 	}
   
   public function forgetPassword()

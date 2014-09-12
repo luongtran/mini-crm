@@ -47,16 +47,19 @@
                         </li>
                      
                         <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Customers">
+                            <a class="tooltip-tip ajax-load" href="#" title="{{trans('common.menu.customer')}}">
                                 <i class="icon icon-user-group"></i>
                                 <span>{{trans('common.menu.customer')}}</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customers/create" title="Customer add"><i class="icon icon-plus"></i><span>{{trans('common.menu.add')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customers/create" title="{{trans('common.menu.create')}}"><i class="icon icon-plus"></i><span>{{trans('common.menu.create')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customers" title="Customer list"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/customers" title="{{trans('common.menu.list')}}"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/sectors" title="{{trans('common.menu.sector')}}"><i class="icon icon-feed"></i><span>{{trans('common.menu.sector')}}</span></a>
                                 </li>
                             </ul>
                         </li>                        
@@ -67,67 +70,103 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/products/create" title="Article add"><i class="icon icon-plus"></i><span>{{trans('common.menu.add')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/products/create" title="{{trans('common.menu.create')}}"><i class="icon icon-plus"></i><span>{{trans('common.menu.create')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/products" title="Article list"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/products" title="{{trans('common.menu.list')}}"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/group-products" title="Article list"><i class="icon-view-list"></i><span>Group product</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/group-products" title="{{trans('common.menu.group')}}"><i class="icon icon-feed"></i><span>{{trans('common.menu.group')}}</span></a>
                                 </li>
                             </ul>
                         </li>
                         
                          <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Purchase">
+                            <a class="tooltip-tip ajax-load" href="{{Request::root('')}}/manager/purchases" title="{{trans('common.menu.invoice')}}">
                                 <i class="icon icon-message"></i>
                                 <span>{{trans('common.menu.invoice')}}</span>
                             </a>
-                            <ul>                              
+<!--                            <ul>                              
                                 <li>
                                     <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/purchases" title="Article list"><i class="icon-view-list"></i><span>List</span></a>
+                                </li>
+                            </ul>-->
+                        </li>
+                        
+                        <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="{{trans('common.menu.ticket')}}">
+                                <i class="fontawesome-medkit"></i>
+                                <span>{{trans('common.menu.ticket')}}</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/tickets/create" title="{{trans('common.menu.create')}}"><i class="icon icon-plus"></i><span>{{trans('common.menu.create')}}</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/tickets" title="{{trans('common.menu.list')}}"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/support-type" title="{{trans('common.menu.support_type')}}"><i class="icon icon-feed"></i>{{trans('common.menu.support_type')}}</span></a>                                    
+                                </li>
+
+                            </ul>
+                        </li>
+                        
+                       <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="{{trans('common.menu.faq')}}">
+                               <i class="icon icon-question"></i>
+                                <span>{{trans('common.menu.faq')}}</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa/create" title="{{trans('common.menu.create')}}"><i class="icon icon-plus"></i><span>{{trans('common.menu.create')}}</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa" title="{{trans('common.menu.list')}}"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa-category" title="{{trans('common.menu.group')}}"><i class="icon icon-feed"></i><span>{{trans('common.menu.group')}}</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                          
+                       <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="{{trans('common.menu.news')}}">
+                                <i class="fontawesome-medkit"></i>
+                                <span>{{trans('common.menu.news')}}</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/news/create" title="{{trans('common.menu.create')}}"><i class="icon icon-plus"></i><span>{{trans('common.menu.create')}}</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/news" title="{{trans('common.menu.list')}}"><i class="icon-view-list"></i><span>{{trans('common.menu.list')}}</span></a>
+                                </li>
+                                 <li>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/news-category" title="{{trans('common.menu.group')}}"><i class="icon icon-feed"></i><span>{{trans('common.menu.group')}}</span></a>
                                 </li>
                             </ul>
                         </li>
                         
-                        <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Report">
+                         <li>
+                            <a class="tooltip-tip ajax-load" href="#" title="{{trans('common.menu.report_analysis')}}">
                                 <i class="icon icon-graph-pie"></i>
                                 <span>{{trans('common.menu.report_analysis')}}</span>
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="#" title="Article add"><i class="entypo-chart-bar"></i><span>{{trans('common.menu.report')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="#" title="{{trans('common.menu.report')}}"><i class="entypo-chart-bar"></i><span>{{trans('common.menu.report')}}</span></a>
                                          <ul>                              
                                             <li>
-                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/ticket" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.ticket')}}</span></a>
+                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/ticket" title="{{trans('common.menu.ticket')}}"><i class="icon icon-tag"></i><span>{{trans('common.menu.ticket')}}</span></a>
                                             </li>
                                              <li>
-                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/staff" title="Article list"><i class="icon icon-tag"></i><span>{{trans('common.menu.staff')}}</span></a>
+                                                <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/reports/staff" title="{{trans('common.menu.staff')}}"><i class="icon icon-tag"></i><span>{{trans('common.menu.staff')}}</span></a>
                                             </li>
                                         </ul>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}//manager/analysis/" title="Article list"><i class="entypo-chart-area"></i><span>{{trans('common.menu.analysis')}}</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        
-                       <li>
-                            <a class="tooltip-tip ajax-load" href="#" title="Support">
-                                <i class="fontawesome-medkit"></i>
-                                <span>{{trans('common.menu.support')}}</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/tickets" title="Article list"><i class="icon-view-list"></i><span>{{trans('common.menu.ticket')}}</span></a>
-                                </li>
-                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/fqa" title="Article list"><i class="icon icon-question"></i><span>{{trans('common.menu.faq')}}</span></a>
-                                </li>
-                                 <li>
-                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/news" title="Article list"><i class="icon icon-feed"></i><span>{{trans('common.menu.news')}}</span></a>
+                                    <a class="tooltip-tip2 ajax-load" href="{{Request::root('')}}/manager/analysis/" title="Article list"><i class="entypo-chart-area"></i><span>{{trans('common.menu.analysis')}}</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -148,14 +187,14 @@
                             </a>
                         </li>                      
                         <li>
-                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/users" title="Users"><i class="icon icon-user"></i><span>{{trans('common.menu.user')}}</span></a>                              
+                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/users" title="{{trans('common.menu.user')}}"><i class="icon icon-user"></i><span>{{trans('common.menu.user')}}</span></a>                              
                         </li>
                           <li>
-                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/languages" title="Language"><i class="entypo-export"></i><span>{{trans('common.menu.language')}}</span></a>
+                           <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/languages" title="{{trans('common.menu.language')}}"><i class="entypo-export"></i><span>{{trans('common.menu.language')}}</span></a>
                               
                         </li>
                         <li>
-                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/setting" title="Setting"><i class="entypo-layout"></i><span>{{trans('common.menu.setting')}}</span></a>                                
+                            <a class="tooltip-tip2 ajax-load" href="{{Request::root()}}/manager/setting" title="{{trans('common.menu.setting')}}"><i class="entypo-layout"></i><span>{{trans('common.menu.setting')}}</span></a>                                
                         </li>                      
                     </ul>
                  @endif

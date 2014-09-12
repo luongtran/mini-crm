@@ -32,7 +32,7 @@
                             </button>
                              <ul role="menu" class="dropdown-menu">
                                                 <li> 
-                                                    <span class="entypo-plus-circled margin-iconic">{{trans('title.other.group_user')}}</span>
+                                                    <span class="entypo-plus-circled margin-iconic">{{trans('title.other.fillter_group_user')}}</span>
                                                 </li>
                                                 <?php  $group_users = GroupUser::all();?>
                                                 @if($group_users)
@@ -44,7 +44,7 @@
                                                     @endforeach
                                                 @endif
                                                  <li> 
-                                                    <span class="entypo-plus-circled margin-iconic">{{trans('title.other.other')}}</span>
+                                                    <span class="entypo-plus-circled margin-iconic">{{trans('title.other.fillter_other')}}</span>
                                                 </li>
                                                  <li> 
                                                     <a href="{{Request::root()}}/manager/users/filter?field_filter=trash">

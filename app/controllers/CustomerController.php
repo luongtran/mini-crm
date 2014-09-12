@@ -12,11 +12,14 @@ class CustomerController extends \BaseController {
 	{
           Session::flash('msg_flash','Welcome to CRM '); 
           $new = News::where('category_id',1)->orderBy('id','desc')->first();
+		  if($new)
+		  {
           $listNew = News::where('category_id',1)
           						->where('id','<>',$new->id)
           						->orderBy('id','desc')
           						->paginate(10);
           $this->layout->content = View::make('client.customer.index')->with('new',$new)->with('listNew',$listNew);  
+		  }
 	}
 
 	/**
@@ -28,7 +31,8 @@ class CustomerController extends \BaseController {
 	public function create()
 	{
 		//return View::make('client.customer.create');
-		return View::make('home.start');
+		$sector = Sector::all()->lists('name','id');		
+		return View::make('home.start')->with('sector',$sector);
 	}
 
 	/**
@@ -43,9 +47,10 @@ class CustomerController extends \BaseController {
                     'password'=>'required|confirmed|min:6',
                     'password_confirmation'=>'required|min:6',
                     'employee_count'=>'required|numeric|min:1',
-                    'company_name'=>'required|min:3',
+                    'company_name'=>'required|min:3|max:100|unique:profiles',
                     'phone_number'=>'required',
                     'contact_employee_company'=>'required|min:6',
+                    'sector_id'=>'required'
                     ];
             $validation = Validator::make(Input::all(),$rule);            
             if($validation->passes())
@@ -56,14 +61,28 @@ class CustomerController extends \BaseController {
                $customer->activated = 0;
                $customer->group_users = User::CUSTOMER;
                $customer->code_forget = md5(Input::get('email'));
-               $customer->first_name = Input::get('contact_employee_company');
-               $customer->last_name = 'MR/MS';
+               /*split name default*/
+               $fullname = Input::get('contact_employee_company');
+               $cut_name = explode(" ", $fullname);
+               $count_array = count($cut_name);     
+               
+               $customer->first_name = $cut_name[0];
+               if($count_array>1)
+               {                      
+                   $customer->last_name = $cut_name[1];
+                   if($count_array==3)
+                   {
+                    $customer->last_name = $cut_name[1]." ".$cut_name[2];   
+                   }
+               }
+               /*end split*/               
                $customer->ip = Request::getClientIp();
                $customer->save();
                
                $profile = new Profile();
                $profile->fill(Input::all());
-               $profile->user_id = $customer->id;               
+               $profile->user_id = $customer->id;  
+               $profile->sector_id = Input::get('sector_id');  
                $profile->save();
                
                /*send email*/
@@ -76,7 +95,7 @@ class CustomerController extends \BaseController {
                    'to_name'=>Input::get('company_name'),
                );
                $email->manager_sendEmail($data);               
-               Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
+               Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create_account')));
                return Redirect::to('/page/message');
             } 
             Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
