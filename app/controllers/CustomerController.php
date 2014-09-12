@@ -28,7 +28,8 @@ class CustomerController extends \BaseController {
 	public function create()
 	{
 		//return View::make('client.customer.create');
-		return View::make('home.start');
+		$sector = Sector::all()->lists('name','id');		
+		return View::make('home.start')->with('sector',$sector);
 	}
 
 	/**
@@ -46,6 +47,7 @@ class CustomerController extends \BaseController {
                     'company_name'=>'required|min:3',
                     'phone_number'=>'required',
                     'contact_employee_company'=>'required|min:6',
+                    'sector_id'=>'required'
                     ];
             $validation = Validator::make(Input::all(),$rule);            
             if($validation->passes())
@@ -56,14 +58,19 @@ class CustomerController extends \BaseController {
                $customer->activated = 0;
                $customer->group_users = User::CUSTOMER;
                $customer->code_forget = md5(Input::get('email'));
-               $customer->first_name = Input::get('contact_employee_company');
-               $customer->last_name = 'MR/MS';
+               /*split name default*/
+               $fullname = Input::get('contact_employee_company');
+               $cut_name = explode(" ", $fullname);
+               /*end split*/
+               $customer->first_name = $cut_name[0];
+               $customer->last_name = $cut_name[1];
                $customer->ip = Request::getClientIp();
                $customer->save();
                
                $profile = new Profile();
                $profile->fill(Input::all());
-               $profile->user_id = $customer->id;               
+               $profile->user_id = $customer->id;  
+               $profile->sector_id = Input::get('sector_id');  
                $profile->save();
                
                /*send email*/
@@ -76,7 +83,7 @@ class CustomerController extends \BaseController {
                    'to_name'=>Input::get('company_name'),
                );
                $email->manager_sendEmail($data);               
-               Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
+               Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create_account')));
                return Redirect::to('/page/message');
             } 
             Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));

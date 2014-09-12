@@ -28,8 +28,19 @@ Route::get('/manager', function()
 Route::get('/crm-login',function(){
 	if(Auth::check())
 	{
-	   Session::flash('msg_flash',CommonHelper::print_msg('error','You have login'));	
-     return Redirect::to('');
+	             /*check permission*/
+               if(Auth::user()->group_users == User::EMPLOYEE){
+                return Redirect::to('client/tickets');    
+                }
+                else if(Auth::user()->group_users == User::CUSTOMER){
+                return Redirect::to('client/tickets');        
+                }
+                else if(Auth::user()->group_users == User::STAFF){
+                return Redirect::to('manager/tickets');        
+                }                
+                else if(Auth::user()->group_users == User::MANAGER){
+                return Redirect::to('manager');        
+                }    
 	}
 	else
     {    
@@ -224,8 +235,8 @@ Route::get('client/invoice/show/{id}', array('uses'=>'CustomerController@showInv
  
 /*debug*/ 
  
-Route::get('debug/email',array('uses'=>'EmailController@test'));
-Route::post('debug/email',array('uses'=>'EmailController@postTest'));
+//Route::get('debug/email',array('uses'=>'EmailController@test'));
+//Route::post('debug/email',array('uses'=>'EmailController@postTest'));
 //Route::get('test/read',array('uses'=>'HomeController@test'));
 
 

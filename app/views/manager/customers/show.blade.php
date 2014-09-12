@@ -72,13 +72,19 @@
 
                                     <dl class="dl-horizontal-profile">
                                         <dt>{{trans('title.form.customer_id')}}</dt>
-                                        <dd>{{$profile->id}}</dd>
-                                        
+                                        <dd>{{$profile->id}}</dd>                                        
                                         <dt>{{trans('title.form.contact_employee_company')}}</dt>
                                         <dd>{{$profile->profile->contact_employee_company}}</dd>
                                         
                                         <dt>{{trans('title.table.email')}}</dt>
                                         <dd>{{$profile->email}}</dd>
+
+                                        <dt>{{trans('title.table.first_name')}}</dt>
+                                        <dd>{{$profile->first_name}}</dd>
+
+                                        <dt>{{trans('title.table.last_name')}}</dt>
+                                        <dd>{{$profile->last_name}}</dd>
+
 
                                         <dt>{{trans('title.table.phone_number')}}</dt>
                                         <dd>{{$profile->profile->phone_number}}</dd>

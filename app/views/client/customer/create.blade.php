@@ -67,6 +67,12 @@
                                  {{Form::text('contact_employee_company',Input::old('contact_employee_company'),array('class' => 'form-control','placeholder'=>'Enter name employee contact','required'))}}  
                                      <span class="alert-danger">{{$errors->first('contact_employee_company')}}</span>
                             </div>
+
+                            <div class="form-group">                               
+                                <label for="">{{trans('common.table.sector')}}</label>
+                                 {{Form::select('sector_id',$sector,Input::old('sector_id'),array('class' => 'form-control','placeholder'=>'Enter name employee contact','required'))}}  
+                                     <span class="alert-danger">{{$errors->first('sector_id')}}</span>
+                            </div>
                                                         
                             <div class="form-group">                               
                                 <label for="">Email</label>

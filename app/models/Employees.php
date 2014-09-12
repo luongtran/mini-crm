@@ -14,6 +14,8 @@ class Employees extends \Eloquent {
                       'password'=>'confirmed|min:6',
                       'first_name'=>'required|min:3',
                       'last_name'=>'required|min:3',
-                      'phone_number'=>'numeric|min:0'
+                      'phone_number'=>'numeric|min:0',
+                      'avatar'=>'image'
+
             );
 }

@@ -131,15 +131,11 @@
                                         <!-- left column -->
                                         <div class="col-md-3">
                                             <div class="text-center">
-
-                                                <img alt="avatar" class="avatar img-circle" src="" width="200">                                               
-
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <span class="btn btn-primary btn-file">
-                                                            {{Former::file('avatar')}}
-                                                        </span>
-                                                    </span>                                                 
+                                                @if($profile->avatar)    
+                                                <img alt="avatar" class="avatar img-circle" src="{{asset($profile->avatar)}}" width="200">                                              
+                                                @endif
+                                                <div class="input-group">                                                  
+                                                            {{Former::file('avatar')}}       
                                                 </div>
 
                                             </div>
@@ -159,12 +155,7 @@
                                                       {{Former::text('last_name')}}                                                         
                                                     </div>
                                                 </div>
-                                             
-                                                <div class="form-group">                                                 
-                                                    <div class="col-lg-8">
-                                                      {{Former::text('email')->disable()}}                             
-                                                    </div>
-                                                </div>
+                                                                                           
                                                 <div class="form-group">                                                   
                                                     <div class="col-lg-8">
                                                       {{Former::text('phone_number')->value($profile->profile->phone_number)}}

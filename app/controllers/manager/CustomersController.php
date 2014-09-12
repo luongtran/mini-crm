@@ -229,7 +229,7 @@ class  CustomersController extends \BaseController {
                     Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.trash')));          
                     return Redirect::to('manager/customers');
                 }                                
-                Session::flash('msg_flash', CommonHelper::print_msg('error','Can not delete this customer, have relationship table employee'));
+                Session::flash('msg_flash', CommonHelper::print_msg('error',trans('message.exist_relationship',array('name'=>'customer','with_name'=>'employee'))));
                 return Redirect::to('manager/customers');
 	}
         

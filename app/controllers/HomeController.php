@@ -54,9 +54,9 @@ class HomeController extends BaseController {
 			'to_name'=>'Admin',
 			);		
 		if($email->manager_sendEmail($data))		
-			Session::flash('msg_flash','Contact successfully');
+			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.contact_success')));
 		else
-			Session::flash('msg_flash','Contact have error');
+			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.contact_error')));
 
 		return Redirect::to('page/message');
 	    }

@@ -224,7 +224,7 @@ class UsersController extends BaseController {
             }
             else
             {
-                Session::flash('msg_flash', CommonHelper::print_msg('warning',"You can't delete this record ".$id));
+                Session::flash('msg_flash', CommonHelper::print_msg('warning',trans('not_delete',array('name'=>$id))));
             }
             return Redirect::route('manager.users.index');
 	}
@@ -233,7 +233,7 @@ class UsersController extends BaseController {
             $user = User::find($id);
             $user->$feild = $value;
             $user->update();            
-            Session::flash('msg_flash', CommonHelper::print_msg('success','Changed status'));
+            Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.change')));
         }
 
         public function action()
@@ -285,7 +285,7 @@ class UsersController extends BaseController {
                 return Redirect::to('manager/users');
            }
           else{                
-                Session::flash('msg_flash', CommonHelper::print_msg('warning','Please choose users'));
+                Session::flash('msg_flash', CommonHelper::print_msg('warning',trans('message.not_choose')));
                 return Redirect::back()->withInput();     
           }
         }

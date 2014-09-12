@@ -132,8 +132,20 @@ class ShareController extends \BaseController {
                 }        
                 
            }
-           Session::flash('msg_flash',  CommonHelper::print_msg('error','Email or password is false!'));
-           return Redirect::back()->withInput();           
+           else
+           {
+              $input = array('email'=>Input::get('email'),'password'=>Input::get('password'));              
+              if(Auth::attempt($input)){
+               Session::flash('msg_flash',  CommonHelper::print_msg('warning',trans('message.account_not_active')));
+              }
+              else
+              {
+                Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.login_valid')));
+              }
+
+              return Redirect::back()->withInput();  
+           }
+                    
 	}
   
   public function forgetPassword()

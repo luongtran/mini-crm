@@ -67,7 +67,7 @@ class EmployeeController extends \BaseController {
                     );     
                 if($email->manager_sendEmail($message))
                 {
-                Session::flash('msg_flash',  CommonHelper::print_msg('success','Created success'));
+                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                 }
                 
                return Redirect::to('client/employee');
@@ -127,7 +127,21 @@ class EmployeeController extends \BaseController {
                         $employee->password = Hash::make(Input::get('password'));
                     }
                     $employee->update();
-                 
+                    
+                    /*check avatar*/
+                            if(Input::file('avatar')){                                
+                                $image = new  ImagesController();
+                                $upload = Upload::where('user_id','=',$employee->id)->first();
+                                if($upload)
+                                {
+                                   $image->destroy($upload->id);                                  
+                                }
+                                $path = "asset/share/uploads/images/personal";      
+                                $employee->avatar = $image->store(Input::file('avatar'), $path, 'image', $employee->id);                                
+                                $employee->update();
+                            }
+                    /*update avatar*/    
+
                     $check = Profile::where('user_id','=',$id)->first();
                     if($check){
                         $profile = Profile::find($check->id);
@@ -141,10 +155,10 @@ class EmployeeController extends \BaseController {
                         $profile->save();                        
                     }
                     
-                     Session::flash('msg_flash', CommonHelper::print_msg('success','Updated success'));
+                     Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.update')));
                      return Redirect::to('client/employee');
                 }
-                Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter full fields success'));
+                Session::flash('msg_flash', CommonHelper::print_msg('error',trans('message.required_fields')));
                 return Redirect::back()->withInput()->withErrors($validation);
                 
 	}

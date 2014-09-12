@@ -26,5 +26,12 @@ return array(
         'error_config_email'=>'Fix problems with setup email, please contact the admin be support',
         'success_race'=>'Thank for you have race from service of us',
         'error_delete'=>"You cant'n delete this record",
-        'not_permission'=>"You haven't permission!"
+        'not_permission'=>"You haven't permission!",
+        'create_account'=>'You have been created successfully, please check email and active my account!',
+        'not_choose'=>'Please choose a record',
+        'not_delete'=>"You can't delete this record :name",
+        'login_valid'=>'Username or password is false',
+        'account_not_active'=>"My account haven't active, please check email or contact admin!",
+		'contact_success'=>'Contact successfully, please wait a minute !',
+		'contact_error'=>'Contact fail!',
 );

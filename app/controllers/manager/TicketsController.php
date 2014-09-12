@@ -50,7 +50,7 @@ class TicketsController extends \BaseController {
 	{
 		$support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
-                $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->lists('first_name','id');
+                $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,'-ID',id) as first_name,id"))->lists('first_name','id');
                 $assign_client = User::where('group_users','=',User::CUSTOMER)
                         ->join('profiles','profiles.user_id','=','users.id')->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');                               
         $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
@@ -210,17 +210,19 @@ class TicketsController extends \BaseController {
 	{
 		$ticket = Ticket::where('code',$id)->first();
 
-            if($ticket->server_id != Input::get('server_id')):               
-                /*save activity assign to staff*/ 
-                $activity = new TicketActivity();
-                $activity->ticket_id = $ticket->code;
-                $activity->event = TicketActivity::update;
-                $activity->author_id = Auth::id();                    
-                $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
-                $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
-                $activity->save();            
-                $ticket->server_id = Input::get('server_id');
-                $ticket->update();
+            if(Auth::user()->group_users == User::MANAGER):
+                if($ticket->server_id != Input::get('server_id')):               
+                    /*save activity assign to staff*/ 
+                    $activity = new TicketActivity();
+                    $activity->ticket_id = $ticket->code;
+                    $activity->event = TicketActivity::update;
+                    $activity->author_id = Auth::id();                    
+                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
+                    $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
+                    $activity->save();            
+                    $ticket->server_id = Input::get('server_id');
+                    $ticket->update();
+                endif;        
             endif;        
 
                 $ticket->support_type = Input::get('support_type');
