@@ -12,11 +12,14 @@ class CustomerController extends \BaseController {
 	{
           Session::flash('msg_flash','Welcome to CRM '); 
           $new = News::where('category_id',1)->orderBy('id','desc')->first();
+		  if($new)
+		  {
           $listNew = News::where('category_id',1)
           						->where('id','<>',$new->id)
           						->orderBy('id','desc')
           						->paginate(10);
           $this->layout->content = View::make('client.customer.index')->with('new',$new)->with('listNew',$listNew);  
+		  }
 	}
 
 	/**
@@ -44,7 +47,7 @@ class CustomerController extends \BaseController {
                     'password'=>'required|confirmed|min:6',
                     'password_confirmation'=>'required|min:6',
                     'employee_count'=>'required|numeric|min:1',
-                    'company_name'=>'required|min:3',
+                    'company_name'=>'required|min:3|max:100|unique:profiles',
                     'phone_number'=>'required',
                     'contact_employee_company'=>'required|min:6',
                     'sector_id'=>'required'
@@ -61,9 +64,18 @@ class CustomerController extends \BaseController {
                /*split name default*/
                $fullname = Input::get('contact_employee_company');
                $cut_name = explode(" ", $fullname);
-               /*end split*/
+               $count_array = count($cut_name);     
+               
                $customer->first_name = $cut_name[0];
-               $customer->last_name = $cut_name[1];
+               if($count_array>1)
+               {                      
+                   $customer->last_name = $cut_name[1];
+                   if($count_array==3)
+                   {
+                    $customer->last_name = $cut_name[1]." ".$cut_name[2];   
+                   }
+               }
+               /*end split*/               
                $customer->ip = Request::getClientIp();
                $customer->save();
                

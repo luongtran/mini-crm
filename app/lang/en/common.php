@@ -55,7 +55,13 @@ return array(
             'invoice'=>'Invoice',
             'knowledge_base'=>'Knowledge Base',
             'resource'=>'Resource',
-            'staff'=>'Staff'
+            'staff'=>'Staff',
+            'sector'=>'Sector',
+            'create'=>'Create',
+            'group'=>'Group',
+            'support_type'=>'Support type',
+            'priority'=>'Priority',
+            
             ],
 
 );

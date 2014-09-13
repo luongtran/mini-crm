@@ -31,13 +31,14 @@ class SettingsController extends \BaseController {
                 array('name'=>'host_encryption','title'=>'Email Encryption','value'=>'','order'=>'6'),
                 array('name'=>'host_username','title'=>'Email Username','value'=>'','order'=>'7'),
                 array('name'=>'host_password','title'=>'Email Password','value'=>'','order'=>'8'),
-                array('name'=>'email_contact' ,'title'=>'E-mail contact','value'=>'','order'=>'9'),
-                array('name'=>'address','title'=>'Address','value'=>'','order'=>'10'),
-                array('name'=>'phone','title'=>'Phone','value'=>'','order'=>'11'),
-                array('name'=>'facebook','title'=>'Facebook','value'=>'','order'=>'12'),
-                array('name'=>'twitter','title'=>'Twitter','value'=>'','order'=>'13'),
-                array('name'=>'google','title'=>'Google','value'=>'','order'=>'14'),
-                array('name'=>'google_map','title'=>'Google Map','value'=>'','order'=>'15'),
+                array('name'=>'host_email_admin','title'=>'Email Admin','value'=>'','order'=>'9'),
+                array('name'=>'email_contact' ,'title'=>'E-mail contact','value'=>'','order'=>'10'),
+                array('name'=>'address','title'=>'Address','value'=>'','order'=>'11'),
+                array('name'=>'phone','title'=>'Phone','value'=>'','order'=>'12'),
+                array('name'=>'facebook','title'=>'Facebook','value'=>'','order'=>'13'),
+                array('name'=>'twitter','title'=>'Twitter','value'=>'','order'=>'14'),
+                array('name'=>'google','title'=>'Google','value'=>'','order'=>'15'),
+                array('name'=>'google_map','title'=>'Google Map','value'=>'','order'=>'16'),
             ));
           return Redirect::to('manager/setting'); 
 	}
@@ -53,22 +54,28 @@ class SettingsController extends \BaseController {
 		$ruler = array(
 			'site_name'=>'required',
 			'host_port'=>'numeric',
-			'email_contact'=>'email'
+			'email_contact'=>'email',
+                        'host_email_admin'=>'email',
 			);
 
 		$validation = Validator::make(Input::all(),$ruler);
 		if($validation->passes())
 		{
 			$getInput=Input::all(); 
-           foreach($getInput as $k=>$v)
-           {
-            DB::table('setting')
-            ->where('name',$k)
-            ->update(array('value' => $v));
-           }
-           return CommonHelper::print_msg('success',trans('message.update'));		
-		}		
-		return CommonHelper::print_msgs('error',$validation->messages());		
+                        foreach($getInput as $k=>$v)
+                        {
+                         DB::table('setting')
+                         ->where('name',$k)
+                         ->update(array('value' => $v));
+                        }
+                    $result = array('status'=>'success','result'=>CommonHelper::print_msg('success',trans('message.update')));
+                    return $result;		
+		}
+                else
+                {
+                $result = array('status'=>'error','result'=>CommonHelper::print_msgs('error',$validation->messages()));
+		return $result;		
+                }
 	}
 
 	/**

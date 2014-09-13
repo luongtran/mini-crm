@@ -63,7 +63,7 @@ class CommonHelper {
     public static function removeXSS($str)
     {
         $result="";
-        $vowels = array("<script>");        
+        $vowels = array("<script>","</script>");        
         $result = str_replace($vowels, "", $str);
         return $result;
     }

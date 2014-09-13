@@ -1,6 +1,6 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('asset/backend/assets/css/social.css')}}">
-<script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}"></script>
       <!-- CONTENT -->
             <!--TITLE -->
                   @include('client.ticket.title')         

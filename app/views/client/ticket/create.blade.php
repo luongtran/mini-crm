@@ -1,5 +1,5 @@
 @section('content')
-<script src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}"></script>
 <!-- CONTENT -->
             <!--TITLE -->
             @include('client.ticket.title')         
@@ -9,7 +9,8 @@
             <!-- END OF BREADCRUMB -->     
 <div class='row'>
     <div class="col-lg-12">
-        <div class="panel panel-default">
+	    {{Session::get('msg_flash')}}
+        <div class="panel panel-success">
             <div class="panel panel-heading">
                {{trans('common.menu.new_ticket')}}
             </div>

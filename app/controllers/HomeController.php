@@ -50,16 +50,16 @@ class HomeController extends BaseController {
 		$data = array(
 			'subject'=>'Client contact from crm'.rand(1000,9999),
 			'text'=>'<p>From email:'.Input::get('email').'</p><div>'.Input::get('message').'</br>',
-			'to_email'=>EmailController::EMAIL_ADMIN,
-			'to_name'=>'Admin',
+			'to_email'=>EmailController::getEmailAdmin(),
+			'to_name'=>'Customer - CRM ',
 			);		
 		if($email->manager_sendEmail($data))		
-			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.contact_success')));
+		Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.contact_success')));
 		else
-			Session::flash('msg_flash',CommonHelper::print_msg('success',trans('message.contact_error')));
+		Session::flash('msg_flash',CommonHelper::print_msg('error',trans('message.contact_error')));
 
 		return Redirect::to('page/message');
-	    }
+	       }
 	    return Redirect::back()->withInput()->withErrors($validation);
 	}
 

@@ -94,15 +94,17 @@ class RacesController extends \BaseController {
           }
 
           $message = new MessagesController();
-          $staff = DB::table('tickets')->where('tickets.code','=',$id)->join('users','users.id','=','tickets.server_id')->select('users.id')->first();
-          $msg = ['title'=>'Racing for me from ticket'.$id,
-                            'content'=> '<p>Customer have race for you with level <b>'.Input::get('level_comment').'</b> <h3>'.Input::get('content').'</h3>',
-                            'type'=>'race',
-                            'assign_to'=>$staff->id
-                ];   
-          $message->addMessage($msg);      
-          
-          Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.success_race')));
+          $staff = DB::table('tickets')->where('tickets.code','=',$id)->join('users','users.id','=','tickets.server_id')->select('users.id')->first();                    
+          if($staff!=null)
+          {                        
+            $msg = ['title'=>'Racing for me from ticket'.$id,
+                              'content'=> '<p>Customer have race for you with level <b>'.Input::get('level_comment').'</b> <h3>'.Input::get('content').'</h3>',
+                              'type'=>'race',
+                              'assign_to'=>$staff->id
+                  ];   
+            $message->addMessage($msg);      
+            Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.success_race')));
+          }          
           return Redirect::to('client/tickets');
           
         }

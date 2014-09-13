@@ -14,6 +14,7 @@ return array(
 		'product'=>'Product',
 		'invoice'=>'Invoice',
 		'create_user'=>'Create user',
+                'edit_user'=>'Edit user',
 		'show_user'=>'Show user',
 		'show'=>'Show',
 		'index'=>'Index',
@@ -35,7 +36,10 @@ return array(
 		'primary'=>'Primary',
 		'profile'=>'Profile',
 		'group_product'=>'Group product',
-		'activity'=>'Activity'
+		'activity'=>'Activity',
+                'news_category'=>'News Category',
+                'setting'=>'Setting',
+            
 
 
 	),
@@ -43,6 +47,8 @@ return array(
 		'group_user'=>'Group User',
 		'other'=>'Other',
 		'order_ticket'=>'Order ticket',
+                'fillter_group_user'=>'Fillter <b>Group User</b>',
+		'fillter_other'=>'Fillter <b>Other</b>',
 	),
 	'table'=>array(
 		'name'=>'Name',

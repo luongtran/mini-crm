@@ -46,9 +46,16 @@ function edit()
 		url: myform.attr('action'),
 		type: myform.attr('method'),
 		data: myform.serialize(),
-		success:function(data){			
+		success:function(data){	
+                    if(data.status=='success'){
 			loadSetting();
-			$("#load-message").html(data);
+                        $("#load-message").html(data.result);
+                     }
+                     else
+                     {
+                        $("#load-message").html(data.result); 
+                     }
+			
 		},
 		error: function (xhr, ajaxOptions, thrownError){
         	alert(xhr.status);

@@ -48,7 +48,12 @@
              {{$at->title}}  <a href="{{url('manager/tickets/'.$at->ticket_id)}}">{{$at->ticket_id}}</a>   </h4>
 
             <div class="timeline-body">
+                @if($at->event == TicketActivity::reply)
+                {{str_limit($at->content,8)}}  
+                @else
                 {{str_limit($at->content,100)}}  
+                @endif
+                
             </div>
 
 </div>

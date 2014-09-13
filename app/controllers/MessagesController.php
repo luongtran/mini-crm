@@ -28,7 +28,7 @@ class MessagesController extends \BaseController {
             	if((Auth::user()->group_users == User::MANAGER)||(Auth::user()->group_users == User::STAFF))
                	return View::make('share.message.index')->with('messages',$message);    
                	else
-     			return View::make('share.message.index_client')->with('messages',$message);            
+     		return View::make('share.message.index_client')->with('messages',$message);            
             }  
     }   
 

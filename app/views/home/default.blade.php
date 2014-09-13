@@ -36,6 +36,13 @@
                                     <li><a href="{{Request::root()}}/page/about">ABOUT</a></li>                                    
                                     <li><a href="{{Request::root()}}/#link_faq">FAQ</a></li>
                                     <li><a href="{{Request::root()}}/page/contact">CONTACT</a></li>
+                                    @if(Auth::check())
+                                        @if(Auth::user()->group_users == User::MANAGER || Auth::user()->group_users == User::STAFF)
+                                        <li><a href="{{Request::root()}}/manager">BACKEND</a></li>
+                                        @else
+                                        <li><a href="{{Request::root()}}/client">BACKEND</a></li>
+                                        @endif
+                                    @endif
                                 </ul>
                                 <form class="navbar-form pull-left">
                                     @if(Auth::check())

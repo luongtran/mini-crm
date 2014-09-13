@@ -82,7 +82,7 @@
 {{Session::get('msg_flash')}}
 <div class="row">
 <div class="col-sm-8">
-    <div class="panel panel-default">
+    <div class="panel panel-success">
 
             <div class="panel-heading">    
                 Info working at <b>{{$view->profile->company_name}}</b>
@@ -159,7 +159,7 @@
     </div>
 </div>
 <div class="col-sm-4"> 
-        <div class="panel panel-defautl">
+        <div class="panel panel-success">
             
             <div class="panel-heading">    
               Change password

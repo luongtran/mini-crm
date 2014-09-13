@@ -10,13 +10,21 @@ class ReportsController extends BaseController {
 	 */
 	public function index()
 	{
+            $getDay =  getdate();
+            $getMonth_From = $getDay['mon'];          
+            
+           
 		        $rp_total =  DB::table('tickets')							
-		        						->join('status','status.id','=','tickets.status')																										
-										->groupBy('tickets.status')												
-										->select(DB::raw('status.name as label,count(tickets.status) as y'))
-										->get();
+		        						->join('status','status.id','=','tickets.status')
+                                                                        ->where(DB::raw('month(tickets.created_at)'),'>=',$getMonth_From-1)			 
+                                                                        ->where(DB::raw('month(tickets.created_at)'),'<=',$getMonth_From)			 
+									->groupBy('tickets.status')												
+									->select(DB::raw('status.name as label,count(tickets.status) as y'))
+									->get();
+                      
 									
-				$rp_month= DB::table('tickets')						 	
+				$rp_month= DB::table('tickets')			->where(DB::raw('month(tickets.created_at)'),'>=',$getMonth_From-1)			 
+                                                                                ->where(DB::raw('month(tickets.created_at)'),'<=',$getMonth_From)			 	
 										->groupBy(DB::raw('month(created_at)'))		
 										->groupBy(DB::raw('year(created_at)'))																									
 										->orderBy('year','asc')	
@@ -24,7 +32,9 @@ class ReportsController extends BaseController {
 										->select(DB::raw('month(created_at) as month ,year(created_at) year,count(tickets.code) as total'))
 										->get();	
 				$rp_status= DB::table('tickets')						 	
-										->join('status','status.id','=','tickets.status')										
+										->join('status','status.id','=','tickets.status')
+                                                                                ->where(DB::raw('month(tickets.created_at)'),'>=',$getMonth_From-1)			 
+                                                                                ->where(DB::raw('month(tickets.created_at)'),'<=',$getMonth_From)
 										->where('tickets.status','<>',2)
 										->where('tickets.status','<>',4)
 										->groupBy(DB::raw('month(tickets.created_at)'))		
@@ -184,15 +194,59 @@ class ReportsController extends BaseController {
 		$this->layout->content = View::make('manager.reports.analysis')
 		->with('breadcrumb',$breadcrumb);
 	}
-
+        
 	public function supportType()
 	{
+            
+            $getDay =  getdate();
+            $getMonth_From = $getDay['mon'];          
+            
+			$rp_total =  DB::table('tickets')	
+				->join('support_type','support_type.id','=','tickets.support_type')
+                                ->where(DB::raw('month(tickets.created_at)'),'>=',$getMonth_From-1)			 
+                                ->where(DB::raw('month(tickets.created_at)'),'<=',$getMonth_From)	
+				->groupBy('tickets.support_type')												
+				->select(DB::raw('support_type.name as label,count(tickets.support_type) as value'))
+				->get();
+                        $total_ticket =  DB::table('tickets')->count();
+                        $result = "[";
+                        foreach($rp_total as $support_type):
+                            $percent = number_format(($support_type->value * 100)/$total_ticket,2); 
+                            $result.= "['".$support_type->label."',".$percent."],";
+                        endforeach;		
+                        $result.= "]";                       
+			return View::make('manager.reports.chart_support_type',compact('result'));		 										
+	}
+        public function supportTypeLimit()
+	{            
+           
+		  //$ruler = array('fromDay'=>'required','toDay'=>'required');
+		  //$validation = Validator::make(Input::all(),$ruler);
+		 // if($validation->passes())
+		  //{
+		  	$fromDay = Input::get('fromDay');
+		  	$toDay = Input::get('toDay');
+                        
+                        $total_ticket =  DB::table('tickets')->count();
+                        
 			$rp_total =  DB::table('tickets')	
 				->join('support_type','support_type.id','=','tickets.support_type')															
+                                ->where(DB::raw('date(tickets.created_at)'),'>=',$fromDay)			 		
+                                ->where(DB::raw('date(tickets.created_at)'),'<=',$toDay)
 				->groupBy('tickets.support_type')												
-				->select(DB::raw('support_type.name as label,count(tickets.support_type) as y'))
-				->get();
-			return View::make('manager.reports.chart_support_type',compact('rp_total'));		 										
+				->select(DB::raw('support_type.name as label,count(tickets.support_type) as value'))
+				->get();                       
+			
+                        $result = "[";
+                        foreach($rp_total as $support_type):
+                            $percent = number_format(($support_type->value * 100)/$total_ticket,2); 
+                            $result.= "['".$support_type->label."',".$percent."],";
+                        endforeach;		
+                        $result.= "]";  
+                        
+			return View::make('manager.reports.chart_support_type',compact('result'));
+                  //}
+                  //return trans('message.error_load_data');
 	}
 
 

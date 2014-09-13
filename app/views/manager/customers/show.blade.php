@@ -192,7 +192,6 @@
                                                         <th></th>
 
                                                     </tr>
-                                                    <?php $test_product = DB::table('purchase_products')->get();?>
                                                     @foreach($purchases as $product)
                                                     <tr >          
                                                         <td></td>
@@ -252,9 +251,11 @@
                                 </div>
 
                                 <div id="Blank_Page_Content" class="body-nest">
+                               
                                    @foreach($documents as $doc)
                                     <p><i class='icon icon-attachment'></i><a href='{{Request::root()}}/{{$doc->path}}'>{{$doc->name}}</a></p>
                                    @endforeach
+                             
                                 </div>
                             </div>
                         

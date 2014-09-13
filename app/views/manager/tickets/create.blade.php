@@ -19,7 +19,7 @@
                     {{Former::text('subject')->required()}}                  
                 </div>
                  <div class="form-group">
-                    {{Former::textarea('description')->class('form-control ckeditor')}}                   
+                    {{Former::textarea('description')->class('form-control ckeditor')}}
                 </div>              
                 </div><!--col right -->    
                 <div class="col-lg-4">
@@ -37,7 +37,9 @@
                      @if(Auth::user()->group_users == User::MANAGER) 
                      <div class="form-group">                       
                         {{Former::select('server_id')->options($assign_to,Input::old('server_id'))}}                         
-                     </div> 
+                     </div>
+                     @else
+                     <input type='hidden' name='server_id' value="{{Auth::id()}}" />
                      @endif
                      
                      
@@ -53,7 +55,7 @@
                 {{Former::close()}}
             </div>
         </div>
-    </div>
+    </div>	
 </div>
 
 @stop

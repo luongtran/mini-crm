@@ -66,7 +66,8 @@
                                         </div>                                     
                                        
 
-                                        <div class="form-group">                                            
+                                        <div class="form-group"> 
+                                            <input type="hidden" id="type_customer"   name="type_customer" value="1"/>
                                             {{Former::actions()->large_primary_submit('create')}}          
                                         </div>
 
@@ -75,15 +76,16 @@
                                                 $(".customer_order").hide();
 
                                                 $(".type_order").click(function(){                                                    
-
-                                                    if($(this).val()=='true'){ 
-                                                                                                  
+                                                    /*have account*/    
+                                                    if($(this).val()=='true'){                   
                                                         $(".customer_id").show();
                                                         $(".customer_order").hide();
+                                                        $("#type_customer").val('1');
                                                     }
                                                     else if($(this).val()=='false'){                  
                                                         $(".customer_order").show();
                                                         $(".customer_id").hide();
+                                                        $("#type_customer").val('0');
                                                     }
 
                                                 });

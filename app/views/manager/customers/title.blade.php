@@ -3,7 +3,7 @@
                     <div class="col-sm-3">
                         <h2 class="tittle-content-header">
                             <i class="icon-mail"></i> 
-                            <span>{{trans('title.form.user')}}
+                            <span>{{trans('title.form.customer')}}
                             </span>
                         </h2>
                     </div>

@@ -68,7 +68,7 @@ else if($ticket->status == Ticket::S_RESOLVE)
                                             @if($comment->avatar)
                                             <img class="img-social-content img-circle pull-left" src="{{Request::root()}}/{{$comment->avatar}}">
                                             @else
-                                            <img class="img-social-content img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/21.jpg">
+                                            <img class="img-social-content img-circle pull-left" src="{{url('asset/backend/assets/img/small-bg13.jpg')}}">
                                             @endif    
                                             
                                             <span><a class="tweet-link" href="#">{{$comment->first_name}} {{$comment->last_name}}</a>                                             

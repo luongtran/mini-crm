@@ -15,7 +15,6 @@ class  CustomersController extends \BaseController {
 	public function index()
 	{          
             $this->layout->page = trans('common.menu.customer');
-
             /*breadcumb*/                        
             $breadcrumb = [
                             ['link'=>'manager/customers','title'=>trans('title.form.customer')],
@@ -121,13 +120,14 @@ class  CustomersController extends \BaseController {
             $purchases = DB::table('purchases')->join('purchase_detail','purchase_detail.purchase_id','=','purchases.id')
                             ->join('users','users.id','=','purchases.customer_id')
                             ->join('profiles','profiles.user_id','=','users.id')                            
-                            ->join('purchase_products','purchase_products.id','=','purchase_detail.product_id')
+                            ->leftjoin('purchase_products','purchase_products.id','=','purchase_detail.product_id')
                             ->where('users.id','=',$id)
                             ->orderBy('purchases.id','desc')
                             ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from,profiles.website as website"))
                             ->get();
 
-            $documents = Upload::where('customer_id',$profile->user_id)->where('type_file','document')->orderBy('id','desc')->get();                                
+            $documents = Upload::where('customer_id',$profile->user_id)->where('type_file','document')->orderBy('id','desc')->get();          
+                      
             $this->layout->content = View::make('manager.customers.show')
                          ->with('profile',$profile)
                          ->with('purchases',$purchases)
@@ -291,6 +291,7 @@ class  CustomersController extends \BaseController {
                         ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                         ->paginate(5); 
                  }
+                 
                   else {
                     $customer = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')

@@ -32,6 +32,7 @@ return array(
         'not_delete'=>"You can't delete this record :name",
         'login_valid'=>'Username or password is false',
         'account_not_active'=>"My account haven't active, please check email or contact admin!",
-		'contact_success'=>'Contact successfully, please wait a minute !',
-		'contact_error'=>'Contact fail!',
+	'contact_success'=>'Contact successfully, please wait a minute !',
+	'contact_error'=>'Contact fail!',
+        'error_load_data'=>'Error : load data !',
 );

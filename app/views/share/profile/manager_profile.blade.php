@@ -82,7 +82,7 @@
 {{Session::get('msg_flash')}}
 <div class="row">
 <div class="col-sm-8">
-    <div class="panel panel-default">
+    <div class="panel panel-success">
 
             <div class="panel-heading">    
                 Info
@@ -134,7 +134,12 @@
                 <div class="form-group">
                       <label>Avatar</label>
                       <div class="text-left">
+                          
+                                            @if(Auth::user()->avatar)
                                                 <img width="200" src="{{Request::root().'/'.$view->avatar}}" class="avatar img-circle" alt="avatar">
+                                            @endif    
+                                                
+                                                
                                                 <h6>Upload a different photo...</h6>
                                                 <div class="input-group">
                                                   <span class="input-group-btn">
@@ -154,7 +159,7 @@
     </div>
 </div>
 <div class="col-sm-4"> 
-        <div class="panel panel-defautl">
+        <div class="panel panel-success">
             
             <div class="panel-heading">    
               Change password

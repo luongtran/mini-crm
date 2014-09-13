@@ -70,11 +70,11 @@ class TicketsController extends \BaseController {
 	 */
 	public function store()
 	{
-                $validation = Validator::make(Input::all(),Ticket::$rule_client);
+                $validation = Validator::make(Input::all(),Ticket::$rule_server);
                 if($validation->passes()){
                     $ticket = new Ticket();
                     $ticket->fill(Input::all());                    
-                    $ticket->author_id = Auth::id();
+                    $ticket->author_id = Auth::id();                    
                     $ticket->client_id = Input::get('client_id');                    
                     $ticket->status = Ticket::S_NEW;                    
                     $ticket->save();           
@@ -91,7 +91,7 @@ class TicketsController extends \BaseController {
                                    ];
                             $send_msm->addMessage($data);
                     }                    
-                    $ticket->save();
+                    $ticket->update();
                     
                     /*add file*/
                     if(Input::file('file'))
@@ -106,7 +106,7 @@ class TicketsController extends \BaseController {
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::create;
                     $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firs_tname.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
+                    $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::create.' the ticket';
                     $activity->save();
                     
                     /*send mail to admin*/                                                           
@@ -127,7 +127,7 @@ class TicketsController extends \BaseController {
                     );
                     $email->manager_sendEmail($message);
                     /*end*/
-                    Session::flash('msg_flash',  CommonHelper::print_msg('success','Created ticket success'));
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
                     return Redirect::to('manager/tickets');
                 }
                 return Redirect::back()->withInput()->withErrors($validation);
@@ -303,18 +303,19 @@ class TicketsController extends \BaseController {
         public function addComment($id='')
 	{
             if($id!='')
-            {
-                $comment = new SupportTicket();
-                $comment->user_id = Auth::id();
-                $comment->ticket_id = $id;
+            {                
                 if(Input::get('content'))
                 {
+                /*save comment ticket*/    
+                    $comment = new SupportTicket();
+                    $comment->user_id = Auth::id();
+                    $comment->ticket_id = $id;
                     $comment->content = Input::get('content');
                     $comment->save();
-                
-                $ticket = Ticket::where('code','=',$id)->first();
-                $ticket->status = Ticket::S_INPROCESS;
-                $ticket->update();
+                /*change status ticket tot inprocess*/
+                    $ticket = Ticket::where('code','=',$id)->first();
+                    $ticket->status = Ticket::S_INPROCESS;
+                    $ticket->update();
                 
                 /*save activity*/                                                            
                     $activity = new TicketActivity();

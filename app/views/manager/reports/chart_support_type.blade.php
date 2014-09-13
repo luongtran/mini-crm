@@ -1,6 +1,5 @@
-   
 
-
+  
 <div class="row"> 
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -8,37 +7,51 @@
               </div>
               <div class="panel-body">
                
-                <div id="chartContainer" style="height: 500px; width: 100%;"></div>            
+                <div id="container10" style="height: 500px; width: 100%;"></div>            
            
               </div>
             </div>
 </div> <!-- end row --> 
- 	
 
+   <script>  
+  <?php echo "var data_support_type=".$result."";?>   
+  $(function () {
+    $('#container10').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Support type',
+            data: data_support_type
+        }]
+    });
+    
+      $("a.canvasjs-chart-credit").css('display','none');
+      
+});
 
-
-  <script type="text/javascript">      
-        <?php 
-          echo "var data =".json_encode($rp_total).';';                  
-        ?>  
-        var chart = new CanvasJS.Chart("chartContainer", {
-              theme: "theme2",//theme1
-              title:{
-                 // text: "Total %"              
-             },
-              data: [              
-              {
-                // Change type to "column", "bar", "splineArea", "area", "spline", "pie",etc.
-                type: "column",
-                dataPoints: data
-              }             
-              ]
-          });
-
-          chart.render();
-
-
-          /*Hide info site canvasjs.com*/
-          $("a.canvasjs-chart-credit").css('display','none');
-  </script>
-  
+ </script>
+ 
+ 

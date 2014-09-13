@@ -3,14 +3,21 @@
 class Ticket extends \Eloquent {
 	protected $fillable = ['subject','description','support_type','priority'];
 	protected $table='tickets';
-  public static $rule_client =array('subject'=>'required|min:5',
+    public static $rule_client =array('subject'=>'required|min:5',
                                       'description'=>'required|min:5',
-                                      'file'=>'mimes:jpeg,bmp,png,ico,gif,jpg,doc,docx,xls,xlsx,pdf',
-                  									  'client_id'=>'required',
-                  									  'server_id'=>'required',
-                  									  'support_type'=>'required',
-                  									  'priority'=>'required',
+                                      'file'=>'max:5000|mimes:jpeg,bmp,png,ico,gif,jpg,doc,docx,xls,xlsx,pdf',																	
+									  'support_type'=>'required',
+									  'priority'=>'required',								  
                 );
+	public static $rule_server =array('subject'=>'required|min:5',
+                                      'description'=>'required|min:5',
+                                      'file'=>'max:5000|mimes:jpeg,bmp,png,ico,gif,jpg,doc,docx,xls,xlsx,pdf',
+									  'client_id'=>'required',
+									  'server_id'=>'required',
+									  'support_type'=>'required',
+									  'priority'=>'required',
+											  
+                );	
 
     const ST_new = "new";
     const ST_process = "in_process";

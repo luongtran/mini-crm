@@ -39,9 +39,11 @@ class UsersController extends BaseController {
             $breadcrumb = [
                         ['link'=>'manager/users','title'=>trans('title.form.user')],
 			            ['link'=>'#','title'=>trans('common.button.create')]
-                     ];                                         
+                     ];
+			$group_users = GroupUser::where('name','<>','employee')->where('name','<>','customer')->lists('name','id');		 
             $this->layout->content = View::make('manager.users.create')                  
-                    ->with('breadcrumb',$breadcrumb);           
+                    ->with('breadcrumb',$breadcrumb)           
+					->with('group_users',$group_users);
 	}
 
 	public function store()
@@ -70,7 +72,7 @@ class UsersController extends BaseController {
                    'to_email'=>Input::get('email'),
                    'to_name'=>Input::get('first_name'),
                );
-               $email->manager_sendEmail($data);  
+                $email->manager_sendEmail($data);  
                 Session::flash('msg_flash', CommonHelper::print_msg('success',trans('message.create')));
                 return Redirect::route('manager.users.index');
             }  else {
@@ -112,19 +114,18 @@ class UsersController extends BaseController {
                         ['link'=>'manager/users','title'=>trans('title.form.user')],
 		             	['link'=>'#','title'=>trans('common.button.edit')]
                      ];  
-		$user = User::find($id);        
+		$user = User::find($id);              
                 if($user)
                 {
 
-                    if($user->group_users==User::MANAGER&&$user->id!=Auth::id())
+                    if($user->group_users==User::MANAGER)
                     {
                         if(Auth::user()->id!=$user->manager_id)
                         {
                             Session::flash('msg_flash', CommonHelper::print_msg('error',trans('message.not_permission')));
                             return Redirect::back();     
                         }
-                    }
-
+                    }                     
                 $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
                 $this->layout->content = View::make('manager.users.edit')
                         ->with('user',$user)
@@ -141,9 +142,8 @@ class UsersController extends BaseController {
 	 * @return Response
 	 */
 	public function update($id)
-	{
-        $rule=array('password'=>'confirmed');
-	    $validation = Validator::make(Input::all(),$rule);
+	{            
+	    $validation = Validator::make(Input::all(),User::$rule_edit_users);
             if($validation->passes()){                                
                 $user = User::find($id);
                 if($user)

@@ -53,13 +53,13 @@ head.js(spBaseUrl+"/asset/backend/assets/js/slidebars/slidebars.min.js",spBaseUr
 //-------------------------------------------------------------
 
 //SEARCH MENU
-head.js(spBaseUrl+"/asset/backend/assets/js/search/jquery.quicksearch.js", function() {
+//head.js(spBaseUrl+"/asset/backend/assets/js/search/jquery.quicksearch.js", function() {
 
-    $('input.id_search').quicksearch('#menu-showhide li, .menu-left-nest li');
+   // $('input.id_search').quicksearch('#menu-showhide li, .menu-left-nest li');
    
    
 
-});
+//});
 //-------------------------------------------------------------
 
 
@@ -119,6 +119,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/gage/jquery.easypiechart.min.js", fu
 
 //TOOL TIP
 
+/*
 head.js(spBaseUrl+"/asset/backend/assets/js/tip/jquery.tooltipster.js", function() {
 
     $('.tooltip-tip-x').tooltipster({
@@ -169,11 +170,11 @@ head.js(spBaseUrl+"/asset/backend/assets/js/tip/jquery.tooltipster.js", function
 
 
 
-});
+});*/
 //------------------------------------------------------------- 
 
 //NICE SCROLL
-
+/*
 head.js(spBaseUrl+"/asset/backend/assets/js/nano/jquery.nanoscroller.js", function() {
 
     $(".nano").nanoScroller({
@@ -186,7 +187,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/nano/jquery.nanoscroller.js", functi
 
     });
 
-});
+});*/
 //------------------------------------------------------------- 
 
 
@@ -196,7 +197,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/nano/jquery.nanoscroller.js", functi
 
 //------------------------------------------------------------- 
 //PAGE LOADER
-/*
+
 head.js(spBaseUrl+"/asset/backend/assets/js/pace/pace.js", function() {
 
     paceOptions = {
@@ -209,7 +210,7 @@ head.js(spBaseUrl+"/asset/backend/assets/js/pace/pace.js", function() {
     };
 
 });
-*/
+
 //------------------------------------------------------------- 
 
 //SPARKLINE CHART
