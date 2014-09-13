@@ -8,6 +8,6 @@ nbproject/
 vendor/
 /app/documents/
 /public/documents/
-/public/uploads/
+/public/asset/share/uploads/
 app/documents
 .idea

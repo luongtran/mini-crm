@@ -23,12 +23,12 @@ class SettingsController extends \BaseController {
 	{		
          DB::table('setting')->truncate();
          DB::table('setting')->insert(array(
-                array('name'=>'site_name','title'=>'Website Name','value'=>'','order'=>'1'),               
+                array('name'=>'site_name','title'=>'Website Name','value'=>'Default CRM SYSTEM','order'=>'1'),               
                 array('name'=>'footer_text','title'=>'Footer','value'=>'','order'=>'2'),
                 array('name'=>'debug','title'=>'Debug (true/false)','value'=>'false','order'=>'3'),                
-                array('name'=>'host_mail' ,'title'=>'Email Host','value'=>'','order'=>'4'),
-                array('name'=>'host_port','title'=>'Email Port','value'=>'','order'=>'5'),
-                array('name'=>'host_encryption','title'=>'Email Encryption','value'=>'','order'=>'6'),
+                array('name'=>'host_mail' ,'title'=>'Email Host','value'=>'smtp.gmail.com','order'=>'4'),
+                array('name'=>'host_port','title'=>'Email Port','value'=>'587','order'=>'5'),
+                array('name'=>'host_encryption','title'=>'Email Encryption','value'=>'tsl','order'=>'6'),
                 array('name'=>'host_username','title'=>'Email Username','value'=>'','order'=>'7'),
                 array('name'=>'host_password','title'=>'Email Password','value'=>'','order'=>'8'),
                 array('name'=>'host_email_admin','title'=>'Email Admin','value'=>'','order'=>'9'),
@@ -53,9 +53,12 @@ class SettingsController extends \BaseController {
 	{
 		$ruler = array(
 			'site_name'=>'required',
-			'host_port'=>'numeric',
-			'email_contact'=>'email',
-                        'host_email_admin'=>'email',
+                        'host_mail'=>'required',
+			'host_port'=>'required|numeric',
+                        'host_username'=>'required',
+                        'host_password'=>'required',
+                        'host_email_admin'=>'required|email',
+			'email_contact'=>'email',                        
 			);
 
 		$validation = Validator::make(Input::all(),$ruler);

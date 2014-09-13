@@ -81,6 +81,9 @@ class PurchasesController extends \BaseController {
 	 */
 	public function store()
 	{          
+            $rule = array('product_id'=>'required','expiry'=>'required');
+            $validator = Validator::make(Input::all(),$rule);
+            if($validator->passes()){
 		$perchase = new Purchase();
 		$perchase->fill(Input::all());
                 $perchase->user_id = Auth::id();               
@@ -106,6 +109,12 @@ class PurchasesController extends \BaseController {
 		/*Need use method send email to customer .........*/
                 Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));             
 		return Redirect::to('manager/purchases');
+            }
+            else
+            {
+                Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.required_fields')));     
+                return Redirect::back()->withInput()->withErrors($validator);
+            }
 	}
 
 	/**

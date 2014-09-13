@@ -1,6 +1,5 @@
 @extends('home.default')
 
-
 @section('content')
 <div class='logos'>
 

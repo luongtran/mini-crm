@@ -20,7 +20,7 @@ class TicketsController extends \BaseController {
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                                  
                         ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5); 
                 
                 if(Auth::user()->group_users == User::STAFF){
@@ -50,10 +50,10 @@ class TicketsController extends \BaseController {
 	{
 		$support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
-                $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,'-ID',id) as first_name,id"))->lists('first_name','id');
+                $assign_to = User::where('group_users',User::STAFF)->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,' - ',id) as first_name,id"))->lists('first_name','id');
                 $assign_client = User::where('group_users','=',User::CUSTOMER)
                         ->join('profiles','profiles.user_id','=','users.id')->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');                               
-        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
+                $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
 		$this->layout->content = View::make('manager.tickets.create')
                         ->with('priority',$priority)
                         ->with('support_type',$support_type)
@@ -178,7 +178,7 @@ class TicketsController extends \BaseController {
                 else
                 $status = DB::table('status')->where('name','<>','close')->lists('name','id');    
                 /*list staff*/
-                $assign_to = User::where('group_users','2')->orderBy('first_name','asc')->lists('first_name','id');
+                $assign_to = User::where('group_users',User::STAFF)->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,'-',id) as first_name,id"))->lists('first_name','id');
 		
                 $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.show')]] ;    
         		$this->layout->content = View::make('manager.tickets.show',compact('support_type','priority','assign_to','status','attach','breadcrumb','ticket','list_comment'));                                              

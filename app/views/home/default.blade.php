@@ -81,7 +81,6 @@
         </div>
 
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{asset('asset/frontend/js/jquery-1.10.2.min.js')}}"></script>
         <script src="{{asset('asset/frontend/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('asset/frontend/js/modernizr.custom.js')}}"></script>
         <script src="{{asset('asset/frontend/js/startup-kit.js')}}"></script>
