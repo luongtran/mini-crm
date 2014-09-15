@@ -252,7 +252,7 @@ class TicketController extends \BaseController {
                     $activity->ticket_id = $ticket->code;
                     $activity->event = TicketActivity::reply;
                     $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
+                    $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::reply.' the ticket';
                     $activity->content = Input::get('content');
                     $activity->save();
 

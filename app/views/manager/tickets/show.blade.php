@@ -116,10 +116,12 @@ else if($ticket->status == Ticket::S_RESOLVE)
                @if(Auth::user()->group_users == User::MANAGER)  
                <div class="form-group">
                         <label>Assign to</label> 
-                        <?php $assign_to['0']='None'; $assign_selected = $ticket->assign_to;if($assign_selected==""){$assign_selected='0';}?>
+                        <?php  $assign_selected = $ticket->assign_to;if($assign_selected==""){$assign_selected='0';}?>
                         {{Form::select('server_id',$assign_to,$assign_selected,array('class'=>'form-control'))}}
                          <span class="alert-danger">{{$errors->first('server_id')}}</span>
                 </div>  
+               @else
+                    <input type='hidden' name='server_id' value="{{Auth::id()}}" />
                @endif
                @if($ticket->close != true) 
                <div class="form-group">

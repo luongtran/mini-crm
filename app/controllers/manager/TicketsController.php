@@ -31,7 +31,7 @@ class TicketsController extends \BaseController {
                         ->leftjoin('profiles','profiles.user_id','=','users.id')  
                         ->leftjoin('status','status.id','=','tickets.status')                                
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5);  
                 }                               
         $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')]] ;    
@@ -84,8 +84,8 @@ class TicketsController extends \BaseController {
                     {
                             $ticket->server_id = Input::get('server_id'); 
                             $send_msm = new MessagesController();
-                            $data = ['title'=>'Support ticket from customer'.$ticket->code,
-                                   'content'=>'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">At '.$ticket->code.'</a>', 
+                            $data = ['title'=>'Admin assign ticket '.$ticket->code.' to you',
+                                   'content'=>'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit '.$ticket->code.'</a>', 
                                    'type'=>'work',
                                    'assign_to'=>Input::get('server_id')
                                    ];
@@ -208,59 +208,76 @@ class TicketsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$ticket = Ticket::where('code',$id)->first();
+            $validation = Validator::make(Input::all(),Ticket::$rule_server_edit);
+            if($validation->passes()){               
+            
+                    $ticket = Ticket::where('code',$id)->first();
+                    if(Auth::user()->group_users == User::MANAGER):
+                        if($ticket->server_id != Input::get('server_id')):               
+                            /*save activity assign to staff*/ 
+                            $activity = new TicketActivity();
+                            $activity->ticket_id = $ticket->code;
+                            $activity->event = TicketActivity::update;
+                            $activity->author_id = Auth::id();                    
+                            $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
+                            $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
+                            $activity->save();            
+                            $ticket->server_id = Input::get('server_id');
+                            $ticket->update();
 
-            if(Auth::user()->group_users == User::MANAGER):
-                if($ticket->server_id != Input::get('server_id')):               
-                    /*save activity assign to staff*/ 
-                    $activity = new TicketActivity();
-                    $activity->ticket_id = $ticket->code;
-                    $activity->event = TicketActivity::update;
-                    $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
-                    $activity->content = trans('title.ticket.change_staff',array('staff'=>User::find(Input::get('server_id'))->first_name));
-                    $activity->save();            
-                    $ticket->server_id = Input::get('server_id');
-                    $ticket->update();
-                endif;        
-            endif;        
+                            $send_msm = new MessagesController();
+                                    $data = ['title'=>'Admin assign ticket '.$ticket->code.' to you',
+                                            'content'=>'<a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit '.$ticket->code.'</a>', 
+                                            'type'=>'work',
+                                            'assign_to'=>Input::get('server_id')
+                                           ];
+                                    $send_msm->addMessage($data);
+                        endif;        
+                    endif;        
 
-                $ticket->support_type = Input::get('support_type');
-                $ticket->priority = Input::get('priority');
+                        $ticket->support_type = Input::get('support_type');
+                        $ticket->priority = Input::get('priority');
 
-                   /*save activity*/  
-            if($ticket->status != Input::get('status')):                                                                    
-                    $activity = new TicketActivity();
-                    $activity->ticket_id = $ticket->code;
-                    $activity->event = TicketActivity::update;
-                    $activity->author_id = Auth::id();                    
-                    $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
-                    $server_id_old = 'None'; 
-                    if(Status::find($ticket->status)->name)
-                    {
-                        $server_id_old = Status::find($ticket->status)->name;
-                    }
-                    $activity->content = trans('title.ticket.change_status',array('from'=>$server_id_old,'to'=>Status::find(Input::get('status'))->name));
-                    $activity->save();
-                  
-                    /*save history*/
-                    // $History = new TicketHistory();
-                    // $History->ticket_id = $ticket->code;                   
-                    // $History->status = Input::get('status');   
-                    // $History->priority = Input::get('priority');                                      
-                    // $History->save();
+                           /*save activity*/  
+                    if($ticket->status != Input::get('status')):                                                                    
+                            $activity = new TicketActivity();
+                            $activity->ticket_id = $ticket->code;
+                            $activity->event = TicketActivity::update;
+                            $activity->author_id = Auth::id();                    
+                            $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::update.' the ticket';
+                            $server_id_old = 'None'; 
+                            if(Status::find($ticket->status)->name)
+                            {
+                                $server_id_old = Status::find($ticket->status)->name;
+                            }
+                            $activity->content = trans('title.ticket.change_status',array('from'=>$server_id_old,'to'=>Status::find(Input::get('status'))->name));
+                            $activity->save();
 
-                    $ticket->status = Input::get('status');   
-            endif; /*end status on change*/
-                
-                $ticket->update();
-                if(Input::get('status') == Ticket::S_RESOLVE)
-                    {
-                       $ticket->resolved_at =  $ticket->updated_at; 
-                       $ticket->update();
-                    }
-                           
-        return Redirect::back();
+                            /*save history*/
+                            // $History = new TicketHistory();
+                            // $History->ticket_id = $ticket->code;                   
+                            // $History->status = Input::get('status');   
+                            // $History->priority = Input::get('priority');                                      
+                            // $History->save();
+
+                            $ticket->status = Input::get('status');   
+                    endif; /*end status on change*/
+
+                        $ticket->update();
+                        if(Input::get('status') == Ticket::S_RESOLVE)
+                            {
+                               $ticket->resolved_at =  $ticket->updated_at; 
+                               $ticket->update();
+                            } 
+                            
+                    Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.update')));        
+                    return Redirect::back();
+            }
+            else
+            {
+                 Session::flash('msg_flash',  CommonHelper::print_msgs('error',$validation->messages()));
+                 return Redirect::back()->withInput()->withErrors($validation);
+            }
 	}
 
 	/**
@@ -482,7 +499,7 @@ class TicketsController extends \BaseController {
                             $activity->ticket_id = $ticket->code;
                             $activity->event = TicketActivity::update;
                             $activity->author_id = Auth::id();                    
-                            $activity->title = '<b>'.Auth::user()->firstname.' '.Auth::user()->last_name.'</b> '.TicketActivity::close.' the ticket';                            
+                            $activity->title = '<b>'.Auth::user()->first_name.' '.Auth::user()->last_name.'</b> '.TicketActivity::close.' the ticket';                            
                             $activity->save();            
                             $ticket->server_id = Input::get('server_id');
 

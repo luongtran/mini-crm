@@ -18,6 +18,12 @@ class Ticket extends \Eloquent {
 									  'priority'=>'required',
 											  
                 );	
+        public static $rule_server_edit=array( 			
+									  'server_id'=>'required',
+									  'support_type'=>'required',
+									  'priority'=>'required',
+											  
+                );
 
     const ST_new = "new";
     const ST_process = "in_process";
