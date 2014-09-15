@@ -175,8 +175,7 @@ class ReportsController extends BaseController {
 				->join('users','users.id','=','tickets.server_id')												
 				->groupBy('races.level_comment')												
 				->select(DB::raw('level_comment as label,count(races.level_comment) as y'))
-				->get();      			
-
+				->get();                
 			
 		 $rp_overdue =  DB::table('tickets')   
 	        ->groupBy('tickets.server_id')                        

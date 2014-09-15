@@ -35,7 +35,7 @@
 
 			                    </div>
 			                    <div class="body-nest" id="basic">
-			                     <p><i class='btn btn-success'>{{$view->FqaCategory->name}}</i></p>
+			                     <p><i class='btn btn-success'><i class="icon icon-document"></i>{{$view->FqaCategory->name}}</i></p>
 			                     <p>{{$view->content}}</p>
 				            	</div>
 				            		

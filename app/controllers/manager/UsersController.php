@@ -224,7 +224,7 @@ class UsersController extends BaseController {
             }
             else
             {
-                Session::flash('msg_flash', CommonHelper::print_msg('warning',trans('not_delete',array('name'=>$id))));
+                Session::flash('msg_flash', CommonHelper::print_msg('warning',trans('message.not_delete',array('name'=>$id))));
             }
             return Redirect::route('manager.users.index');
 	}

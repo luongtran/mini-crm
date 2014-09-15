@@ -35,7 +35,7 @@
 
 			                    </div>
 			                    <div class="body-nest" id="basic">
-			                  	 <p><i class='btn btn-success'>{{$view->NewCategory->name}}</i> {{$view->created_at}}</p>
+			                  	 <p><i class='btn btn-success'><i class="icon icon-document"></i>{{$view->NewCategory->name}}</i> {{$view->created_at}}</p>
 			                     {{$view->content}}
 			                     	<div class='clear'></div>
 				            	</div>

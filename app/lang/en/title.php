@@ -39,8 +39,7 @@ return array(
 		'activity'=>'Activity',
                 'news_category'=>'News Category',
                 'setting'=>'Setting',
-            
-
+                'add_news'=>'Add news',
 
 	),
 	'other'=>array(

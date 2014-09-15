@@ -129,7 +129,8 @@
             $level.= "['".$lv->label."',".((($lv->y)*100)/$total)."],"; 
           endforeach; 
           //echo "var data =".json_encode($rp_total).';';                  
-          echo "var data =".$level."]";                  
+          echo "var data =".$level."]";  
+          
   ?>  
        
 

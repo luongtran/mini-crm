@@ -20,7 +20,7 @@
 			                         {{Session::get('msg_flash')}}   
 			                    <div class="nest" id="basicClose">
 			                    <div class="title-alt">
-			                                <h6>Add news</h6>
+			                                <h6>{{trans('title.form.add_news')}}</h6>
 			                                <div class="titleClose">
 			                                    <a class="gone" href="#basicClose">
 			                                        <span class="entypo-cancel"></span>

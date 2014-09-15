@@ -14,8 +14,8 @@
                       <h6>{{$row->title}}</h6>                 
                   </div>
                   <div class="body-nest">                    
-                    <span><i class='btn btn-default'>{{$row->NewCategory->name}}</i></span>
-                    <span><a class='btn btn-default' href="{{url('client/news/'.$row->permalink)}}">{{trans('common.button.readme')}}</a></span>
+                    <span><i class='btn btn-primary'><i class="icon icon-document"></i>{{$row->NewCategory->name}}</i></span>
+                    <span><a class='btn btn-link' href="{{url('client/news/'.$row->permalink)}}">{{trans('common.button.readme')}}</a></span>
                   </div>
            </div>                                                        
 
