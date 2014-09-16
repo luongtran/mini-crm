@@ -33,7 +33,8 @@ class TicketController extends \BaseController {
                         ->paginate(5);  
 
                // $list_ticket = Ticket::with('Profile')->where('tickets.client_id','=',$user_id)->paginate(5);         
-        $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')]];       
+        $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')]]; 
+                $this->layout->page = trans('title.form.ticket');                        
 		$this->layout->content = View::make('client.ticket.index')
             ->with('list_ticket',$list_ticket)
             ->with('breadcrumb',$breadcrumb);  
@@ -50,6 +51,7 @@ class TicketController extends \BaseController {
                 $support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
                 $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>trans('common.button.create')]]; 
+                        $this->layout->page = trans('title.form.new_ticket'); 
 		        $this->layout->content = View::make('client.ticket.create')
                         ->with('priority',$priority)
                         ->with('support_type',$support_type)

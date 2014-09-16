@@ -10,7 +10,8 @@ class EmployeeController extends \BaseController {
 	 */
 	public function index()
 	{
-	        $employee = User::where('customer_id','=',Auth::id())->paginate(5);            
+            $this->layout->page = trans('common.menu.employee');
+	  $employee = User::where('customer_id','=',Auth::id())->paginate(5);            
           $breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')]];
           $this->layout->content = View::make('client.employee.index')
                 ->with('list',$employee)

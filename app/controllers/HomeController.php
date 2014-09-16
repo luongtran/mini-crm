@@ -27,12 +27,15 @@ class HomeController extends BaseController {
 	{
 		switch ($id) {
 			case 'about':
+                                $this->layout->page = $id;
 				$this->layout->content = View::make('home.about');
 				break;
 			case 'contact':
+                                $this->layout->page = $id;
 				$this->layout->content = View::make('home.contact');
 				break;	
 			case 'message':
+                                $this->layout->page = $id;
 				$this->layout->content = View::make('home.message');
 				break;				
 			

@@ -3,7 +3,7 @@
                     <div class="col-sm-3">
                         <h2 class="tittle-content-header">
                             <i class="icon-document-edit"></i> 
-                            <span>{{trans('title.form.customer')}}</span>
+                            <span>{{trans('title.form.employee')}}</span>
                         </h2>
 
                     </div>

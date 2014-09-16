@@ -9,6 +9,7 @@ return array(
 		'staff'=>'Staff',
 		'news'=>'News',
 		'ticket'=>'Ticket',
+                'new_ticket'=>'New ticket',
 		'faq'=>'faq',
 		'message'=>'Message',
 		'product'=>'Product',
