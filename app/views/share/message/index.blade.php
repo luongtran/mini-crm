@@ -1,6 +1,9 @@
 @extends('manager.layouts.default')
+<?php $title = trans('form.message');
+ $page = trans('form.message');
+ $breadcrumb = array(['link'=>'share/message/see-all','title'=>'Message']);
+ ?>
 @section('content')
-@include('share.message.title')
 <ul  style="list-style:none;">
 @foreach($messages as $message)
 <li>

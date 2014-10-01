@@ -11,7 +11,8 @@ return array(
 	| you want to customize your views to better match your application.
 	|
 	*/
-    'button'=>[ 'create'=>'Create',
+    'button'=>[ 'addNew'=>'Add New',
+                'create'=>'Create',
                 'delete'=>'Delete',
                 'edit'=>'Edit',
                 'update'=>'Update',

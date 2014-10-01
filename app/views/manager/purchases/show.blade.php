@@ -1,13 +1,4 @@
 @section('content')      
-<!--TITLE -->
-            @include('manager.purchases.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('manager.purchases.breadcrumb')
-            <!-- END OF BREADCRUMB -->
-
-
-
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">
                             <div class="row">
@@ -40,7 +31,7 @@
                                         <th>Customer order</th>                                       
                                        
                                     </tr>
-                                    <?php $stt = 1;$count = 0;?>
+                                    <?php $stt = 1;$count = 0;$count1 = 0;?>
                                     @foreach($purchases as $detail)                                    
                                     <tr >
                                         <td class="small-col">
@@ -56,7 +47,7 @@
                                         <td> {{$detail->expiry}}</td>
                                         <td> {{$detail->customer_order}}</td>
                                                                               
-                                    </tr><?php $stt=$stt+1; $count = ($detail->cost) + $count; ?>
+                                    </tr><?php $stt=$stt+1; $total = ($detail->cost*$detail->expiry); $count = $total + $count;   $count1 = ($total -(($detail->discount*$total)/100)) + $count1;  ?>
                                     @endforeach    
                                     
                                     <tr >
@@ -64,6 +55,16 @@
                                         <td>Total:</td>    
                                         <td></td>   
                                         <td> {{$count}}</td>    
+                                        <td></td>   
+                                        <td></td>   
+                                        <td></td>   
+                                        <td></td>   
+                                    </tr>
+                                     <tr >
+                                        <td></td>                                             
+                                        <td>Total has discount:</td>    
+                                        <td></td>   
+                                        <td> {{$count1}}</td>    
                                         <td></td>   
                                         <td></td>   
                                         <td></td>   

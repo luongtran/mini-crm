@@ -11,7 +11,7 @@ class FqaController extends \BaseController {
 	 */
 	public function index()
 	{
-		    $lists = Fqa::with('FqaCategory')->orderBy('view','desc')->paginate(5);		   
+		    $lists = Fqa::with('FqaCategory')->orderBy('view','desc')->get();		   
 			$this->layout->content = View::make('client.fqa.index')
 			->with('breadcrumb',array(array('link'=>'client/faq','title'=>'FAQ')))
 			->with('lists',$lists);			

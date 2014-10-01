@@ -1,7 +1,5 @@
 @extends('client.layouts.default')
 @section('content')
-@include('share.upload.title')
-
 {{Form::open(array('url'=>'client/upload','method'=>'post','enctype'=>'multipart/form-data'))}}
 <h3>Upload multifile</h3>
 {{Session::get('msg_flash')}}

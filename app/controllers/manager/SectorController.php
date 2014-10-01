@@ -9,9 +9,11 @@ class SectorController extends BaseController {
 	 */
 	public function index()
 	{
-                $listCategory = Sector::paginate(10);
-                $breadcrumb = [['link'=>'manager/sectors','title'=>'Sector']];    
-		$this->layout->content = View::make('manager.sector.index',  compact('listCategory','breadcrumb'));
+                $listCategory = Sector::all();
+                $this->layout->page = trans('form.sector');
+                $this->layout->title = trans('form.sector');
+                $this->layout->breadcrumb = array(['link'=>'manager/sectors','title'=>trans('form.sector')]);    
+		$this->layout->content = View::make('manager.sector.index',  compact('listCategory'));
 	}
 
 
@@ -22,8 +24,10 @@ class SectorController extends BaseController {
 	 */
 	public function create()
 	{
-                $breadcrumb = [['link'=>'manager/sectors','title'=>'Sector'],['link'=>'sectors','title'=>'Create']];    
-		$this->layout->content = View::make('manager.sector.create',  compact('breadcrumb'));            
+                $this->layout->page = trans('title.table.sector');
+                $this->layout->title = trans('title.table.sector');
+                $this->layout->breadcrumb = [['link'=>'manager/sectors','title'=>'Sector'],['link'=>'sectors','title'=>'Create']];                    
+		$this->layout->content = View::make('manager.sector.create');            
 	}
 
 
@@ -56,7 +60,9 @@ class SectorController extends BaseController {
 	 */
 	public function show($id)
 	{            
-                $breadcrumb = [['link'=>'manager/sectors','title'=>'Sector'],['link'=>'sectors','title'=>'View']];   
+                $this->layout->page = trans('title.table.sector');
+                $this->layout->title = trans('title.table.sector');
+                $this->layout->breadcrumb = [['link'=>'manager/sectors','title'=>'Sector'],['link'=>'sectors','title'=>'View']];   
 		$category = Sector::find($id);            
                 if($category)                           
                 {
@@ -73,11 +79,12 @@ class SectorController extends BaseController {
 	 */
 	public function edit($id)
 	{            
-            $breadcrumb = [['link'=>'manager/sectors','title'=>'Sector'],['link'=>'sectors','title'=>'Edit']];   
-            $category = Sector::find($id);            
+            $this->layout->breadcrumb = [['link'=>'manager/sectors','title'=>'Sector'],['link'=>'sectors','title'=>'Edit']];   
+            $category = Sector::find($id);  
             if($category)                           
             {
-            	$this->layout->content = View::make('manager.sector.edit',compact('category','breadcrumb'));
+                Former::populate($category);
+            	$this->layout->content = View::make('manager.sector.edit',compact('category'));
             }
 	}
 

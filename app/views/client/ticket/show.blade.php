@@ -1,16 +1,7 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('asset/backend/assets/css/social.css')}}">
 <script type="text/javascript" src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}"></script>
-      <!-- CONTENT -->
-            <!--TITLE -->
-                  @include('client.ticket.title')         
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-                  @include('client.ticket.breadcrumb')
-            <!-- END OF BREADCRUMB -->   
 {{Session::get('msg_flash')}}
-
-
 <div class="row">
 <?php 
 $status_bg="panel-primary";
@@ -39,7 +30,6 @@ else if($ticket->status_id == Ticket::S_RESOLVE)
                                     <span class="entypo-link"></span>
                                     {{$ticket->code}}
                                 </a>
-
                                 <h4>
                                     <span class="entypo-twitter-circled "></span>&nbsp;
                                     {{$ticket->subject}}
@@ -47,13 +37,12 @@ else if($ticket->status_id == Ticket::S_RESOLVE)
                             </div>
                             <div class="panel-body">
                                   <div class="social-profile">
-                                    <label></label>
-                                    <p>
-                                        <span><i class="entypo-globe"></i>&nbsp;{{$ticket->created_at}}</span>
-                                        <span class="title">{{trans('title.table.company')}} :</span> <a target="_blank" href="#">{{$ticket->company_name}}</a>
-                                    </p>  
+                                    <label>Created at: {{$ticket->created_at}} :</label>  </br>                                                                           
+                                    <span class="title">{{trans('title.table.company')}}</span> <a target="_blank" href="#">{{$ticket->company_name}}</a>
+                                    </br>
                                     <label>{{trans('title.table.description')}}</label>
-                                    <p>{{$ticket->description}}</p>                                                                       
+                                    {{$ticket->description}}
+                                    </hr>
                                         @if($attach)                                        
                                            @foreach($attach as $at)
                                            <p><i class="icon icon-attachment" ></i>
@@ -106,7 +95,7 @@ else if($ticket->status_id == Ticket::S_RESOLVE)
                         </div>
 </div>
     <div class="col-sm-4"> 
-        <div class="panel panel-defautl">
+        <div class="panel panel-success">
             <div class="panel-body">
                 <div class="form-group">
                     <label class="tweet-link"> Support type: <i>{{strtoupper($ticket->support_type)}}</i> </label>
@@ -120,10 +109,10 @@ else if($ticket->status_id == Ticket::S_RESOLVE)
 
             </div>    
         </div>
-         <div class="panel panel-defautl">
+         <div class="panel panel-success">
             <div class="panel-body">    
-                <h3>What news?</h3>
-                <ul class=''>
+                <h3>News</h3>
+                <ul class='' style="list-style: square;">
                     @foreach($news as $new)
                         <li class='cus-ul-li-border' ><a href='{{Request::root()}}/client/news/{{$new->permalink}}'>{{$new->title}}</a></li>                                               
                     @endforeach

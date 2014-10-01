@@ -1,12 +1,5 @@
 @section('content')
-<script type="text/javascript" src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}"></script>
-<!-- CONTENT -->
-            <!--TITLE -->
-            @include('client.ticket.title')         
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('client.ticket.breadcrumb')
-            <!-- END OF BREADCRUMB -->     
+<script type="text/javascript" src="{{asset('asset/backend/plusin/ckeditor/ckeditor.js')}}"></script> 
 <div class='row'>
     <div class="col-lg-12">
 	    {{Session::get('msg_flash')}}

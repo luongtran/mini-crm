@@ -1,5 +1,4 @@
 <?php
-
 class UsersController extends BaseController {
     protected  $layout = "manager.layouts.default";
     /**
@@ -11,20 +10,18 @@ class UsersController extends BaseController {
                         
 	public function index()
 	{         
-            $breadcrumb = [
-                           ['link'=>'manager/users','title'=>trans('title.form.user')]		              	
+            $this->layout->breadcrumb = [
+                           ['link'=>'manager/users','title'=>trans('form.user')]		              	
                          ]; 
-
             $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->orderBy('users.id','desc')
                      ->where('users.trash','<>',1)
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);          
+                     ->get();          
             $count = User::count();          
             $this->layout->content = View::make('manager.users.index')
                     ->with('list',$list)
-                    ->with('count',$count)
-                    ->with('breadcrumb',$breadcrumb);
+                    ->with('count',$count);
 	}
        
                
@@ -36,14 +33,14 @@ class UsersController extends BaseController {
 	 */
 	public function create()
 	{	            
-            $breadcrumb = [
-                        ['link'=>'manager/users','title'=>trans('title.form.user')],
-			            ['link'=>'#','title'=>trans('common.button.create')]
+            $this->layout->page = trans('form.user');
+            $this->layout->page = trans('form.user');
+            $this->layout->breadcrumb = [
+                                   ['link'=>'manager/users','title'=>trans('form.user')],
+			            ['link'=>'#','title'=>trans('form.addNew')]
                      ];
-			$group_users = GroupUser::where('name','<>','employee')->where('name','<>','customer')->lists('name','id');		 
-            $this->layout->content = View::make('manager.users.create')                  
-                    ->with('breadcrumb',$breadcrumb)           
-					->with('group_users',$group_users);
+	    $group_users = GroupUser::where('name','<>','employee')->where('name','<>','customer')->lists('name','id');		 
+            $this->layout->content = View::make('manager.users.create',  compact('group_users'));
 	}
 
 	public function store()
@@ -90,15 +87,16 @@ class UsersController extends BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{           
-        $breadcrumb = [
+	{
+        $this->layout->page = trans('form.user');
+        $this->layout->page = trans('form.user');
+        $this->layout->breadcrumb = [
                             ['link'=>'manager/users','title'=>trans('title.form.user')],
 		                	['link'=>'#','title'=>trans('title.form.show')]
                     ];     
 		$user = User::with('groupUser')->find($id);                    
         $this->layout->content = View::make('manager.users.show')
-                        ->with('user',$user)
-                        ->with('breadcrumb',$breadcrumb);
+                        ->with('user',$user);
 	}
 
 	/**
@@ -109,8 +107,10 @@ class UsersController extends BaseController {
 	 * @return Response
 	 */
 	public function edit($id)
-	{           
-        $breadcrumb = [
+	{
+            $this->layout->page = trans('form.user');
+            $this->layout->page = trans('form.user');
+            $this->layout->breadcrumb = [
                         ['link'=>'manager/users','title'=>trans('title.form.user')],
 		             	['link'=>'#','title'=>trans('common.button.edit')]
                      ];  
@@ -118,19 +118,18 @@ class UsersController extends BaseController {
                 if($user)
                 {
 
-                    if($user->group_users==User::MANAGER)
+                    if($user->group_users==User::MANAGER&&Auth::id()!=$id)
                     {
-                        if(Auth::user()->id!=$user->manager_id)
+                        if(Auth::id()!=$user->manager_id)
                         {
                             Session::flash('msg_flash', CommonHelper::print_msg('error',trans('message.not_permission')));
                             return Redirect::back();     
                         }
                     }                     
-                $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
-                $this->layout->content = View::make('manager.users.edit')
-                        ->with('user',$user)
-                        ->with('group_users',$group_users)
-                        ->with('breadcrumb',$breadcrumb);
+                    $group_users = DB::table('group_users')->orderBy('name', 'asc')->lists('name','id');
+                    $this->layout->content = View::make('manager.users.edit')
+                            ->with('user',$user)
+                            ->with('group_users',$group_users);
                 }
 	}
 
@@ -307,27 +306,27 @@ class UsersController extends BaseController {
                      ->where('users.trash','=',0)
                      ->orderBy('users.id','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);
+                     ->get();
              if(Input::get('field_filter')=='trash'){
                 $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('trash','=',1)
                      ->orderBy('users.id','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);  
+                       ->get();
              }
              if(Input::get('field_filter')=='active'){
                 $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('activated','=',1)
                      ->orderBy('users.id','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);  
+                      ->get();
              }   
              if(Input::get('field_filter')=='no_active'){
                 $list = DB::table('users')->leftJoin('group_users','group_users.id','=','users.group_users')
                      ->where('activated','=',0)
                      ->orderBy('users.id','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);  
+                       ->get();
              }                 
              $this->layout->content = View::make('manager.users.index')
                     ->with('list',$list)
@@ -352,7 +351,7 @@ class UsersController extends BaseController {
                      ->orWhere('email','like','%'.$key_find.'%')
                      ->orderBy('users.first_name','desc')
                      ->select(DB::RAW("users.id,users.email,CONCAT(users.first_name,' ',users.last_name) as fullname,users.activated,group_users.name,users.created_at"))
-                     ->paginate(5);
+                      ->get();
              $group_users = GroupUser::all();
              
              $this->layout->content = View::make('manager.users.index')->with('list',$list)->with('group_name',$group_users)

@@ -45,14 +45,15 @@ class ReportsController extends BaseController {
 										->select(DB::raw('month(tickets.created_at) as month,month(tickets.resolved_at) as monthRS ,year(tickets.created_at) year,count(tickets.status) as total,status.name as status'))
 										->get();
 
-				return View::make('manager.reports.chart_status',compact('rp_month','rp_status','rp_total'));
-	}
+		return View::make('manager.reports.chart_status',compact('rp_month','rp_status','rp_total'));
+        }
 
 	public function ticket()
 	{
-		$breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Report']];
-		$this->layout->content = View::make('manager.reports.ticket')
-		->with('breadcrumb',$breadcrumb);
+                $this->layout->page = "Report ticket";
+                $this->layout->title = "Report ticket";
+		$this->layout->breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Report']];
+		$this->layout->content = View::make('manager.reports.ticket');
 	}
 	public function postTicket()
 	{
@@ -143,9 +144,11 @@ class ReportsController extends BaseController {
 	/*staff*/
 	public function staff()
 	{
-		$breadcrumb = [['link'=>'manager/reports/ticket','title'=>'Report'],['link'=>'','title'=>'Staff']];
-		$this->layout->content = View::make('manager.reports.staff')
-		->with('breadcrumb',$breadcrumb);
+            
+                $this->layout->page = "Report staff";
+                $this->layout->title = "Report staff";
+		$this->layout->breadcrumb =  [['link'=>'manager/reports/ticket','title'=>'Report'],['link'=>'','title'=>'Staff']];		
+		$this->layout->content = View::make('manager.reports.staff');
 	}
 	
 
@@ -188,10 +191,11 @@ class ReportsController extends BaseController {
 
     /*analysis*/
 	public function analysis()
-	{
-		$breadcrumb = [['link'=>'manager/reports/analysis','title'=>'Analysis']];
-		$this->layout->content = View::make('manager.reports.analysis')
-		->with('breadcrumb',$breadcrumb);
+	{       
+                $this->layout->page = "Analysis";
+                $this->layout->title = "Analysis";
+		$this->layout->breadcrumb = [['link'=>'manager/reports/analysis','title'=>'Analysis']];
+		$this->layout->content = View::make('manager.reports.analysis');
 	}
         
 	public function supportType()

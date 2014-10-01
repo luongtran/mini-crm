@@ -11,9 +11,11 @@ class FqasController extends \BaseController {
 	 */
 	public function index()
 	{		   
-		    $lists = Fqa::with('FqaCategory')->orderBy('id','desc')->paginate(5);	 
-			$this->layout->content = View::make('manager.fqas.index')
-			->with('breadcrumb',array(array('link'=>'fqa','title'=>trans('title.form.faq'))))
+		    $lists = Fqa::with('FqaCategory')->orderBy('id','desc')->get();	
+                    $this->layout->page = trans('form.fqa');
+                    $this->layout->title = trans('form.fqa');
+                    $this->layout->breadcrumb = array(['link'=>'fqa','title'=>trans('form.fqa')]);                    
+		    $this->layout->content = View::make('manager.fqas.index')			
 			->with('lists',$lists);			
 	}
 

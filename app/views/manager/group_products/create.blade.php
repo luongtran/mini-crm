@@ -1,26 +1,34 @@
 @section('content')
-            <!-- CONTENT -->
-             @include('manager.group_products.title')
-             @include('manager.group_products.breadcrumb')
-           
+            <!-- CONTENT -->           
             {{Former::open(url('manager/group-products'))->method('post')}}
             <div class="content-wrap">
                 <div class="row">                   
                     <div class="col-sm-10">
                          {{Session::get('msg_flash')}}   
-                        <div class="nest" id="basicClose">
-                            <div class="title-alt">
-                               
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                 <div class="caption">
+                                    <i class="fa fa-gift"></i>{{trans('common.button.create')}}
+				</div>
+                                <div class="tools">
+								<a href="" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="" class="reload">
+								</a>
+								<a href="" class="remove">
+								</a>
+				</div>
                             </div>
-
-                            <div class="body-nest" id="basic">
+                            <div class="portlet-body">  
                                 <div class="form_center">
                                         <div class="form-group">                                           
                                             {{Former::text('name')->required()}}
                                         </div>
                                     
                                         <div class="form-group">
-                                            {{Former::textarea('description')->class('textarea')}}
+                                            {{Former::textarea('description')}}
                                         </div>
 
                                         <div class="form-group">                                            

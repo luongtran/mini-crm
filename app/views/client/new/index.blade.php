@@ -1,43 +1,38 @@
 @section('content')
-<!-- CONTENT -->
-            <!--TITLE -->
-            @include('client.new.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('client.new.breadcrumb')
-            <!-- END OF BREADCRUMB -->
-<div class="col-sm-12">                                                                 
-     <div class="col-sm-10">                       
-        @foreach($lists as $row)                      
-           <div class="nest">
-                  <div class="title-alt">
-                      <h6>{{$row->title}}</h6>                 
-                  </div>
-                  <div class="body-nest">                    
-                    <span><i class='btn btn-primary'><i class="icon icon-document"></i>{{$row->NewCategory->name}}</i></span>
-                    <span><a class='btn btn-link' href="{{url('client/news/'.$row->permalink)}}">{{trans('common.button.readme')}}</a></span>
-                  </div>
-           </div>                                                        
+<div class="row">
+<div class="col-md-12">                            
+        @foreach($lists as $row)
+                <div class="col-md-6">		
+                    <div class="top-news">
+								<a href="#" class="btn blue">
+								<span>
+								{{$row->title}} </span>
+								<em>
+								<i class="fa fa-tags"></i>
+								{{$row->NewCategory->name}}</em>
+								<i class="fa fa-globe top-news-icon"></i>
+								</a>
+                    </div>
+                    <div class="news-blocks">
+							<div class="news-block-tags">
+                                                                    <strong></strong>
+                                                                    <em>{{$row->created_at}}</em>								
+                                                                    {{str_limit($row->content,100)}}                                                                    
+							</div>
+                                                        <hr>
+							<a href="{{url('client/news/'.$row->permalink)}}">Read more <i class="m-icon-swapright m-icon-black"></i>                                                                    
+							</a>
+                    </div>
+		</div>
 
          @endforeach
-    </div>  
-</div>      
+     
                                   
-<div class="col-sm-12">                                                            
-                                   
-<div class="btn-group pull-left">                                              
-                                         <?php 
-                                         if(isset($par_link))
-                                         {
-                                           echo $lists->appends($par_link)->links();                                           
-                                         }
-                                         else
-                                         {
-                                            echo $lists->links();
-                                         }
-                                         ?>
-</div>                        
-                            
-</div>  <!-- end col 12 -->   
-
+</div>  
+<div class="col-sm-12">
+        {{$lists->links()}}
+</div>
+    
+</div>  
+    
 @stop

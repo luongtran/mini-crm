@@ -17,10 +17,11 @@ class LanguagesController extends \BaseController {
 	public function index()
 	{
 		$list =  Language::all();
-		$breadcrumb = [['link'=>'manager/languages','title'=>'Language']];
+                $this->layout->page = trans('form.language');
+                $this->layout->title = trans('form.language');
+		$this->layout->breadcrumb = [['link'=>'manager/languages','title'=>'Language']];
 		$this->layout->content = View::make('manager.languages.index')
-					->with('lists',$list)
-					->with('breadcrumb',$breadcrumb);
+					->with('lists',$list);
 	}
 
 	/**
@@ -31,9 +32,11 @@ class LanguagesController extends \BaseController {
 	 */
 	public function create()
 	{
-		$breadcrumb = array(array('link'=>'manager/languages','title'=>'Language'),array('link'=>'#','title'=>'create'));			
-		$this->layout->content = View::make('manager.languages.create')
-		->with('breadcrumb',$breadcrumb);
+                $this->layout->page = trans('form.language');
+                $this->layout->title = trans('form.language');
+		$this->layout->breadcrumb = array(array('link'=>'manager/languages','title'=>'Language'),array('link'=>'#','title'=>'create'));			
+		$this->layout->content = View::make('manager.languages.create');
+		
 	}
 
 	/**
@@ -92,7 +95,9 @@ class LanguagesController extends \BaseController {
 		$Language = Language::find($id);		
 		if($Language)
 		{
-		$breadcrumb = array(array('link'=>'manager/languages','title'=>'Languages'),array('link'=>'#','title'=>'Edit'));		
+                $this->layout->page = trans('form.language');
+                $this->layout->title = trans('form.language');
+		$this->layout->breadcrumb = array(array('link'=>'manager/languages','title'=>'Languages'),array('link'=>'#','title'=>'Edit'));		
 		$this->layout->content = View::make('manager.languages.edit')	
 			 ->with('view',$Language)->with('breadcrumb',$breadcrumb);
 		}

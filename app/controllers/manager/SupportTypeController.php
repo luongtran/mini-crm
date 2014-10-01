@@ -9,9 +9,11 @@ class SupportTypeController extends BaseController {
 	 */
 	public function index()
 	{
-                $listCategory = SupportType::paginate(10);
-                $breadcrumb = [['link'=>'manager/support-type','title'=>'Support type']];    
-		$this->layout->content = View::make('manager.support_type.index',  compact('listCategory','breadcrumb'));
+                $listCategory = SupportType::all();
+                $this->layout->page = trans('form.support_type');
+                $this->layout->title = trans('form.support_type');
+                $this->layout->breadcrumb = [['link'=>'manager/support-type','title'=>'Support type']];    
+		$this->layout->content = View::make('manager.support_type.index',  compact('listCategory'));
 	}
 
 
@@ -23,7 +25,7 @@ class SupportTypeController extends BaseController {
 	public function create()
 	{
                 $breadcrumb = [['link'=>'manager/support-type','title'=>'Support type'],['link'=>'manager/support-type','title'=>'Create']];    
-		$this->layout->content = View::make('manager.sector.create',  compact('breadcrumb'));            
+		$this->layout->content = View::make('manager.support_type.create',  compact('breadcrumb'));            
 	}
 
 
@@ -41,7 +43,7 @@ class SupportTypeController extends BaseController {
                     $Category->fill(Input::all());
                     $Category->save();
                     Session::flash('msg_flash',  CommonHelper::print_msg('success',trans('message.create')));
-                    return Redirect::to('manager/priorities');
+                    return Redirect::to('manager/support-type');
                 }
                 Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
                 return Redirect::back()->withInput()->withErrors($validation);
@@ -60,7 +62,7 @@ class SupportTypeController extends BaseController {
 		$category = SupportType::find($id);            
                 if($category)                           
                 {
-                    $this->layout->content = View::make('manager.sector.show',compact('category','breadcrumb'));
+                    $this->layout->content = View::make('manager.support_type.show',compact('category','breadcrumb'));
                 }
 	}
 
@@ -77,7 +79,7 @@ class SupportTypeController extends BaseController {
             $category = SupportType::find($id);            
             if($category)                           
             {
-            	$this->layout->content = View::make('manager.sector.edit',compact('category','breadcrumb'));
+            	$this->layout->content = View::make('manager.support_type.edit',compact('category','breadcrumb'));
             }
 	}
 

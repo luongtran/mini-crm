@@ -14,24 +14,16 @@ class  CustomersController extends \BaseController {
     }
 	public function index()
 	{          
-            $this->layout->page = trans('common.menu.customer');
-            /*breadcumb*/                        
-            $breadcrumb = [
-                            ['link'=>'manager/customers','title'=>trans('title.form.customer')],
-		                  	['link'=>'#','title'=>trans('title.form.index')]
-                         ];  
-
-            $list= DB::table('profiles')
-                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                 ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+            $this->layout->page = trans('form.customer');
+            $this->layout->title = trans('form.customer');
+            $this->layout->breadcrumb = array(['link'=>'manager/customers','title'=>trans('form.customer')]);                                         
+            
+            $list= User::with('profile')
                  ->where('group_users','=',User::CUSTOMER)
                  ->where('users.trash','=',false)
-                 ->orderBy('users.id','desc')
-                 ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
-                 ->paginate(5);            
-            $this->layout->content = View::make('manager.customers.index')
-                 ->with('breadcrumb',$breadcrumb)
-                 ->with('list',$list);
+                 ->orderBy('users.id','desc')                
+                 ->paginate(5);               
+                 $this->layout->content = View::make('manager.customers.index', compact('list'));
 	}
 
 	/**
@@ -42,12 +34,13 @@ class  CustomersController extends \BaseController {
 	 */
 	public function create()
 	{
-            /*breadcrumb*/
-            $breadcrumb = [
-                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
+            $this->layout->page = "Create customer";
+            $this->layout->title = "Create customer";
+            $this->layout->breadcrumb = array(
+                                    ['link'=>'manager/customers','title'=>trans('title.form.customer')],
 			            ['link'=>'#','title'=>trans('common.button.create')]
-                     ];                   
-            $this->layout->content = View::make('manager.customers.create')->with('breadcrumb',$breadcrumb);
+                                    );                   
+            $this->layout->content = View::make('manager.customers.create');
 	}
 
 	/**
@@ -127,11 +120,15 @@ class  CustomersController extends \BaseController {
                             ->get();
 
             $documents = Upload::where('customer_id',$profile->user_id)->where('type_file','document')->orderBy('id','desc')->get();          
-                      
-            $this->layout->content = View::make('manager.customers.show')
-                         ->with('profile',$profile)
-                         ->with('purchases',$purchases)
-                         ->with('documents',$documents);
+                        
+            $this->layout->page = "Show customer";
+            $this->layout->title = "Show customer";
+            $this->layout->breadcrumb =  array(['link'=>'manager/customers','title'=>trans('title.form.customer')],['link'=>'','title'=>'Show customer']);                                         
+                          
+            $customer =  User::with('profile')->find($id);           
+            Former::populate($customer);
+            $this->layout->content = View::make('manager.customers.show',  compact('customer','documents','purchases'));
+            
 
 	}
 
@@ -144,15 +141,13 @@ class  CustomersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-            /*breadcumb*/
-            $breadcrumb = [
-                        ['link'=>'manager/customers','title'=>trans('title.form.customer')],
-		                ['link'=>'#','title'=>trans('common.button.edit')]
-                       ];  
+            $this->layout->page = "Edit customer";
+            $this->layout->title = "Edit customer";
+            $this->layout->breadcrumb =  array(['link'=>'manager/customers','title'=>trans('title.form.customer')], ['link'=>'#','title'=>trans('common.button.edit')]);                                         
+                        
             $customer =  User::with('profile')->find($id);           
-            $this->layout->content = View::make('manager.customers.edit')
-                 ->with('customer',$customer)                 
-                 ->with('breadcrumb',$breadcrumb);
+            Former::populate($customer);
+            $this->layout->content = View::make('manager.customers.edit',  compact('customer'));
       
 	}
 
@@ -208,7 +203,7 @@ class  CustomersController extends \BaseController {
                     
                 }
                  //Session::flash('msg_flash', CommonHelper::print_msgs('error',$validation->messages()));
-                 Session::flash('msg_flash', CommonHelper::print_msg('error','Please enter all field!'));
+                 Session::flash('msg_flash', CommonHelper::print_msg('error',  trans('message.required_fields')));
                  return Redirect::back()->withInput()->withErrors($validation);
 	}
 
@@ -239,30 +234,25 @@ class  CustomersController extends \BaseController {
             {
               if(Input::get('field_find')=='all')
               {                   
-                 $customer = DB::table('profiles')
-                 ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                 ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
+                $list= User::with('profile')
                  ->where('group_users','=',User::CUSTOMER)
                  ->where('users.trash','=',false)
+                 ->orderBy('users.id','desc')    
                  ->where('username','like','%'.Input::get('key_find').'%')
-                 ->orderBy('users.id','desc')
-                 ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
                  ->paginate(5); 
               }
               else
               {                
-                 if(Input::get('filter')=='like'){                   
-                     $customer = DB::table('profiles')
-                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
-                        ->where('group_users','=',User::CUSTOMER)                        
+                 if(Input::get('filter')=='like'){
+                        $list= User::with('profile')
+                        ->where('group_users','=',User::CUSTOMER)
                         ->where('users.trash','=',false)
-                        ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')                        
-                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
+                        ->orderBy('users.id','desc')                            
+                        ->where(Input::get('field_find'),'like','%'.Input::get('key_find').'%')    
                         ->paginate(5); 
                  }
                  else if(Input::get('filter')=='big'){                     
-                    $customer = DB::table('profiles')
+                    $list = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                         ->where('group_users','=',User::CUSTOMER)
@@ -272,7 +262,7 @@ class  CustomersController extends \BaseController {
                         ->paginate(5); 
                  }
                  else if(Input::get('filter')=='small'){                   
-                    $customer = DB::table('profiles')
+                    $list = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                         ->where('group_users','=',User::CUSTOMER)   
@@ -282,7 +272,7 @@ class  CustomersController extends \BaseController {
                         ->paginate(5); 
                  }
                   else if((Input::get('filter')=='asc')||(Input::get('filter')=='desc')){                  
-                      $customer = DB::table('profiles')
+                      $list = DB::table('profiles')
                         ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
                         ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
                         ->where('group_users','=',User::CUSTOMER)  
@@ -293,27 +283,25 @@ class  CustomersController extends \BaseController {
                  }
                  
                   else {
-                    $customer = DB::table('profiles')
-                        ->rightJoin('users', 'users.id', '=', 'profiles.user_id')
-                        ->leftJoin('sector', 'sector.id', '=', 'profiles.sector_id')
-                        ->where('group_users','=',User::CUSTOMER)        
-                        ->where('users.trash','=',false)                
-                        ->where(Input::get('field_find'),'=',Input::get('key_find'))
-                        ->select(DB::raw('users.id,users.email,sector.name,users.created_at,users.activated,profiles.company_name,profiles.employee_count'))   
-                        ->paginate(5); 
+                      
+                    $list= User::with('profile')
+                    ->where('group_users','=',User::CUSTOMER)
+                    ->where('users.trash','=',false)
+                    ->orderBy('users.id','desc')                        
+                    ->where(Input::get('field_find'),'=',Input::get('key_find'))
+                    ->paginate(5);  
                   }
               }             
               /*parametor for paginate */             
               $par_link = ['field_find'=>Input::get('field_find'),'key_find'=>Input::get('key_find'),'filter'=>Input::get('filter')];
 
-              $breadcrumb = [
+              $this->layout->breadcrumb = [
                         ['link'=>'manager/customers','title'=>trans('title.form.customer')],
                         ['link'=>'#','title'=>trans('common.button.search')]
                      ];  
 
-              $this->layout->content = View::make('manager.customers.index')->with('list',$customer)
-                       ->with('par_link',$par_link)
-                       ->with('breadcrumb',$breadcrumb);
+              $this->layout->content = View::make('manager.customers.index',  compact('list'))
+                       ->with('par_link',$par_link);
               
             }
         }

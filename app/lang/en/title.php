@@ -84,7 +84,9 @@ return array(
 		'orther'=>'Orther',
 		'overdue'=>'Overdue',
 		'count_access'=>'Count Access',
-		'website'=>'Website'
+		'website'=>'Website',
+                'title'=>'Title',
+                'view'=>'View',
 
 	),
 	'ticket'=>array(

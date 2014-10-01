@@ -10,13 +10,11 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{   
-          $products = DB::table('purchase_products')->leftjoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
-                        ->orderBy('purchase_products.id','desc')
-                        ->select(DB::RAW('purchase_products.id,purchase_products.name,purchase_products.created_at,purchase_products.activated,purchase_products.cost,purchase_products.discount,purchase_group_products.name as group_name'))
-                        ->paginate(5);
-          $breadcrumb = [['link'=>'manager/products','title'=>'Products']];              
-		  $this->layout->content = View::make('manager.products.index',compact('breadcrumb','products'));
-		  							
+            $products = Product::with('GroupProduct')->orderBy('purchase_products.id','desc')->get();
+            $this->layout->page = trans('form.product');
+            $this->layout->title = trans('form.product');
+            $this->layout->breadcrumb = [['link'=>'manager/products','title'=>trans('form.product')]];              
+	    $this->layout->content = View::make('manager.products.index',compact('products'));		  							
 	}
 
 	/**
@@ -27,8 +25,10 @@ class ProductsController extends \BaseController {
 	 */
 	public function create()
 	{            
-            $breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.create')]];           
-            $this->layout->content = View::make('manager.products.create',compact('breadcrumb'));
+            $this->layout->page = trans('form.product');
+            $this->layout->title = trans('form.product');
+            $this->layout->breadcrumb = [['link'=>'manager/products','title'=>trans('form.product')],['link'=>'manager/products#','title'=>trans('form.addNew')]];           
+            $this->layout->content = View::make('manager.products.create');
 	}
 
 	/**
@@ -61,7 +61,9 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-			$breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.show')]];           
+            $this->layout->page = trans('form.product');
+            $this->layout->title = trans('form.product');
+            $this->layout->breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.show')]];           
             $product = Product::where('purchase_products.id','=',$id)->leftJoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
                     ->first(['purchase_products.id','purchase_products.name','purchase_products.description','purchase_products.created_at',
                             'purchase_products.updated_at','purchase_products.cost','purchase_products.discount',
@@ -79,13 +81,16 @@ class ProductsController extends \BaseController {
 	 */
 	public function edit($id)
 	{	
-		$breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.edit')]];           
+            $this->layout->page = trans('form.product');
+            $this->layout->title = trans('form.product');
+            
+	    $this->layout->breadcrumb = [['link'=>'manager/products','title'=>'Products'],['link'=>'manager/products#','title'=>trans('common.button.edit')]];           
 	    $product = Product::where('purchase_products.id','=',$id)->leftJoin('purchase_group_products','purchase_group_products.id','=','purchase_products.group_products')
                     ->first(['purchase_products.id','purchase_products.name','purchase_products.description','purchase_products.created_at',
                             'purchase_products.updated_at','purchase_products.cost','purchase_products.discount',
                             'purchase_group_products.name as group_name','purchase_products.activated'
                            ]);        
-        $this->layout->content = View::make('manager.products.edit',compact('breadcrumb','product'));
+           $this->layout->content = View::make('manager.products.edit',compact('breadcrumb','product'));
 	}
 
 	/**

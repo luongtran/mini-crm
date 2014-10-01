@@ -1,12 +1,5 @@
 @section('content')
 <script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
-<!-- CONTENT -->
-            <!--TITLE -->
-            @include('manager.languages.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('manager.languages.breadcrumb')
-            <!-- END OF BREADCRUMB -->
 <div class="col-sm-12">                                                                 
                         <div class="mail_header">
                             <div class="row">

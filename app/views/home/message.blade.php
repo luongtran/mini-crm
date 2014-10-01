@@ -1,22 +1,16 @@
 @section('content')
-<section class="bg-midnight-blue">		
-		<div class="container">		
-		<h3 style='color:white'>Message</h3>				
-		</div>
-</section>
-<section class='logos'>
-	<div class='container'>	
-		<div class='col-md-6'>
-			<!--<h4>Message </h4>-->
-	    {{Session::get('msg_flash')}}
 
-	    </div>
-	</div>
+    <div class="row margin-bottom-40">
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-12">
+            <h1>Message</h1>
+            <div class="content-page">
+              <div class="row">              
+                <div class="col-md-9 col-sm-9">
+                	 {{Session::get('msg_flash')}}
+                </div>  
+            </div>
+        </div>
+    </div>	   
 
-</section>
-<section class="">		
-		<div class="container">		
-		<h3></h3>				
-		</div>
-</section>
 @stop

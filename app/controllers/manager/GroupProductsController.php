@@ -10,8 +10,10 @@ class GroupProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-            $group_products = GroupProduct::paginate(5);
-            $breadcrumb = [['link'=>'manager/group-products','title'=>'Products']];         
+            $group_products = GroupProduct::all();
+            $this->layout->page = trans('form.group_product');
+            $this->layout->page =trans('form.group_product');
+            $this->layout->breadcrumb = [['link'=>'manager/group-products','title'=>trans('form.group_product')]];         
             $this->layout->content = View::make('manager.group_products.index')->with('group_products',$group_products);
 	}
 
@@ -23,6 +25,9 @@ class GroupProductsController extends \BaseController {
 	 */
 	public function create()
 	{            
+            $this->layout->page = trans('form.group_product');
+            $this->layout->page = trans('form.group_product');
+            $this->layout->breadcrumb = [['link'=>'manager/group-products','title'=>trans('form.group_product')],['link'=>'manager/group-products/create','title'=>trans('form.addNew')]];    
             $this->layout->content = View::make('manager.group_products.create');                
 	}
 
@@ -59,6 +64,10 @@ class GroupProductsController extends \BaseController {
             $group_product = GroupProduct::find($id);            
             if($group_product)                           
             {
+                $this->layout->page = "Group products";
+                $this->layout->page = "Group products";
+                $this->layout->breadcrumb = [['link'=>'manager/group-products','title'=>'Products'],['link'=>'','title'=>'Show']];    
+           
             	$this->layout->content = View::make('manager.group_products.show',compact('group_product'));
             }
 	}

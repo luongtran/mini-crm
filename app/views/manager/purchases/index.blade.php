@@ -1,94 +1,112 @@
 @section('content')
-       <!--TITLE -->
-            @include('manager.purchases.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('manager.purchases.breadcrumb')
-            <!-- END OF BREADCRUMB -->
+<div class="row">
+<div class="col-md-12">
+       {{Session::get('msg_flash')}}        
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet box grey-cascade">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-globe"></i>{{trans('form.invoice')}}
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="javascript:;" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-toolbar">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="btn-group">
+										    <a href="{{url('manager/purchases/create')}}" class="btn green">{{trans('common.button.addNew')}} <i class="fa fa-plus"></i></a>                                                                                    										
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="btn-group pull-right">
+											<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+											</button>
+                                                                                        <!--
+											<ul class="dropdown-menu pull-right">
+												<li>
+													<a href="#">
+													Print </a>
+												</li>
+												<li>
+													<a href="#">
+													Save as PDF </a>
+												</li>
+												<li>
+													<a href="#">
+													Export to Excel </a>
+												</li>
+											</ul>-->
+										</div>
+									</div>
+								</div>
+							</div>							
+							<table id="dt_table_default" class="table table-bordered table-hover"> 
+                                                        <thead>                                                            
+							<tr>    <th></th>
+                                                                <th>Code</th>
+                                                                <th>Company</th>                                                                                
+                                                                <th>Amount</th>
+                                                                <th>Total</th>                           
+                                                                <th>{{trans('title.table.created')}}</th>
+                                                                <th>Status Expiry</th>                     
+                                                                <th>{{trans('common.button.action')}}</th>
+                                                        </tr>
+							</thead>
+							<tbody>	                             
+							@foreach($purchases as $purchase)
+                                                        <tr @if($purchase->amount==0){{"class='danger'"}} @endif >
+                                                            <td class="small-col">                                            
+                                                            </td>                                       
+                                                            <td><a href="{{Request::root()}}/manager/purchases/{{$purchase->code}}">{{$purchase->code}}</a></td>                                      
+                                                            <td><a href="{{url('manager/customers/'.$purchase->company_id)}}"> {{$purchase->company_name}}</a></td>                                        
+                                                            <td> {{$purchase->amount}}</td>
+                                                            <td> {{$purchase->total}} </td>
+                                                            <td> {{$purchase->created_at}}</td>                                       
+                                                            <td></td>  
+                                                            <td>
+                                                                <div class="btn-group pull-left">
+                                                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
+                                                                    <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">                                                                                                                                                                             
+                                                                    <li><a class='btn-del' href="{{Request::root()}}/manager/purchases/{{$purchase->id}}"><i class="fa fa-trash-o"></i>{{trans('common.button.delete')}}</a>
+                                                                    </li>
+                                                                </ul>
+                                                                 </div>
+                                                            </td>                                        
+                                                        </tr>
+                                                        @endforeach    
+                                                        </tbody>
+							</table>
+                                                        <!-- paginate -->
+                                                        <div class="row"><div class="col-md-5 col-sm-12">
+                                                                         <div class="btn-group pull-left">                                       
+                                                                               
+                                                                         </div>
+                                                             </div>
+                                                        </div>
+                                                        <!--end paginate -->
+                                                        </div>                                                       
+                                                        </div>
+			</div>
+              
+</div>        
+@stop
 
-
-<div class="col-sm-12">                                                                 
-                        <div class="mail_header">
-                            <div class="row">
-                                  {{Session::get('msg_flash')}} 
-                               <div class="col-sm-10">                                                                
-                                </div>
-                                <div class="col-sm-6">                                   
-                                    
-                                </div>
-                            </div>
-
-                        </div>
-
-                            <div class="table-responsive">
-                                <!-- THE MESSAGES -->                               
-                                <table class="table table-mailbox">                                    
-
-                                    <tr class="unread">
-                                        <th class="small-col">
-                                        <input type="checkbox" id="ckbCheckAll">                        
-                                        </th>
-                                        <th>Code</th>
-                                        <th>Company</th>                                                                                
-                                        <th>Amount</th>
-                                        <th>Total</th>                                        
-                                        <th>Create at</th>
-                                        <th>Status Expiry</th>
-                                        <th></th>
-                                       
-                                    </tr>
-                                    
-                                    @foreach($purchases as $purchase)
-                                    <tr @if($purchase->amount==0){{"class='danger'"}} @endif >
-                                        <td class="small-col">
-                                              <input type="checkbox" value="{{$purchase->id}}" name="checkID[]" class="checkBoxClass"/>
-                                        </td>                                       
-                                        <td><a href="{{Request::root()}}/manager/purchases/{{$purchase->code}}">{{$purchase->code}}</a></td>                                      
-                                        <td> {{$purchase->company_name}}</td>                                        
-                                        <td> {{$purchase->amount}}</td>
-                                        <td> {{$purchase->total}} </td>
-                                        <td> {{$purchase->created_at}}</td>
-                                        <td>
-                                            <?php
-                                               
-                                            
-                                            
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group pull-left">
-                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">Action
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">                                                                                                                                                                             
-                                            <li><a class='btn-del' href="{{Request::root()}}/manager/purchases/{{$purchase->id}}"><i class="fa fa-trash-o"></i>{{trans('common.button.delete')}}</a>
-                                            </li>
-                                        </ul>
-                                             </div>
-                                        </td>                                        
-                                    </tr>
-                                    @endforeach    
-
-                               </table>
-                              </form>
-                                                            
-                                
-                            </div>
-     
-                                <div class="">                                   
-                                    <div class="btn-group pull-left">                                       
-                                       <?php 
-                                        if(isset($par_link))
-                                        echo $purchases->appends($par_link)->links(); 
-                                        else
-                                        echo $purchases->links(); 
-                                        ?>
-                                    </div>
-                                </div>
-                            <!-- /.table-responsive -->
-                           
-
-                    </div>    
-
-<script type="text/javascript" src="{{asset('asset/share/js/form_del.js')}}"></script>                       
+@section('javascript')
+<script>
+$(document).ready(function(){
+    $('#dt_table_default').DataTable();
+});
+</script>
 @stop

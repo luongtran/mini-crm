@@ -8,10 +8,6 @@ class EmailController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	//const EMAIL_ADMIN ="test@completermp.com";
-        const EMAIL_ADMIN = "thanhtruyen1001@gmail.com";
-        const EMAIL_STAFF ="ltt.develop@gmail.com";
-        const EMAIL_TEST ="taikhoanlive100@outlook.com.vn";
         public function sendEmail()
 	{
             
@@ -50,7 +46,7 @@ class EmailController extends \BaseController {
         {
               try{
               Mail::send('frontend.contact.send_email',$msg['message'], function($m){            
-                $m->from('test@completermp.com',$msg['from_name']);
+                $m->from(SettingsController::getSetting('host_email_admin'),$msg['from_name']);
                 $m->to($msg['to_email'],$msg['to_name']);
                 $m->subject($msg['subject']);                          
                 Session::flash('msg_flash', trans('messages.send_contact_success'));         
@@ -75,7 +71,7 @@ class EmailController extends \BaseController {
              try{
                 Mail::send('share.test.testmail',$data, function($m) use ($data)
                 {            
-                $m->from(EmailController::getEmailAdmin(),'ADMIN - CRM');
+                $m->from(SettingsController::getSetting('host_email_admin'),'ADMIN - CRM');
                 $m->to($data['to_email'],$data['to_name']);
                 $m->subject($data['subject']); 
                 //$m->attach($data['attach']);
@@ -95,18 +91,18 @@ class EmailController extends \BaseController {
         { 
 
           try{
-          $email_host = Setting::where('name','=','host_mail')->first();
-          $email_username = Setting::where('name','=','host_username')->first();
-          $email_password = Setting::where('name','=','host_password')->first();
-          $email_encryption  = Setting::where('name','=','host_encryption')->first();
-          $email_port = Setting::where('name','=','host_port')->first(); 
-          $email_port = (int)$email_port->value;
+          $email_host = SettingsController::getSetting('host_mail');
+          $email_username = SettingsController::getSetting('host_username');
+          $email_password = SettingsController::getSetting('host_password');
+          $email_encryption  = SettingsController::getSetting('host_encryption');
+          $email_port = SettingsController::getSetting('host_port'); 
+          $email_port = (int)$email_port;
 
-          Config::set('mail.host',$email_host->value);
+          Config::set('mail.host',$email_host);
           Config::set('mail.port',$email_port);
-          Config::set('mail.encryption',$email_encryption->value);
-          Config::set('mail.username',$email_username->value);    
-          Config::set('mail.password',$email_password->value);  
+          Config::set('mail.encryption',$email_encryption);
+          Config::set('mail.username',$email_username);    
+          Config::set('mail.password',$email_password);  
           /*
           
           Config::set('mail.host','gator3228.hostgator.com');
@@ -116,7 +112,7 @@ class EmailController extends \BaseController {
           Config::set('mail.password','Xqi1llvM:nx8');  
            */
           //dd(Config::get('mail'));
-		  }
+	  }
 		  catch(Exception $e)
            {
 				echo '<h2>Error config email</h2><input type="text" value="'.$e.'" style="display:none"/>';

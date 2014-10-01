@@ -30,14 +30,14 @@ class TicketController extends \BaseController {
                         ->leftJoin('status','status.id','=','tickets.status')                        
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name'))
-                        ->paginate(5);  
+                        ->get();  
 
                // $list_ticket = Ticket::with('Profile')->where('tickets.client_id','=',$user_id)->paginate(5);         
-        $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')]]; 
-                $this->layout->page = trans('title.form.ticket');                        
+                $this->layout->breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')]]; 
+                $this->layout->page = trans('form.ticket');                        
+                $this->layout->title = trans('form.ticket');                        
 		$this->layout->content = View::make('client.ticket.index')
-            ->with('list_ticket',$list_ticket)
-            ->with('breadcrumb',$breadcrumb);  
+                    ->with('list_ticket',$list_ticket); 
 	}
 
 	/**
@@ -50,12 +50,12 @@ class TicketController extends \BaseController {
 	{
                 $support_type =  DB::table('support_type')->orderBy('id', 'asc')->lists('name','id');              
                 $priority = CommonHelper::list_base('priority');
-                $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>trans('common.button.create')]]; 
+                $this->layout->breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>trans('common.button.create')]]; 
                         $this->layout->page = trans('title.form.new_ticket'); 
+                        $this->layout->title = trans('title.form.new_ticket'); 
 		        $this->layout->content = View::make('client.ticket.create')
                         ->with('priority',$priority)
-                        ->with('support_type',$support_type)
-                        ->with('breadcrumb',$breadcrumb);
+                        ->with('support_type',$support_type);
     }
 	/**
 	 * Store a newly created resource in storage.
@@ -168,13 +168,14 @@ class TicketController extends \BaseController {
               
                 $attach = Upload::where('ticket_id','=',$ticket->code)->get();   
                 //$news = News::where('category_id',1)->orderBy('id','desc')->paginate(5); 
-                $news = News::orderBy('id','desc')->paginate(5); 
-                $breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>$id]]; 
+                $news = News::orderBy('id','desc')->get(); 
+                $this->layout->page = trans('form.news'); 
+                $this->layout->title = trans('form.news'); 
+                $this->layout->breadcrumb=[['link'=>'client/tickets','title'=>trans('title.form.ticket')],['link'=>'client/tickets','title'=>$id]]; 
 		        $this->layout->content = View::make('client.ticket.show')->with('ticket',$ticket)
                         ->with('list_comment',$list_comment)
                         ->with('attach',$attach)
-                        ->with('news',$news)
-                        ->with('breadcrumb',$breadcrumb);                      
+                        ->with('news',$news);                   
                 }
 		else
 		{

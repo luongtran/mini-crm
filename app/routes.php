@@ -20,8 +20,7 @@ Route::get('/manager', function()
   if(Auth::user()->group_users == User::STAFF)
   {      
      $activity = TicketActivity::join('tickets','tickets.code','=','ticket_activity.ticket_id')->where('tickets.server_id',Auth::id())->orderBy('ticket_activity.id','desc')->paginate(20); 
-  }
-  
+  }  
   return View::make('manager.home')->with('activity',$activity);
 });
 
@@ -189,7 +188,7 @@ Route::get('/page/{id}',array('uses'=>'HomeController@page'));
 
 Route::get('/client',array('uses'=>'CustomerController@index'));
 /*Customer of client*/
-Route::get('/register',array('uses'=>'CustomerController@create'));
+Route::get('/register',array('uses'=>'HomeController@register'));
 Route::post('/register',array('uses'=>'CustomerController@store'));
 Route::get('/active-customer/{id}',array('uses'=>'CustomerController@active'));
 //Route::resource('client/customer', 'CustomerController');

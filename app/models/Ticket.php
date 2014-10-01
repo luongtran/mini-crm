@@ -34,16 +34,15 @@ class Ticket extends \Eloquent {
     const S_RESOLVE = "3";
     const S_CLOSE = "4";
 
-	public function Profile()
+	public function user()
 	{		 
-       return $this->belongsTo('Profile','user_id');
-	}    
+            return $this->belongsTo('User','id');
+	}  
 
-
-   /*Relashionship*/
-  public function status()
+        /*Relashionship*/
+       public function status()
         {
-            return $this->hasOne('Status');
+                 return $this->belongsTo('Status','status');
         }
 
 

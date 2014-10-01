@@ -1,6 +1,5 @@
 @extends('client.layouts.default')
 @section('content')
-@include('share.upload.title')
 <table class='table table-mailbox'>
 <tr></tr>
 @foreach($doucuments as $document)

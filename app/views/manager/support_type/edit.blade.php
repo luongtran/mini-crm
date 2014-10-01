@@ -1,8 +1,5 @@
 @section('content')
-            <!-- CONTENT -->
-             @include('manager.sector.title')
-             @include('manager.sector.breadcrumb')
-           
+            <!-- CONTENT -->           
             {{Former::open(url('manager/support-type/'.$category->id))->method('PUT')}}
             <?php Former::populate($category);?>
             <div class="content-wrap">
@@ -21,7 +18,7 @@
                                         </div>
                                     
                                         <div class="form-group">
-                                            {{Former::textarea('description')->class('textarea')}}
+                                            {{Former::textarea('description')}}
                                         </div>
 
                                         <div class="form-group">                                            

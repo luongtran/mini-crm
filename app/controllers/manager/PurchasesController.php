@@ -1,5 +1,4 @@
 <?php
-
 class PurchasesController extends \BaseController {
     protected $layout = "manager.layouts.default";
     /**
@@ -16,8 +15,11 @@ class PurchasesController extends \BaseController {
                             ->leftjoin('purchase_products','purchase_products.id','=','purchase_detail.product_id')
                             ->groupBy('purchases.id')
                             ->orderBy('purchases.id','desc')
-                            ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,count(purchase_detail.id)as amount,sum(purchase_products.cost)as total"))
-                            ->paginate(5);        
+                            ->select(DB::RAW("users.id as company_id,purchases.id,purchases.code,purchases.created_at,profiles.company_name,count(purchase_detail.id)as amount,sum(purchase_products.cost)as total"))
+                            ->get();                 
+                $this->layout->page = trans("form.invoice");
+                $this->layout->title =trans("form.invoice");
+                $this->layout->breadcrumb = array(['link'=>'manager/purchase','title'=>trans("form.invoice")]);
                 $this->layout->content =  View::make('manager.purchases.index')->with('purchases',$purchases);
                 
                 /*
@@ -63,10 +65,12 @@ class PurchasesController extends \BaseController {
 	 */
 	public function create()
 	{
-		   $breadcrumb = [
-                          ['link'=>'manager/purchases','title'=>trans('title.form.invoice')],
-			              ['link'=>'manager/purchases#','title'=>trans('common.button.create')]
-                         ];  
+                $this->layout->page = trans("form.invoice");
+                $this->layout->title =trans("form.invoice");
+		$this->layout->breadcrumb = [
+                                ['link'=>'manager/purchases','title'=>trans('form.invoice')],
+			        ['link'=>'manager/purchases#','title'=>trans('common.button.create')]
+                            ];  
 		$customer = User::where('group_users',User::CUSTOMER)
                                     ->join('profiles','profiles.user_id','=','users.id')
                                     ->select(DB::RAW('CONCAT(company_name,"-ID",users.id) as company_name,users.id as id'))->lists('company_name','id');				
@@ -134,11 +138,13 @@ class PurchasesController extends \BaseController {
                             ->orderBy('purchases.id','desc')
                             ->select(DB::RAW("purchases.id,purchases.code,purchases.created_at,profiles.company_name,purchase_products.cost cost,purchase_products.discount as discount,purchase_products.name as product_name,purchase_detail.expiry,purchase_detail.deadline_from,purchases.customer_order"))
                             ->get();
-               $breadcrumb = [
+                $this->layout->page = trans("form.invoice");
+                $this->layout->title =trans("form.invoice");
+               $this->layout->breadcrumb = [
                           ['link'=>'manager/purchases','title'=>trans('title.form.invoice')],
 			              ['link'=>'manager/purchases#','title'=>trans('common.button.show')]
                          ];  
-            $this->layout->content =  View::make('manager.purchases.show',compact('breadcrumb','purchases'));
+            $this->layout->content =  View::make('manager.purchases.show',compact('purchases'));
 	}
 
 	/**

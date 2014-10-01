@@ -1,11 +1,4 @@
-@section('content')
-<!-- CONTENT -->
-          <!--TITLE -->
-            @include('manager.tickets.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('manager.tickets.breadcrumb')
-            <!-- END OF BREADCRUMB -->    
+@section('content') 
 <div class='row'>
     <div class="col-lg-12">
         <div class="panel panel-success">
@@ -57,5 +50,8 @@
         </div>
     </div>	
 </div>
+@stop
 
+@section('javascript')
+<script type="text/javascript" src="{{asset('asset/share/ckeditor/ckeditor.js')}}"></script>   
 @stop

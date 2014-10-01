@@ -21,7 +21,7 @@ class TicketsController extends \BaseController {
                         ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
-                        ->paginate(5); 
+                        ->get();
                 
                 if(Auth::user()->group_users == User::STAFF){
                     $list_ticket = DB::table('tickets')
@@ -32,12 +32,13 @@ class TicketsController extends \BaseController {
                         ->leftjoin('status','status.id','=','tickets.status')                                
                         ->orderBy('tickets.id','desc')                        
                         ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
-                        ->paginate(5);  
-                }                               
-        $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')]] ;    
+                        ->get();  
+                }    
+                $this->layout->page = trans('title.form.ticket');	
+		$this->layout->title = trans('title.form.ticket');		
+		$this->layout->breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')]] ;
 		$this->layout->content = View::make('manager.tickets.index')
-             ->with('list_ticket',$list_ticket)
-             ->with('breadcrumb',$breadcrumb);     
+             ->with('list_ticket',$list_ticket);    
 	}
 
 	/**
@@ -53,13 +54,16 @@ class TicketsController extends \BaseController {
                 $assign_to = User::where('group_users',User::STAFF)->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,' - ',id) as first_name,id"))->lists('first_name','id');
                 $assign_client = User::where('group_users','=',User::CUSTOMER)
                         ->join('profiles','profiles.user_id','=','users.id')->select(DB::RAW('company_name,users.id as id'))->lists('company_name','id');                               
-                $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
+                
+                
+                $this->layout->page = trans('title.form.ticket');	
+		$this->layout->title = trans('title.form.ticket');		
+		$this->layout->breadcrumb =[['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets/create','title'=>trans('common.button.create')]];    
 		$this->layout->content = View::make('manager.tickets.create')
                         ->with('priority',$priority)
                         ->with('support_type',$support_type)
                         ->with('assign_to',$assign_to)
-                        ->with('assign_client',$assign_client)
-                        ->with('breadcrumb',$breadcrumb);   
+                        ->with('assign_client',$assign_client); 
 	}
 
 	/**
@@ -114,7 +118,7 @@ class TicketsController extends \BaseController {
                     $message = array(
                     'text'=>Input::get('description').' - <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
-                    'to_email'=>EmailController::EMAIL_ADMIN,
+                    'to_email'=>SettingsController::getSetting('host_email_admin'),
                     'to_name'=>'Admin'
                     );
                     $email->manager_sendEmail($message);
@@ -166,7 +170,7 @@ class TicketsController extends \BaseController {
                                                 ->join('users','users.id','=','support_tickets.user_id')
                                                 ->where('support_tickets.ticket_id','=',$ticket->code)
                                                 ->orderBy('support_tickets.id','asc')
-                                                ->select(DB::RAW('support_tickets.content,support_tickets.created_at,users.first_name,users.last_name,users.avatar'))
+                                                ->select(DB::RAW('support_tickets.content,support_tickets.created_at,users.first_name,users.last_name,users.avatar,users.id as user_id'))
                                                 ->get();
                 $attach = Upload::where('ticket_id','=',$ticket->code)->get();    
                 
@@ -179,9 +183,10 @@ class TicketsController extends \BaseController {
                 $status = DB::table('status')->where('name','<>','close')->lists('name','id');    
                 /*list staff*/
                 $assign_to = User::where('group_users',User::STAFF)->orderBy('first_name','asc')->select(DB::raw("CONCAT(first_name,' ',last_name,'-',id) as first_name,id"))->lists('first_name','id');
-		
-                $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.show')]] ;    
-        		$this->layout->content = View::make('manager.tickets.show',compact('support_type','priority','assign_to','status','attach','breadcrumb','ticket','list_comment'));                                              
+
+			$this->layout->title = trans('title.form.ticket');		
+			$this->layout->breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.show')]] ;                    
+        		$this->layout->content = View::make('manager.tickets.show',compact('support_type','priority','assign_to','status','attach','breadcrumb','ticket','list_comment','ticket'));                                              
 
                 }
                 else{ return Redirect::to('manager/tickets');  }
@@ -292,7 +297,7 @@ class TicketsController extends \BaseController {
 		$ticket = Ticket::where('code','=',$id)->first();        
         if($ticket)
         {
-            if($ticket->close == true)
+            if($ticket->status == Ticket::S_NEW||$ticket->close == true)
             {
                 if(Auth::user()->group_users == User::MANAGER)
                 {   
@@ -390,7 +395,7 @@ class TicketsController extends \BaseController {
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                          
                         ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))                       
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))                       
                         ->paginate(5); 
                 if(Input::get('key')==Ticket::S_CLOSE)        
                 {
@@ -400,7 +405,7 @@ class TicketsController extends \BaseController {
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                          
                         ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))                       
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))                       
                         ->paginate(5);  
                 }
 
@@ -412,16 +417,17 @@ class TicketsController extends \BaseController {
                         ->leftjoin('profiles','profiles.user_id','=','users.id')                              
                         ->leftjoin('status','status.id','=','tickets.status')                                  
                         ->orderBy('tickets.id','desc')                        
-                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
+                        ->select(DB::RAW('tickets.id,tickets.code,tickets.subject,tickets.description,tickets.created_at,tickets.status as status_id,status.name as status,users.first_name,users.last_name,tickets.author_id,tickets.client_id,profiles.company_name'))
                         ->paginate(5); 
                 }
                 $parameter_panginate = ['key'=>Input::get('key')];
+                
+                $this->layout->page = trans('form.ticket');
+                $this->layout->title = trans('form.ticket');
+                $this->layout->breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.filter')]] ;    
 
-                $breadcrumb = [['link'=>'manager/tickets','title'=>trans('title.form.ticket')],['link'=>'manager/tickets#','title'=>trans('common.button.filter')]] ;    
-
-		        $this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket)
-                        ->with('parameter_panginate',$parameter_panginate)
-                        ->with('breadcrumb',$breadcrumb);
+		$this->layout->content = View::make('manager.tickets.index')->with('list_ticket',$list_ticket);
+                      
             }
         }
          public function find()

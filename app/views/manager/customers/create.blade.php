@@ -1,46 +1,33 @@
-@section('content')
-            <!--TITLE -->
-            @include('manager.customers.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('manager.customers.breadcrumb')
-            <!-- END OF BREADCRUMB -->
-
-            {{Former::open(url('manager/customers'))->method('POST')->enctype('multipart/form-data')}}
+@section('content')         
             <div class="content-wrap">
-                <div class="row">                   
-                    <div class="col-sm-10">
+                <div class="row">     
+                      {{Former::open(url('manager/customers'))->method('POST')->enctype('multipart/form-data')}}
+                    <div class="col-sm-8">
                          {{Session::get('msg_flash')}}   
-                        <div class="nest" id="basicClose">
-                            <div class="title-alt">
-                                <h6>{{trans('title.form.primary')}}</h6>
-                                <div class="titleClose">
-                                    <a class="gone" href="#basicClose">
-                                        <span class="entypo-cancel"></span>
-                                    </a>
-                                </div>
-                                <div class="titleToggle">
-                                    <a class="nav-toggle-alt" href="#basic">
-                                        <span class="entypo-up-open"></span>
-                                    </a>
-                                </div>
-
-                            </div>
-
-                            <div class="body-nest" id="basic">
-                             
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                 <div class="caption">
+                                    <i class="fa fa-gift"></i>{{trans('form.basic')}}
+				</div>
+                                <div class="tools">
+								<a href="" class="collapse">
+								</a>								
+								<a href="" class="reload">
+								</a>
+								<a href="" class="remove">
+								</a>
+				</div>
+                            </div>                          
+                            <div class="portlet-body">                        
                                 <div class="form-group">                        
                                     {{Former::email('email')->required()}}
                                 </div>
-
                                 <div class="form-group">                                     
                                     {{ Former::password('password')->required()}}
-                                </div>
-                            
+                                </div>                            
                                 <div class="form-group">                  
                                     {{ Former::password('password_confirmation')->required()}}                    
-                                </div>
-                                                      
+                                </div>                                                      
                                 <div class="form-group">
                                      {{Former::text('first_name')->required()}}
                                 </div>
@@ -52,28 +39,29 @@
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
                         <!-- end col 12-->
                         
-                        <div class="col-sm-10">
-                        <div class="nest" id="profileClose">
-                            <div class="title-alt">
-                                <h6>{{trans('title.form.profile')}}</h6>
-                                <div class="titleClose">
-                                    <a class="gone" href="#profileClose">
-                                        <span class="entypo-cancel"></span>
-                                    </a>
-                                </div>
-                                <div class="titleToggle">
-                                    <a class="nav-toggle-alt" href="#profile">
-                                        <span class="entypo-up-open"></span>
-                                    </a>
-                                </div>
+                        <div class="col-sm-8">
+                         <div class="portlet box blue">
+                            <div class="portlet-title">
+                                 <div class="caption">
+					<i class="fa fa-gift"></i>{{trans('form.profile')}}
+				</div>
+                                <div class="tools">
+								<a href="" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="" class="reload">
+								</a>
+								<a href="" class="remove">
+								</a>
+				</div>
                             </div>
 
-                            <div class="body-nest" id="profile">
+                            <div class="portlet-body">
                                 <div class="form_center">                                                        
                                         <div class="form-group">
                                             {{Former::text('company_name')->required()}}

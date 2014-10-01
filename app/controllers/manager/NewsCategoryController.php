@@ -9,8 +9,8 @@ class NewsCategoryController extends BaseController {
 	 */
 	public function index()
 	{
-                $listCategory = NewsCategory::paginate(10);
-                $breadcrumb = [['link'=>'manager/news-category','title'=>'News Category']];    
+                $listCategory = NewsCategory::orderBy('id','desc')->paginate(10);
+                $this->layout->breadcrumb = [['link'=>'manager/news-category','title'=>'News Category']];    
 		$this->layout->content = View::make('manager.news_category.index',  compact('listCategory','breadcrumb'));
 	}
 

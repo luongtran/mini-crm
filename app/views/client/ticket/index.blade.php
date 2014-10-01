@@ -1,27 +1,50 @@
 @section('content')
-      <!-- CONTENT -->
-          @include('client.ticket.title')
-          @include('client.ticket.breadcrumb')
-            <!-- END OF BREADCRUMB -->
+<div class="row">
 {{Session::get('msg_flash')}}
+<div class="portlet box grey-cascade">
+						<div class="portlet-title">
+							<div class="caption">
+                                                            <i class="fa fa-globe"></i>{{trans('form.ticket')}}
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>								
+								<a href="javascript:;" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-toolbar">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="btn-group">
+										    <a href="{{url('client/tickets/create')}}" class="btn green">{{trans('common.button.addNew')}} <i class="fa fa-plus"></i></a>                                                                                    										
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="btn-group pull-right">
+											
+										</div>
+									</div>
+								</div>
+							</div>							
+							<table id="dt_table_default" class="table table-bordered table-hover"> 
+                                                        <thead> 
+                                                    <tr class="unread">
+                                                        <th class="small-col">
+                                                        <input type="checkbox" id="ckbCheckAll">                        
+                                                        </th>
+                                                        <th>{{trans('title.other.order_ticket')}}</th>
+                                                        <th>{{trans('title.table.subject')}}</th>
+                                                        <th>{{trans('title.table.author')}}</th>
+                                                        <th>{{trans('title.table.status')}}</th>
+                                                        <th>{{trans('title.table.created')}}</th>
+                                                        <th></th>
 
-
-                            <div class="table-responsive">
-                                <!-- THE MESSAGES -->                               
-                                <table class="table table-mailbox">                                    
-
-                                    <tr class="unread">
-                                        <th class="small-col">
-                                        <input type="checkbox" id="ckbCheckAll">                        
-                                        </th>
-                                        <th>{{trans('title.other.order_ticket')}}</th>
-                                        <th>{{trans('title.table.subject')}}</th>
-                                        <th>{{trans('title.table.author')}}</th>
-                                        <th>{{trans('title.table.status')}}</th>
-                                        <th>{{trans('title.table.created')}}</th>
-                                        <th></th>
-                                       
-                                    </tr>
+                                                    </tr>  
+                                                        </thead> 
                                     
                                     @foreach($list_ticket as $ticket)
                                     <tr @if($ticket->status=='new') {{'class="success"'}} @elseif($ticket->status=='resolve'){{'class="danger"'}} @endif >
@@ -48,20 +71,18 @@
                                     </tr>
                                     @endforeach    
 
-                               </table>
-                              </form>      
+                               </table>    
                             </div>
 
+ </div>
 
+  </div>
+@stop
 
- 
-<div class="row">
-    <div class="col-lg-6">
-     @if(isset($parameter_panginate))      
-     {{$list_ticket->appends($parameter_panginate)->links()}}
-     @else
-     {{$list_ticket->links()}}
-     @endif
-    </div>
-</div>
+@section('javascript')  
+<script>
+$(document).ready(function(){
+    $('#dt_table_default').DataTable();
+});
+</script>
 @stop

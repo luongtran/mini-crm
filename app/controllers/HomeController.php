@@ -1,7 +1,7 @@
 <?php
 
 class HomeController extends BaseController {
-    protected $layout="home.default";
+    protected $layout="home.layouts.default";
     /*
 	|--------------------------------------------------------------------------
 	| Default Home Controller
@@ -18,31 +18,44 @@ class HomeController extends BaseController {
 	public function index()
 	{
 	   $category = FqaCategory::all();
-	   $faq = Fqa::all();
-
-	   $this->layout->content = View::make('home.index')->with('category',$category)->with('faq',$faq);	
+	   //$faq = Fqa::all();	   
+	   $this->layout->slider  = true; 	
+	   $this->layout->content = View::make('home.test_home');//->with('category',$category)->with('faq',$faq);	
 	}
 
 	public function page($id)
 	{
 		switch ($id) {
 			case 'about':
-                                $this->layout->page = $id;
+                $this->layout->page = $id;
+                $this->layout->breadcrumb = array(['link'=>'page/about','title'=>'About']);
 				$this->layout->content = View::make('home.about');
 				break;
 			case 'contact':
-                                $this->layout->page = $id;
+                $this->layout->page = $id;
+                $this->layout->breadcrumb = array(['link'=>'page/contact','title'=>'Contact']);
 				$this->layout->content = View::make('home.contact');
 				break;	
 			case 'message':
-                                $this->layout->page = $id;
+                $this->layout->page = $id;
+                $this->layout->breadcrumb = array(['link'=>'page/message','title'=>'Message']);
 				$this->layout->content = View::make('home.message');
-				break;				
-			
+				break;		
+			case 'notfound':
+                $this->layout->page = $id;
+				$this->layout->content = View::make('home.notfound');
+				break;	
 			default:
 				return Redirect::to('');			
 				break;
 		}		
+	}
+
+	public function register()
+	{
+		//return View::make('client.customer.create');
+		$sector = Sector::all()->lists('name','id');		
+		$this->layout->content =  View::make('home.start')->with('sector',$sector);
 	}
 	public function contact() 
 	{

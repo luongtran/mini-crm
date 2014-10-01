@@ -1,40 +1,33 @@
 @section('content')
 <script src="{{asset('asset/backend/assets/js/custom.js')}}"></script>
 <!-- CONTENT -->
-            <!--TITLE -->
-            @include('manager.fqas.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-            @include('manager.fqas.breadcrumb')
-            <!-- END OF BREADCRUMB -->
-<div class="col-sm-12">                                                                 
-                        <div class="mail_header">
+<div class="col-sm-12">         <div class="mail_header">
                             <div class="row">
-                            	<!-- session message -->
-                                  {{Session::get('msg_flash')}} 
-                                <!-- session message -->                              
+                            	                        
                             </div>
                         </div>
 
 			            <div class="row">                   
 			                    <div class="col-sm-10">
 			                         {{Session::get('msg_flash')}}   
-			                    <div class="nest" id="basicClose">
-			                    <div class="title-alt">
-			                                <h6>{{$view->title}}</h6>
-			                                <div class="titleClose">
-			                                    <a class="gone" href="#basicClose">
-			                                        <span class="entypo-cancel"></span>
-			                                    </a>
-			                                </div>
-			                                <div class="titleToggle">
-			                                    <a class="nav-toggle-alt" href="#basic">
-			                                        <span class="entypo-up-open"></span>
-			                                    </a>
-			                                </div>
+			                    <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                     <div class="caption">
+                                                            <i class="fa fa-gift"></i>{{trans('title.form.primary')}}
+                                                    </div>
+                                                    <div class="tools">
+                                                                                    <a href="" class="collapse">
+                                                                                    </a>
+                                                                                    <a href="#portlet-config" data-toggle="modal" class="config">
+                                                                                    </a>
+                                                                                    <a href="" class="reload">
+                                                                                    </a>
+                                                                                    <a href="" class="remove">
+                                                                                    </a>
+                                                    </div>
+                                                </div>
 
-			                    </div>
-			                    <div class="body-nest" id="basic">
+                                            <div class="portlet-body">  
 			                  	 <p><i class='btn btn-default'>{{$view->FqaCategory->name}}</i><i class='btn btn-default'>{{$view->view}}</i></p>
 			                     <p>{{$view->content}}</p>
 			                     <p><a href='{{Request::root()}}/manager/fqa/{{$view->id}}/edit'><i class='btn btn-success'>Edit</i></a></p>

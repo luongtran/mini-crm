@@ -11,11 +11,11 @@ class EmployeeController extends \BaseController {
 	public function index()
 	{
             $this->layout->page = trans('common.menu.employee');
-	  $employee = User::where('customer_id','=',Auth::id())->paginate(5);            
-          $breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')]];
-          $this->layout->content = View::make('client.employee.index')
-                ->with('list',$employee)
-                ->with('breadcrumb',$breadcrumb);
+            $this->layout->title = trans('common.menu.employee');
+            $employee = User::where('customer_id','=',Auth::id())->get();            
+            $this->layout->breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')]];
+            $this->layout->content = View::make('client.employee.index')
+                ->with('list',$employee);
 	}
 
 	/**
@@ -26,9 +26,11 @@ class EmployeeController extends \BaseController {
 	 */
 	public function create()
 	{
-            $breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')],['link'=>'client/employee#','title'=>trans('common.button.create')]];
-            $this->layout->content = View::make('client.employee.create')->with('customer_id',Auth::id())
-                 ->with('breadcrumb',$breadcrumb);
+            $this->layout->page = trans('form.employee');
+            $this->layout->title = trans('form.employee');
+            $this->layout->breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')],['link'=>'client/employee#','title'=>trans('common.button.create')]];
+            $this->layout->content = View::make('client.employee.create')->with('customer_id',Auth::id());
+           
 	}
 
 	/**
@@ -73,7 +75,7 @@ class EmployeeController extends \BaseController {
                 
                return Redirect::to('client/employee');
            }
-           //Session::flash('msg_flash',  CommonHelper::print_msgs('error',$validation->messages()));
+           Session::flash('msg_flash',  CommonHelper::print_msg('error',trans('message.required_fields')));
            return Redirect::back()->withInput()->withErrors($validation);
 	}
 
@@ -86,11 +88,14 @@ class EmployeeController extends \BaseController {
 	 */
 	public function show($id)
 	{
-      $profile = User::with('profile')->where('users.id',$id)->where('customer_id',Auth::id())->first();                  
-      if($profile)  
-	    {
-        $this->layout->content = View::make('client.employee.show')->with('profile',$profile);
-      }
+            $profile = User::with('profile')->where('users.id',$id)->where('customer_id',Auth::id())->first();                  
+            if($profile)  
+                  {
+                $this->layout->page = trans('form.employee');
+                $this->layout->title = trans('form.employee');  
+                   $this->layout->breadcrumb = [['link'=>'client/employee','title'=>trans('title.form.employee')],['link'=>'client/employee#','title'=>trans('common.button.show')]];
+              $this->layout->content = View::make('client.employee.show')->with('profile',$profile);
+            }
 	}
 
 	/**
@@ -100,15 +105,15 @@ class EmployeeController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($customer_id,$id)
+	public function edit($id)
 	{
 		$profile = DB::table('users')->leftJoin('profiles','profiles.user_id','=','users.id')
                                     ->where('users.id',$id)
+                                    ->where('users.group_users',User::EMPLOYEE)
                                     ->first(['users.id','users.customer_id','last_name','first_name',
                                      'users.activated','profiles.address','profiles.phone_number','email'
-                                        ]);
-                $company = Profile::where('user_id','=',$customer_id)->first();
-                $this->layout->content = View::make('manager.employees.edit')->with('profile',$profile)->with('company',$company);
+                                        ]);                
+                $this->layout->content = View::make('client.employee.edit')->with('profile',$profile);
 	}
 
 	/**

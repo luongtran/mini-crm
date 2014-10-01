@@ -1,5 +1,3 @@
-@extends('home.default')
-
 @section('content')
 <div class='logos'>
 
@@ -65,8 +63,9 @@
                                  <span class="alert-danger">{{$errors->first('password_confirmation')}}</span>
                             </div>
                             
+                            <div class="form-group">    
                             <button type="submit" class="btn btn-primary btn-block">Create New Account</button>                               
-                         
+                            </div>
                                 
                             
                         </form>
@@ -81,4 +80,13 @@
 </div>
 </section>
 </div>
+@stop
+
+
+@section('javascript')
+<script>
+$(function(){
+   $("input[name=company_name]").focus();
+})
+</script>
 @stop

@@ -11,10 +11,11 @@ class Product extends \Eloquent {
     public static $rule_edit =array('name'=>'required|min:3',
                                    'cost'=>'required|numeric|min:0',
                                    'discount'=>'numeric|min:0|max:100',
-                            );
-    
-     public function product() {
-		return $this->hasOne('GroupProduct'); // this matches the Eloquent model
-    }
+                            );    
+
+    public function groupProduct()
+        {
+            return $this->belongsTo('GroupProduct','group_products');
+        }
     
 }

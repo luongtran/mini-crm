@@ -10,8 +10,10 @@ class FqaCategoryController extends BaseController {
 	public function index()
 	{
                 $listCategory = FqaCategory::paginate(10);
-                $breadcrumb = [['link'=>'manager/fqa-category','title'=>'Fqa Category']];    
-		$this->layout->content = View::make('manager.fqa_category.index',  compact('listCategory','breadcrumb'));
+                $this->layout->page = trans('form.group_fqa');
+                $this->layout->title = trans('form.group_fqa');
+                $this->layout->breadcrumb = [['link'=>'manager/fqa-category','title'=>'Fqa Category']];    
+		$this->layout->content = View::make('manager.fqa_category.index',  compact('listCategory'));
 	}
 
 

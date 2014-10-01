@@ -11,7 +11,7 @@ class NewController extends \BaseController {
 	public function index()
 	{
 		$breadcrumb = array(array('link'=>'client/news','title'=>trans('title.form.news')));
-		$lists = News::paginate(20);
+		$lists = News::orderBy('id','desc')->paginate(15);
 		$this->layout->content = View::make('client.new.index')->with('lists',$lists)->with('breadcrumb',$breadcrumb);
 	}
 

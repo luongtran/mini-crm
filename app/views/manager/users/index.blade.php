@@ -1,22 +1,46 @@
+@section('action')
+                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                            {{trans('form.action')}} <i class="fa fa-angle-down"></i>
+                        </button>
+			    <ul class="dropdown-menu pull-right" role="menu">                                    									
+                                            <li> 
+                                                    <span class="badge badge-roundless badge-danger">{{trans('title.other.fillter_group_user')}}</span>
+                                                </li>
+                                                <?php  $group_users = GroupUser::all();?>
+                                                @if($group_users)
+                                                    @foreach($group_users as $group)
+                                                    <li> 
+                                                        <a href="{{Request::root()}}/manager/users/filter?field_filter={{$group->name}}">
+                                                            <span class="entypo-plus-circled margin-iconic"></span>{{$group->name}}</a>
+                                                    </li>                                                
+                                                    @endforeach
+                                                @endif
+                                                 <li> 
+                                                    <span class="badge badge-roundless badge-danger">{{trans('title.other.fillter_other')}}</span>
+                                                </li>
+                                                 <li> 
+                                                    <a href="{{Request::root()}}/manager/users/filter?field_filter=trash">
+                                                        <span class="entypo-plus-circled margin-iconic"></span>{{trans('common.button.trash')}}</a>
+                                                </li>  
+                                                <li> 
+                                                    <a href="{{Request::root()}}/manager/users/filter?field_filter=active">
+                                                        <span class="entypo-plus-circled margin-iconic"></span>{{trans('common.button.active')}}</a>
+                                                </li>  
+                                                <li> 
+                                                    <a href="{{Request::root()}}/manager/users/filter?field_filter=no_active">
+                                                        <span class="entypo-plus-circled margin-iconic"></span>{{trans('common.button.no_active')}}</a>
+                                                </li>         
+                            </ul>        
+@stop                                    
+                 
 @section('content')
-            <!--TITLE -->
-               @include('manager.users.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-               @include('manager.users.breadcrumb')
-            <!-- END BREADCRUMB -->
+<div class="row">
 <div class="col-sm-12">
      {{ Form::open(array('url' => 'manager/users/action','method'=>'post','role'=>'form','id'=>'frm-add')) }}                                                               
                         <div class="mail_header">
                             <div class="row">
                                   {{Session::get('msg_flash')}} 
-                               <div class="col-sm-6">
-
-                                    <div style="margin-right:10px" class="btn-group pull-left">
-                                      <div class="btn">
-                                            <input type="checkbox" style="margin:0 5px;padding:0;position:relative;top:2px;" id="ckbCheckAll">All
-                                        </div>
-                                   </div>
+                               <div class="col-sm-6">                                  
                                    <div style="margin-right:10px" class="btn-group pull-left">
                                       
                                         <div class="btn-group pull-left">  
@@ -27,37 +51,61 @@
                                         <span class="entypo-arrows-ccw"></span>&nbsp;&nbsp;{{trans('common.button.change')}}</button>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                                 <div class="col-sm-6">                                   
                                      <div style="margin-right:10px" class="btn-group pull-right">                                      
                                         <div class="btn-group pull-right">                                                                                                      
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-
                         </div>
 
-                            <div class="table-responsive">
+                        <div class="portlet box grey-cascade">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-globe"></i>{{trans('form.user')}}
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="javascript:;" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-toolbar">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="btn-group">
+										    <a href="{{url('manager/users/create')}}" class="btn green">{{trans('common.button.addNew')}} <i class="fa fa-plus"></i></a>                                                                                    										
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="btn-group pull-right">
+											
+										</div>
+									</div>
+								</div>
+							</div>	
                                 <!-- THE MESSAGES -->                               
-                                <table class="table table-mailbox">                                    
-
-                                    <tr class="unread">
-                                        <th class="small-col">  
+                                <table id="dt_table_default" class="table table-bordered table-hover"> 
+                                    <thead>   
+                                    <tr>
+                                        <th >  
                                         </th>
                                         <th>{{trans('title.table.name')}}</th>
                                         <th>{{trans('title.table.email')}}</th>
                                         <th>{{trans('title.table.group_user')}}</th>
                                         <th>{{trans('title.table.created')}}</th>
-                                        <th></th>
-                                       
+                                        <th></th>                                       
                                     </tr>
-                                    
+                                   </thead>
+                                   <tbody> 
                                     @foreach($list as $users)
                                     <tr @if($users->activated==0){{"class='danger'"}} @endif >
                                         <td class="small-col">
@@ -86,36 +134,20 @@
                                         </td>                                        
                                     </tr>
                                     @endforeach    
-
-                               </table>
-                              </form>
-                                
-                                
+                                    </tbody>                                   
+                               </table>                                
                             </div>
-                            {{Form::close()}}
-                                <div class="">                                   
-                                    <div class="btn-group pull-left">     
-                                         <?php 
-                                         if(isset($par_link))
-                                         {
-                                           echo $list->appends($par_link)->links();                                           
-                                         }
-                                         else
-                                         {
-                                            echo $list->links();
-                                         }
-                                         ?>                                    
-                                    </div>
-                                    <div class="btn-group pull-right">
-                                         @if(isset($count)) 
-                                           <i class='btn'>{{$count}} </i>
-                                         @endif
-                                    </div>
-                                </div>
-                            <!-- /.table-responsive -->
-
-                    </div>  
-
-
-    <script type="text/javascript" src="{{asset('asset/share/js/form_del.js')}}"></script>                                    
+                             </div>
+      {{Form::close()}}
+     </div> 
+     </div>   
 @stop
+
+@section('javascript')  
+<script>
+$(document).ready(function(){
+    $('#dt_table_default').DataTable();
+});
+</script>
+@stop
+                   

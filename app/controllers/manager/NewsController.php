@@ -11,11 +11,12 @@ class NewsController extends \BaseController {
 	 */
 	public function index()
 	{
-	   $breadcrumb = array(array('link'=>'manager/news','title'=>'News'));	
-	   $lists = News::with('NewCategory')->paginate(5);
+           $this->layout->page = trans('form.news'); 
+           $this->layout->title = trans('form.news');
+	   $this->layout->breadcrumb = array(array('link'=>'manager/news','title'=>'News'));	
+	   $lists = News::orderBy('id','desc')->with('NewCategory')->paginate(15);
 	   //dd($lists);
-	   $this->layout->content = View::make('manager.news.index')->with('lists',$lists)
-	   ->with('breadcrumb',$breadcrumb);
+	   $this->layout->content = View::make('manager.news.index')->with('lists',$lists);
 	}
 
 	/**
@@ -25,11 +26,12 @@ class NewsController extends \BaseController {
 	 * @return Response
 	 */
 	public function create()
-	{		
-		$breadcrumb = array(array('link'=>'manager/news','title'=>'News'),array('link'=>'#','title'=>'create'));
+	{	
+                $this->layout->page = trans('form.news'); 
+                $this->layout->title = trans('form.news');
+		$this->layout->breadcrumb = array(array('link'=>'manager/news','title'=>'News'),array('link'=>'#','title'=>'create'));
 		$category =  NewCategory::orderBy('name','asc')->lists('name','id');		
-		$this->layout->content = View::make('manager.news.create')->with('category',$category)
-		->with('breadcrumb',$breadcrumb);
+		$this->layout->content = View::make('manager.news.create')->with('category',$category);
 	}
 
 	/**
@@ -66,9 +68,11 @@ class NewsController extends \BaseController {
 		$new = News::find($id);		
 		if($new)
 		{
-		$breadcrumb = array(array('link'=>'manager/news','title'=>'News'),array('link'=>'#','title'=>'show'));		
+                $this->layout->page = trans('form.news'); 
+                $this->layout->title = trans('form.news');
+		$this->layout->breadcrumb = array(array('link'=>'manager/news','title'=>'News'),array('link'=>'#','title'=>'show'));		
 		$this->layout->content = View::make('manager.news.show')		
-			 ->with('view',$new)->with('breadcrumb',$breadcrumb);
+			 ->with('view',$new);
 		}
 		else
 		{			
@@ -86,10 +90,13 @@ class NewsController extends \BaseController {
 	{
 		$news = News::find($id);
 		if($news)
-		{
+		{            
+                        $this->layout->page = trans('form.news'); 
+                        $this->layout->title = trans('form.news');
+                        $this->layout->breadcrumb = array(array('link'=>'manager/news','title'=>'News'),array('link'=>'#','title'=>'Edit'));
 			$category  = NewCategory::lists('name','id');
-			$this->layout->content = View::make('manager.news.edit')
-			->with('breadcrumb',array(array('link'=>'manager/news','title'=>'News'),array('link'=>'#','title'=>'Edit')))
+                        Former::populate($news);
+			$this->layout->content = View::make('manager.news.edit')			
 			->with('view',$news)->with('category',$category);
 		}
 		

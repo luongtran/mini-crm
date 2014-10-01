@@ -10,6 +10,9 @@ class SettingsController extends \BaseController {
 	 */
 	public function index()
 	{		
+                $this->layout->page = trans('form.setting');
+                $this->layout->title = trans('form.setting');
+                $this->layout->breadcrumb = array(['link'=>'manager/setting','title'=>trans('form.setting')]);
 		$this->layout->content = View::make('manager.settings.index');
 	}
 
@@ -76,8 +79,8 @@ class SettingsController extends \BaseController {
 		}
                 else
                 {
-                $result = array('status'=>'error','result'=>CommonHelper::print_msgs('error',$validation->messages()));
-		return $result;		
+                    $result = array('status'=>'error','result'=>CommonHelper::print_msgs('error',$validation->messages()));
+                    return $result;		
                 }
 	}
 
@@ -103,7 +106,7 @@ class SettingsController extends \BaseController {
 	 */
  	public static function getSetting($name=''){     
 
-        $str = Settings::where('name','=',$name)->first();
+        $str = Setting::where('name','=',$name)->first();
         if($str){
            return $str->value;
         }

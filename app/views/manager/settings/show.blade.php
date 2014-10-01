@@ -1,4 +1,12 @@
 <div class="col-sm-8">
+<div class="portlet box green">
+                                                <div class="portlet-title">
+                                                     <div class="caption">
+                                                            <i class="fa fa-gift"></i>Setting
+                                                    </div>
+                                                </div>
+
+<div class="portlet-body">       
 {{Former::open(url('manager/setting'))->method('post')->id('form-setting')}}
 	<?php $countCheck = 0;?>
 	@foreach($setting as $value)
@@ -20,10 +28,12 @@
 		</div>
 	@else
 	<div class="form-group">
-	{{Former::actions()->larger_success_submit('update')}}	
+	{{Former::submit('update')->class('btn green')}}	
 	</div>
 	@endif
 {{Former::close()}}
+</div>
+</div>
 </div>
 
 <script type="text/javascript">

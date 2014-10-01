@@ -4,7 +4,7 @@
                 <!-- PROFILE -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="well profile">
+                        <div class="profile">
                             <div class="col-sm-12">
                                 <div class="col-xs-12 col-sm-4 text-center">
 
@@ -94,16 +94,11 @@
                         </div>
                     </div>
 
-
-
-
                     <div class="row">
-
-
                         <div class="col-sm-12">
                             <!-- BLANK PAGE-->
 
-                            <div id="Blank_PageClose" class="nest" style="margin:-20px 15px;">
+                            <div id="Blank_PageClose" class="nest" >
                                 <div class="title-alt">
                                     <h6>
                                       {{trans('title.form.edit_profile')}}</h6>
@@ -122,10 +117,8 @@
 
                                 <div id="Blank_Page_Content" class="body-nest">
 
-
-
-
                                     <div class="row">
+                                         <div class="col-md-12">
                                         <!--begin form -->
                                            {{Former::open(url('client/employee/'.$profile->id))->method('PUT')->enctype('multipart/form-data')}}                                             
                                         <!-- left column -->
@@ -182,18 +175,19 @@
                                                     {{ Former::select('activated')->options(array('1'=>'True','0'=>'False'),$profile->activated)}}                  
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"></label>
+                                                <div class="form-group"> 
                                                     <div class="col-md-8">
-                                                        {{Former::actions()->larger_primary_submit('update')}}                                                      
+                                                        {{Former::actions()->larger_primary_submit('update')}}  
                                                     </div>
                                                 </div>
-                                                  <div id="output"></div>
+                                                <hr>
+                                                <div id="output"></div>
                                           
                                         </div>
-                                    </div>
-                                    {{Former::close()}}
+                                         {{Former::close()}}
+                                         </div>                                   
                                         <!--end form -->
+                                          </div>
                                 </div>
                             </div>
                         
@@ -205,8 +199,6 @@
                 <!-- END OF PROFILE -->
 
      </div> 
-
-
 <!--end profile -->
 </div>
 @stop

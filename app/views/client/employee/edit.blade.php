@@ -70,11 +70,11 @@
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/manager/customer" title="Sample page 1">Customer [{{$company->company_name}}</a>
+                <li><a href="{{Request::root()}}/manager/customer" title="Sample page 1">Customer </a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>
-                <li><a href="{{Request::root()}}/manager/customer/{{$company->user_id}}/employees" title="">Employee</a>
+                <li><a href="{{Request::root()}}/manager/customer/employees" title="">Employee</a>
                 </li>
                 <li><i class="fa fa-lg fa-angle-right"></i>
                 </li>

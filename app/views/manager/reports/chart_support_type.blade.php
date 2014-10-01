@@ -1,6 +1,4 @@
-
-  
-<div class="row"> 
+ <div class="row"> 
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i>{{trans('title.report.analysis_support')}}</h3>

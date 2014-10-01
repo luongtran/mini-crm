@@ -1,17 +1,26 @@
-@section('content')
-          <!--TITLE -->
-               @include('manager.users.title')
-            <!--/ TITLE -->
-            <!-- BREADCRUMB -->
-               @include('manager.users.breadcrumb')
-            <!-- END BREADCRUMB -->            
+@section('content')         
 <div class="row">
     <!--col-4-->
-    <div class="col-lg-6">    
-        <div class="panel panel-success">
-            <div class="panel-heading"><h3 class='panel-title'>{{trans('title.form.edit_user')}}</h3></div>
-            <div class="panel-body">               
-                {{Session::get('msg_flash')}}   
+    <div class="col-lg-6">    {{Session::get('msg_flash')}}     
+        <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                     <div class="caption">
+                                                            <i class="fa fa-gift"></i>{{trans('form.update')}}
+                                                    </div>
+                                                    <div class="tools">
+                                                                                    <a href="" class="collapse">
+                                                                                    </a>
+                                                                                    <a href="#portlet-config" data-toggle="modal" class="config">
+                                                                                    </a>
+                                                                                    <a href="" class="reload">
+                                                                                    </a>
+                                                                                    <a href="" class="remove">
+                                                                                    </a>
+                                                    </div>
+                                                </div>
+
+                                            <div class="portlet-body">      
+              
                <?php Former::populate($user);?>
                {{Former::open(url('manager/users/'.$user->id))->method('PUT')}}
                           
@@ -40,7 +49,7 @@
                 </div>
                         
                 <div class="form-group">                      
-                    {{Former::actions()->large_primary_submit('create')}}                    
+                    {{Former::actions()->large_primary_submit('update')}}                    
                 </div>
             {{ Former::close() }}
             
