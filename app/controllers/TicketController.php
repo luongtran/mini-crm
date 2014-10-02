@@ -111,7 +111,7 @@ class TicketController extends \BaseController {
                     $message = array(
                     'text'=>Input::get('description').' </br> <a href="'.Request::root().'/manager/tickets/'.$ticket->code.'">Visit link</a>',
                     'subject'=>'Titcket CRM - '.Input::get("subject").' - '.$ticket->code,
-                    'to_email'=>EmailController::EMAIL_ADMIN,
+                    'to_email'=>SettingsController::getSetting('host_email_admin'),
                     'to_name'=>'Admin',
                     'attach'=>''
                     ); 
