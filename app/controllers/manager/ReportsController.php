@@ -14,7 +14,7 @@ class ReportsController extends BaseController {
             $getMonth_From = $getDay['mon'];          
             
            
-		        $rp_total =  DB::table('tickets')							
+		               $rp_total =  DB::table('tickets')							
 		        						->join('status','status.id','=','tickets.status')
                                                                         ->where(DB::raw('month(tickets.created_at)'),'>=',$getMonth_From-1)			 
                                                                         ->where(DB::raw('month(tickets.created_at)'),'<=',$getMonth_From)			 

@@ -1,4 +1,6 @@
 @section('content')
+
+<link href="{{asset('')}}asset/admin/pages/css/todo.css" rel="stylesheet" type="text/css">
 <div class="row">
 <?php 
 $status_bg="blue-hoki";
@@ -58,38 +60,32 @@ else if($ticket->status == Ticket::S_RESOLVE)
         
     </div></div><!--col 8-->
                             <hr>
-                               <div class="form-group">         
-                                <div class="media">					
-								<div class="media-body">
-									<!-- Nested media object -->
-                                                                        
-                                                                        <div class="todo-tasklist">
-                                                                        @foreach($list_comment as $comment)
-                                                                        <div class="todo-tasklist-item todo-tasklist-item-border-yellow">
-                                                                                                         @if($comment->avatar)
-                                                                                                        <img alt="" src="{{Request::root()}}/{{$comment->avatar}}" class="todo-userpic pull-left"  width="27px" height="27px">
-                                                                                                        @else
-                                                                                                        <img alt="" src="{{url('asset/backend/assets/img/small-bg13.jpg')}}" class="todo-userpic pull-left"  width="27px" height="27px">
-                                                                                                        @endif            													
-													<div class="todo-tasklist-item-title">
-														<a class="tweet-link" href="{{url('manager/users/'.$comment->user_id)}}">{{$comment->first_name}} {{$comment->last_name}}</a>
-													</div>
-													<div class="todo-tasklist-item-text">
-														{{$comment->content}}
-													</div>
-													<div class="todo-tasklist-controls pull-left">
-														<span class="todo-tasklist-date"><i class="fa fa-calendar"></i> {{$comment->created_at}} </span>
-														<span class="todo-tasklist-badge badge badge-roundless">Postponed</span>&nbsp;
-													</div>
-												
-                                                                            </div>
-                                                                        <hr>
-									<!--end media-->                                                                        
-                                                                        @endforeach
-                                                                        </div>
-								</div>
-				</div>                              
-                               </div>  
+                                   <div class="">
+                                                                                   <div class="slimScrollDiv" style="position: relative;">
+                                                                                       <div class="scroller"  data-always-visible="0" data-rail-visible="0" data-handle-color="#dae3e7" data-initialized="1">
+                                                                                           <div class="todo-tasklist">
+                                                                                                @foreach($list_comment as $at)
+                                                                                                   <div class="todo-tasklist-item todo-tasklist-item-border-green">
+                                                                                                          <img src="<?php  if($at->avatar){echo url($at->avatar);} else  {echo url('asset/backend/assets/img/small-bg13.jpg');} ?>" class="todo-userpic pull-left" width="27px" height="27px">												
+                                                                                                           <div class="todo-tasklist-item-title">														
+                                                                                                                    {{$at->first_name.' '.$at->last_name}}  
+                                                                                                           </div>
+                                                                                                           <div class="todo-tasklist-item-text">
+                                                                                                                     {{str_limit($at->content)}} 
+
+                                                                                                           </div>
+                                                                                                           <div class="todo-tasklist-controls pull-left">
+                                                                                                                   <span class="todo-tasklist-date"><i class="fa fa-calendar"></i> {{$at->created_at}} </span>
+                                                                                                                   <span class="todo-tasklist-badge badge badge-roundless"></span>
+                                                                                                           </div>
+                                                                                                   </div>
+                                                                                                   @endforeach 
+                                                                                           </div>
+
+                                                                                   </div>
+                                                                                   </div>
+                                                              
+					 </div>  
                                @if($ticket->close!=1) 
                                {{Form::open(array('url'=>'manager/tickets/add-comment/'.$ticket->code,'method'=>'post'))}}
                                     <div class="form-group">

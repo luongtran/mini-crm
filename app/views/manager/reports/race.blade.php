@@ -17,7 +17,7 @@
                                   else  
                                     {$avatar = url('asset/backend/assets/img/small-bg13.jpg');} 
                                   ?>
-                                <img src="{{$avatar}}" class="admin-pic img-circle">
+                                <img src="{{$avatar}}" class="todo-userpic pull-left" width="27px" height="27px">
                                 
                                   <a href="{{url('manager/users/'.$staff->server_id)}}">
                                   {{$staff->first_name.''.$staff->last_name}}

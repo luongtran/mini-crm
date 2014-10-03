@@ -31,6 +31,7 @@ return array(
                 'reply'=>'Reply',
                 'active'=>'Active',
                 'no_active'=>'No active',
+                'view_more'=>'View more',
               ],
         
         'menu'=>[

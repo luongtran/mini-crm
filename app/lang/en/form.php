@@ -16,7 +16,7 @@ return array(
         
         'product'=>'Product',
         'group_product'=>'Group Product',
-        'ticket'=>'Ticket',
+        'ticket'=>'Ticket',       
         'support_type'=>'Support Type',
         'fqa'=>'Fqa',
         'group_fqa'=>'Group Fqa',
@@ -26,6 +26,6 @@ return array(
         'language'=>'Language',
         'setting'=>'Setting',
         'message'=>'Message',
-        'employee'=>'Employee',
+        'employee'=>'Employees',
 );
 ?>

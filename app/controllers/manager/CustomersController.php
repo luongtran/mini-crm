@@ -22,7 +22,7 @@ class  CustomersController extends \BaseController {
                  ->where('group_users','=',User::CUSTOMER)
                  ->where('users.trash','=',false)
                  ->orderBy('users.id','desc')                
-                 ->paginate(5);               
+                 ->get();               
                  $this->layout->content = View::make('manager.customers.index', compact('list'));
 	}
 

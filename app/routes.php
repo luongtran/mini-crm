@@ -21,7 +21,10 @@ Route::get('/manager', function()
   {      
      $activity = TicketActivity::join('tickets','tickets.code','=','ticket_activity.ticket_id')->where('tickets.server_id',Auth::id())->orderBy('ticket_activity.id','desc')->paginate(20); 
   }  
-  return View::make('manager.home')->with('activity',$activity);
+  $total_customer = User::where('group_users','=',User::CUSTOMER)->count();
+  $total_employee = User::where('group_users','=',User::EMPLOYEE)->count();
+  $total_ticket = Ticket::count();
+  return View::make('manager.home',compact('activity','total_customer','total_employee','total_ticket'));
 });
 
 

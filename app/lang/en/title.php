@@ -87,6 +87,7 @@ return array(
 		'website'=>'Website',
                 'title'=>'Title',
                 'view'=>'View',
+                'count_access'=>'Count access'
 
 	),
 	'ticket'=>array(
