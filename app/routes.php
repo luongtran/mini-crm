@@ -16,10 +16,10 @@ Route::get('/',array('uses'=>'HomeController@index'));
 
 Route::get('/manager', function()
 {    
-  $activity = TicketActivity::orderBy('id','desc')->paginate(20);
+  $activity = TicketActivity::orderBy('id','desc')->paginate(15);
   if(Auth::user()->group_users == User::STAFF)
   {      
-     $activity = TicketActivity::join('tickets','tickets.code','=','ticket_activity.ticket_id')->where('tickets.server_id',Auth::id())->orderBy('ticket_activity.id','desc')->paginate(20); 
+     $activity = TicketActivity::join('tickets','tickets.code','=','ticket_activity.ticket_id')->where('tickets.server_id',Auth::id())->orderBy('ticket_activity.id','desc')->paginate(15); 
   }  
   $total_customer = User::where('group_users','=',User::CUSTOMER)->count();
   $total_employee = User::where('group_users','=',User::EMPLOYEE)->count();

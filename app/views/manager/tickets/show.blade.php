@@ -32,7 +32,7 @@ else if($ticket->status == Ticket::S_RESOLVE)
                             </div>
                             <div class="portlet-body">     
                                 <div class="form-group">
-                                    <span class="">{{trans('title.table.description')}} :</span>
+                                    <b>{{trans('title.table.description')}} :</b>
                                 </div>
                                 <div class="form-group">
                                     {{$ticket->description}}                                                      
@@ -44,16 +44,12 @@ else if($ticket->status == Ticket::S_RESOLVE)
                                             <p><i class="fa fa-tags"></i><a href="{{Request::root().'/'.$at->path}}">{{$at->name}}</a></p>
                                            @endforeach                                        
                                         @endif
-                                </div>                                
+                                </div>        
                                 <div class="form-group">
-                                     <span class="">{{trans('title.form.customer')}}:</label>
-                                </div>          
-                                <div class="form-group">
-                                      <h4><i class="entypo-export"></i>  <a target="_blank" href="{{Request::root()}}/manager/customers/{{$ticket->company_id}}">{{$ticket->company_name}}</a></h4>
+                                      <h4><i class="glyphicon glyphicon-user"></i>  <a target="_blank" href="{{Request::root()}}/manager/customers/{{$ticket->company_id}}">{{$ticket->company_name}}</a></h4>
                                 </div>   
-                                <div class="form-group">                                    
-                                    <span class="">{{trans('title.table.created')}}:</span>                                  
-                                      <span>{{$ticket->created_at}}</span>
+                                <div class="form-group">           
+                                    <span><i class="fa fa-calendar"></i>  {{$ticket->created_at}}</span>
                                 </div>
                                
                        
