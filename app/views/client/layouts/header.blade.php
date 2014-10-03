@@ -1,8 +1,8 @@
 <div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="{{url('client')}}">
-                            <h4>CRM-SYSTEM</h4>
+                    <a href="{{url('client')}}" style="padding:5px;">
+                            <img src="{{asset('asset/global/img/logo/logo.png')}}" height="20px">			
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
