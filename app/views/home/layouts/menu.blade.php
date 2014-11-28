@@ -1,7 +1,7 @@
    <div class="header-navigation pull-right font-transform-inherit">
       <ul>
             <li class="dropdown">
-              <a  href="{{url('')}}">Home</a>             
+              <a  href="{{url('/')}}">Home</a>             
             </li>
 			<li class="dropdown">
               <a  href="{{url('page/about')}}">About</a>             
